@@ -1,0 +1,101 @@
+---
+import { SITE, NAV } from '../consts';
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isActive = (href: string) => path === href || path.startsWith(href + '/');
+---
+
+<header class="site-header">
+  <div class="wrap bar">
+    <a href="/" class="brand" aria-label={`${SITE.title} — home`}>
+      <span class="mark">JW</span>
+      <span class="brand-name">{SITE.title}</span>
+    </a>
+    <nav aria-label="Primary">
+      <ul>
+        {
+          NAV.map((item) => (
+            <li>
+              <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    border-bottom: 1px solid var(--line);
+    background: color-mix(in srgb, var(--paper) 85%, transparent);
+    backdrop-filter: saturate(120%) blur(6px);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  .bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 4rem;
+  }
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .mark {
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 8px;
+    background: var(--accent);
+    color: #fff;
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.02em;
+  }
+  .brand-name {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: 1.05rem;
+  }
+  nav ul {
+    display: flex;
+    gap: 0.3rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    flex-wrap: wrap;
+  }
+  nav a {
+    display: inline-block;
+    padding: 0.4rem 0.7rem;
+    border-radius: 8px;
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: var(--ink-muted);
+    text-decoration: none;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  nav a:hover {
+    background: var(--paper-2);
+    color: var(--ink);
+  }
+  nav a[aria-current='page'] {
+    color: var(--ink);
+    background: var(--paper-2);
+  }
+  @media (max-width: 30rem) {
+    .brand-name {
+      display: none;
+    }
+  }
+</style>

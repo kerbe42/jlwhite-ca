@@ -1,0 +1,115 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { getWriteups, formatDate } from '../../lib/content';
+
+export async function getStaticPaths() {
+  const items = await getWriteups();
+  return items.map((item) => ({
+    params: { slug: item.slug },
+    props: { item },
+  }));
+}
+
+const { item } = Astro.props;
+const { data, entry } = item;
+const { Content } = await render(entry);
+---
+
+<Base title={data.title} description={data.summary}>
+  <article class="section" style="--accent-w:#0f6e56">
+    <div class="wrap wrap-narrow">
+      <a class="back" href="/writeups">← Writeups</a>
+      <header class="head">
+        {data.series && data.part && <span class="part">{data.series} · Part {data.part}</span>}
+        <h1>{data.title}</h1>
+        <p class="lead">{data.summary}</p>
+        <p class="meta">
+          <time datetime={data.date.toISOString()}>{formatDate(data.date)}</time>
+          {
+            data.room &&
+              (data.roomUrl ? (
+                <a class="chip" href={data.roomUrl} rel="noopener">{data.platform}: {data.room}</a>
+              ) : (
+                <span class="chip">{data.platform}: {data.room}</span>
+              ))
+          }
+          {data.difficulty && <span class={`chip diff diff-${data.difficulty.toLowerCase()}`}>{data.difficulty}</span>}
+          {data.tags.map((t) => <span class="tag">{t}</span>)}
+        </p>
+      </header>
+
+      <div class="callout">
+        <strong>Responsible-disclosure note.</strong> This is a walkthrough of a deliberately
+        vulnerable practice room. Flags and credentials are redacted; the goal is methodology
+        and defensive takeaways, not a copy-paste answer key.
+      </div>
+
+      <div class="prose">
+        <Content />
+      </div>
+    </div>
+  </article>
+</Base>
+
+<style>
+  .back {
+    display: inline-block;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ink-muted);
+    text-decoration: none;
+    margin-bottom: 1.25rem;
+  }
+  .back:hover { color: var(--accent-w); }
+  .part {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #fff;
+    background: var(--accent-w);
+    padding: 0.2em 0.6em;
+    border-radius: 999px;
+    margin-bottom: 0.6rem;
+  }
+  .head h1 { margin: 0 0 0.4rem; }
+  .head .lead { margin: 0 0 0.8rem; }
+  .meta {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+    margin: 0 0 1.5rem;
+  }
+  .meta a.chip { text-decoration: none; }
+  .diff-easy { color: #3b6d11; background: #eaf3de; }
+  .diff-medium { color: #854f0b; background: #faeeda; }
+  .diff-hard { color: #a32d2d; background: #fcebeb; }
+  .diff-insane { color: #4b1528; background: #fbeaf0; }
+  .diff-info { color: #0c447c; background: #e6f1fb; }
+  .callout {
+    background: #e1f5ee;
+    border: 1px solid #9fe1cb;
+    border-left: 3px solid #0f6e56;
+    border-radius: var(--radius);
+    padding: 0.85rem 1rem;
+    font-size: 0.9rem;
+    color: #04342c;
+    margin-bottom: 2rem;
+  }
+  .prose :global(h2) { margin-top: 2rem; }
+  .prose :global(h3) { margin-top: 1.5rem; }
+  .prose :global(img) {
+    border-radius: var(--radius);
+    border: 1px solid var(--line);
+    margin: 1.5rem 0;
+  }
+  .prose :global(ul),
+  .prose :global(ol) { padding-left: 1.3rem; }
+  .prose :global(li) { margin-bottom: 0.4rem; }
+  .prose :global(pre) { margin: 1.25rem 0; }
+</style>

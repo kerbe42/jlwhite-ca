@@ -1,0 +1,60 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE, LINKS } from '../consts';
+---
+
+<Base title="About" description="About Justin White.">
+  <section class="section">
+    <div class="wrap wrap-narrow">
+      <h1>About</h1>
+      <p class="lead">
+        I'm Justin — I make things, grow things, and pull things apart to understand
+        how they work.
+      </p>
+
+      <p>
+        This site is a workshop notebook. The <a href="/builds">builds</a> are 3D-printed
+        parts and physical projects. The <a href="/garden">garden</a> is a hydroponic setup
+        I use to grow food without soil. The <a href="/lab">lab</a> is the home network and
+        servers I run to learn on real infrastructure. And the
+        <a href="/writeups">writeups</a> are security walkthroughs from hands-on practice —
+        the part of the hobby that pulls everything else together.
+      </p>
+
+      <p>
+        Most of what's here started as a way to learn something, then turned into something
+        I kept doing. If any of it is useful to you, that's a bonus.
+      </p>
+
+      <h2>Get in touch</h2>
+      <ul class="contact">
+        <li><span>Email</span><a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
+        {LINKS.github && (<li><span>GitHub</span><a href={LINKS.github} rel="me">{LINKS.github.replace('https://', '')}</a></li>)}
+        {LINKS.tryhackme && (<li><span>TryHackMe</span><a href={LINKS.tryhackme} rel="me">{LINKS.tryhackme.replace('https://', '')}</a></li>)}
+      </ul>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .contact {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0 0;
+    display: grid;
+    gap: 0.6rem;
+  }
+  .contact li {
+    display: flex;
+    gap: 1rem;
+    align-items: baseline;
+  }
+  .contact span {
+    width: 6rem;
+    flex: none;
+    color: var(--ink-faint);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+</style>

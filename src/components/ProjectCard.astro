@@ -1,0 +1,103 @@
+---
+import { Image } from 'astro:assets';
+import { WORLDS } from '../consts';
+import type { ProjectItem } from '../lib/content';
+
+interface Props {
+  item: ProjectItem;
+}
+const { item } = Astro.props;
+const { data, href } = item;
+const world = WORLDS[data.world];
+---
+
+<a class="card" href={href} style={`--card-accent:${world.accent}`}>
+  <div class="cover">
+    {
+      data.cover ? (
+        <Image
+          src={data.cover}
+          alt={data.coverAlt ?? data.title}
+          width={720}
+          height={480}
+          widths={[360, 720]}
+          sizes="(max-width: 40rem) 100vw, 22rem"
+          loading="lazy"
+        />
+      ) : (
+        <div class="cover-fallback" aria-hidden="true">
+          {data.title.charAt(0)}
+        </div>
+      )
+    }
+    <span class="world-tag">{world.label}</span>
+  </div>
+  <div class="body">
+    <h3>{data.title}</h3>
+    <p>{data.summary}</p>
+  </div>
+</a>
+
+<style>
+  .card {
+    display: flex;
+    flex-direction: column;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+  }
+  .card:hover {
+    transform: translateY(-3px);
+    border-color: var(--line-strong);
+    box-shadow: 0 8px 24px rgba(44, 44, 42, 0.08);
+  }
+  .cover {
+    position: relative;
+    aspect-ratio: 3 / 2;
+    background: var(--paper-2);
+  }
+  .cover :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .cover-fallback {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    height: 100%;
+    font-family: var(--font-serif);
+    font-size: 3rem;
+    color: var(--card-accent);
+    background: color-mix(in srgb, var(--card-accent) 12%, var(--paper-2));
+  }
+  .world-tag {
+    position: absolute;
+    left: 0.75rem;
+    bottom: 0.75rem;
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: #fff;
+    background: var(--card-accent);
+    padding: 0.2em 0.6em;
+    border-radius: 999px;
+  }
+  .body {
+    padding: 1rem 1.1rem 1.2rem;
+    border-top: 3px solid var(--card-accent);
+  }
+  .body h3 {
+    margin: 0 0 0.3rem;
+    font-size: 1.15rem;
+  }
+  .body p {
+    margin: 0;
+    color: var(--ink-muted);
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+</style>

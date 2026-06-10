@@ -1,0 +1,96 @@
+---
+import Base from '../../layouts/Base.astro';
+import WriteupRow from '../../components/WriteupRow.astro';
+import { LINKS } from '../../consts';
+import { getWriteups, groupBySeries } from '../../lib/content';
+
+const items = await getWriteups();
+const groups = groupBySeries(items);
+---
+
+<Base title="Writeups" description="Security writeups and TryHackMe progress.">
+  <section class="section" style="--accent-w:#0f6e56">
+    <div class="wrap wrap-narrow">
+      <header class="head">
+        <span class="dot" aria-hidden="true"></span>
+        <div>
+          <h1>Writeups</h1>
+          <p class="lead">
+            Walkthroughs from the rooms I break into for practice — methodology first,
+            flags redacted, with notes on how you'd detect and prevent each step.
+          </p>
+        </div>
+      </header>
+
+      <div class="thm">
+        <div>
+          <p class="eyebrow">TryHackMe</p>
+          <p class="muted">Hands-on offensive security — cloud, Active Directory, and web.</p>
+        </div>
+        {
+          LINKS.tryhackme ? (
+            <a class="btn" href={LINKS.tryhackme}>View profile</a>
+          ) : (
+            <span class="chip">Add your THM profile link in consts.ts</span>
+          )
+        }
+      </div>
+
+      {
+        items.length === 0 ? (
+          <p class="empty">Writeups are in progress — first ones land soon.</p>
+        ) : (
+          groups.map((group) => (
+            <section class="series">
+              {group.items.length > 1 && <h2 class="series-title">{group.series}</h2>}
+              {group.items.map((item) => (
+                <WriteupRow item={item} />
+              ))}
+            </section>
+          ))
+        )
+      }
+    </div>
+  </section>
+</Base>
+
+<style>
+  .head {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.9rem;
+    margin-bottom: 1.5rem;
+  }
+  .head h1 { margin: 0; }
+  .head .lead { margin: 0.2rem 0 0; }
+  .dot {
+    width: 0.9rem;
+    height: 0.9rem;
+    border-radius: 999px;
+    background: var(--accent-w);
+    margin-top: 0.9rem;
+    flex: none;
+  }
+  .thm {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    background: var(--card-warm);
+    border: 1px solid var(--line);
+    border-top: 3px solid var(--accent-w);
+    border-radius: var(--radius);
+    padding: 1.1rem 1.25rem;
+    margin-bottom: 2rem;
+  }
+  .thm .muted { margin: 0.2rem 0 0; font-size: 0.9rem; }
+  .thm .eyebrow { margin: 0; }
+  .series { margin-bottom: 2rem; }
+  .series-title {
+    font-size: 1.1rem;
+    margin: 0 0 0.25rem;
+    color: var(--ink-muted);
+  }
+  .empty { color: var(--ink-muted); padding: 1rem 0; }
+</style>

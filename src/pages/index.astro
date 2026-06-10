@@ -1,0 +1,247 @@
+---
+import Base from '../layouts/Base.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import WriteupRow from '../components/WriteupRow.astro';
+import { SITE, WORLDS, LINKS } from '../consts';
+import { getFeaturedProjects, getWriteups } from '../lib/content';
+
+const featured = await getFeaturedProjects(4);
+const writeups = (await getWriteups()).slice(0, 3);
+const worlds = Object.values(WORLDS);
+---
+
+<Base>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Justin White</p>
+      <h1>Things I build, grow&nbsp;&amp; break.</h1>
+      <p class="lead">
+        A workshop notebook: 3D-printed parts, a hydroponic garden, a home lab,
+        and security writeups from the rooms I break into for practice.
+      </p>
+      <div class="cta">
+        <a class="btn btn-accent" href="/builds">See the builds</a>
+        <a class="btn" href="/writeups">Read the writeups</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured builds -->
+  {
+    featured.length > 0 && (
+      <section class="section">
+        <div class="wrap">
+          <header class="sec-head">
+            <h2>Featured work</h2>
+            <a class="more" href="/builds">All projects →</a>
+          </header>
+          <div class="grid">
+            {featured.map((item) => (
+              <ProjectCard item={item} />
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <!-- Recent writeups + security rail -->
+  <section class="section feeds">
+    <div class="wrap split">
+      <div class="feed-main">
+        <header class="sec-head">
+          <h2>Recent writeups</h2>
+          <a class="more" href="/writeups">All writeups →</a>
+        </header>
+        {
+          writeups.length > 0 ? (
+            <div>
+              {writeups.map((item) => (
+                <WriteupRow item={item} />
+              ))}
+            </div>
+          ) : (
+            <p class="muted">Writeups are on the way.</p>
+          )
+        }
+      </div>
+
+      <aside class="rail">
+        <div class="panel security">
+          <p class="eyebrow">Security</p>
+          <h3>TryHackMe</h3>
+          <p class="muted">Hands-on offensive-security practice — cloud, AD, and web.</p>
+          {
+            LINKS.tryhackme ? (
+              <a class="btn" href={LINKS.tryhackme}>View profile</a>
+            ) : (
+              <span class="chip">Profile badge — add your THM link in consts.ts</span>
+            )
+          }
+        </div>
+        <a class="panel lab" href="/lab">
+          <p class="eyebrow">Home lab</p>
+          <h3>The architecture →</h3>
+          <p class="muted">pfSense, Pi-hole, Docker, and the boxes that run it all.</p>
+        </a>
+      </aside>
+    </div>
+  </section>
+
+  <!-- Worlds strip -->
+  <section class="section worlds">
+    <div class="wrap">
+      <div class="world-row">
+        {
+          worlds.map((w) => (
+            <a class="world" href={w.href} style={`--w:${w.accent}`}>
+              <span class="dot" />
+              <span class="wl">{w.label}</span>
+              <span class="wb">{w.blurb}</span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero {
+    padding: 4.5rem 0 2.5rem;
+  }
+  .hero h1 {
+    max-width: 16ch;
+  }
+  .hero .lead {
+    max-width: 52ch;
+  }
+  .cta {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .sec-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.4rem;
+  }
+  .sec-head h2 {
+    margin: 0;
+  }
+  .more {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ink-muted);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .more:hover {
+    color: var(--accent-ink);
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    gap: 1.5rem;
+  }
+  .muted {
+    color: var(--ink-muted);
+  }
+
+  .feeds {
+    padding-top: 1rem;
+  }
+  .split {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 2.5rem;
+  }
+  .rail {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  .panel {
+    display: block;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem 1.35rem;
+    text-decoration: none;
+    color: inherit;
+  }
+  .panel h3 {
+    margin: 0.3rem 0 0.4rem;
+  }
+  .panel p {
+    margin: 0 0 0.9rem;
+    font-size: 0.9rem;
+  }
+  .panel.security {
+    border-top: 3px solid var(--teal);
+  }
+  .panel.lab {
+    border-top: 3px solid var(--coral);
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+  }
+  .panel.lab:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(44, 44, 42, 0.08);
+  }
+  .panel.lab p {
+    margin-bottom: 0;
+  }
+
+  .worlds {
+    border-top: 1px solid var(--line);
+  }
+  .world-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+    gap: 1rem;
+  }
+  .world {
+    display: block;
+    padding: 1.1rem 1.2rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--card-warm);
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.12s ease, background 0.12s ease;
+  }
+  .world:hover {
+    border-color: var(--w);
+    background: var(--card);
+  }
+  .dot {
+    display: inline-block;
+    width: 0.7rem;
+    height: 0.7rem;
+    border-radius: 999px;
+    background: var(--w);
+    margin-bottom: 0.5rem;
+  }
+  .wl {
+    display: block;
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+  }
+  .wb {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--ink-muted);
+    margin-top: 0.15rem;
+  }
+
+  @media (max-width: 46rem) {
+    .split {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+</style>

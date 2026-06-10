@@ -1,0 +1,92 @@
+---
+import { formatDate } from '../lib/content';
+import type { WriteupItem } from '../lib/content';
+
+interface Props {
+  item: WriteupItem;
+}
+const { item } = Astro.props;
+const { data, href } = item;
+---
+
+<a class="row" href={href}>
+  <div class="main">
+    <h3>
+      {data.series && data.part ? <span class="part">Part {data.part}</span> : null}
+      {data.title}
+    </h3>
+    <p>{data.summary}</p>
+    <div class="meta">
+      <time datetime={data.date.toISOString()}>{formatDate(data.date)}</time>
+      {data.room && <span class="chip">{data.platform}: {data.room}</span>}
+      {data.difficulty && <span class={`chip diff diff-${data.difficulty.toLowerCase()}`}>{data.difficulty}</span>}
+    </div>
+  </div>
+  <span class="arrow" aria-hidden="true">→</span>
+</a>
+
+<style>
+  .row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.1rem 0;
+    border-bottom: 1px solid var(--line);
+    text-decoration: none;
+    color: inherit;
+  }
+  .row:hover h3 {
+    color: var(--teal, #0f6e56);
+  }
+  .main {
+    flex: 1;
+    min-width: 0;
+  }
+  h3 {
+    margin: 0 0 0.25rem;
+    font-size: 1.15rem;
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .part {
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #fff;
+    background: #0f6e56;
+    padding: 0.15em 0.5em;
+    border-radius: 999px;
+  }
+  p {
+    margin: 0 0 0.5rem;
+    color: var(--ink-muted);
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+  .meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    font-size: 0.8rem;
+    color: var(--ink-faint);
+  }
+  .diff-easy { color: #3b6d11; background: #eaf3de; }
+  .diff-medium { color: #854f0b; background: #faeeda; }
+  .diff-hard { color: #a32d2d; background: #fcebeb; }
+  .diff-insane { color: #4b1528; background: #fbeaf0; }
+  .diff-info { color: #0c447c; background: #e6f1fb; }
+  .arrow {
+    font-size: 1.2rem;
+    color: var(--ink-faint);
+    transition: transform 0.12s ease;
+  }
+  .row:hover .arrow {
+    transform: translateX(3px);
+    color: var(--teal, #0f6e56);
+  }
+</style>
