@@ -2,9 +2,9 @@
 title: The print farm
 world: builds
 date: 2026-05-20
-summary: A growing shelf of 3D printers and the parts, jigs, and upgrades they turn out.
+summary: A growing shelf of FDM and resin printers and the parts, jigs, and upgrades they turn out.
 featured: true
-tags: ['3D printing', 'FDM']
+tags: ['3D printing', 'FDM', 'resin']
 # cover: ./cover.jpg   # drop a photo next to this file and uncomment
 draft: false
 ---
@@ -21,6 +21,10 @@ the farm is for. A photo of the shelf goes a long way here.
 - A standout functional print — what it solves and how it printed.
 - A tricky one — the part that took five attempts and what finally worked.
 - An upgrade you designed or remixed yourself.
+- A resin piece where the detail mattered — and what the trade-off in mess and
+  safety was worth.
+- A part that started as a *photo*: turning a reference image into a printable
+  model and dialing it in.
 
 ## What I learned
 

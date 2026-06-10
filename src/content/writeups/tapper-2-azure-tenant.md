@@ -1,38 +1,115 @@
 ---
-title: 'Azure: Tapper — into the tenant'
+title: 'Azure: Tapper — one permission to own the tenant'
 date: 2026-06-03
-summary: Using the foothold to reach an Azure tenant — identity, tokens, and the path to broader access.
+summary: How an app-only Microsoft Graph token with a single narrow-looking permission — UserAuthenticationMethod.ReadWrite.All — becomes tenant-wide account takeover via a Temporary Access Pass.
 series: 'Azure: Tapper'
 part: 2
 room: 'Azure: Tapper'
-roomUrl: https://tryhackme.com/room/azuretapper
 platform: TryHackMe
 difficulty: Hard
-tags: ['azure', 'entra-id', 'tokens', 'cloud']
-draft: true
+tags: ['azure', 'entra-id', 'microsoft-graph', 'tap', 'mfa-bypass', 'privesc']
+draft: false
 ---
 
-> Draft scaffold — to be written up from notes. Tenant identifiers, tokens, and
-> flags will be redacted; the focus is the identity attack path and how to defend it.
+[Part 1](/writeups/tapper-1-foothold) ended in the Azure resource plane — running
+commands across VMs through an over-scoped managed identity. The real prize was in
+the **identity plane**: an application token for Microsoft Graph. This part is about
+how *one* permission on that token quietly owns the whole tenant.
+
+> Tenant IDs, app IDs and usernames are redacted/genericised. Endpoints and request
+> shapes are public Microsoft Graph and shown for teaching, not as an answer key.
 
 ## TL;DR
 
-How the foothold from Part 1 turned into access to the Azure tenant.
+The Tapper service principal's token carries exactly one Graph app role:
+`UserAuthenticationMethod.ReadWrite.All`. It can't list users or read directory
+roles — it looks tightly scoped. But it can **mint a Temporary Access Pass for any
+user**, which bypasses MFA and lets you sign in as them. Narrow permission, total
+blast radius.
 
-## The identity angle
+## A token that works — but for what?
 
-The credential or token that mattered, what it granted, and how that was discovered.
+With an app-only Graph token, the service principal reads back its own object
+cleanly:
 
-## Pivot into Azure
+```bash
+curl -s https://graph.microsoft.com/v1.0/servicePrincipals/<sp-id> \
+  -H "Authorization: Bearer $TOKEN" | jq '{displayName, appId}'
+# → { "displayName": "Tapper", "appId": "<redacted>" }
+```
 
-The path from a local context to the cloud control plane — roles, scopes, and what
-each step unlocked.
+The token is valid and accepted by Graph. The next question is *what it's allowed
+to do* — and the honest way to answer that is to read the token itself rather than
+guess. Decode the JWT payload and look at the `roles` claim:
 
-## Impact
+```bash
+echo "$TOKEN" | cut -d. -f2 | tr '_-' '/+' | base64 -d 2>/dev/null | jq .roles
+# → [ "UserAuthenticationMethod.ReadWrite.All" ]
+```
 
-What full access would mean in a real environment, stated plainly.
+One role. That's the entire blast radius — so the job is to understand what it does.
 
-## Detect &amp; prevent
+## Scoping the blast radius
 
-Conditional access, token lifetimes, role hygiene, and the telemetry that would
-have surfaced this.
+It's tempting to spray broad reconnaissance, but this token is deliberately narrow.
+The obvious recon endpoints fail:
+
+```bash
+curl -s https://graph.microsoft.com/v1.0/users          # Authorization_RequestDenied
+curl -s https://graph.microsoft.com/v1.0/directoryRoles  # Insufficient privileges
+```
+
+So this is **not** a `Directory.Read.All` / `User.Read.All` token — no tenant-wide
+user listing, no directory-role enumeration. A first read says "almost useless."
+That read is wrong.
+
+## The escalation: Temporary Access Pass
+
+`UserAuthenticationMethod.ReadWrite.All` lets an app **create and manage
+authentication methods for any user** — and a Temporary Access Pass (TAP) is just
+another authentication method object. A TAP is a time-limited passcode Microsoft
+designed to let someone bootstrap MFA. Handed to an attacker, it's an MFA bypass:
+
+```bash
+curl -s -X POST \
+  "https://graph.microsoft.com/v1.0/users/<target-upn>/authentication/temporaryAccessPassMethods" \
+  -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" \
+  -d '{ "lifetimeInMinutes": 60, "isUsableOnce": true }' | jq
+# → { "temporaryAccessPass": "XXXXX-XXXXX", "lifetimeInMinutes": 60, ... }
+```
+
+Take that passcode to `login.microsoftonline.com`, sign in as the target, and you
+can **register your own authenticator** — converting a 60-minute pass into durable
+access. Point it at a privileged account and the single "narrow" permission becomes
+Global Admin.
+
+## The full chain
+
+```
+VM foothold  →  over-scoped managed identity  →  app-only Graph token
+   →  role: UserAuthenticationMethod.ReadWrite.All
+   →  mint Temporary Access Pass for a target user
+   →  sign in (MFA bypassed)  →  register new auth method  →  account takeover
+```
+
+## Detect and prevent
+
+- **Treat `UserAuthenticationMethod.ReadWrite.All` as tier-0.** It is an
+  account-takeover primitive, not a benign "user" scope. Audit every app and
+  service principal that holds it; almost none legitimately need it.
+- **Lock down Temporary Access Pass.** Scope the TAP authentication-method policy to
+  a small group, keep lifetimes short and single-use, and **alert on TAP creation**
+  (`Authentication Methods` activity in the Entra audit log) — especially when the
+  *creator* is an application rather than an admin.
+- **Watch app credential changes.** The real-world version of this chain starts with
+  someone adding a client secret to an app they own. Alert on
+  `Add service principal credentials` and review app-ownership sprawl.
+- **Conditional Access on the sign-in.** Even with a valid TAP, device-compliance or
+  trusted-location policies can blunt the final login step.
+
+## Takeaway
+
+Permission names lie about blast radius. "Read/write a user's authentication
+methods" sounds like self-service MFA enrolment; in practice it's *become any user*.
+When you audit Graph application permissions, rank them by what they let an attacker
+*do*, not by how modest they sound.
