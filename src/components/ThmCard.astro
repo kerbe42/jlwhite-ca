@@ -1,0 +1,87 @@
+---
+import { THM } from '../consts';
+---
+
+<a class="thm-card" href={THM.url} rel="me" aria-label={`TryHackMe profile — ${THM.user}`}>
+  <div class="head">
+    <span class="name">{THM.user}</span>
+    <span class="tier">{THM.tier}</span>
+  </div>
+  <ul class="stats">
+    {THM.stats.map((s) => (
+      <li><span class="v">{s.value}</span><span class="k">{s.label}</span></li>
+    ))}
+  </ul>
+  <span class="more">View profile →</span>
+</a>
+
+<style>
+  .thm-card {
+    display: block;
+    width: 100%;
+    max-width: 22rem;
+    text-decoration: none;
+    color: inherit;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 0.95rem 1.1rem;
+    transition: border-color 0.12s ease, box-shadow 0.12s ease;
+  }
+  .thm-card:hover {
+    border-color: var(--line-strong);
+    box-shadow: 0 6px 18px rgba(44, 44, 42, 0.07);
+  }
+  .head {
+    display: flex;
+    align-items: baseline;
+    gap: 0.55rem;
+    flex-wrap: wrap;
+  }
+  .name {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
+  .tier {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--teal);
+    letter-spacing: 0.01em;
+  }
+  .stats {
+    list-style: none;
+    margin: 0.85rem 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+  }
+  .stats li {
+    display: flex;
+    flex-direction: column;
+  }
+  .stats .v {
+    font-family: var(--font-serif);
+    font-size: 1.4rem;
+    line-height: 1;
+    color: var(--ink);
+  }
+  .stats .k {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--ink-faint);
+    margin-top: 0.3rem;
+  }
+  .more {
+    display: inline-block;
+    margin-top: 0.9rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--ink-muted);
+  }
+  .thm-card:hover .more {
+    color: var(--teal);
+  }
+</style>

@@ -1,7 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import WriteupRow from '../../components/WriteupRow.astro';
-import { LINKS, THM_BADGE } from '../../consts';
+import ThmCard from '../../components/ThmCard.astro';
 import { getWriteups, groupBySeries } from '../../lib/content';
 
 const items = await getWriteups();
@@ -27,20 +27,7 @@ const groups = groupBySeries(items);
           <p class="eyebrow">TryHackMe</p>
           <p class="muted">Hands-on offensive security — cloud, Active Directory, and web.</p>
         </div>
-        {
-          THM_BADGE && LINKS.tryhackme && (
-            <a class="thm-badge" href={LINKS.tryhackme} rel="me">
-              <img src={THM_BADGE} alt="TryHackMe rank badge" loading="lazy" />
-            </a>
-          )
-        }
-        {
-          LINKS.tryhackme ? (
-            <a class="btn" href={LINKS.tryhackme} rel="me">View profile</a>
-          ) : (
-            <span class="chip">Add your THM profile link in consts.ts</span>
-          )
-        }
+        <ThmCard />
       </div>
 
       {
@@ -94,19 +81,6 @@ const groups = groupBySeries(items);
   .thm .muted { margin: 0.2rem 0 0; font-size: 0.9rem; }
   .thm .eyebrow { margin: 0; }
   .thm-text { flex: 1 1 14rem; }
-  .thm-badge {
-    display: block;
-    background: #20242c;
-    padding: 0.7rem 0.9rem;
-    border-radius: 10px;
-    border: 1px solid #2c313b;
-  }
-  .thm-badge img {
-    display: block;
-    width: 100%;
-    max-width: 330px;
-    height: auto;
-  }
   .series { margin-bottom: 2rem; }
   .series-title {
     font-size: 1.1rem;

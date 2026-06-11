@@ -44,8 +44,19 @@ export const LINKS = {
   credly: 'https://www.credly.com/users/justin-white',
 };
 
-// TryHackMe public badge image (rank/points). Blank to hide.
-export const THM_BADGE = 'https://tryhackme-badges.s3.amazonaws.com/kerbe42.png';
+// TryHackMe profile. The auto-generated S3 badge went stale (it under-reported
+// rank, badges, and streak), so these stats are kept by hand from the live
+// profile and the card links out to it for the current numbers.
+export const THM = {
+  url: 'https://tryhackme.com/p/kerbe42',
+  user: 'kerbe42',
+  tier: 'Legend · top 1%',
+  stats: [
+    { label: 'Rooms', value: '252' },
+    { label: 'Badges', value: '45' },
+    { label: 'Day streak', value: '112' },
+  ],
+};
 
 // CV / credentials — formal entries. Empty arrays are simply omitted from the page,
 // so nothing fabricated is published; fill these in when you're ready.

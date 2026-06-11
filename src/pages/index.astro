@@ -2,7 +2,8 @@
 import Base from '../layouts/Base.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import WriteupRow from '../components/WriteupRow.astro';
-import { SITE, WORLDS, LINKS, THM_BADGE } from '../consts';
+import ThmCard from '../components/ThmCard.astro';
+import { SITE, WORLDS } from '../consts';
 import { getFeaturedProjects, getWriteups } from '../lib/content';
 
 const featured = await getFeaturedProjects(4);
@@ -72,20 +73,7 @@ const worlds = Object.values(WORLDS);
           <p class="eyebrow">Security</p>
           <h3>TryHackMe</h3>
           <p class="muted">Hands-on offensive-security practice — cloud, AD, and web.</p>
-          {
-            THM_BADGE && LINKS.tryhackme && (
-              <a class="thm-badge" href={LINKS.tryhackme} rel="me">
-                <img src={THM_BADGE} alt="TryHackMe rank badge" loading="lazy" />
-              </a>
-            )
-          }
-          {
-            LINKS.tryhackme ? (
-              <a class="btn" href={LINKS.tryhackme} rel="me">View profile</a>
-            ) : (
-              <span class="chip">Profile badge — add your THM link in consts.ts</span>
-            )
-          }
+          <ThmCard />
         </div>
         <a class="panel lab" href="/lab">
           <p class="eyebrow">Home lab</p>
@@ -191,18 +179,9 @@ const worlds = Object.values(WORLDS);
   .panel.security {
     border-top: 3px solid var(--teal);
   }
-  .thm-badge {
-    display: block;
-    margin: 0 0 0.9rem;
-    background: #20242c;
-    padding: 0.7rem 0.9rem;
-    border-radius: 10px;
-    border: 1px solid #2c313b;
-  }
-  .thm-badge img {
-    width: 100%;
-    max-width: 330px;
-    height: auto;
+  .panel.security :global(.thm-card) {
+    margin-top: 0.9rem;
+    max-width: none;
   }
   .panel.lab {
     border-top: 3px solid var(--coral);
