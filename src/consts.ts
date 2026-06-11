@@ -18,6 +18,7 @@ export const NAV = [
   { label: 'Lab', href: '/lab' },
   { label: 'Writeups', href: '/writeups' },
   { label: 'About', href: '/about' },
+  { label: 'CV', href: '/cv' },
 ];
 
 // The three "worlds" a project can belong to, each with its own accent.
@@ -61,6 +62,31 @@ export const CV: {
     'CCDP — Cisco Certified Design Professional',
     'JNCIS-SEC — Juniper Networks Certified Specialist, Security',
   ],
-  experience: [],
+  experience: [
+    {
+      role: 'Director, Cybersecurity',
+      org: 'Cooke Inc.',
+      period: 'Oct 2025 – present',
+      note: 'Accountable for the global cybersecurity posture across 17 countries and ~18,000 employees — security architecture, GRC, and security operations.',
+    },
+    {
+      role: 'Senior Manager, IT Security',
+      org: 'Cooke Inc.',
+      period: 'Jan 2023 – Oct 2025',
+      note: 'Built and operationalized the enterprise cybersecurity function spanning security architecture, GRC, and security operations.',
+    },
+    {
+      role: 'Network & architecture roles',
+      org: 'Cooke Inc.',
+      period: 'Feb 2018 – Jan 2023',
+      note: 'Senior IT Architect; Team Lead, Network Services; and Senior Network Analyst. Ran the enterprise network across 8 countries, built a disaster-recovery datacenter, handled secure network cutover for acquired companies, and replaced legacy wireless that couldn’t be secured.',
+    },
+    {
+      role: 'Network Analyst → Senior Network Analyst',
+      org: 'J.D. Irving, Limited',
+      period: '~2008 – Feb 2018',
+      note: 'Led core and datacenter network redesign and segmentation, and served as network lead on security projects and major incident response.',
+    },
+  ],
   education: [],
 };
