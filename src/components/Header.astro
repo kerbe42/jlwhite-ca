@@ -6,7 +6,7 @@ const isActive = (href: string) => path === href || path.startsWith(href + '/');
 
 <header class="site-header">
   <div class="wrap bar">
-    <a href="/" class="brand">
+    <a href="/" class="brand" aria-label={SITE.title}>
       <span class="mark" aria-hidden="true">JW</span>
       <span class="brand-name">{SITE.title}</span>
     </a>
