@@ -10,7 +10,7 @@ tags: ['hydroponics', 'lettuce', 'vertical-garden']
 draft: false
 ---
 
-Growing food without soil, indoors, all year. What started as a couple of Kratky jars has turned into a small operation: deep-water tubs, **[vertical tower gardens](/builds/hydro-towers)** (the towers and net pots are 3D-printed), and a grow tent under LED bars (that's two towers in the tent, up top).
+Growing food without soil, indoors, all year. What started as a couple of Kratky jars has turned into a small operation: deep-water tubs, **vertical tower gardens** (the [tower](/builds/hydro-tower) and its [grow pods](/builds/grow-pods) are 3D-printed), and a grow tent under LED bars (that's two towers in the tent, up top).
 
 ![A big head of hydroponic lettuce growing in the net-pot system](./lettuce.jpg)
 
