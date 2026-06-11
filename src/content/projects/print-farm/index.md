@@ -10,7 +10,7 @@ tags: ['3D printing', 'FDM', 'resin']
 draft: false
 ---
 
-A shelf of FDM and resin printers that mostly earns its keep on practical parts — net-pots and fittings for the [hydroponic garden](/garden/kratky-lettuce), enclosures, jigs — but also makes things purely because they're satisfying to make.
+A shelf of FDM and resin printers that mostly earns its keep on practical parts — net-pots and fittings for the [hydroponic garden](/garden/hydroponic-garden), enclosures, jigs — but also makes things purely because they're satisfying to make.
 
 The articulated octopuses up top are a good example: print-in-place, no supports, no assembly. They come off the bed already wiggling, which makes them a brutal test of tolerances — too tight and the joints fuse, too loose and they flop.
 

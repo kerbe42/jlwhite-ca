@@ -2,7 +2,7 @@
 title: Hydroponic greens, tower to table
 world: garden
 date: 2026-05-28
-summary: A soil-free indoor garden — Kratky tubs, vertical towers, and a grow tent turning out lettuce, greens, and peppers year-round.
+summary: A soil-free indoor garden — vertical towers in a grow tent turning out lettuce, greens, herbs, and peppers year-round.
 featured: true
 cover: ./cover.jpg
 coverAlt: Two vertical tower gardens growing greens inside a reflective grow tent
@@ -10,7 +10,7 @@ tags: ['hydroponics', 'lettuce', 'vertical-garden']
 draft: false
 ---
 
-Growing food without soil, indoors, all year. What started as a couple of Kratky jars has turned into a small operation: deep-water tubs, **vertical tower gardens** (the [tower](/builds/hydro-tower) and its [grow pods](/builds/grow-pods) are 3D-printed), and a grow tent under LED bars (that's two towers in the tent, up top).
+Growing food without soil, indoors, all year. It runs on **vertical tower gardens** (the [tower](/builds/hydro-tower) and its [grow pods](/builds/grow-pods) are 3D-printed) in a grow tent under LED bars — a pump lifts water to the top of each tower and it trickles back down past the roots (that's two towers in the tent, up top).
 
 ![A big head of hydroponic lettuce growing in the net-pot system](./lettuce.jpg)
 
