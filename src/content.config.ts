@@ -8,7 +8,7 @@ const projects = defineCollection({
   schema: ({ image }) =>
     z.object({
       title: z.string(),
-      world: z.enum(['builds', 'garden', 'lab']),
+      world: z.enum(['builds', 'garden', 'lab', 'work']),
       date: z.coerce.date(),
       summary: z.string(),
       cover: image().optional(),

@@ -14,7 +14,7 @@ export type ProjectItem = {
   href: string;
 };
 
-export async function getProjects(world?: 'builds' | 'garden' | 'lab'): Promise<ProjectItem[]> {
+export async function getProjects(world?: 'builds' | 'garden' | 'lab' | 'work'): Promise<ProjectItem[]> {
   const all = await getCollection('projects', ({ data }) => !isProd || !data.draft);
   return all
     .filter((e) => (world ? e.data.world === world : true))

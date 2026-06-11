@@ -17,6 +17,7 @@ export const NAV = [
   { label: 'Garden', href: '/garden' },
   { label: 'Lab', href: '/lab' },
   { label: 'Writeups', href: '/writeups' },
+  { label: 'Work', href: '/work' },
   { label: 'About', href: '/about' },
   { label: 'CV', href: '/cv' },
 ];
@@ -27,6 +28,7 @@ export const WORLDS = {
   builds: { label: 'Builds', href: '/builds', accent: '#BA7517', blurb: '3D printing and physical things I make.' },
   garden: { label: 'Garden', href: '/garden', accent: '#639922', blurb: 'Hydroponics — growing food without soil.' },
   lab: { label: 'Lab', href: '/lab', accent: '#D85A30', blurb: 'The home lab and the tech that runs on it.' },
+  work: { label: 'Work', href: '/work', accent: '#3E6B8B', blurb: 'Software I build — platforms, tools, and this site.' },
 } as const;
 
 export type World = keyof typeof WORLDS;
