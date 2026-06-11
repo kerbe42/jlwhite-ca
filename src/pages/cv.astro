@@ -6,7 +6,7 @@ const skills = [
   { group: 'Cloud security', items: 'Azure / Entra ID, managed identities, Microsoft Graph, identity-based privilege-escalation and account-takeover paths.' },
   { group: 'Web application security', items: 'SSRF (including server-side PDF renderers), stored XSS, and injection testing.' },
   { group: 'AI / LLM security', items: 'Prompt injection, and chaining LLM behaviour with classic web vulnerabilities.' },
-  { group: 'Infrastructure', items: 'pfSense, Pi-hole, DNS / DNSSEC, Docker, Linux; running real self-hosted services on real hardware.' },
+  { group: 'Infrastructure', items: 'Proxmox virtualization clusters, pfSense (incl. active/passive HA), Pi-hole, DNS / DNSSEC, Docker / LXC, Linux; running real self-hosted services on real hardware.' },
   { group: 'Making', items: 'FDM and resin 3D printing, hydroponics.' },
 ];
 
@@ -72,8 +72,9 @@ const hasCredentials =
             {LINKS.tryhackme && (<> <a href={LINKS.tryhackme} rel="me">View profile →</a></>)}
           </li>
           <li>
-            <strong>Home lab</strong> — pfSense firewall, Pi-hole DNS with DNSSEC, Docker, and
-            Linux running real self-hosted services as a live environment to test against.
+            <strong>Home lab</strong> — a four-node Proxmox cluster running an active/passive
+            pfSense HA firewall, redundant Pi-hole DNS with DNSSEC, Docker/LXC services, and
+            monitoring (Wazuh, Zabbix) as a live environment to test against.
           </li>
           <li>
             <strong>Open source</strong> — public work on
