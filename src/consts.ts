@@ -25,9 +25,9 @@ export const NAV = [
 // The three "worlds" a project can belong to, each with its own accent.
 // Accent hex values are drawn from the warm-maker palette.
 export const WORLDS = {
-  builds: { label: 'Builds', href: '/builds', accent: '#BA7517', blurb: '3D printing and physical things I make.' },
-  garden: { label: 'Garden', href: '/garden', accent: '#639922', blurb: 'Hydroponics — growing food without soil.' },
-  lab: { label: 'Lab', href: '/lab', accent: '#D85A30', blurb: 'The home lab and the tech that runs on it.' },
+  builds: { label: 'Builds', href: '/builds', accent: '#A56310', blurb: '3D printing and physical things I make.' },
+  garden: { label: 'Garden', href: '/garden', accent: '#527F1B', blurb: 'Hydroponics — growing food without soil.' },
+  lab: { label: 'Lab', href: '/lab', accent: '#C44E26', blurb: 'The home lab and the tech that runs on it.' },
   work: { label: 'Work', href: '/work', accent: '#3E6B8B', blurb: 'Software I build — platforms, tools, and this site.' },
 } as const;
 
