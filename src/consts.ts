@@ -36,9 +36,12 @@ export const SECURITY_ACCENT = '#0F6E56';
 // External profile links. Leave blank to hide; the site renders each only when set.
 export const LINKS = {
   github: 'https://github.com/kerbe42',
-  linkedin: '', // set to your LinkedIn URL, e.g. https://www.linkedin.com/in/justin-white
-  tryhackme: '', // set to your THM profile URL, e.g. https://tryhackme.com/p/yourname
+  linkedin: 'https://www.linkedin.com/in/justinwhitenb/',
+  tryhackme: 'https://tryhackme.com/p/kerbe42',
 };
+
+// TryHackMe public badge image (rank/points). Blank to hide.
+export const THM_BADGE = 'https://tryhackme-badges.s3.amazonaws.com/kerbe42.png';
 
 // CV / credentials — formal entries. Empty arrays are simply omitted from the page,
 // so nothing fabricated is published; fill these in when you're ready.
