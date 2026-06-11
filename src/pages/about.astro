@@ -36,6 +36,29 @@ import { SITE, LINKS } from '../consts';
         to you, that's a bonus.
       </p>
 
+      <h2>Useless facts</h2>
+      <p class="subtle">Numbers that have never once been useful.</p>
+      <dl class="facts">
+        <div><dt>Fastest on land</dt><dd>220 km/h</dd></div>
+        <div><dt>Fastest in the air</dt><dd>~900 km/h — a Dreamliner at cruise (Mach 0.85)</dd></div>
+        <div>
+          <dt>Countries visited</dt>
+          <dd>Canada, the US, Peru, Chile, Scotland, France, Germany, Belgium, the Netherlands, Spain, Australia</dd>
+        </div>
+        <div>
+          <dt>Furthest from home</dt>
+          <dd>Saint John to Hobart, Tasmania — about 17,400 km, roughly the far side of the planet</dd>
+        </div>
+        <div>
+          <dt>Furthest south</dt>
+          <dd>a basecamp in the Cupquelán Fjord, Chilean Patagonia (~46°S)</dd>
+        </div>
+        <div>
+          <dt>Furthest north</dt>
+          <dd>Scotland (~56°N) — quietly beating Edmonton and the Netherlands</dd>
+        </div>
+      </dl>
+
       <h2>Get in touch</h2>
       <ul class="contact">
         <li><span>Email</span><a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
@@ -48,6 +71,41 @@ import { SITE, LINKS } from '../consts';
 </Base>
 
 <style>
+  .subtle {
+    color: var(--ink-faint);
+    margin-top: -0.4rem;
+    font-style: italic;
+  }
+  .facts {
+    margin: 0.6rem 0 0;
+    display: grid;
+    gap: 0.7rem;
+  }
+  .facts > div {
+    display: grid;
+    grid-template-columns: 11rem 1fr;
+    gap: 0.2rem 1.25rem;
+    align-items: baseline;
+  }
+  .facts dt {
+    font-family: var(--font-serif);
+    color: var(--ink-muted);
+    font-size: 0.98rem;
+  }
+  .facts dd {
+    margin: 0;
+  }
+  @media (max-width: 34rem) {
+    .facts > div {
+      grid-template-columns: 1fr;
+    }
+    .facts dt {
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--ink-faint);
+    }
+  }
   .contact {
     list-style: none;
     padding: 0;
