@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import { SITE, LINKS, CV } from '../consts';
+import certs from '../data/certs.json';
 
 const skills = [
   { group: 'Cloud security', items: 'Azure / Entra ID, managed identities, Microsoft Graph, identity-based privilege-escalation and account-takeover paths.' },
@@ -101,7 +102,16 @@ const hasCredentials =
             {CV.certifications.length > 0 && (
               <>
                 <h3>Certifications</h3>
-                <ul>{CV.certifications.map((c) => (<li>{c}</li>))}</ul>
+                <ul class="cert-badges">
+                  {certs.map((c) => (
+                    <li>
+                      <a href={c.url} rel="me" title={`${c.label} — verified on Credly`}>
+                        <img src={c.file} width="80" height="80" loading="lazy" alt={`${c.label} — ${c.issuer}`} />
+                        <span>{c.label}</span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
                 {LINKS.credly && (
                   <p class="verify">
                     <a href={LINKS.credly} rel="me">All certifications, verified on Credly →</a>
@@ -166,4 +176,24 @@ const hasCredentials =
   .note { color: var(--ink-muted); font-size: 0.92rem; margin-top: 0.15rem; }
   .verify { margin-top: 0.6rem; font-size: 0.92rem; }
   .verify a { font-weight: 500; }
+  .cert-badges {
+    list-style: none;
+    padding: 0;
+    margin: 0.7rem 0 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(5.25rem, 1fr));
+    gap: 1.1rem 0.75rem;
+  }
+  .cert-badges li { margin: 0; }
+  .cert-badges a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.45rem;
+    text-decoration: none;
+    color: var(--ink-muted);
+  }
+  .cert-badges img { width: 80px; height: 80px; }
+  .cert-badges span { font-size: 0.72rem; text-align: center; line-height: 1.25; }
+  .cert-badges a:hover span { color: var(--ink); }
 </style>

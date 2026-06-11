@@ -1,0 +1,58 @@
+[
+  {
+    "slug": "cissp",
+    "label": "CISSP",
+    "issuer": "ISC2",
+    "file": "/certs/cissp.webp",
+    "url": "https://www.credly.com/badges/18a77f85-c73a-458d-a4a8-f75b5f384903/public_url"
+  },
+  {
+    "slug": "cism",
+    "label": "CISM",
+    "issuer": "ISACA",
+    "file": "/certs/cism.webp",
+    "url": "https://www.credly.com/badges/8490f395-bea3-40f5-819d-f90ae0f4d52f/public_url"
+  },
+  {
+    "slug": "aaism",
+    "label": "AAISM",
+    "issuer": "ISACA",
+    "file": "/certs/aaism.webp",
+    "url": "https://www.credly.com/badges/d0a2d0e6-8a39-4184-b675-ab20b0e72600/public_url"
+  },
+  {
+    "slug": "security-plus",
+    "label": "Security+",
+    "issuer": "CompTIA",
+    "file": "/certs/security-plus.webp",
+    "url": "https://www.credly.com/badges/1a74ca96-d302-43d2-8b1a-be771751b3c4/public_url"
+  },
+  {
+    "slug": "ccnp-security",
+    "label": "CCNP Security",
+    "issuer": "Cisco",
+    "file": "/certs/ccnp-security.webp",
+    "url": "https://www.credly.com/badges/14a11a47-401b-46af-ba6b-207549f78df5/public_url"
+  },
+  {
+    "slug": "ccnp-enterprise",
+    "label": "CCNP Enterprise",
+    "issuer": "Cisco",
+    "file": "/certs/ccnp-enterprise.webp",
+    "url": "https://www.credly.com/badges/aa460d86-6b48-433b-9b65-48d394dfd254/public_url"
+  },
+  {
+    "slug": "ccdp",
+    "label": "CCDP",
+    "issuer": "Cisco",
+    "file": "/certs/ccdp.webp",
+    "url": "https://www.credly.com/badges/7c1f3db4-45a2-4198-b25e-fbe4967e368e/public_url"
+  },
+  {
+    "slug": "jncis-sec",
+    "label": "JNCIS-SEC",
+    "issuer": "Juniper Networks",
+    "file": "/certs/jncis-sec.webp",
+    "url": "https://www.credly.com/badges/0832a6a0-6756-4cfb-99f9-903b2fcbc43c/public_url"
+  }
+]

@@ -18,7 +18,7 @@ const { data, href } = item;
     <p>{data.summary}</p>
     <div class="meta">
       <time datetime={data.date.toISOString()}>{formatDate(data.date)}</time>
-      {data.room && <span class="chip">{data.platform}: {data.room}</span>}
+      {data.room && <span class="chip">{data.platform === data.room ? data.room : `${data.platform}: ${data.room}`}</span>}
       {data.difficulty && <span class={`chip diff diff-${data.difficulty.toLowerCase()}`}>{data.difficulty}</span>}
     </div>
   </div>
