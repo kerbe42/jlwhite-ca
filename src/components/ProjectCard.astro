@@ -59,13 +59,18 @@ const world = WORLDS[data.world];
     position: relative;
     aspect-ratio: 3 / 2;
     background: var(--paper-2);
+    overflow: hidden;
   }
   .cover :global(img) {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
   .cover-fallback {
+    position: absolute;
+    inset: 0;
     display: grid;
     place-items: center;
     width: 100%;
