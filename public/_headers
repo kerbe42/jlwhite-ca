@@ -1,0 +1,12 @@
+# Cloudflare Pages response headers. Applied to every path.
+# CSP uses hashes for the two inline scripts (theme bootstrap + theme toggle)
+# so no 'unsafe-inline' is needed for script-src. If those scripts ever change,
+# regenerate the hashes (node _csphash.mjs against a fresh dist build).
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=(), usb=(), interest-cohort=()
+  Cross-Origin-Opener-Policy: same-origin
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  Content-Security-Policy: default-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; object-src 'none'; img-src 'self' data:; font-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'sha256-JbKShp80+eN7P1LKniDPkFxT0NmOCjwwPa3sJZ7FSww=' 'sha256-VXGPKfL4luQiZYNHySi6iGwKFWEHVB0b/lQ074s7b6s='; upgrade-insecure-requests

@@ -1,0 +1,7 @@
+# Cloudflare Pages redirects. Old slugs from earlier renames → current URLs.
+/garden/kratky-lettuce      /garden/hydroponic-garden  301
+/garden/kratky-lettuce/     /garden/hydroponic-garden  301
+/builds/hydro-towers        /builds/hydro-tower        301
+/builds/hydro-towers/       /builds/hydro-tower        301
+/work/housegrc-deepreview   /work/housegrc             301
+/work/housegrc-deepreview/  /work/housegrc             301
