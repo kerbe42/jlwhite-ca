@@ -2,7 +2,7 @@
 title: Hydroponic greens, tower to table
 world: garden
 date: 2026-05-28
-summary: A soil-free indoor garden — vertical towers in a grow tent turning out lettuce, greens, herbs, and peppers year-round.
+summary: A soil-free indoor garden — vertical towers in a grow tent turning out lettuce, greens, herbs, peppers, and tomatoes year-round.
 featured: true
 cover: ./cover.jpg
 coverAlt: Two vertical tower gardens growing greens inside a reflective grow tent
@@ -26,8 +26,16 @@ Once the towers fill in, the footprint disappears under leaves — greens and he
 
 ![Vertical hydroponic towers full of lush green growth under the lights](./towers-full.jpg)
 
-It's not just salad, either. The peppers flower and set fruit indoors, out of season:
+It's not just salad, either. Peppers flower and set fruit indoors, out of season:
 
 ![A white pepper blossom and buds on a leafy plant growing in the tower](./peppers.jpg)
+
+And the tomatoes go the whole way — full trusses ripening on the vine, in a tent, in the off-season:
+
+![A truss of green tomatoes ripening on the vine in the tower](./tomatoes.jpg)
+
+By late summer the canopy spills out of the pods until you can barely see the towers underneath:
+
+![A dense canopy of tomato and pepper foliage growing out of the tower pods](./canopy.jpg)
 
 Water chemistry is the whole game — pH and nutrient strength drift constantly — which is exactly why I built [PicoPH](/builds/picoph) to keep an eye on it.
