@@ -19,7 +19,7 @@ const world = WORLDS[data.world];
 const { Content } = await render(entry);
 ---
 
-<Base title={data.title} description={data.summary} image={`/og/${item.slug}.png`}>
+<Base title={data.title} description={data.summary} image={`/og/${item.slug}.png`} article={{ type: 'Article', datePublished: data.date.toISOString() }}>
   <article class="section" style={`--accent-w:${world.accent}`}>
     <div class="wrap wrap-narrow">
       <a class="back" href={world.href}>← {world.label}</a>

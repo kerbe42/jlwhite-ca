@@ -17,7 +17,7 @@ const { Content } = await render(entry);
 const mins = readingTime(entry.body);
 ---
 
-<Base title={data.title} description={data.summary} image={`/og/${item.slug}.png`}>
+<Base title={data.title} description={data.summary} image={`/og/${item.slug}.png`} article={{ type: 'TechArticle', datePublished: data.date.toISOString() }}>
   <article class="section" style="--accent-w:#0f6e56">
     <div class="wrap wrap-narrow">
       <a class="back" href="/writeups">← Writeups</a>
