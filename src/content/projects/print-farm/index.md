@@ -2,33 +2,28 @@
 title: The print farm
 world: builds
 date: 2026-05-20
-summary: A growing shelf of FDM and resin printers and the parts, jigs, and upgrades they turn out.
+summary: FDM and resin printers turning out functional parts, scale models, and the occasional sea creature.
 featured: true
+cover: ./cover.jpg
+coverAlt: Two 3D-printed articulated octopuses on a desk
 tags: ['3D printing', 'FDM', 'resin']
-# cover: ./cover.jpg   # drop a photo next to this file and uncomment
 draft: false
 ---
 
-> Placeholder — replace this with the real story and photos of your prints.
+A shelf of FDM and resin printers that mostly earns its keep on practical parts — net-pots and fittings for the [hydroponic garden](/garden/kratky-lettuce), enclosures, jigs — but also makes things purely because they're satisfying to make.
 
-## The setup
+The articulated octopuses up top are a good example: print-in-place, no supports, no assembly. They come off the bed already wiggling, which makes them a brutal test of tolerances — too tight and the joints fuse, too loose and they flop.
 
-A short description of the printers you run, the filaments you reach for, and what
-the farm is for. A photo of the shelf goes a long way here.
+## A salmon that says "Never Give Up"
 
-## Things I've made
+![A 3D-printed salmon head wall-mount on a "Never Give Up" base](./salmon.jpg)
 
-- A standout functional print — what it solves and how it printed.
-- A tricky one — the part that took five attempts and what finally worked.
-- An upgrade you designed or remixed yourself.
-- A resin piece where the detail mattered — and what the trade-off in mess and
-  safety was worth.
-- A part that started as a *photo*: turning a reference image into a printable
-  model and dialing it in.
+A wall-mount fish with painted-on scale and eye detail (a layer-swap colour technique), mounted on a printed plaque.
 
-## What I learned
+## A Falcon, scaled down
 
-The hard-won lessons: bed adhesion, tolerances, the settings you always change.
+![A 3D-printed SpaceX Falcon rocket model standing next to a hydroponic tower](./rocket.jpg)
 
-*To add photos: drop image files in this folder and reference them in Markdown,
-e.g. `![A finished bracket](./bracket.jpg)`. Astro optimizes them automatically.*
+Because every print shelf needs a rocket.
+
+*The [PicoPH sensor enclosure](/builds/picoph) was printed here too — that one earns its keep.*

@@ -1,27 +1,25 @@
 ---
-title: Hydroponic greens, jar to harvest
+title: Hydroponic greens, tower to table
 world: garden
 date: 2026-05-28
-summary: A soil-free setup for growing lettuce and herbs indoors year-round.
+summary: A soil-free indoor garden — Kratky tubs, vertical towers, and a grow tent turning out lettuce, greens, and peppers year-round.
 featured: true
-tags: ['hydroponics', 'lettuce']
-# cover: ./cover.jpg
+cover: ./cover.jpg
+coverAlt: Two vertical tower gardens growing greens inside a reflective grow tent
+tags: ['hydroponics', 'lettuce', 'vertical-garden']
 draft: false
 ---
 
-> Placeholder — replace with your real hydroponics setup and photos.
+Growing food without soil, indoors, all year. What started as a couple of Kratky jars has turned into a small operation: deep-water tubs, **vertical tower gardens**, and a grow tent under LED bars (that's two towers in the tent, up top).
 
-## The system
+![A big head of hydroponic lettuce growing in the net-pot system](./lettuce.jpg)
 
-Describe the method (Kratky, NFT, DWC…), the reservoir, the lights, and the
-nutrient mix. A photo of the rack with greens in it is the hero shot.
+The towers pack a lot of plants into a small footprint — lettuce, greens, herbs, and peppers — fed from a reservoir in the base and lit on a timer:
 
-## What's growing
+![A vertical hydroponic tower garden under grow lights in the room](./tower.jpg)
 
-- Lettuce varieties and how fast they turn around.
-- Herbs and anything trickier you've tried.
-- Yields — what a typical harvest looks like.
+And the part that makes it worth it:
 
-## Lessons from the water
+![A colander of fresh-cut salad greens](./harvest.jpg)
 
-pH and EC, algae, root rot, the things that went wrong before they went right.
+Water chemistry is the whole game — pH and nutrient strength drift constantly — which is exactly why I built [PicoPH](/builds/picoph) to keep an eye on it.
