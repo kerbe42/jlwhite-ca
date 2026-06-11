@@ -41,21 +41,6 @@ const mins = readingTime(entry.body);
         </p>
       </header>
 
-      {
-        data.platform === 'Home lab' ? (
-          <div class="callout">
-            <strong>Home-lab note.</strong> Kept high-level on purpose — architecture and
-            approach, not internal hostnames, addresses, or versions.
-          </div>
-        ) : (
-          <div class="callout">
-            <strong>Responsible-disclosure note.</strong> This is a walkthrough of a deliberately
-            vulnerable practice room. Flags and credentials are redacted; the goal is methodology
-            and defensive takeaways, not a copy-paste answer key.
-          </div>
-        )
-      }
-
       <div class="prose">
         <Content />
       </div>

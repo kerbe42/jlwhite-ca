@@ -10,8 +10,6 @@ tags: ['homelab', 'networking', 'cisco']
 draft: false
 ---
 
-> Topology and tooling only — no addresses or configs.
-
 Before the lab moved to virtualization, it was iron. This rack is where I learned networking the way it actually behaves.
 
 ## Routing and switching on real hardware

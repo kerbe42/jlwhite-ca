@@ -10,8 +10,6 @@ tags: ['edge-ai', 'raspberry-pi', 'sdr', 'electronics', 'mqtt']
 draft: false
 ---
 
-> A working bench, not a finished product — components and experiments, mid-progress.
-
 A corner of the lab is given over to small hardware: somewhere to learn edge inference, software-defined radio, and sensor plumbing without a rack in sight.
 
 ## The core

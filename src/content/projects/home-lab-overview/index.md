@@ -10,8 +10,6 @@ tags: ['homelab', 'proxmox', 'pfsense', 'networking', 'docker', 'automation']
 draft: false
 ---
 
-> Kept intentionally high-level — architecture and tooling, not internal hostnames, addresses, or versions.
-
 The lab is where I get to run real infrastructure and break it safely. These days the core isn't a rack of switches — it's a small Proxmox cluster doing the job a couple of rack-units of dedicated appliances used to.
 
 ## The cluster
