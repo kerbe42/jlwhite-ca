@@ -32,6 +32,7 @@ const hasCredentials =
           {LINKS.github && (<><span>·</span><a href={LINKS.github} rel="me">GitHub</a></>)}
           {LINKS.linkedin && (<><span>·</span><a href={LINKS.linkedin} rel="me">LinkedIn</a></>)}
           {LINKS.tryhackme && (<><span>·</span><a href={LINKS.tryhackme} rel="me">TryHackMe</a></>)}
+          {LINKS.credly && (<><span>·</span><a href={LINKS.credly} rel="me">Credly</a></>)}
         </p>
       </header>
 
@@ -90,6 +91,11 @@ const hasCredentials =
               <>
                 <h3>Certifications</h3>
                 <ul>{CV.certifications.map((c) => (<li>{c}</li>))}</ul>
+                {LINKS.credly && (
+                  <p class="verify">
+                    <a href={LINKS.credly} rel="me">All certifications, verified on Credly →</a>
+                  </p>
+                )}
               </>
             )}
             {CV.experience.length > 0 && (
@@ -147,4 +153,6 @@ const hasCredentials =
   .links a { font-weight: 500; }
   .period { color: var(--ink-faint); font-size: 0.85rem; }
   .note { color: var(--ink-muted); font-size: 0.92rem; margin-top: 0.15rem; }
+  .verify { margin-top: 0.6rem; font-size: 0.92rem; }
+  .verify a { font-weight: 500; }
 </style>

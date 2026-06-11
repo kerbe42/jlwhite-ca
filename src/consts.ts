@@ -38,6 +38,7 @@ export const LINKS = {
   github: 'https://github.com/kerbe42',
   linkedin: 'https://www.linkedin.com/in/justinwhitenb/',
   tryhackme: 'https://tryhackme.com/p/kerbe42',
+  credly: 'https://www.credly.com/users/justin-white',
 };
 
 // TryHackMe public badge image (rank/points). Blank to hide.
@@ -50,7 +51,16 @@ export const CV: {
   experience: { role: string; org: string; period: string; note?: string }[];
   education: string[];
 } = {
-  certifications: [],
+  certifications: [
+    'CISSP — Certified Information Systems Security Professional (ISC2)',
+    'CISM — Certified Information Security Manager (ISACA)',
+    'AAISM — Advanced in AI Security Management (ISACA)',
+    'CompTIA Security+ (ce)',
+    'CCNP Security (Cisco)',
+    'CCNP Enterprise (Cisco)',
+    'CCDP — Cisco Certified Design Professional',
+    'JNCIS-SEC — Juniper Networks Certified Specialist, Security',
+  ],
   experience: [],
   education: [],
 };
