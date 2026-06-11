@@ -89,10 +89,13 @@ const { Content } = await render(entry);
   .meta a.tag { text-decoration: none; color: var(--ink-faint); transition: border-color 0.12s ease, color 0.12s ease; }
   .meta a.tag:hover { border-color: var(--accent-w); color: var(--ink); }
   .cover {
-    width: 100%;
+    display: block;
+    width: auto;
+    max-width: 100%;
     height: auto;
+    max-height: 34rem;
     border-radius: var(--radius-lg);
-    margin: 2rem 0;
+    margin: 2rem auto;
     border: 1px solid var(--line);
   }
   .prose {
@@ -101,9 +104,14 @@ const { Content } = await render(entry);
   .prose :global(h2) { margin-top: 2rem; }
   .prose :global(h3) { margin-top: 1.5rem; }
   .prose :global(img) {
+    display: block;
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    max-height: 30rem;
     border-radius: var(--radius);
     border: 1px solid var(--line);
-    margin: 1.5rem 0;
+    margin: 1.5rem auto;
   }
   .prose :global(ul),
   .prose :global(ol) {
