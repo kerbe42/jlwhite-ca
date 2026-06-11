@@ -18,6 +18,8 @@ Before the lab moved to virtualization, it was iron. This rack is where I learne
 
 A multi-router, multi-switch Cisco topology — Catalyst switches and routers, fully cabled, with a console cable never far away. It's the kind of setup you can't really learn from a simulator: subnetting, routing protocols, VLANs and trunking, spanning-tree, PoE, all on hardware that fails the way real hardware fails.
 
+It's also the bench that carried me through my CCNA and CCNP — labbing the exam topics on real gear instead of memorizing them, which is the only way they actually stuck.
+
 ## Where it went
 
 Most of this gear has since moved on — I gave the bulk of the rack to people starting their own networking journey. Secondhand enterprise kit is how a lot of us learned, and it's worth more in someone else's hands than sitting dark in mine.
