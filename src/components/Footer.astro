@@ -17,8 +17,10 @@ const year = new Date().getFullYear();
       </nav>
       <div class="links">
         <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+        {LINKS.linkedin && <a href={LINKS.linkedin} rel="me">LinkedIn</a>}
         {LINKS.github && <a href={LINKS.github} rel="me">GitHub</a>}
         {LINKS.tryhackme && <a href={LINKS.tryhackme} rel="me">TryHackMe</a>}
+        <a href="/cv">CV</a>
         <a href="/tags">Tags</a>
         <a href="/rss.xml">RSS</a>
       </div>

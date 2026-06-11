@@ -39,6 +39,7 @@ import { SITE, LINKS } from '../consts';
       <h2>Get in touch</h2>
       <ul class="contact">
         <li><span>Email</span><a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
+        {LINKS.linkedin && (<li><span>LinkedIn</span><a href={LINKS.linkedin} rel="me">{LINKS.linkedin.replace(/^https?:\/\/(www\.)?/, '')}</a></li>)}
         {LINKS.github && (<li><span>GitHub</span><a href={LINKS.github} rel="me">{LINKS.github.replace('https://', '')}</a></li>)}
         {LINKS.tryhackme && (<li><span>TryHackMe</span><a href={LINKS.tryhackme} rel="me">{LINKS.tryhackme.replace('https://', '')}</a></li>)}
       </ul>
