@@ -65,3 +65,58 @@ export function groupBySeries(items: WriteupItem[]): { series: string; items: Wr
 export function formatDate(d: Date): string {
   return d.toLocaleDateString('en-CA', { year: 'numeric', month: 'short', day: 'numeric' });
 }
+
+// Rough reading time in minutes from raw markdown body (~200 wpm).
+export function readingTime(body: string | undefined): number {
+  if (!body) return 1;
+  const words = body.trim().split(/\s+/).length;
+  return Math.max(1, Math.round(words / 200));
+}
+
+export type TagItem = {
+  title: string;
+  href: string;
+  type: 'writeup' | 'project';
+  date: Date;
+};
+
+export function slugifyTag(tag: string): string {
+  return tag
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
+// Aggregate tags across writeups and projects, newest items first within each tag.
+// Grouping is case-insensitive; display keeps the first-seen original casing.
+export async function getTags(): Promise<
+  { tag: string; slug: string; items: TagItem[] }[]
+> {
+  const writeups = await getWriteups();
+  const projects = await getProjects();
+  const groups = new Map<string, { display: string; items: TagItem[] }>();
+  const push = (tag: string, item: TagItem) => {
+    const key = slugifyTag(tag);
+    if (!key) return;
+    if (!groups.has(key)) groups.set(key, { display: tag, items: [] });
+    groups.get(key)!.items.push(item);
+  };
+  for (const w of writeups)
+    for (const t of w.data.tags)
+      push(t, { title: w.data.title, href: w.href, type: 'writeup', date: w.data.date });
+  for (const p of projects)
+    for (const t of p.data.tags)
+      push(t, { title: p.data.title, href: p.href, type: 'project', date: p.data.date });
+  return [...groups.entries()]
+    .map(([slug, g]) => ({
+      tag: g.display,
+      slug,
+      items: g.items.sort((a, b) => b.date.getTime() - a.date.getTime()),
+    }))
+    .sort((a, b) => b.items.length - a.items.length || a.tag.localeCompare(b.tag));
+}
+
+export function tagHref(tag: string): string {
+  return `/tags/${slugifyTag(tag)}`;
+}

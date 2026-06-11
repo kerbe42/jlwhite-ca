@@ -1,0 +1,43 @@
+---
+import Base from '../layouts/Base.astro';
+import { NAV } from '../consts';
+---
+
+<Base title="Not found" description="That page wandered off.">
+  <section class="section">
+    <div class="wrap wrap-narrow nf">
+      <p class="code">404</p>
+      <h1>This one didn't print.</h1>
+      <p class="lead">
+        The page you're after isn't here — maybe it moved, maybe it never existed.
+        No harm done. Here's the way back:
+      </p>
+      <div class="links">
+        <a class="btn btn-accent" href="/">Home</a>
+        {NAV.map((item) => (<a class="btn" href={item.href}>{item.label}</a>))}
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .nf {
+    padding-block: 2rem;
+  }
+  .code {
+    font-family: var(--font-serif);
+    font-size: clamp(3rem, 2rem + 6vw, 6rem);
+    line-height: 1;
+    color: var(--accent);
+    margin: 0 0 0.5rem;
+  }
+  .lead {
+    max-width: 48ch;
+  }
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 1.75rem;
+  }
+</style>

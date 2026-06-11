@@ -1,0 +1,63 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getTags, tagHref } from '../../lib/content';
+
+const tags = await getTags();
+---
+
+<Base title="Tags" description="Browse everything by topic.">
+  <section class="section">
+    <div class="wrap wrap-narrow">
+      <h1>Tags</h1>
+      <p class="lead">Everything on the site, grouped by topic.</p>
+      {
+        tags.length === 0 ? (
+          <p class="muted">No tags yet.</p>
+        ) : (
+          <div class="cloud">
+            {tags.map((t) => (
+              <a class="tagchip" href={tagHref(t.tag)}>
+                {t.tag}
+                <span class="count">{t.items.length}</span>
+              </a>
+            ))}
+          </div>
+        )
+      }
+    </div>
+  </section>
+</Base>
+
+<style>
+  .lead { margin-bottom: 2rem; }
+  .muted { color: var(--ink-muted); }
+  .cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+  .tagchip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.85rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--card);
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: border-color 0.12s ease, background 0.12s ease;
+  }
+  .tagchip:hover {
+    border-color: var(--accent);
+    background: var(--card-warm);
+  }
+  .count {
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    background: var(--paper-2);
+    padding: 0.05em 0.5em;
+    border-radius: 999px;
+  }
+</style>

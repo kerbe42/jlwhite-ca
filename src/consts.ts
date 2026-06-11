@@ -8,6 +8,7 @@ export const SITE = {
   url: 'https://jlwhite.ca',
   email: 'justin@jlwhite.ca',
   author: 'Justin White',
+  ogImage: '/og.png',
 };
 
 // Primary navigation, in order.

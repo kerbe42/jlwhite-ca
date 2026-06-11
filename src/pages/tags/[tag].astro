@@ -1,0 +1,71 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getTags, formatDate } from '../../lib/content';
+
+export async function getStaticPaths() {
+  const tags = await getTags();
+  return tags.map((t) => ({ params: { tag: t.slug }, props: { tag: t.tag, items: t.items } }));
+}
+
+const { tag, items } = Astro.props;
+---
+
+<Base title={`#${tag}`} description={`Everything tagged ${tag}.`}>
+  <section class="section">
+    <div class="wrap wrap-narrow">
+      <a class="back" href="/tags">← All tags</a>
+      <h1>#{tag}</h1>
+      <p class="lead">{items.length} {items.length === 1 ? 'entry' : 'entries'} tagged <strong>{tag}</strong>.</p>
+      <ul class="list">
+        {
+          items.map((item) => (
+            <li>
+              <a href={item.href}>
+                <span class={`kind kind-${item.type}`}>{item.type}</span>
+                <span class="title">{item.title}</span>
+                <time datetime={item.date.toISOString()}>{formatDate(item.date)}</time>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .back {
+    display: inline-block;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ink-muted);
+    text-decoration: none;
+    margin-bottom: 1rem;
+  }
+  .back:hover { color: var(--accent-ink); }
+  .lead { margin-bottom: 1.5rem; }
+  .list { list-style: none; padding: 0; margin: 0; }
+  .list li { border-bottom: 1px solid var(--line); }
+  .list a {
+    display: flex;
+    align-items: baseline;
+    gap: 0.9rem;
+    padding: 0.9rem 0;
+    text-decoration: none;
+    color: inherit;
+  }
+  .list a:hover .title { color: var(--accent-ink); }
+  .kind {
+    flex: none;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.15em 0.5em;
+    border-radius: 999px;
+    color: #fff;
+  }
+  .kind-writeup { background: var(--teal); }
+  .kind-project { background: var(--amber); }
+  .title { flex: 1; font-weight: 500; }
+  time { font-size: 0.82rem; color: var(--ink-faint); }
+</style>
