@@ -2,7 +2,7 @@
 title: The print farm
 world: builds
 date: 2026-05-20
-summary: FDM and resin printers turning out functional parts, scale models, and the occasional sea creature.
+summary: FDM and resin printers turning out the functional parts that keep the rest of the projects running — plus the occasional sea creature.
 featured: true
 cover: ./cover.jpg
 coverAlt: Two 3D-printed articulated octopuses on a desk
@@ -10,20 +10,22 @@ tags: ['3D printing', 'FDM', 'resin']
 draft: false
 ---
 
-A shelf of FDM and resin printers that mostly earns its keep on practical parts — net-pots and fittings for the [hydroponic garden](/garden/hydroponic-garden), enclosures, jigs — but also makes things purely because they're satisfying to make.
+A shelf of FDM and resin printers. Most of what comes off the beds is functional — the parts that make the [garden](/garden) and the [lab](/lab) work — and every so often something prints purely because it's satisfying to make.
 
-The articulated octopuses up top are a good example: print-in-place, no supports, no assembly. They come off the bed already wiggling, which makes them a brutal test of tolerances — too tight and the joints fuse, too loose and they flop.
+## What earns its keep
 
-## A salmon that says "Never Give Up"
+The hydroponic side of the house is almost entirely printed. The [tower](/builds/hydro-tower) is a stack of printed sections capped by a perforated distributor that rains the water back down the inside; the [grow pods](/builds/grow-pods) that turn it into a garden are printed mesh baskets and threaded collars, one per plant:
+
+![A hand holding the 3D-printed perforated distributor cap above the printed tower body and black net-pods](./hardware.jpg)
+
+The same beds turned out the [PicoPH](/builds/picoph) sensor enclosure and the net-pots, fittings, and jigs that don't photograph well but quietly hold everything together. None of it is precious — when a part wears out or a design gets better, I print the replacement and move on. That's the appeal of owning the means of production: the spare-parts bin is a slicer and a spool of filament.
+
+## And the occasional sea creature
+
+The articulated octopuses on the shelf up top are the other side of it: print-in-place, no supports, no assembly. They come off the bed already wiggling, which makes them a brutal test of tolerances — too tight and the joints fuse, too loose and they flop.
+
+### A salmon that says "Never Give Up"
 
 ![A 3D-printed salmon head wall-mount on a "Never Give Up" base](./salmon.jpg)
 
-A wall-mount fish with painted-on scale and eye detail (a layer-swap colour technique), mounted on a printed plaque.
-
-## A Falcon, scaled down
-
-![A 3D-printed SpaceX Falcon rocket model standing next to a hydroponic tower](./rocket.jpg)
-
-Because every print shelf needs a rocket.
-
-*The [PicoPH sensor enclosure](/builds/picoph) was printed here too — that one earns its keep.*
+A wall-mounted salmon head — the scale texture, the green eye, and the red gum line all done as mid-print colour swaps rather than paint — on a printed plaque. Half the work in a piece like this is deciding where in the Z-height to change filament.
