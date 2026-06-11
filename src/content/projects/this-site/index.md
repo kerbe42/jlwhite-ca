@@ -12,7 +12,7 @@ draft: false
 
 ## The site
 
-This is an Astro static site. The writeups live in content collections, so each piece is a Markdown file with typed frontmatter and the routing falls out of the directory. Images go through Astro's image pipeline (sharp) and come out as optimized webp. There's a dynamic endpoint that generates an OG card per page, an RSS feed, tag pages, and a dark-mode toggle in a warm palette.
+This is an Astro static site. The writeups live in content collections, so each piece is a Markdown file with typed frontmatter and the routing falls out of the directory. Images go through Astro's image pipeline (sharp) and come out as optimized webp. There's a dynamic endpoint that generates an OG card per page, tag pages, and a dark-mode toggle in a warm palette.
 
 It deploys to Cloudflare Pages: git push, build, live. DNS, DNSSEC, and email auth (SPF/DKIM/DMARC over Google Workspace) all sit on Cloudflare too. There's no server to run, which for a site that publishes a few case studies and the occasional security note is the right amount of infrastructure.
 

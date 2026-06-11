@@ -94,13 +94,18 @@ const groups = groupBySeries(items);
   .thm .muted { margin: 0.2rem 0 0; font-size: 0.9rem; }
   .thm .eyebrow { margin: 0; }
   .thm-text { flex: 1 1 14rem; }
-  .thm-badge { display: block; }
+  .thm-badge {
+    display: block;
+    background: #20242c;
+    padding: 0.7rem 0.9rem;
+    border-radius: 10px;
+    border: 1px solid #2c313b;
+  }
   .thm-badge img {
     display: block;
     width: 100%;
     max-width: 330px;
     height: auto;
-    border-radius: 8px;
   }
   .series { margin-bottom: 2rem; }
   .series-title {
