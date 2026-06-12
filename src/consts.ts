@@ -79,25 +79,25 @@ export const CV: {
   experience: [
     {
       role: 'Director, Cybersecurity',
-      org: 'Cooke Inc.',
+      org: 'Global seafood & aquaculture company',
       period: 'Oct 2025 – present',
       note: 'Accountable for the global cybersecurity posture across 17 countries and ~18,000 employees — security architecture, GRC, and security operations.',
     },
     {
       role: 'Senior Manager, IT Security',
-      org: 'Cooke Inc.',
+      org: 'Global seafood & aquaculture company',
       period: 'Jan 2023 – Oct 2025',
       note: 'Built and operationalized the enterprise cybersecurity function spanning security architecture, GRC, and security operations.',
     },
     {
       role: 'Network & architecture roles',
-      org: 'Cooke Inc.',
+      org: 'Global seafood & aquaculture company',
       period: 'Feb 2018 – Jan 2023',
       note: 'Senior IT Architect; Team Lead, Network Services; and Senior Network Analyst. Ran the enterprise network across 8 countries, built a disaster-recovery datacenter, handled secure network cutover for acquired companies, and replaced legacy wireless that couldn’t be secured.',
     },
     {
       role: 'Network Analyst → Senior Network Analyst',
-      org: 'J.D. Irving, Limited',
+      org: 'Diversified industrial conglomerate',
       period: '~2008 – Feb 2018',
       note: 'Led core and datacenter network redesign and segmentation, and served as network lead on security projects and major incident response.',
     },
