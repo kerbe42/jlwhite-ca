@@ -1,0 +1,75 @@
+---
+import Base from '../../layouts/Base.astro';
+import NoteRow from '../../components/NoteRow.astro';
+import { getNotes } from '../../lib/content';
+
+const items = await getNotes();
+const essays = items.filter((n) => n.data.kind === 'essay');
+const playbooks = items.filter((n) => n.data.kind === 'playbook');
+---
+
+<Base title="Field Notes" description="Essays and playbooks on running security — judgment and method from two decades in the field, no confidential detail.">
+  <section class="section" style="--accent-w:#3e6b8b">
+    <div class="wrap wrap-narrow">
+      <header class="head">
+        <span class="dot" aria-hidden="true"></span>
+        <div>
+          <h1>Field Notes</h1>
+          <p class="lead">
+            The part of two decades in security that isn't a control or a cert: how I
+            think about running a program, leading an incident, and making risk
+            decisions a real business can live with. Principles and method — never a
+            client, an employer, a tool, or a number that sits behind an NDA.
+          </p>
+        </div>
+      </header>
+
+      {
+        items.length === 0 ? (
+          <p class="empty">First notes land soon.</p>
+        ) : (
+          <>
+            {essays.length > 0 && (
+              <section class="group">
+                <h2>Essays</h2>
+                {essays.map((item) => <NoteRow item={item} />)}
+              </section>
+            )}
+            {playbooks.length > 0 && (
+              <section class="group">
+                <h2>Playbooks</h2>
+                {playbooks.map((item) => <NoteRow item={item} />)}
+              </section>
+            )}
+          </>
+        )
+      }
+    </div>
+  </section>
+</Base>
+
+<style>
+  .head {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.9rem;
+    margin-bottom: 1.75rem;
+  }
+  .head h1 { margin: 0; }
+  .head .lead { margin: 0.2rem 0 0; }
+  .dot {
+    width: 0.9rem;
+    height: 0.9rem;
+    border-radius: 999px;
+    background: var(--accent-w);
+    margin-top: 0.9rem;
+    flex: none;
+  }
+  .group { margin-bottom: 2rem; }
+  .group h2 {
+    font-size: 1.05rem;
+    margin: 0 0 0.25rem;
+    color: var(--ink-muted);
+  }
+  .empty { color: var(--ink-muted); padding: 1rem 0; }
+</style>

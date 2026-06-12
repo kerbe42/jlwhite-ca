@@ -1,13 +1,14 @@
 import type { APIRoute } from 'astro';
 import sharp from 'sharp';
-import { getWriteups, getProjects } from '../../lib/content';
+import { getWriteups, getProjects, getNotes } from '../../lib/content';
 import { WORLDS } from '../../consts';
 
-// One social card per writeup AND per project, served at /og/<slug>.png.
-// Writeup and project slugs are distinct, so they share this one route.
+// One social card per writeup, project, AND field note, served at /og/<slug>.png.
+// Slugs are distinct across collections, so they share this one route.
 export async function getStaticPaths() {
   const writeups = await getWriteups();
   const projects = await getProjects();
+  const notes = await getNotes();
   return [
     ...writeups.map((w) => ({
       params: { slug: w.slug },
@@ -27,6 +28,15 @@ export async function getStaticPaths() {
         eyebrow: WORLDS[p.data.world].label.toUpperCase(),
         accent: WORLDS[p.data.world].accent,
         meta: p.data.summary,
+      },
+    })),
+    ...notes.map((n) => ({
+      params: { slug: n.slug },
+      props: {
+        title: n.data.title,
+        eyebrow: n.data.kind === 'playbook' ? 'PLAYBOOK' : 'FIELD NOTE',
+        accent: '#3e6b8b',
+        meta: n.data.summary,
       },
     })),
   ];

@@ -1,0 +1,90 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { getNotes, formatDate, readingTime, tagHref } from '../../lib/content';
+
+export async function getStaticPaths() {
+  const items = await getNotes();
+  return items.map((item) => ({
+    params: { slug: item.slug },
+    props: { item },
+  }));
+}
+
+const { item } = Astro.props;
+const { data, entry } = item;
+const { Content } = await render(entry);
+const mins = readingTime(entry.body);
+const kindLabel = data.kind === 'playbook' ? 'Playbook' : 'Essay';
+---
+
+<Base title={data.title} description={data.summary} image={`/og/${item.slug}.png`} article={{ type: 'Article', datePublished: data.date.toISOString() }}>
+  <article class="section" style="--accent-w:#3e6b8b">
+    <div class="wrap wrap-narrow">
+      <a class="back" href="/notes">← Field Notes</a>
+      <header class="head">
+        <span class={`part kind-${data.kind}`}>{kindLabel}</span>
+        <h1>{data.title}</h1>
+        <p class="lead">{data.summary}</p>
+        <p class="meta">
+          <time datetime={data.date.toISOString()}>{formatDate(data.date)}</time>
+          <span class="chip">{mins} min read</span>
+          {data.tags.map((t) => <a class="tag" href={tagHref(t)}>{t}</a>)}
+        </p>
+      </header>
+
+      <div class="prose">
+        <Content />
+      </div>
+    </div>
+  </article>
+</Base>
+
+<style>
+  .back {
+    display: inline-block;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ink-muted);
+    text-decoration: none;
+    margin-bottom: 1.25rem;
+  }
+  .back:hover { color: var(--accent-w); }
+  .part {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #fff;
+    background: var(--accent-w);
+    padding: 0.2em 0.6em;
+    border-radius: 999px;
+    margin-bottom: 0.6rem;
+  }
+  .head h1 { margin: 0 0 0.4rem; }
+  .head .lead { margin: 0 0 0.8rem; }
+  .meta {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+    margin: 0 0 1.5rem;
+  }
+  .meta a.tag { text-decoration: none; color: var(--ink-faint); transition: border-color 0.12s ease, color 0.12s ease; }
+  .meta a.tag:hover { border-color: var(--accent-w); color: var(--ink); }
+  .prose :global(h2) { margin-top: 2rem; }
+  .prose :global(h3) { margin-top: 1.5rem; }
+  .prose :global(ul),
+  .prose :global(ol) { padding-left: 1.3rem; }
+  .prose :global(li) { margin-bottom: 0.4rem; }
+  .prose :global(blockquote) {
+    border-left: 3px solid var(--accent-w);
+    margin: 1.5rem 0;
+    padding: 0.2rem 0 0.2rem 1.1rem;
+    color: var(--ink-muted);
+    font-style: italic;
+  }
+</style>

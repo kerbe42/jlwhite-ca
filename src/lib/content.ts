@@ -48,6 +48,23 @@ export async function getWriteups(): Promise<WriteupItem[]> {
     .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 }
 
+export type NoteItem = {
+  slug: string;
+  data: CollectionEntry<'notes'>['data'];
+  entry: CollectionEntry<'notes'>;
+  href: string;
+};
+
+export async function getNotes(): Promise<NoteItem[]> {
+  const all = await getCollection('notes', ({ data }) => !isProd || !data.draft);
+  return all
+    .map((entry) => {
+      const slug = toSlug(entry.id);
+      return { slug, data: entry.data, entry, href: `/notes/${slug}` };
+    })
+    .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+}
+
 // Group writeups by series, preserving newest-first order of first appearance.
 export function groupBySeries(items: WriteupItem[]): { series: string; items: WriteupItem[] }[] {
   const groups = new Map<string, WriteupItem[]>();
@@ -76,7 +93,7 @@ export function readingTime(body: string | undefined): number {
 export type TagItem = {
   title: string;
   href: string;
-  type: 'writeup' | 'project';
+  type: 'writeup' | 'project' | 'note';
   date: Date;
 };
 
@@ -95,6 +112,7 @@ export async function getTags(): Promise<
 > {
   const writeups = await getWriteups();
   const projects = await getProjects();
+  const notes = await getNotes();
   const groups = new Map<string, { display: string; items: TagItem[] }>();
   const push = (tag: string, item: TagItem) => {
     const key = slugifyTag(tag);
@@ -108,6 +126,9 @@ export async function getTags(): Promise<
   for (const p of projects)
     for (const t of p.data.tags)
       push(t, { title: p.data.title, href: p.href, type: 'project', date: p.data.date });
+  for (const n of notes)
+    for (const t of n.data.tags)
+      push(t, { title: n.data.title, href: n.href, type: 'note', date: n.data.date });
   return [...groups.entries()]
     .map(([slug, g]) => ({
       tag: g.display,

@@ -1,0 +1,69 @@
+---
+import { formatDate } from '../lib/content';
+import type { NoteItem } from '../lib/content';
+
+interface Props {
+  item: NoteItem;
+}
+const { item } = Astro.props;
+const { data, href } = item;
+const kindLabel = data.kind === 'playbook' ? 'Playbook' : 'Essay';
+---
+
+<a class="row" href={href}>
+  <div class="main">
+    <h3>{data.title}</h3>
+    <p>{data.summary}</p>
+    <div class="meta">
+      <time datetime={data.date.toISOString()}>{formatDate(data.date)}</time>
+      <span class={`chip kind-${data.kind}`}>{kindLabel}</span>
+    </div>
+  </div>
+  <span class="arrow" aria-hidden="true">→</span>
+</a>
+
+<style>
+  .row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.1rem 0;
+    border-bottom: 1px solid var(--line);
+    text-decoration: none;
+    color: inherit;
+  }
+  .row:hover h3 { color: var(--accent-n, #3e6b8b); }
+  .main { flex: 1; min-width: 0; }
+  h3 { margin: 0 0 0.25rem; font-size: 1.15rem; }
+  p {
+    margin: 0 0 0.5rem;
+    color: var(--ink-muted);
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+  .meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    font-size: 0.8rem;
+    color: var(--ink-faint);
+  }
+  .chip {
+    font-size: 0.72rem;
+    font-weight: 500;
+    padding: 0.15em 0.5em;
+    border-radius: 999px;
+  }
+  .kind-essay { color: #0c447c; background: #e6f1fb; }
+  .kind-playbook { color: #5a3a86; background: #efe8fb; }
+  .arrow {
+    font-size: 1.2rem;
+    color: var(--ink-faint);
+    transition: transform 0.12s ease;
+  }
+  .row:hover .arrow {
+    transform: translateX(3px);
+    color: var(--accent-n, #3e6b8b);
+  }
+</style>
