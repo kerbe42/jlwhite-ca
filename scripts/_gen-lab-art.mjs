@@ -99,14 +99,14 @@ const out = (dest) => {
   ${node(343, 604, 4)}
 
   <!-- service chips -->
-  ${chip(158, 'DNS — redundant Pi-hole pair')}
-  ${chip(240, 'Wi-Fi — UniFi controller + APs')}
-  ${chip(322, 'Media — Plex · Audiobookshelf')}
-  ${chip(404, 'Monitoring — Wazuh · Zabbix · Graylog')}
-  ${chip(486, 'Automation — n8n Proxmox AI agent')}
-  ${chip(568, 'Self-hosted — Docker · Ansible')}
+  ${chip(158, 'DNS: redundant Pi-hole pair')}
+  ${chip(240, 'Wi-Fi: UniFi controller + APs')}
+  ${chip(322, 'Media: Plex · Audiobookshelf')}
+  ${chip(404, 'Monitoring: Wazuh · Zabbix · Graylog')}
+  ${chip(486, 'Automation: n8n Proxmox AI agent')}
+  ${chip(568, 'Self-hosted: Docker · Ansible')}
 
-  <text x="60" y="744" font-family="${sans}" font-size="15" fill="${faint}">Topology only — no hostnames, addresses, or versions.</text>
+  <text x="60" y="744" font-family="${sans}" font-size="15" fill="${faint}">Topology only. No hostnames, addresses, or versions.</text>
   <text x="1140" y="744" text-anchor="end" font-family="${sans}" font-size="15" fill="${faint}">jlwhite.ca</text>
 </svg>`;
 
@@ -147,14 +147,14 @@ const out = (dest) => {
   <text x="600" y="476" text-anchor="middle" font-family="${sans}" font-size="17" fill="${faint}">NVMe · Ubuntu Server · MQTT</text>
 
   <!-- parts -->
-  ${part(80, 213, 290, 'SDR — PlutoSDR / LibreSDR')}
-  ${part(830, 213, 290, 'MCUs — ESP32 · Pico W')}
-  ${part(80, 400, 250, 'GNSS — GPS')}
-  ${part(870, 400, 250, 'Audio — I²S capture')}
-  ${part(80, 588, 300, 'Sensors — pH · EC · level')}
-  ${part(820, 588, 300, 'Telemetry — MQTT · MicroPython')}
+  ${part(80, 213, 290, 'SDR: PlutoSDR / LibreSDR')}
+  ${part(830, 213, 290, 'MCUs: ESP32 · Pico W')}
+  ${part(80, 400, 250, 'GNSS: GPS')}
+  ${part(870, 400, 250, 'Audio: I²S capture')}
+  ${part(80, 588, 300, 'Sensors: pH · EC · level')}
+  ${part(820, 588, 300, 'Telemetry: MQTT · MicroPython')}
 
-  <text x="60" y="744" font-family="${sans}" font-size="15" fill="${faint}">A learning bench — components and experiments, work in progress.</text>
+  <text x="60" y="744" font-family="${sans}" font-size="15" fill="${faint}">A learning bench: components and experiments, work in progress.</text>
   <text x="1140" y="744" text-anchor="end" font-family="${sans}" font-size="15" fill="${faint}">jlwhite.ca</text>
 </svg>`;
 

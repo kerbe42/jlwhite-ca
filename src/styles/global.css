@@ -87,6 +87,10 @@ body {
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  /* Long unbreakable tokens (scopes, URLs, hashes) in prose break instead of
+     widening the page on narrow screens. <pre> keeps white-space: pre, so code
+     blocks still scroll rather than wrap. */
+  overflow-wrap: break-word;
 }
 img,
 picture,
@@ -148,6 +152,11 @@ code {
   background: var(--paper-2);
   padding: 0.1em 0.35em;
   border-radius: 5px;
+}
+/* Inline code only: let long tokens (URLs, scopes, hashes) break instead of
+   widening the page on narrow screens. Block code in <pre> still scrolls. */
+:not(pre) > code {
+  overflow-wrap: anywhere;
 }
 pre {
   background: var(--code-bg);
