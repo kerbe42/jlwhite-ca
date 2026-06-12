@@ -129,6 +129,17 @@ Two things, stated honestly:
 - **The radio enumerates and reports its full AD9361 configuration over IIO.** That isn't nothing — it proves the FPGA image, the firmware, the libiio chain, and the network transport are all good. It's the foundation. It just isn't reception.
 - **The sensor half of the bench works.** The [PicoPH](/builds/picoph) side — a Pico W publishing pH and voltage over MQTT — was always the easy, finished part. Useful as a reality check: the distance between "a microcontroller posts a number" and "an SDR feeds an edge-ML signal classifier" is enormous, and almost all of that distance is toolchain, not radio.
 
+## Where it's headed: a passive drone-detection node
+
+The north star for this box is **passive drone detection** — the defensive, situational-awareness kind, nothing that touches a drone. The design on paper is a multi-sensor correlation node, and it's the reason the parts bin has the contents it does:
+
+- **RF capture** across the bands consumer drones actually use: 2.4 GHz (DJI and WiFi-based control), 5.8 GHz (FPV video links), and sub-GHz (LoRa-style long-range control). That's the SDR's job, and the reason a wideband AD9361 radio matters more here than an RTL dongle.
+- **BLE scanning** — a few Bluetooth radios watching for the controllers and handsets that travel with a drone, so an RF hit can be corroborated by a nearby device instead of standing on its own.
+- **GPS** — three modules, less for navigation than for **time-synchronisation and rough triangulation**: synchronised timestamps across nodes are what let you start to localise *where* an emitter is, not just that it exists.
+- **The Hailo**, doing the part that makes it more than a spectrum analyzer — classifying a capture as *drone vs WiFi vs noise* on-device, because the signal you care about is buried in everything else sharing 2.4 GHz.
+
+The honest engineering caveat — and the reason the AI layer is load-bearing rather than decorative — is that **detection is not identification**. Consumer drones frequency-hop and encrypt their links, so you're not reading a DJI control packet off the air. What you *can* do is learn the shape of the emission and flag it, which is exactly the pattern problem an edge accelerator is for. None of this is built; it's the architecture the bring-up above is trying to earn its way toward.
+
 ## What's still ahead (and not claimed)
 
 None of the actual RF analysis exists yet: no captured IQ, no live waterfall, no decoded ADS-B or FM or anything else pulled off the air, no trained classifier, no Hailo-accelerated inference, no drone or rogue-device or jamming detection. Those are the goal, not the status. The next real milestone is unglamorous — get **one** clean stream of samples out of the AD9361 and onto a screen, whether that's a fixed gr-iio, a from-source SoapyRemote, or `pyadi-iio` talking to the device directly and skipping GNU Radio entirely.
