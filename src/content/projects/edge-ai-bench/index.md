@@ -20,7 +20,7 @@ A **Raspberry Pi 5** paired with a **Hailo-8 AI accelerator** (26 TOPS) on NVMe.
 
 - **Software-defined radio**: an ADALM-PLUTO and a Pluto-class LibreSDR (Zynq-7020 + AD9361), aimed at turning the Pi and the Hailo into an RF signal-analysis box. Getting the radio enumerating over IIO was the easy part; [the bring-up log](/writeups/libresdr-hailo-pi5-signal-lab) covers where the open-source SDR toolchain and the Hailo stack fought back.
 - **Microcontrollers**: ESP32 and Raspberry Pi Pico W nodes that publish over MQTT.
-- **Sensing**: GPS, I²S audio, and the same pH / EC / water-level probes that feed the [hydroponics](/garden) side of the house.
+- **Sensing**: GPS and I²S audio.
 
 ## Why
 

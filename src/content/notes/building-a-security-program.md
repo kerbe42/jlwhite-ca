@@ -1,13 +1,13 @@
 ---
-title: 'Building a security program from zero'
+title: 'Building a security program'
 date: 2026-06-10
-summary: 'How I''d stand up a security function where there isn''t one: visibility before controls, a framework as a shared map, and sequencing by risk reduced per unit of effort rather than by what''s interesting.'
+summary: 'How I''d build a real security function in an operational business: visibility before controls, a framework as a shared map, and sequencing by risk reduced per unit of effort rather than by what''s interesting.'
 kind: playbook
 tags: ['security-program', 'leadership', 'governance', 'methodology']
 draft: false
 ---
 
-I've done this job more than once: walk into an organisation that grew up as an operational business, not a software shop, and stand up a security function where there wasn't really one. No specifics here, just the order of operations I'd repeat.
+I've done this once: take an organisation that grew up as an operational business, not a software shop, with some security pieces already in place but no real function tying them together, and build that into one. No specifics here, just the order of operations I'd follow.
 
 ## 1. Visibility before controls
 
