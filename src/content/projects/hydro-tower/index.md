@@ -2,7 +2,7 @@
 title: Printing the hydroponic tower
 world: builds
 date: 2026-05-20
-summary: The proof of concept for the whole indoor garden — a printed, pumped vertical column that grows a couple dozen plants in the footprint of a bucket.
+summary: The proof of concept for the whole indoor garden. A printed, pumped vertical column that grows a couple dozen plants in the footprint of a bucket.
 featured: false
 cover: ./cover.jpg
 coverAlt: Two white 3D-printed hydroponic towers studded with black grow pods, lit by LED bars in grow tents
@@ -10,7 +10,7 @@ tags: ['3d-printing', 'hydroponics', 'fdm']
 draft: false
 ---
 
-The tower was the proof of concept for the whole [garden](/garden): print a vertical, pumped hydroponic column, stand it in a grow tent, and see whether it would actually grow food indoors. It did — so everything since has been built on it. The column is printed in segments that stack over a reservoir, and the [grow pods](/builds/grow-pods) clip into it.
+The tower was the proof of concept for the whole [garden](/garden): print a vertical, pumped hydroponic column, stand it in a grow tent, and see whether it would actually grow food indoors. It did, so everything since has been built on it. The column is printed in segments that stack over a reservoir, and the [grow pods](/builds/grow-pods) clip into it.
 
 ## How it works
 
@@ -26,7 +26,7 @@ The trick to even growth is getting water to every level, not just the top few p
 
 ## Mounting it to the reservoir
 
-The column drops through a printed flange bolted to the reservoir lid — it locates the tower, carries its weight, and keeps the return water dripping back into the tub instead of onto the floor:
+The column drops through a printed flange bolted to the reservoir lid. It locates the tower, carries its weight, and keeps the return water dripping back into the tub instead of onto the floor:
 
 ![A black 3D-printed mounting flange bolted to a blue reservoir lid](./basemount.jpg)
 
@@ -38,4 +38,4 @@ Each tower stands in a grow tent on its reservoir, with an LED bar alongside on 
 
 ## From column to garden
 
-Proving the column worked was only half of it. Turning it into a garden meant solving the other half — somewhere for each plant to actually live, angled out toward the light and fed by the trickle inside. That's the next make: the [grow pods](/builds/grow-pods).
+Proving the column worked was the first step. Turning it into a garden also needed somewhere for each plant to live, angled out toward the light and fed by the trickle inside. That's the next make, the [grow pods](/builds/grow-pods).

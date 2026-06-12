@@ -16,7 +16,7 @@ const groups = groupBySeries(items);
         <div>
           <h1>Writeups</h1>
           <p class="lead">
-            Walkthroughs from the rooms I break into for practice — methodology first,
+            Walkthroughs from the rooms I break into for practice: methodology first,
             flags redacted, with notes on how you'd detect and prevent each step.
           </p>
         </div>
@@ -25,14 +25,14 @@ const groups = groupBySeries(items);
       <div class="thm">
         <div class="thm-text">
           <p class="eyebrow">TryHackMe</p>
-          <p class="muted">Hands-on offensive security — cloud, Active Directory, and web.</p>
+          <p class="muted">Hands-on offensive security: cloud, Active Directory, and web.</p>
         </div>
         <ThmCard />
       </div>
 
       {
         items.length === 0 ? (
-          <p class="empty">Writeups are in progress — first ones land soon.</p>
+          <p class="empty">Writeups are in progress. First ones land soon.</p>
         ) : (
           groups.map((group) => (
             <section class="series">

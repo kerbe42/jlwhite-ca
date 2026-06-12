@@ -38,7 +38,7 @@ const writeups = defineCollection({
 });
 
 // Field Notes: leadership essays and methodology playbooks. No employer
-// specifics — principles and method only.
+// specifics, principles and method only.
 const notes = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/notes' }),
   schema: z.object({

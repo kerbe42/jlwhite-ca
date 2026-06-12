@@ -4,7 +4,7 @@ export const SITE = {
   title: 'Justin White',
   tagline: 'Security tinkerer, maker, home-lab operator',
   description:
-    'Things I build, grow, and break — 3D printing, hydroponics, a home lab, and security writeups.',
+    'Things I build, grow, and break: 3D printing, hydroponics, a home lab, and security writeups.',
   url: 'https://jlwhite.ca',
   email: 'justin@jlwhite.ca',
   author: 'Justin White',
@@ -27,9 +27,9 @@ export const NAV = [
 // Accent hex values are drawn from the warm-maker palette.
 export const WORLDS = {
   builds: { label: 'Builds', href: '/builds', accent: '#A56310', blurb: '3D printing and physical things I make.' },
-  garden: { label: 'Garden', href: '/garden', accent: '#527F1B', blurb: 'Hydroponics — growing food without soil.' },
+  garden: { label: 'Garden', href: '/garden', accent: '#527F1B', blurb: 'Hydroponics, growing food without soil.' },
   lab: { label: 'Lab', href: '/lab', accent: '#C44E26', blurb: 'The home lab and the tech that runs on it.' },
-  work: { label: 'Work', href: '/work', accent: '#3E6B8B', blurb: 'Software I build — platforms, tools, and this site.' },
+  work: { label: 'Work', href: '/work', accent: '#3E6B8B', blurb: 'Software I build: platforms, tools, and this site.' },
 } as const;
 
 export type World = keyof typeof WORLDS;
@@ -59,7 +59,7 @@ export const THM = {
   ],
 };
 
-// CV / credentials — formal entries. Empty arrays are simply omitted from the page,
+// CV / credentials, formal entries. Empty arrays are simply omitted from the page,
 // so nothing fabricated is published; fill these in when you're ready.
 export const CV: {
   certifications: string[];
@@ -67,21 +67,21 @@ export const CV: {
   education: string[];
 } = {
   certifications: [
-    'CISSP — Certified Information Systems Security Professional (ISC2)',
-    'CISM — Certified Information Security Manager (ISACA)',
-    'AAISM — Advanced in AI Security Management (ISACA)',
+    'CISSP: Certified Information Systems Security Professional (ISC2)',
+    'CISM: Certified Information Security Manager (ISACA)',
+    'AAISM: Advanced in AI Security Management (ISACA)',
     'CompTIA Security+ (ce)',
     'CCNP Security (Cisco)',
     'CCNP Enterprise (Cisco)',
-    'CCDP — Cisco Certified Design Professional',
-    'JNCIS-SEC — Juniper Networks Certified Specialist, Security',
+    'CCDP: Cisco Certified Design Professional',
+    'JNCIS-SEC: Juniper Networks Certified Specialist, Security',
   ],
   experience: [
     {
       role: 'Director, Cybersecurity',
       org: 'Global seafood & aquaculture company',
       period: 'Oct 2025 – present',
-      note: 'Accountable for the global cybersecurity posture across 17 countries and ~18,000 employees — security architecture, GRC, and security operations.',
+      note: 'Accountable for the global cybersecurity posture across 17 countries and ~18,000 employees: security architecture, GRC, and security operations.',
     },
     {
       role: 'Senior Manager, IT Security',

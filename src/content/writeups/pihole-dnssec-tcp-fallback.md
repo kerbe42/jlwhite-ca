@@ -1,7 +1,7 @@
 ---
 title: When UDP-only firewall rules quietly broke DNSSEC
 date: 2026-06-09
-summary: A home-lab outage where one protocol checkbox took down every .ai domain — and why DNS needs TCP.
+summary: A home-lab outage where one protocol checkbox took down every .ai domain, and why DNS needs TCP.
 room: Home lab
 platform: Home lab
 difficulty: Info
@@ -14,10 +14,10 @@ it looked like the internet was broken rather than my firewall.
 
 ## The symptom
 
-Most of the internet resolved fine. But a handful of domains — every `.ai` domain,
-including the one I use most — returned `SERVFAIL`. Not "slow", not "blocked":
-the resolver flatly refused to answer for one slice of the namespace while
-everything else worked.
+Most of the internet resolved fine. But a handful of domains returned `SERVFAIL`:
+every `.ai` domain, including the one I use most. It wasn't slow or blocked. The
+resolver flatly refused to answer for one slice of the namespace while everything
+else worked.
 
 ## The setup
 
@@ -35,7 +35,7 @@ DNSSEC makes this common: signatures and keys bloat responses, so validated
 lookups fall back to TCP far more often than plain ones.
 
 The `.ai` zone's signed responses were large enough to need that TCP fallback. With
-the firewall allowing UDP only, the retry was silently dropped — so the resolver
+the firewall allowing UDP only, the retry was silently dropped. The resolver
 could never complete validation, and returned `SERVFAIL`. Domains with smaller
 signed responses squeaked under the UDP limit and kept working, which is exactly
 what made it look like a per-TLD problem instead of a transport problem.
@@ -49,7 +49,7 @@ path opened back up, validation completed, and `.ai` resolved immediately.
 
 - **DNS needs TCP.** Treat `TCP/53` as mandatory egress for any validating
   resolver, not an edge case.
-- **DNSSEC raises the stakes.** Bigger responses mean TCP fallback is normal, not
-  rare — a UDP-only path will bite you specifically on the secured zones.
+- **DNSSEC raises the stakes.** Bigger responses make TCP fallback routine. A
+  UDP-only path will bite you specifically on the secured zones.
 - **A partial DNS outage is a transport clue.** When *some* names fail and most
   don't, suspect response size and fallback before you suspect the upstream.

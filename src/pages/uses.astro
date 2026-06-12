@@ -8,19 +8,19 @@ import Base from '../layouts/Base.astro';
       <h1>Uses</h1>
       <p class="lead">
         The stack behind the site, the lab, and the rest of it. A colophon, not a
-        recommendation — these are the things I actually run, kept short and current.
+        recommendation. These are the things I run, kept short and current.
       </p>
 
       <h2>This site</h2>
       <ul class="uses">
-        <li><b>Astro</b>, static output, content collections in TypeScript — every page compiles to flat files.</li>
+        <li><b>Astro</b>, static output, content collections in TypeScript; every page compiles to flat files.</li>
         <li><b>Cloudflare Pages</b> for hosting: push to <code>main</code>, it builds and deploys, nothing to babysit.</li>
         <li><b>Cloudflare</b> for DNS, DNSSEC, and TLS; <b>Namecheap</b> stays the registrar.</li>
         <li><b>Google Workspace</b> for mail, with SPF, DKIM, and DMARC doing the anti-spoofing.</li>
         <li><b>sharp</b> image pipeline to webp; <b>Fraunces</b> and <b>Inter</b>, self-hosted.</li>
         <li>Source is public at <a href="https://github.com/kerbe42/jlwhite-ca" rel="noopener">github.com/kerbe42/jlwhite-ca</a>.</li>
       </ul>
-      <p class="more">The longer story — the DNS move, the email fix, the security posture — is in <a href="/work/this-site">building jlwhite.ca</a>.</p>
+      <p class="more">The longer story (the DNS move, the email fix, the security posture) is in <a href="/work/this-site">building jlwhite.ca</a>.</p>
 
       <h2>The lab</h2>
       <ul class="uses">
@@ -28,21 +28,21 @@ import Base from '../layouts/Base.astro';
         <li><b>pfSense</b> as an active/passive HA pair, fronting a dual-WAN edge (fibre + Starlink).</li>
         <li>Redundant <b>Pi-hole</b> for DNS; <b>UniFi</b> for wireless.</li>
         <li><b>Wazuh</b>, <b>Zabbix</b>, and <b>Graylog</b> for monitoring and home-scale detection.</li>
-        <li><b>Ansible</b> and <b>n8n</b> for automation — including an LLM ops agent on a short leash.</li>
+        <li><b>Ansible</b> and <b>n8n</b> for automation, including an LLM ops agent on a short leash.</li>
       </ul>
       <p class="more">More on all of it in <a href="/lab/home-lab-overview">the home lab</a>.</p>
 
       <h2>Breaking things</h2>
       <ul class="uses">
         <li><b>Kali Linux</b> as the working box; <b>nmap</b>, <b>gobuster</b>, and <b>curl</b> for the basics.</li>
-        <li><b>Hashcat</b> for password work — on the host GPU, not inside a VM (a <a href="/writeups/mssql-hash-cracking-hashcat">lesson learned</a>).</li>
+        <li><b>Hashcat</b> for password work, on the host GPU, not inside a VM (a <a href="/writeups/mssql-hash-cracking-hashcat">lesson learned</a>).</li>
         <li>An intercepting proxy and the browser dev tools when a web target needs a closer look.</li>
         <li><b>TryHackMe</b> for hands-on practice; the <a href="/writeups">writeups</a> are what comes out of it.</li>
       </ul>
 
       <h2>Making</h2>
       <ul class="uses">
-        <li><b>FDM printers</b> — two Bambu Lab P1Ps with AMS, plus a couple of Crealitys (two Ender 3s and a CR-10 V3); modelled in <b>Tinkercad</b>.</li>
+        <li><b>FDM printers</b>: two Bambu Lab P1Ps with AMS, plus a couple of Crealitys (two Ender 3s and a CR-10 V3); modelled in <b>Tinkercad</b>.</li>
         <li>A <b>Raspberry Pi 5 + Hailo-8</b> for edge inference; <b>PlutoSDR</b> and <b>LibreSDR</b> for RF.</li>
         <li><b>ESP32</b> and <b>Pico W</b> microcontrollers publishing sensor data over <b>MQTT</b>.</li>
       </ul>

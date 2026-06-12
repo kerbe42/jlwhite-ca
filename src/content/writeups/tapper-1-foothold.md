@@ -1,7 +1,7 @@
 ---
-title: 'Azure: Tapper — foothold and the managed identity'
+title: 'Azure: Tapper, foothold and the managed identity'
 date: 2026-06-02
-summary: From an SSH foothold to an over-privileged VM managed identity that opens the Azure control plane — and lateral movement without ever guessing a password.
+summary: From an SSH foothold to an over-privileged VM managed identity that opens the Azure control plane, and lateral movement without ever guessing a password.
 series: 'Azure: Tapper'
 part: 1
 room: 'Azure: Tapper'
@@ -11,9 +11,10 @@ tags: ['azure', 'managed-identity', 'imds', 'cloud', 'lateral-movement']
 draft: false
 ---
 
-Tapper is an Azure-focused room where the interesting attack surface isn't the
-operating system — it's the *identity* attached to it. This first part covers the
-foothold and the realisation that the box's own cloud identity is the way in.
+Tapper is an Azure-focused room where the interesting attack surface is the
+identity attached to the box rather than the operating system itself. This first
+part covers the foothold and the realisation that the box's own cloud identity is
+the way in.
 
 > Lab identifiers (tenant IDs, app IDs, usernames) are redacted or genericised
 > throughout. The point is the technique and the defence, not a copy-paste key.
@@ -21,7 +22,7 @@ foothold and the realisation that the box's own cloud identity is the way in.
 ## TL;DR
 
 A foothold on a Linux VM leads to its **managed identity**. That identity turns
-out to hold Azure control-plane rights — enough to run commands on a *neighbouring*
+out to hold Azure control-plane rights, enough to run commands on a *neighbouring*
 VM. SSH passwords never enter the picture; the cloud identity is the credential.
 
 ## The foothold
@@ -31,8 +32,8 @@ useful early signal: when an Azure box is built around key-based SSH and there's
 obvious password to spray, the designers usually intend the path to run through the
 cloud identity plane, not through a credential-guessing OS exploit.
 
-So the first question isn't "what's the password" — it's "what is this machine
-*allowed to do in Azure*?"
+So the first question is "what is this machine allowed to do in Azure?" rather
+than "what's the password?"
 
 ## The managed identity
 
@@ -46,13 +47,13 @@ curl -s -H "Metadata: true" \
   | jq -r .access_token
 ```
 
-That token *is* the VM's Azure identity. The only question left is how much it can
-do — and on Tapper, the answer is "more than it should."
+That token is the VM's Azure identity. The only question left is how much it can
+do. On Tapper, the answer is "more than it should."
 
 ## Lateral movement through the control plane
 
 With an ARM token in hand, the managed identity had enough rights to enumerate
-resources and — the key move — invoke **Run Command** on a *second* VM:
+resources and, the key move, invoke **Run Command** on a *second* VM:
 
 ```bash
 az vm run-command invoke \
@@ -61,8 +62,8 @@ az vm run-command invoke \
 ```
 
 Run Command executes as root/SYSTEM on the target and returns the output, so this
-is remote code execution on a neighbour **without any SSH session, key, or password
-on that box at all**. The foothold VM's over-scoped identity became a pivot across
+is remote code execution on a neighbour without any SSH session, key, or password
+on that box at all. The foothold VM's over-scoped identity became a pivot across
 the resource group.
 
 ## Detect and prevent
@@ -71,7 +72,7 @@ the resource group.
   `Microsoft.Compute/.../runCommand` over its peers. Grant resource-specific roles,
   not broad Contributor at the resource-group or subscription scope.
 - **Alert on Run Command.** `VirtualMachines/runCommand/action` in Azure Activity
-  logs is high-signal — legitimate use is rare and bursty; attacker use looks the
+  logs is high-signal. Legitimate use is rare and bursty; attacker use looks the
   same but from the wrong principal.
 - **Treat IMDS as a credential endpoint.** Egress-filter `169.254.169.254` from
   workloads that don't need it, and watch for token requests from unexpected

@@ -3,7 +3,7 @@ import Base from '../layouts/Base.astro';
 import { SITE, LINKS, CV } from '../consts';
 import certs from '../data/certs.json';
 
-const techDisclaimer = `The technologies listed here are from self-directed work pursued independently — in a personal home lab, in solo open-source projects, through certification study, and in authorized security practice — for my own learning and advancement. They are NOT a representation of any employer's systems, tools, vendors, architecture, or environment, and not technologies I deploy, support, or manage in any professional capacity.`;
+const techDisclaimer = `The technologies listed here are from self-directed work pursued independently (in a personal home lab, in solo open-source projects, through certification study, and in authorized security practice) for my own learning and advancement. They are NOT a representation of any employer's systems, tools, vendors, architecture, or environment, and not technologies I deploy, support, or manage in any professional capacity.`;
 
 const technologies = [
   { group: 'Personal projects', items: `Four solo open-source projects ground everything below. HouseGRC, a GRC platform: Python full-stack on Reflex (compiles to React), SQLAlchemy 2.0, SQLCipher-encrypted SQLite (optional Postgres), Alembic, a FastAPI sub-app, APScheduler, and a REST API. DeepReview / superdeepreview, a passive-OSINT engine with an opt-in, authorized-use-only active edition. GYST, a self-hosted household PWA on Reflex + Granian. And jlwhite.ca, this site, on Astro and Cloudflare Pages.` },
@@ -30,7 +30,7 @@ const hasCredentials =
   CV.certifications.length > 0 || CV.experience.length > 0 || CV.education.length > 0;
 ---
 
-<Base title="CV" description="Justin White — security practitioner and maker. Skills, writeups, and credentials.">
+<Base title="CV" description="Justin White, security practitioner and maker. Skills, writeups, and credentials.">
   <article class="section">
     <div class="wrap wrap-narrow cv">
       <header class="cv-head">
@@ -49,14 +49,14 @@ const hasCredentials =
         <h2>Summary</h2>
         <p>
           I'm accountable for the global security posture of one of the world's largest
-          privately held seafood and aquaculture companies — security architecture,
+          privately held seafood and aquaculture companies: security architecture,
           governance/risk/compliance, and security operations across 17 countries and roughly
           18,000 people, from vessels and hatcheries to processing plants and corporate IT. I came
           up through network engineering and grew into the role that stood up the cybersecurity
           function, so my bias is toward security an always-on operational business can actually
           live with: controls that hold up to the auditors, insurers, and customers who get a say,
           without stalling production. Most of my career has been bringing security maturity to
-          sectors that grew up as industrial operations, not software shops. I stay hands-on, too —
+          sectors that grew up as industrial operations, not software shops. I stay hands-on, too:
           a self-hosted home lab as a live testbed, and security writeups spanning cloud identity,
           web application, and AI/LLM security.
         </p>
@@ -65,22 +65,22 @@ const hasCredentials =
       <section>
         <h2>What I lead</h2>
         <p>
-          I came up from the network — analyst, then architect — and grew into running the
+          I came up from the network (analyst, then architect) and grew into running the
           whole program. A function this size is never "finished": some of it I've built and
           run for years, some is mid-transformation, some is next on the roadmap. What's
-          constant is owning the whole arc — strategy, architecture, governance and risk,
+          constant is owning the whole arc: strategy, architecture, governance and risk,
           operations, and the team. The breadth, kept general:
         </p>
         <dl class="skills">
           <div><dt>Security &amp; network architecture</dt><dd>How the whole estate is connected and defended, up to a modern zero-trust edge.</dd></div>
-          <div><dt>Detection &amp; response</dt><dd>Seeing threats and acting on them — and leading incident response when something real happens.</dd></div>
+          <div><dt>Detection &amp; response</dt><dd>Seeing threats and acting on them, and leading incident response when something real happens.</dd></div>
           <div><dt>Identity &amp; access</dt><dd>The right people, and only the right people, reaching the right things.</dd></div>
-          <div><dt>Resilience</dt><dd>Continuity, disaster recovery, and backup — the half of security that only matters on the worst day.</dd></div>
+          <div><dt>Resilience</dt><dd>Continuity, disaster recovery, and backup. The half of security that only matters on the worst day.</dd></div>
           <div><dt>Data &amp; software</dt><dd>Protecting the data, and the applications that handle it.</dd></div>
           <div><dt>Governance, risk &amp; compliance</dt><dd>Running the program against recognised frameworks like CIS Controls and NIST CSF, plus third-party and vendor risk.</dd></div>
           <div><dt>Leadership</dt><dd>Building and running the team, owning the budget, and turning technical risk into decisions an executive team and board can make.</dd></div>
         </dl>
-        <p class="scope-note">Capabilities and scope only — no tooling, architecture, incidents, or numbers tied to any employer. The detail that sits behind an NDA stays there. How I think about the work in practice is in the <a href="/notes">field notes</a>.</p>
+        <p class="scope-note">Capabilities and scope only. No tooling, architecture, incidents, or numbers tied to any employer. The detail that sits behind an NDA stays there. How I think about the work in practice is in the <a href="/notes">field notes</a>.</p>
       </section>
 
       <section>
@@ -107,16 +107,16 @@ const hasCredentials =
         <h2>Hands-on practice</h2>
         <ul>
           <li>
-            <strong>TryHackMe</strong> — offensive-security practice rooms.
+            <strong>TryHackMe</strong>: offensive-security practice rooms.
             {LINKS.tryhackme && (<> <a href={LINKS.tryhackme} rel="me">View profile →</a></>)}
           </li>
           <li>
-            <strong>Home lab</strong> — a four-node Proxmox cluster running an active/passive
+            <strong>Home lab</strong>: a four-node Proxmox cluster running an active/passive
             pfSense HA firewall, redundant Pi-hole DNS with DNSSEC, Docker/LXC services, and
             monitoring (Wazuh, Zabbix) as a live environment to test against.
           </li>
           <li>
-            <strong>Open source</strong> — public work on
+            <strong>Open source</strong>: public work on
             {LINKS.github ? (<> <a href={LINKS.github} rel="me">GitHub</a>,</>) : (<> GitHub,</>)}
             including this site.
           </li>
@@ -133,8 +133,8 @@ const hasCredentials =
                 <ul class="cert-badges">
                   {certs.map((c) => (
                     <li>
-                      <a href={c.url} rel="me" title={`${c.label} — verified on Credly`}>
-                        <img src={c.file} width="80" height="80" loading="lazy" alt={`${c.label} — ${c.issuer}`} />
+                      <a href={c.url} rel="me" title={`${c.label}, verified on Credly`}>
+                        <img src={c.file} width="80" height="80" loading="lazy" alt={`${c.label}, ${c.issuer}`} />
                         <span>{c.label}</span>
                       </a>
                     </li>

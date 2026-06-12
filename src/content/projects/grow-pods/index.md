@@ -2,7 +2,7 @@
 title: Printing the grow pods
 world: builds
 date: 2026-05-19
-summary: The printed pods that turn the tower into a garden — a mesh basket and threaded collar for every plant, growing everything from greens to full tomato trusses.
+summary: The printed pods that turn the tower into a garden. A mesh basket and threaded collar for every plant, growing everything from greens to full tomato trusses.
 featured: false
 cover: ./cover.jpg
 coverAlt: Black 3D-printed mesh grow pods seated in the white printed tower body
@@ -14,13 +14,13 @@ Once the [tower](/builds/hydro-tower) proved a printed column could grow food, i
 
 ## The basket
 
-Open enough for roots and water to pass freely, stiff enough to hold a maturing plant and its medium without sagging. The mesh pattern is the whole job — too closed and the roots can't breathe, too open and the medium washes out:
+Open enough for roots and water to pass freely, stiff enough to hold a maturing plant and its medium without sagging. The mesh pattern carries most of that. Too closed and the roots can't breathe, too open and the medium washes out:
 
 ![The printed inner cup and a row of black mesh pods with their threaded collars](./detail.jpg)
 
 ## What grows in them
 
-The point of all the printing is what comes out of it. The pods carry far more than salad — peppers, herbs, and full trusses of tomatoes, fruiting indoors and out of season:
+All the printing is for what comes out of it. The pods carry far more than salad: peppers, herbs, and full trusses of tomatoes, fruiting indoors and out of season:
 
 ![A truss of green tomatoes ripening on the vine in the tower](./tomatoes.jpg)
 
@@ -30,4 +30,4 @@ A planted tower fills in fast, the canopy spilling out of the pods until you can
 
 ## Print and repeat
 
-Pods are small, so they print fast and I keep a stack of spares. A tower needs a couple dozen, and a cracked one is a one-pod problem instead of a whole-tower one — the cheap, repeatable part that turns a printed [column](/builds/hydro-tower) into a garden.
+Pods are small, so they print fast and I keep a stack of spares. A tower needs a couple dozen, and a cracked one is a one-pod problem instead of a whole-tower one. They're cheap and quick to reprint, which is what makes a printed [column](/builds/hydro-tower) usable as a garden.
