@@ -2,15 +2,15 @@
 title: The print farm
 world: builds
 date: 2026-05-20
-summary: FDM and resin printers turning out the functional parts that keep the rest of the projects running — plus the occasional sea creature.
+summary: A small FDM fleet turning out the functional parts that keep the rest of the projects running — plus the occasional sea creature.
 featured: true
 cover: ./cover.jpg
 coverAlt: Two 3D-printed articulated octopuses on a desk
-tags: ['3D printing', 'FDM', 'resin']
+tags: ['3D printing', 'FDM', 'tinkercad']
 draft: false
 ---
 
-A shelf of FDM and resin printers. Most of what comes off the beds is functional — the parts that make the [garden](/garden) and the [lab](/lab) work — and every so often something prints purely because it's satisfying to make.
+A shelf of FDM printers: two Bambu Lab P1Ps with AMS for anything that needs colour or needs to come out right the first time, and three Creality machines — two Ender 3s and a CR-10 V3 — for the big jobs and the disposable ones. Everything's modelled in [Tinkercad](https://www.tinkercad.com), which is about as far from production CAD as you can get and exactly enough for net-pots, brackets, and the occasional fish. Most of what comes off the beds is functional — the parts that make the [garden](/garden) and the [lab](/lab) work — and every so often something prints purely because it's satisfying to make.
 
 ## What earns its keep
 
@@ -28,4 +28,4 @@ The articulated octopuses on the shelf up top are the other side of it: print-in
 
 ![A 3D-printed salmon head wall-mount on a "Never Give Up" base](./salmon.jpg)
 
-A wall-mounted salmon head — the scale texture, the green eye, and the red gum line all done as mid-print colour swaps rather than paint — on a printed plaque. Half the work in a piece like this is deciding where in the Z-height to change filament.
+A wall-mounted salmon head on a printed plaque — the scale texture, the green eye, and the red gum line are all in the filament, not paint. It's the kind of multi-colour print the AMS earns its keep on.
