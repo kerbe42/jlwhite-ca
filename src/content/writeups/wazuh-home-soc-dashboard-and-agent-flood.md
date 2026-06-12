@@ -85,6 +85,32 @@ If a buffer flood is a **one-off** tied to a known disruption, that's the whole 
 
 The reframe is the part that matters. A level-12 alert firing correctly on a buffer flood is **the detection pipeline proving it works**: high-severity rules are evaluating, agent-health monitoring is live, buffer detection is functioning, and the alert reached a human. A SIEM that never tells you about itself isn't quiet — it's usually broken in a way you haven't noticed yet.
 
+## Shipping the alerts onward: Wazuh to Graylog
+
+Wazuh has its own dashboard, but I also feed its alerts into Graylog so the lab has one place to search across everything, not just Wazuh's own view. The decision that keeps this sane is to forward **only the alerts, not every raw log Wazuh ingests** — `/var/ossec/logs/alerts/alerts.json` is the stream you actually want, and shipping the full event firehose would just rebuild the flood from the last section one layer up the stack.
+
+rsyslog does the forwarding: an `imfile` input tails the alerts JSON, and `omfwd` ships each line to Graylog over TCP, kept in its own config file so it's easy to find and not tangled in the default ruleset:
+
+```text
+# /etc/rsyslog.d/60-wazuh-graylog.conf — tail alerts.json, forward to Graylog:5555
+```
+```bash
+admin@wazuh$ sudo systemctl restart rsyslog
+```
+
+On the Graylog side the lines land on a TCP input as raw syslog wrapping a JSON payload, so a pipeline rule pulls them apart — keyed on the cheapest reliable signal that a Wazuh alert is a JSON object:
+
+```text
+rule "parse_wazuh_alert_json"
+when
+  starts_with(to_string($message.message), "{")
+then
+  // parse the JSON body into fields
+end
+```
+
+That `starts_with(..., "{")` condition is doing real work: it's how the pipeline distinguishes a structured Wazuh alert from ordinary syslog noise arriving on the same input, without running an expensive regex against every message that comes through.
+
 ## Takeaways
 
 - **Narrow before you panic.** "Wazuh is down" was really "only the dashboard is down." Check the components individually; the one that's actually dead is the one whose logs hold the answer.
@@ -92,3 +118,4 @@ The reframe is the part that matters. A level-12 alert firing correctly on a buf
 - **Severity is not meaning.** A level-12 `agent_flooding` alert is high-severity *and* benign — a telemetry-health signal, not an intrusion. Triaging "is this malicious?" separately from "is this important?" is the core SOC reflex, and it's the same at home as at scale.
 - **Tune, don't suppress.** A recurring buffer flood gets fixed with `client_buffer` settings, not by muting the rule. Muting the alert just hides the next gap in your logs.
 - **The SIEM watching itself is a feature.** The most common alert in a healthy deployment is the system reporting on its own plumbing. That's the signal you want — it's how you know the pipeline that would catch a real attack is actually running.
+- **Forward alerts, not raw logs.** Shipping Wazuh's whole event stream to Graylog just relocates the flood; `alerts.json` is the stream worth shipping, and a `starts_with "{"` pipeline condition cheaply separates the JSON alerts from syslog noise.
