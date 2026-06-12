@@ -55,6 +55,14 @@ You can't make the model immune to being talked into something, so don't rely on
 
 Last, record every tool call — what was invoked, with what arguments, by which run, what came back. Two reasons. When the agent does something surprising, you want a trail to reconstruct it, the same way you'd want command history on a host. And an unlogged agent is one you can't audit; "I think it only read things" is not an answer I want to give myself later.
 
+## How it's wired, concretely
+
+The abstract rules above have a concrete shape. The cluster is exposed as **four tools, one per host** (`pmx-host1` through `pmx-host4`), each of which runs a single command over SSH on that node and hands back the raw output — no free-form shell, one command per call. Because a VM or container can live on any node, the agent's first move for "do X to guest 105" is a discovery pass — `qm list`, `pct list`, `pvesh get /cluster/resources --type vm` across the hosts — to find which node actually owns it, and only then act there.
+
+The destructive-action gate is a literal rule, not a vibe: deleting a VM, container, snapshot, or backup requires explicit confirmation, and anything tagged **`do_not_delete`** is refused outright. `qm destroy` and `pct destroy` are flagged as the high-risk commands they are. The middle tier — live-migrate, change vCPU or RAM, add a disk, reorder boot — runs when I ask for it directly; OS upgrades and SSH or access-control changes never run on the agent's own initiative.
+
+Above the tools sits a small router. A "general manager" classifies each request and hands it to a specialist — network, security, hosting, or generic — so a firewall question and a Proxmox question don't land in the same prompt. The most instructive bug in the whole build came from exactly there: I asked it to act across *all* the managers, the router emitted `{"target": "all"}`, and the switch — which only had branches for the named specialists — didn't know what "all" meant and stalled. The fix was to make `all` a first-class routing value and fan it out to each manager explicitly. It's a tiny bug, but it's the whole thesis in miniature: the model produced a *reasonable-sounding* output the surrounding system wasn't built to handle, and the surrounding system — not the model — is where you fix it.
+
 ## Takeaways
 
 - Treat a tool-using LLM as an untrusted, persuadable client with credentials.
