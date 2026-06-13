@@ -31,7 +31,7 @@ On top of that catalog sit the working surfaces:
 - **Resilience planning**: BIA, BCP, DR, and incident-response plans with phased, role-tagged steps so each phase records who does what.
 - **Incident management**: with a regulatory-reporting rule engine that evaluates a breach's data class and jurisdiction (PII / PHI / payment data, by region) against thresholds and maps the combination to the specific reporting obligations and clocks it triggers, so an obligation in the wrong jurisdiction surfaces instead of slipping.
 - **Architecture risk assessments**: document upload with AI extraction, plus automated security-control-assessment scoring with a graded result and a per-domain breakdown.
-- **Executive dashboards**: Risk, Security, IT, an AI-impact board scored against the NIST AI RMF, and a predictive view.
+- **Executive dashboards**: Risk, Security, IT, and a predictive view.
 - **The long tail of GRC hygiene**: exceptions, access reviews, a regulations register with change tracking, privacy DSAR handling and right-to-be-forgotten redaction, and retention.
 
 It also exposes a REST API and supports enterprise SSO and multi-org operation, so a larger installation can integrate it with existing identity and provision multiple business units under one deployment.

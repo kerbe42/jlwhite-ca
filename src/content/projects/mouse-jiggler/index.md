@@ -59,7 +59,7 @@ import storage
 storage.disable_usb_drive()
 ```
 
-That is also the catch: with `boot.py` in place the `CIRCUITPY` drive stops appearing, so editing the code afterward means putting the Pico back into bootloader mode first.
+That is also the catch: with `boot.py` in place the `CIRCUITPY` drive stops appearing, so to edit the code again you boot CircuitPython into safe mode (which skips `boot.py` and remounts the drive); reflashing via BOOTSEL is the last resort, since it wipes the board.
 
 Setup is file copying, no toolchain. I followed [this Instructables guide](https://www.instructables.com/Raspberry-Pi-Pico-Mouse-Jiggler/):
 

@@ -41,13 +41,13 @@ If your hash file pairs a username with the hash, the natural `sa:0x0200…` sha
 attacker@kali$ hashcat -m 1731 hash.txt rockyou.txt --username
 ```
 
-And before committing hours to any attack, confirm Hashcat actually parsed the line. A quick no-op that proves the format is good:
+And before committing hours to any attack, confirm Hashcat actually parsed the line. `--left` lists hashes that loaded but aren't cracked yet, so it proves the format parses:
 
 ```bash
-attacker@kali$ hashcat -m 1731 hash.txt --show
+attacker@kali$ hashcat -m 1731 hash.txt --left
 ```
 
-If `--show` lists your hash (uncracked is fine), the format is valid. If it complains, fix the file before you burn a single GPU-hour.
+If the hash loads without a token-length or parse error, the format is good. (`--show` only prints hashes already cracked into the potfile, so on an uncracked hash it shows nothing.) If Hashcat complains the line won't parse, fix the file before you burn a single GPU-hour.
 
 ---
 
@@ -75,10 +75,10 @@ attacker@kali$ hashcat -m 1731 hash.txt rockyou.txt -r /usr/share/hashcat/rules/
 
 ### Rung 2: masks for the corporate shape
 
-So many real passwords are `Capital + lowercase + digits + symbol` that it's worth a dedicated mask attack. `Spring2025!` and `Welcome123!` are this pattern:
+So many real passwords are `Capital + lowercase + digits + symbol` that it's worth a dedicated mask attack. `Summer123!` fits this pattern:
 
 ```bash
-# Capital, five lowercase, three digits, bang, the Spring2025! shape
+# Capital, five lowercase, three digits, bang, the Summer123! shape
 attacker@kali$ hashcat -m 1731 hash.txt -a 3 '?u?l?l?l?l?l?d?d?d!'
 ```
 
@@ -117,13 +117,13 @@ attacker@kali$ hashcat -m 1731 hash.txt -a 3 '?l?l?l?l?l?l?l?l?l?l?l?l?l' \
     --increment --increment-min 10 --increment-max 13 -w 3
 ```
 
-`-w 3` turns the workload up. `hashcat --status` shows progress; `hashcat -m 1731 hash.txt --show` prints the plaintext once it falls. And this is exactly the rung where the next problem bit me, because brute force over four lengths of `?l` is only tolerable on a GPU.
+`-w 3` turns the workload up. Add `--status --status-timer=10` for periodic progress (or press `s` in the running session); `hashcat -m 1731 hash.txt --show` prints the plaintext once it falls. And this is exactly the rung where the next problem bit me, because brute force over four lengths of `?l` is only tolerable on a GPU.
 
 ---
 
 ## The real wall: no GPU inside VMware Workstation
 
-A length-10-to-13 lowercase brute force is billions of candidates. On a modern GPU that's an afternoon; on CPU it's a different unit of time entirely. Mine was crawling, so I checked what Hashcat could actually see:
+A length-10-to-13 lowercase brute force is a vast keyspace, on the order of a quintillion candidates (26^10 alone is ~140 trillion). That's a run you only attempt on a GPU; on CPU it's a different unit of time entirely. Mine was crawling, so I checked what Hashcat could actually see:
 
 ```bash
 attacker@kali$ hashcat -I

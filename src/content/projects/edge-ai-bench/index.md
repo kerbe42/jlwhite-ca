@@ -14,7 +14,7 @@ A corner of the lab is given over to small hardware: somewhere to learn edge inf
 
 ## The core
 
-A **Raspberry Pi 5** paired with a **Hailo-8 AI accelerator** (26 TOPS) on NVMe. It runs real inference at the edge instead of shipping every frame back to a server.
+A **Raspberry Pi 5** paired with a **Hailo-8 AI accelerator** (26 TOPS) on NVMe. The intent is to run signal classification on it at the edge rather than shipping captures off-box; as the bring-up log below is honest about, that path isn't working yet.
 
 ## Around it
 

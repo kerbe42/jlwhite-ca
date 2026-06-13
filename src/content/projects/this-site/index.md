@@ -52,13 +52,13 @@ The security posture here is mostly a consequence of the choices above. Mail can
 
 Most of the protection comes from how little there is to attack. A static site has no application server to patch, no database, no login or admin panel to compromise. The content compiles to flat files served from Cloudflare's edge, which also absorbs DDoS. Privacy-respecting defaults round it out.
 
-A few things are queued and not yet in place: a CAA record to restrict which certificate authorities may issue for the domain; MTA-STS and TLS-RPT to require TLS on inbound mail and get reporting on failures; tightening DMARC from monitoring to enforcement (`quarantine`, then `reject`) once the aggregate reports are clean; and enforcing 2-Step Verification org-wide in Google Workspace, with a passkey on the admin account.
+A few things are queued and not yet in place: a CAA record to restrict which certificate authorities may issue for the domain; moving MTA-STS from its current testing mode to enforce, with TLS-RPT failure reporting alongside; tightening DMARC from monitoring to enforcement (`quarantine`, then `reject`) once the aggregate reports are clean; and enforcing 2-Step Verification org-wide in Google Workspace, with a passkey on the admin account.
 
 ## How it was built
 
 I built this with an AI coding agent, and the agent did most of the building.
 
-The split was deliberate. I set the direction, the scope, the voice, and, this being a public surface for a person whose other projects are live in production, the publishing boundaries: what's safe to say about each project and what stays out. I supplied the real facts and the real photos. I made the calls. The agent did the building: it scaffolded the Astro project and wrote the code, including the OG endpoint, the image pipeline, and the feed, then turned my notes and corrections into prose.
+The split was deliberate. I set the direction, the scope, the voice, and, this being a public surface for a person whose other projects are live in production, the publishing boundaries: what's safe to say about each project and what stays out. I supplied the real facts and the real photos. I made the calls. The agent did the building: it scaffolded the Astro project and wrote the code, including the OG endpoint and the image pipeline, then turned my notes and corrections into prose.
 
 The writeups went through a small pipeline rather than a single pass. The agent drafted, then a separate adversarial step re-read each draft against the source facts to catch anything invented, overstated, or quietly leaking a detail it shouldn't, and only then finalized. The same fan-out approach ran a code review across the projects I describe here. That structure is the same discipline I apply to the AI features inside HouseGRC and DeepReview: don't trust a single model pass, ground claims in evidence, and put an adversarial check between the draft and the published artifact.
 

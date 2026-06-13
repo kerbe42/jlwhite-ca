@@ -22,7 +22,7 @@ The same beds turned out the [PicoPH](/builds/picoph) sensor enclosure and the n
 
 ## And the occasional sea creature
 
-The articulated octopuses on the shelf up top are the other side of it: print-in-place, no supports, no assembly. They come off the bed already wiggling, which makes them a brutal test of tolerances. Too tight and the joints fuse, too loose and they flop.
+The articulated octopuses on the desk up top are the other side of it: print-in-place, no supports, no assembly. They come off the bed already wiggling, which makes them a brutal test of tolerances. Too tight and the joints fuse, too loose and they flop.
 
 ### A salmon that says "Never Give Up"
 

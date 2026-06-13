@@ -1,7 +1,7 @@
 ---
 title: Printing the grow pods
 world: builds
-date: 2026-05-19
+date: 2026-05-21
 summary: The printed pods that turn the tower into a garden. A mesh basket and threaded collar for every plant, growing everything from greens to full tomato trusses.
 featured: false
 cover: ./cover.jpg

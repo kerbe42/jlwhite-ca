@@ -10,7 +10,7 @@ tags: ['3d-printing', 'hydroponics', 'fdm']
 draft: false
 ---
 
-The tower was the proof of concept for the whole [garden](/garden): print a vertical, pumped hydroponic column, stand it in a grow tent, and see whether it would actually grow food indoors. It did, so everything since has been built on it. The column is printed in segments that stack over a reservoir, and the [grow pods](/builds/grow-pods) clip into it.
+The tower was the proof of concept for the whole [garden](/garden): print a vertical, pumped hydroponic column, stand it in a grow tent, and see whether it would actually grow food indoors. It did, so everything since has been built on it. The column is printed in segments that stack over a reservoir, and the [grow pods](/builds/grow-pods) thread into it.
 
 ## How it works
 

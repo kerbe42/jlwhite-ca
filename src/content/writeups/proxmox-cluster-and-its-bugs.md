@@ -33,8 +33,8 @@ When the session itself looks fine and the clock is right, the next thing to sus
 The fix is almost insultingly small once you know where to look. Normalise the key timestamps and restart the proxy and daemon:
 
 ```bash
-root@pmx-host1:~$ touch /etc/pve/authkey*
-root@pmx-host1:~$ systemctl restart pveproxy pvedaemon
+root@pmx-host1:~# touch /etc/pve/authkey*
+root@pmx-host1:~# systemctl restart pveproxy pvedaemon
 ```
 
 The logout loop stopped immediately. When the session, the proxy, and the clock are all clean, suspect the cluster's internal trust artifacts. A distributed system has more "is this fresh and trusted?" checks than a single box, and a join event is the kind of thing that scrambles them.
@@ -46,11 +46,11 @@ Running `pveversion` across the nodes turned up the thing that always happens to
 The cleanup is align, reboot, and then re-bless the cluster's certificates, because the version shuffle can leave the per-node certs inconsistent:
 
 ```bash
-root@pmx-host2:~$ apt update && apt -y full-upgrade
-root@pmx-host2:~$ reboot
+root@pmx-host2:~# apt update && apt -y full-upgrade
+root@pmx-host2:~# reboot
 # once it's back:
-root@pmx-host2:~$ pvecm updatecerts --force
-root@pmx-host2:~$ systemctl restart pveproxy pvedaemon
+root@pmx-host2:~# pvecm updatecerts --force
+root@pmx-host2:~# systemctl restart pveproxy pvedaemon
 ```
 
 `proxmox-boot-tool kernel list` / `pin` / `refresh` is the companion toolkit here when you want a node to *stay* on a known-good kernel rather than rolling forward on the next reboot.
@@ -66,7 +66,7 @@ Missing key 24B30F06ECC1836A4E5EFECBA7BCD1420BFE778E
 That's just the release key for the new suite not being installed yet:
 
 ```bash
-root@pmx:~$ wget https://enterprise.proxmox.com/debian/proxmox-release-trixie.gpg \
+root@pmx:~# wget https://enterprise.proxmox.com/debian/proxmox-release-trixie.gpg \
     -O /etc/apt/keyrings/proxmox-release-trixie.gpg
 ```
 
@@ -83,8 +83,8 @@ That one is self-inflicted: a leftover enterprise source and the new no-subscrip
 A drive that had been pulled left its ghost behind in `/etc/pve/storage.cfg`: storage entries (`nvme1`, `nvme2`) pointing at hardware that wasn't there anymore, which makes the GUI and the API unhappy every time they enumerate storage. Nothing dramatic to fix: drop the dead blocks from `storage.cfg`, then confirm nothing still references them:
 
 ```bash
-root@pmx:~$ qm list   # any VM disks pointing at the dead storage?
-root@pmx:~$ pct list   # any containers?
+root@pmx:~# qm list   # any VM disks pointing at the dead storage?
+root@pmx:~# pct list   # any containers?
 ```
 
 The only trap is deleting a storage entry that a stopped VM still has a disk on; the `qm list` / `pct list` pass is there to make sure the ghost is actually a ghost.

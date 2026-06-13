@@ -73,7 +73,7 @@ That trio is unambiguous once you stop reading it as a permissions bug: there is
 
 ## The switch: SNMPv3, proven before the UI
 
-The Cisco switch is monitored over SNMP with Zabbix's stock *Template Net Cisco SNMP*. The discipline that saves an afternoon here is to prove the credentials and crypto with a raw walk **before** wiring anything into the Zabbix UI. Query the device's own sysName OID and see if it answers with its hostname:
+The Cisco switch is monitored over SNMP with Zabbix's stock *Cisco IOS by SNMP* template. The discipline that saves an afternoon here is to prove the credentials and crypto with a raw walk **before** wiring anything into the Zabbix UI. Query the device's own sysName OID and see if it answers with its hostname:
 
 ```bash
 snmpwalk -v3 -l authPriv -u zabbix -a SHA -A '<auth-pass>' -x AES -X '<priv-pass>' \

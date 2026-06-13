@@ -18,7 +18,7 @@ The original itch was that none of the household-tracking tools I tried were wor
 
 ## The capture pipeline
 
-Photograph a shelf and a vision model catalogs each item it sees; an optional local object-detector handles counting. Point it at a bookshelf and it enumerates the individual titles. A receipt photo runs through OCR that pulls out the line-items along with the store, the date, and the return window. A barcode scan auto-populates the name, an image, and an estimated value, converting currency when needed.
+Photograph a shelf and a vision model catalogs each item it sees; an optional local object-detector handles counting. Point it at a bookshelf and it enumerates the individual titles. A receipt photo runs through OCR that pulls out the line-items along with the store, the date, and the total; the return-window reminder is computed from the purchase date. A barcode scan auto-populates the name, an image, and an estimated value, converting currency when needed.
 
 None of these are perfect on their own, but that is fine. They get you to a draft you can correct in a few taps instead of a blank form you have to fill from scratch.
 
@@ -36,7 +36,7 @@ The whole thing is meant to come up with one container and a volume: no orchestr
 
 ## Security
 
-It's a household app, but it touches a camera roll, outbound network fetches, and LLM API keys, so I treated security as a feature rather than an afterthought. There's a security-invariant test suite written against the standard library (no exotic dependencies) covering path traversal, upload size caps, a CSRF origin check, rate limiting, permission scrubbing, and header regressions. Outbound fetches go through SSRF allow-lists so the server can't be talked into hitting internal addresses. Uploaded images are re-encoded to strip EXIF (including GPS). Sessions use PBKDF2, there's per-module RBAC, and API keys are encrypted at rest.
+It's a household app, but it touches a camera roll, outbound network fetches, and LLM API keys, so I treated security as a feature rather than an afterthought. There's a security-invariant test suite written against the standard library (no exotic dependencies) covering path traversal, upload size caps, a CSRF origin check, rate limiting, permission scrubbing, and header regressions. Outbound fetches go through SSRF allow-lists so the server can't be talked into hitting internal addresses. Uploaded images are re-encoded to strip EXIF (including GPS). Passwords are hashed with PBKDF2, there's per-module RBAC, and API keys are encrypted at rest.
 
 None of that is exotic. These are the table-stakes controls that home projects routinely skip, which is how a "harmless" home app ends up the soft target on your network.
 

@@ -45,7 +45,7 @@ With the console back, it had a high-severity alert waiting. **Rule 204, level 1
 Rule ID:     204
 Rule Level:  12 (High)
 Description: Agent event queue is flooded. Check the agent configuration.
-Groups:      wazuh, agent_flooding
+Groups:      wazuh, agent_flooding, gdpr_IV_35.7.d
 Agent:       STORM (192.168.1.182)
 Full Log:    wazuh: Agent buffer: 'flooded'
 ```
@@ -61,7 +61,7 @@ Keeping *severity* separate from *meaning* is most of the skill here. The triage
 | Is it important? | Yes, log integrity was briefly at risk |
 | Should you ignore it? | No |
 
-It's tagged **PCI-DSS 10.6.1** (failures in log monitoring must be detected) for exactly that reason: a flooded buffer is a window where events could have been dropped, and you're supposed to notice. Given the agent was on a box living through the same week of network blips, service restarts, and firewall changes as everything else, the cause was almost certainly a temporary disruption. The agent briefly couldn't reach the manager, events backed up, the buffer filled. The other usual suspects are worth knowing because they're the ones that *recur*: Sysmon enabled without filtering, a file-integrity scan over a big directory during an update, or an auditd flood from a package install.
+It carries a compliance tag for that reason (Wazuh maps rule 204 to **GDPR IV.35.7.d**): a flooded buffer is a window where events could have been dropped, and you're supposed to notice. Given the agent was on a box living through the same week of network blips, service restarts, and firewall changes as everything else, the cause was almost certainly a temporary disruption. The agent briefly couldn't reach the manager, events backed up, the buffer filled. The other usual suspects are worth knowing because they're the ones that *recur*: Sysmon enabled without filtering, a file-integrity scan over a big directory during an update, or an auditd flood from a package install.
 
 The immediate response is a two-minute health check on the agent: confirm it's running, restart it if it's been flapping, and read its own log:
 
@@ -75,7 +75,7 @@ If a buffer flood is a **one-off** tied to a known disruption, that's the whole 
 
 ```xml
 <client_buffer>
-  <disable>no</disable>
+  <disabled>no</disabled>
   <queue_size>5000</queue_size>
   <events_per_second>500</events_per_second>
 </client_buffer>

@@ -14,7 +14,7 @@ draft: false
 
 DeepReview is the outward-facing half of an idea whose inward half is [HouseGRC](/work/housegrc). HouseGRC manages your own GRC posture: the controls, audits, and risk register you own. DeepReview points the same discipline at everyone you depend on: the vendors, suppliers, SaaS providers, and individual consultants who sit inside your trust boundary but outside your control. It is a self-hosted, multi-user, private-by-default security-intelligence platform that builds a profile of a third party from public information only, for authorized red-team / CTF reconnaissance and vendor-risk assessment.
 
-The edition described here is **passive OSINT only**, and never touches the target. It collects and scores what is already public: certificate transparency logs, DNS, vulnerability catalogs, breach indexes, corporate filings, archived pages. No packet is sent to the subject's infrastructure, no port is knocked, no credential is tried. That keeps the tool inside authorized-reconnaissance norms while still producing a defensible, evidence-backed picture of a third party's external security posture. The home-lab build runs behind a reverse proxy with an internal CA, multi-user, private-by-default.
+The edition described here is **passive OSINT only**: no active scanning, exploitation, or credential testing, and no ports knocked. It collects and scores what is already public: certificate transparency logs, DNS, vulnerability catalogs, breach indexes, corporate filings, archived pages, and the subject's own public web pages. The most it touches the subject directly is an ordinary HTTPS request to those public pages, the same one any browser makes. That keeps the tool inside authorized-reconnaissance norms while still producing a defensible, evidence-backed picture of a third party's external security posture. The home-lab build runs behind a reverse proxy with an internal CA, multi-user, private-by-default.
 
 The two systems share an identity layer. A HouseGRC SuperAdmin maps to a DeepReview admin over real signed, single-use SSO, and DeepReview embeds inside HouseGRC as an iframe so the two read as one product to an operator who has both. That is the wiring that exists today. The larger intent, that an outward profile becomes a tracked inward risk, is the architectural shape the pair is built toward. There is no automated data pipeline between them yet; the OSINT scorecard does not silently populate a GRC register.
 
@@ -87,7 +87,7 @@ Python 3.12 throughout: **FastAPI** (async) for the API, **SQLAlchemy 2.0 + asyn
 
 ## Editions and the boundary
 
-The edition documented here is **passive OSINT only**, and never touches the target. A fuller single-seat edition can add an opt-in **active attack-surface probe** and a hardened **disposable code-execution sandbox**, strictly authorized-use-only. Those capabilities exist; this writeup does not document how they work or expose their internals, and they are not part of the passive platform's default behavior.
+The edition documented here is **passive OSINT only**: no active scanning, exploitation, or credential testing. A fuller single-seat edition can add an opt-in **active attack-surface probe** and a hardened **disposable code-execution sandbox**, strictly authorized-use-only. Those capabilities exist; this writeup does not document how they work or expose their internals, and they are not part of the passive platform's default behavior.
 
 ## What building both halves forced
 

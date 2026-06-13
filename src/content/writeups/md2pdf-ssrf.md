@@ -4,14 +4,14 @@ date: 2026-05-30
 summary: 'A Markdown-to-PDF converter renders attacker-supplied HTML server-side, turning its remote-resource fetching into an SSRF that reaches a loopback-only admin page.'
 room: 'MD2PDF'
 platform: TryHackMe
-difficulty: Medium
+difficulty: Easy
 tags: ['web','ssrf','pdf','recon','server-side-request-forgery']
 draft: false
 ---
 
 ## TL;DR
 
-`MD2PDF` exposes a `/convert` endpoint that takes a form field `md=` and renders the submitted HTML into a PDF server-side (Flask plus a server-side HTML-to-PDF renderer). Directory brute-forcing turns up `/admin`, which is locked behind a source-IP allowlist: `403 Only accessible from 127.0.0.1`. SSTI, command injection, and `file://` local-read all turn out to be dead ends. The win is that the PDF renderer happily fetches remote resources you embed. Reference the internal admin endpoint through a resource the engine actually fetches (an `<img>`, a stylesheet `<link>`, or a CSS `@import`/`url()`), and the renderer, running on the target, fetches it from a loopback address, sails through the allowlist, and bakes the admin response into your PDF. `pdftotext` the result and read the flag.
+`MD2PDF` exposes a `/convert` endpoint that takes a form field `md=` and renders the submitted HTML into a PDF server-side (Flask plus **wkhtmltopdf**). Directory brute-forcing turns up `/admin`, which is locked behind a source-IP allowlist: `403 Only accessible from 127.0.0.1`. SSTI, command injection, and `file://` local-read all turn out to be dead ends. The win is that the PDF renderer happily fetches remote resources you embed. Reference the internal admin endpoint through a resource the engine fetches, an `<iframe>` (wkhtmltopdf renders iframes and pulls the page straight in) or an `<img>`, `<link>`, or CSS `@import`/`url()`, and the renderer, running on the target, fetches it from a loopback address, sails through the allowlist, and bakes the admin response into your PDF. `pdftotext` the result and read the flag.
 
 This is a deliberately vulnerable practice room. What follows is the methodology and the defense. No real flag value is included.
 
@@ -119,9 +119,15 @@ A server-side HTML/PDF renderer is, by design, an HTTP client. When it sees a re
 
 That is textbook SSRF: I control a URL that a trusted server-side process will request on my behalf. The target is the `/admin` page that only trusts loopback, and the renderer is running on loopback.
 
-A note on vector choice: pick a reference the engine actually dereferences. Many HTML-to-PDF engines (WeasyPrint among them) do not render `<iframe>` content. An iframe shows up as a blank or tiny mark, not the fetched page, so an `<iframe src=...>` payload silently fails on those engines. The reliable vectors are the ones the layout engine must fetch to render: images, stylesheets, and CSS imports. Use one of those.
+This room runs **wkhtmltopdf**, which renders `<iframe>` content, so the cleanest payload is an iframe pointed at the admin page; the fetched page is laid straight into the PDF. The catch worth knowing for other targets is that not every engine fetches every tag. Some HTML-to-PDF engines (WeasyPrint among them) ignore `<iframe>` entirely, where it shows up as a blank mark rather than the fetched page. Images, stylesheets, and CSS imports are the reliable cross-engine vectors, so they make good fallbacks when an iframe comes back empty.
 
-The cleanest approach is a stylesheet `@import`, because CSS errors are tolerated and the fetch still happens; a background `url()` works the same way:
+The direct payload for this engine is a single iframe:
+
+```html
+<iframe src="http://127.0.0.1:5000/admin" width="800" height="1000"></iframe>
+```
+
+If you land on an engine that ignores iframes, a stylesheet `@import` is the next-cleanest, since CSS errors are tolerated and the fetch still happens; a background `url()` works the same way:
 
 ```html
 <style>
@@ -183,17 +189,17 @@ The root issue is architectural rather than one bad regex. A feature that render
 
 **Disable remote resource fetching in the engine, and keep the engine patched.** Most renderers expose a hook for this. WeasyPrint accepts a custom `url_fetcher`. Use it to allow-list nothing, or only vetted external hosts, and to reject internal targets and non-`http(s)` schemes. Two things make or break this control:
 
-- **Fetch by the validated IP, and do not follow redirects.** Validating the URL or hostname alone is not enough. A validate-then-fetch gap leaves a DNS-rebinding window (you resolve once to check, the engine resolves again to fetch), and an attacker-controlled external host can return an HTTP 3xx redirect to an internal target that a naive fetcher follows without re-validating. WeasyPrint's redirect-following SSRF bypass was fixed in **WeasyPrint 68.0** (CVE-2025-68616); require **WeasyPrint >= 68.0** and disable redirect following regardless. The fetcher below pins the connection to the IP it actually validated, closing the rebinding window.
+- **Validate every resolved address, and do not follow redirects.** Validating the URL or hostname alone is not enough. A validate-then-fetch gap leaves a DNS-rebinding window (you resolve once to check, the engine resolves again to fetch), and an attacker-controlled external host can return an HTTP 3xx redirect to an internal target that a naive fetcher follows without re-validating. WeasyPrint's redirect-following SSRF bypass was fixed in **WeasyPrint 68.0** (CVE-2025-68616); require **WeasyPrint >= 68.0**, which stops following cross-origin redirects, and check every resolved IP (`getaddrinfo`, not `gethostbyname`, so IPv6 and v4-mapped forms are covered) before the fetch. Resist pinning the URL to the validated IP: it breaks TLS SNI and certificate matching for https, and the fetcher re-derives the Host from the URL anyway.
 - **Block the right address classes.** `is_private` already covers loopback and link-local on modern Python, but you must also reject the unspecified address (`0.0.0.0`, which routes to localhost on Linux) and IPv6-mapped forms. Do not rely on `is_reserved` for loopback/private coverage: for IPv4 it only covers `240.0.0.0/4` and returns `False` for `127.0.0.1`, RFC 1918, and `169.254.0.0/16`.
 
 ```python
 from weasyprint import HTML, default_url_fetcher  # require weasyprint >= 68.0
-from urllib.parse import urlparse, urlunparse
+from urllib.parse import urlparse
 import ipaddress, socket
 
-def _is_blocked(ip: ipaddress._BaseAddress) -> bool:
-    # is_private already covers loopback (127/8, ::1) and link-local on modern Python;
-    # is_unspecified catches 0.0.0.0 (routes to localhost on Linux) and ::
+def _is_blocked(ip):
+    # is_private already covers loopback (127/8, ::1) and link-local on modern
+    # Python; is_unspecified catches 0.0.0.0 (routes to localhost on Linux) and ::
     return (ip.is_private or ip.is_loopback or ip.is_link_local
             or ip.is_unspecified or ip.is_multicast)
 
@@ -202,21 +208,21 @@ def safe_fetcher(url):
     if parsed.scheme not in ("http", "https"):
         raise ValueError("scheme blocked")          # no file://, data:, etc.
 
-    # Resolve ONCE, validate, then fetch BY THAT IP so the engine cannot
-    # re-resolve to a different address (closes the DNS-rebinding window).
-    resolved = socket.gethostbyname(parsed.hostname)
-    ip = ipaddress.ip_address(resolved)
-    if ip.is_v4_mapped:                              # e.g. ::ffff:127.0.0.1
-        ip = ipaddress.ip_address(ip.ipv4_mapped)
-    if _is_blocked(ip):
-        raise ValueError("internal target blocked")
+    # Validate EVERY resolved address. socket.gethostbyname returns only one
+    # IPv4 and ignores AAAA, which would leave ::1 / [::ffff:127.0.0.1]
+    # unchecked; getaddrinfo enumerates them all.
+    for info in socket.getaddrinfo(parsed.hostname, parsed.port or 0):
+        ip = ipaddress.ip_address(info[4][0])
+        if isinstance(ip, ipaddress.IPv6Address) and ip.ipv4_mapped is not None:
+            ip = ipaddress.ip_address(ip.ipv4_mapped)   # e.g. ::ffff:127.0.0.1
+        if _is_blocked(ip):
+            raise ValueError("internal target blocked")
 
-    # Fetch by the validated IP; carry the original Host so virtual hosts still work.
-    pinned = parsed._replace(netloc=resolved if not parsed.port
-                             else f"{resolved}:{parsed.port}")
-    # default_url_fetcher in weasyprint >= 68.0 does not transparently follow
-    # cross-origin redirects to unvalidated targets.
-    return default_url_fetcher(urlunparse(pinned))
+    # Rely on weasyprint >= 68.0 NOT following cross-origin redirects
+    # (CVE-2025-68616) to close the validate-then-fetch / DNS-rebinding gap.
+    # Don't pin the URL to the IP: that breaks TLS SNI / cert matching, and
+    # default_url_fetcher re-derives Host from the URL anyway.
+    return default_url_fetcher(url)
 
 HTML(string=user_html, url_fetcher=safe_fetcher).write_pdf("out.pdf")
 ```
@@ -230,10 +236,10 @@ HTML(string=user_html, url_fetcher=safe_fetcher).write_pdf("out.pdf")
 ## Takeaways
 
 - **Server-side document and PDF renderers are SSRF engines.** "Convert user HTML to PDF" is functionally "fetch any URL the user names, from inside our network."
-- **Match the payload to the engine.** Not every renderer fetches every tag. `<iframe>` is ignored by several HTML-to-PDF engines, while `<img>`, `<link>`, and CSS `@import`/`url()` are reliably dereferenced. Pick a vector the layout engine must fetch.
+- **Match the payload to the engine.** This room's wkhtmltopdf renders `<iframe>`, the cleanest vector here; other engines (WeasyPrint) ignore iframes, where `<img>`, `<link>`, and CSS `@import`/`url()` are the reliable fallbacks. Pick a tag the layout engine actually fetches.
 - **Source-IP allowlists (`127.0.0.1`) do not protect endpoints a co-located renderer can reach.** Loopback is not an identity.
 - **Partial scheme filtering is a trap.** Blocking `file://` while leaving `http://` open just redirects the attacker from local-file-read to internal-service-read.
-- **An SSRF allowlist is only as good as its weakest resolution.** Validate the resolved IP, fetch by that IP, block the unspecified address, and patch the engine (WeasyPrint >= 68.0) so redirects cannot smuggle you past the check.
+- **An SSRF allowlist is only as good as its weakest resolution.** Validate every resolved address (IPv6 and v4-mapped included), block the unspecified address, and patch the engine (WeasyPrint >= 68.0) so redirects cannot smuggle you past the check.
 - **Methodology beats payload.** Ruling out SSTI, command injection, and `file://` is what made SSRF the obvious remaining path. Document your dead ends; they are part of the evidence.
 
 *Responsible-disclosure note: MD2PDF is a deliberately vulnerable training room. Everything above is public-knowledge technique shared for defenders and learners; no live target details, session tokens, or flag values are included.*

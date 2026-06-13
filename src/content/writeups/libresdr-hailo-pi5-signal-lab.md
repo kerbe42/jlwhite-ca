@@ -32,7 +32,7 @@ A LibreSDR doesn't just show up as `/dev/something`. It's a small Linux device i
 - **USB gadget:** the SDR is `192.168.2.1`, the host takes `192.168.2.10/24`.
 - **Ethernet:** the SDR is `192.168.1.10`, the host `192.168.1.11/24`.
 
-I wanted it wired directly to the Pi, no wireless anywhere in the path. Changing the device's IP is supposed to be a matter of editing a file on the mass-storage gadget it presents, except the mass-storage gadget wasn't showing up. The fallbacks are the usual embedded-Linux ones: drop to the serial console (`tio /dev/ttyUSB0 115200`, or `screen` at the same baud), `fw_setenv usb_msc_enable 1` to bring the gadget back, or hold the BOOT button to revert to defaults. The network config itself lives in `/opt/config.txt`:
+I wanted it wired directly to the Pi, no wireless anywhere in the path. Changing the device's IP is supposed to be a matter of editing a file on the mass-storage gadget it presents, except the mass-storage gadget wasn't showing up. The fallbacks are the usual embedded-Linux ones: drop to the serial console (`tio -b 115200 /dev/ttyUSB0`, or `screen` at the same baud), `fw_setenv usb_msc_enable 1` to bring the gadget back, or hold the BOOT button to revert to defaults. The network config itself lives in `/opt/config.txt`:
 
 ```ini
 [NETWORK]
@@ -127,7 +127,7 @@ I got far enough to seriously weigh switching the whole base OS to get out from 
 Two things, stated honestly:
 
 - **The radio enumerates and reports its full AD9361 configuration over IIO.** That proves the FPGA image, the firmware, the libiio chain, and the network transport are all good. It's the foundation, short of actual reception.
-- **The sensor half of the bench works.** The [PicoPH](/builds/picoph) side, a Pico W publishing pH and voltage over MQTT, was always the easy, finished part. Useful as a reality check: the distance between "a microcontroller posts a number" and "an SDR feeds an edge-ML signal classifier" is enormous, and almost all of that distance is toolchain, not radio.
+- **The sensor half of the bench works.** The [PicoPH](/builds/picoph) side, a Pi Pico reading pH and EC off the hydro towers, was always the easy, finished part. Useful as a reality check: the distance between "a microcontroller posts a number" and "an SDR feeds an edge-ML signal classifier" is enormous, and almost all of that distance is toolchain, not radio.
 
 ## Where it's headed: a passive drone-detection node
 
