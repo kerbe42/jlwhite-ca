@@ -52,12 +52,21 @@ while True:
     sleep(0.5)
 ```
 
-Programming it is file copying, no toolchain:
+A second file, `boot.py`, runs before `code.py` and hides the Pico's own USB drive, so the host sees only a mouse and never an editable storage device:
+
+```python
+import storage
+storage.disable_usb_drive()
+```
+
+That is also the catch: with `boot.py` in place the `CIRCUITPY` drive stops appearing, so editing the code afterward means putting the Pico back into bootloader mode first.
+
+Setup is file copying, no toolchain. I followed [this Instructables guide](https://www.instructables.com/Raspberry-Pi-Pico-Mouse-Jiggler/):
 
 1. Hold **BOOTSEL** and plug the Pico in. It mounts as a drive called `RPI-RP2`.
 2. Copy the CircuitPython `.uf2` onto it. It reboots as a drive called `CIRCUITPY`.
 3. Drop the `adafruit_hid` library into the `lib/` folder.
-4. Save the code above as `code.py`. CircuitPython runs `code.py` on every power-up, so the globe starts jiggling the moment it is plugged in.
+4. Save the two files as `code.py` and `boot.py`. On the next power-up it comes up as a plain mouse and starts moving.
 
 ## Why bother
 
