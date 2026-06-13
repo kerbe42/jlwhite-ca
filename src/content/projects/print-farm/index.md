@@ -34,4 +34,4 @@ A wall-mounted salmon head on a printed plaque. The scale texture, the green eye
 
 The gold-capped **Super Mario mushroom** is a coin bank: it prints as two halves that thread together, white body and metallic-gold cap. That one is my son Owen's.
 
-A few years ago I ran a batch of buckles for paracord bracelets my son made and sold for a school entrepreneurship class. The printed clasp was the only part that needed a printer; the braid did the rest.
+A few years ago I ran a batch of buckles for the paracord bracelets Owen braided and sold for a school entrepreneurship class. The printed clasp was the only part that needed a printer; the braid did the rest.
