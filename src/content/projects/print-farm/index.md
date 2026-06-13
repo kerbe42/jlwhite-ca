@@ -30,11 +30,19 @@ The articulated octopuses on the shelf up top are the other side of it: print-in
 
 A wall-mounted salmon head on a printed plaque. The scale texture, the green eye, and the red gum line are all in the filament, not paint. It's the kind of multi-colour print the AMS earns its keep on.
 
+### A salmon coat hook
+
+![A 3D-printed salmon head on a block, mouth open, fresh off the printer in salmon-pink with the tree supports still attached](./salmon-hook.jpg)
+
+The same fish-head-on-a-block, built as a coat hook: a jacket or a lanyard hangs from the open mouth. Modelled in Tinkercad and printed in salmon-pink, shown here straight off the bed with the supports still on.
+
 ## A few for the family
 
 The gold-capped **Super Mario mushroom** is a coin bank: it prints as two halves that thread together, white body and metallic-gold cap. That one is my son Owen's.
 
 ![A 3D-printed Super Mario mushroom coin bank, white with a metallic-gold cap](./mushroom-bank.jpg)
+
+![The same mushroom split into its two halves, the cap lifting off the base so coins drop inside](./mushroom-open.jpg)
 
 A few years ago I ran a batch of buckles for the paracord bracelets Owen braided and sold for a school entrepreneurship class. The printed clasp was the only part that needed a printer; the braid did the rest.
 

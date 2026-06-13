@@ -22,6 +22,8 @@ The globe was battery-powered, so most of the work was mechanical:
 - Print a replacement bottom plate to match the original, with feet and a slot for the cable, so the underside looks stock.
 - Close it up. From the outside it is a plasma globe with a USB cable, which is the point.
 
+![The base opened up: the globe's own driver board, the Raspberry Pi Pico W on its printed mount, and the printed bottom plate](./teardown.jpg)
+
 Nobody looks twice at a desk toy. The disguise is the whole trick.
 
 ![The 3D-printed replacement base with rubber feet, beside the original battery cover it replaced](./base.jpg)
