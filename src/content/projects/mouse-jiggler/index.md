@@ -3,12 +3,16 @@ title: 'Mouse jiggler in a plasma globe'
 world: builds
 date: 2026-06-12
 summary: 'A Raspberry Pi Pico W hidden inside a plasma globe, rewired to USB and capped with a printed base so it passes for a desk toy. It nudges the mouse so the machine never locks, and it is a reminder to think before plugging unknown USB devices into your computer.'
-featured: false
+cover: ./cover.jpg
+coverAlt: 'A plasma globe opened at the base, exposing the driver board and a Raspberry Pi Pico W wired to USB'
+featured: true
 tags: ['security', 'red-team', 'hid', 'raspberry-pi-pico', '3D printing']
 draft: false
 ---
 
 It really is a plasma globe: the lamp and driver are left intact, rewired to run from USB instead of the original batteries. Tucked into the base is a **Raspberry Pi Pico W** that the computer sees as a USB mouse. Plug it in and every so often it nudges the cursor a few pixels, so the machine never idles or locks. Harmless on its own. The point is the lesson underneath it: a USB device can be anything, and the case it comes in tells you nothing.
+
+![The plasma globe lit up, looking like an ordinary desk toy](./lit.jpg)
 
 ## The build
 
@@ -19,6 +23,8 @@ The globe was battery-powered, so most of the work was mechanical:
 - Close it up. From the outside it is a plasma globe with a USB cable, which is the point.
 
 Nobody looks twice at a desk toy. The disguise is the whole trick.
+
+![The 3D-printed replacement base with rubber feet, beside the original battery cover it replaced](./base.jpg)
 
 ## How it works
 
