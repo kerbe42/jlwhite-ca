@@ -16,7 +16,9 @@ Hydroponics lives and dies on water chemistry: pH and EC (how strong the nutrien
 
 A Raspberry Pi Pico reads two analog probes, pH and EC, each through its own signal-conditioning board (the blue trimmers set offset and gain during calibration), with the BNC-terminated probes dropping into the reservoir.
 
-The enclosure started as a hand sketch (board spacing, standoffs, cable-gland cut-outs) and became a printed box sized to the exact hardware (that's the sketch-and-box up top).
+The enclosure started as a hand sketch (board spacing, standoffs, cable-gland cut-outs), got modelled in Tinkercad, and became a printed box sized to the exact hardware (that's the sketch-and-box up top).
+
+![The PicoPH enclosure modelled in Tinkercad, with internal standoffs for the Pico and sensor boards](./enclosure.jpg)
 
 Then it went to work, watching the towers:
 
