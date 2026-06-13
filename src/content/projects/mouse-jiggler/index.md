@@ -65,6 +65,8 @@ Programming it is file copying, no toolchain:
 
 This is the friendly version of an old trick. The malicious one swaps the mouse for a **keyboard** that types its own commands the instant it is plugged in (a "BadUSB" or Rubber Ducky attack), and the few seconds before anyone notices is plenty.
 
-I built it after watching Google's **[Hacking Google](https://www.youtube.com/watch?v=TusQWn2TQxQ)** series, specifically the Red Team episode. To get into the Google Glass project, their red team sent employees **USB plasma globes loaded with malware**, dressed up as a work-anniversary gift: "Congratulations on your anniversary for working at Google. Here is a small gift." Someone plugged one in, and that was the foothold into the Google Glass project. The plasma globe here is a nod to that story.
+I built it after watching Google's **[Hacking Google](https://www.youtube.com/watch?v=TusQWn2TQxQ)** series, specifically the Red Team episode. In 2012, to get at the Google Glass designs, their red team sent employees **USB plasma globes loaded with malware**, dressed up as a work-anniversary gift: "Congratulations on your anniversary for working at Google. Here is a small gift." Plugging one in flashed a window for a fraction of a second while it typed a backdoor onto the machine. The handful of people who fell for it had nothing to do with Glass; the globe was just the first link in a chain that ended with the team pulling the blueprints. The plasma globe here is a nod to that story.
+
+Google's own fix is the tell for why this matters: they wrote software that watches for keystrokes arriving faster than a human could type and blocks them, and open-sourced it. A mouse jiggler is the harmless cousin of the thing that fix exists to stop.
 
 So the takeaway is the boring, durable one: do not plug unknown USB devices into your computer, including the free ones, the found ones, and the gift ones. The friendly desk toy and the attacker's tool are the same shape.
