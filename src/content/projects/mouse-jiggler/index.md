@@ -26,6 +26,8 @@ The globe was battery-powered, so most of the work was mechanical:
 
 Nobody looks twice at a desk toy. The disguise is the whole trick.
 
+![The replacement base modelled in Tinkercad: a round plate with feet and screw posts, sized to the globe](./base-cad.jpg)
+
 ![The 3D-printed replacement base with rubber feet, beside the original battery cover it replaced](./base.jpg)
 
 ## How it works

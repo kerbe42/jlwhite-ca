@@ -32,9 +32,9 @@ A wall-mounted salmon head on a printed plaque. The scale texture, the green eye
 
 ### A salmon coat hook
 
-![A 3D-printed salmon head on a block, mouth open, fresh off the printer in salmon-pink with the tree supports still attached](./salmon-hook.jpg)
+![A blue 3D-printed salmon-head coat hook on a nameplate, mounted on an office cubicle partition and holding a jacket](./cooke-coat-hook.jpg)
 
-The same fish-head-on-a-block, built as a coat hook: a jacket or a lanyard hangs from the open mouth. Modelled in Tinkercad and printed in salmon-pink, shown here straight off the bed with the supports still on.
+A salmon head on a nameplate that grips whatever you hang from its mouth. I designed it from scratch in Tinkercad and printed it to hold a jacket at the office.
 
 ## A few for the family
 
