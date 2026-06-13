@@ -32,26 +32,24 @@ Nobody looks twice at a desk toy. The disguise is the whole trick.
 
 ## How it works
 
-The Pico runs **CircuitPython**, which lets it present itself to the host as a standard USB HID mouse. The program is a few lines: move the pointer a little, move it back, wait, repeat.
+The Pico runs **CircuitPython**, which lets it present itself to the host as a standard USB HID mouse. The whole program nudges the cursor a few pixels left, right, up, then down, half a second apart, looping forever so the session never goes idle:
 
 ```python
-# code.py: runs automatically whenever the Pico has power
-import time
-import random
 import usb_hid
 from adafruit_hid.mouse import Mouse
+from time import sleep
 
-mouse = Mouse(usb_hid.devices)
+m = Mouse(usb_hid.devices)
 
 while True:
-    # a small nudge and back: the pointer barely moves,
-    # but the host never sees the session go idle
-    dx = random.randint(5, 15) * random.choice((-1, 1))
-    dy = random.randint(5, 15) * random.choice((-1, 1))
-    mouse.move(x=dx, y=dy)
-    time.sleep(0.3)
-    mouse.move(x=-dx, y=-dy)
-    time.sleep(random.randint(30, 90))
+    m.move(-5, 0, 0)
+    sleep(0.5)
+    m.move(5, 0, 0)
+    sleep(0.5)
+    m.move(0, -5, 0)
+    sleep(0.5)
+    m.move(0, 5, 0)
+    sleep(0.5)
 ```
 
 Programming it is file copying, no toolchain:
