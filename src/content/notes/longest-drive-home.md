@@ -9,7 +9,7 @@ summary: 'A few years ago, alone in a datacenter at 3am during a core network cu
 
 A few years ago, back when I still wore the network hat, I was running a core network replacement for a global, multi-billion-dollar company. It was the middle of the pandemic, so the datacenter was mine alone, midnight to four in the morning, the only window I had to take the network down and stand a new one up in its place. I had a third party on a call in case I got stuck, but the network was down and they had no access to any of it. They were a voice, moral support, someone to confirm an answer. The work itself was mine.
 
-It was running longer than it should have. Parts of the old config wouldn't take on the new switch, so I was rewriting the script on the fly to make them fit, with the whole network down around me. Somewhere in the middle of that, around three in the morning, my phone rang. It was my mom. You already know where my head went the second I saw her name.
+It was running longer than it should have. Parts of the old config wouldn't take on the new switch, so I was rewriting the vendor's script on the fly to make them fit, with the whole network down around me. Somewhere in the middle of that, around three in the morning, my phone rang. It was my mom. You already know where my head went the second I saw her name.
 
 My grandmother had died in the night. The last of my grandparents, gone, found in her apartment not long before the call. I was standing in a cold room full of machines, holding that, with a multi-billion-dollar company dark behind me and the work only half done.
 
