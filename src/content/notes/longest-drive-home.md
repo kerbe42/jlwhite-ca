@@ -3,11 +3,10 @@ title: 'The longest drive home'
 date: 2026-06-14
 kind: essay
 tags: ['grief', 'resilience', 'career']
+contentWarning: 'grief, and the sudden death of a family member'
 draft: false
 summary: 'A few years ago, alone in a datacenter at 3am during a core network cutover, I got the call that my last grandparent had died in the night. There was no one to hand it to and no option but to finish. What I took from the longest drive home of my life.'
 ---
-
-<p class="cw"><strong>Content warning:</strong> grief, and the sudden death of a family member.</p>
 
 A few years ago, back when I still wore the network hat, I was running a core network replacement for a global, multi-billion-dollar company. It was the middle of the pandemic, so the datacenter was mine alone, midnight to four in the morning, the only window I had to take the network down and stand a new one up in its place. I had a third party on a call in case I got stuck, but the network was down and they had no access to any of it. They were a voice, moral support, someone to confirm an answer. The work itself was mine.
 

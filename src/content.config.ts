@@ -45,6 +45,7 @@ const notes = defineCollection({
     title: z.string(),
     date: z.coerce.date(),
     summary: z.string(),
+    contentWarning: z.string().optional(),
     kind: z.enum(['essay', 'playbook']).default('essay'),
     tags: z.array(z.string()).default([]),
     draft: z.boolean().default(false),

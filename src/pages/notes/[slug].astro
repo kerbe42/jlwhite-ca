@@ -34,6 +34,9 @@ const kindLabel = data.kind === 'playbook' ? 'Playbook' : 'Essay';
       </header>
 
       <div class="prose">
+        {data.contentWarning && (
+          <p class="cw"><strong>Content warning:</strong> {data.contentWarning}</p>
+        )}
         <Content />
       </div>
     </div>

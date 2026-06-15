@@ -17,6 +17,7 @@ const kindLabel = data.kind === 'playbook' ? 'Playbook' : 'Essay';
     <div class="meta">
       <time datetime={data.date.toISOString()}>{formatDate(data.date)}</time>
       <span class={`chip kind-${data.kind}`}>{kindLabel}</span>
+      {data.contentWarning && <span class="chip cw-chip">Content warning</span>}
     </div>
   </div>
   <span class="arrow" aria-hidden="true">→</span>
@@ -57,6 +58,7 @@ const kindLabel = data.kind === 'playbook' ? 'Playbook' : 'Essay';
   }
   .kind-essay { color: #0c447c; background: #e6f1fb; }
   .kind-playbook { color: #5a3a86; background: #efe8fb; }
+  .cw-chip { color: #8a4b00; background: #fbe9d3; }
   .arrow {
     font-size: 1.2rem;
     color: var(--ink-faint);
