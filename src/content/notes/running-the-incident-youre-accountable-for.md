@@ -1,6 +1,6 @@
 ---
 title: 'Running the incident you''re accountable for'
-date: 2026-05-31
+date: 2026-06-08
 summary: 'When you own the incident, your job stops being the forensics and becomes deciding under uncertainty, with the technical recovery and the human one running on two clocks at once.'
 kind: essay
 tags: ['incident-response', 'leadership', 'csirt']

@@ -1,6 +1,6 @@
 ---
 title: 'The longest drive home'
-date: 2026-06-15
+date: 2026-06-14
 kind: essay
 tags: ['grief', 'resilience', 'career']
 draft: false

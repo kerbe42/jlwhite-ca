@@ -1,6 +1,6 @@
 ---
 title: 'Prioritising controls when you can''t do everything'
-date: 2026-05-26
+date: 2026-06-06
 summary: 'You never have enough time, money, or people, so the whole job is sequencing. A practical, CIS-aligned way to decide what to do first, and what to deliberately leave for later.'
 kind: playbook
 tags: ['risk', 'security-program', 'governance', 'methodology']
