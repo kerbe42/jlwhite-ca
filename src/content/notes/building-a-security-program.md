@@ -1,6 +1,6 @@
 ---
 title: 'Building a security program'
-date: 2026-06-10
+date: 2026-05-29
 summary: 'How I''d build a real security function in an operational business: visibility before controls, a framework as a shared map, and sequencing by risk reduced per unit of effort rather than by what''s interesting.'
 kind: playbook
 tags: ['security-program', 'leadership', 'governance', 'methodology']

@@ -1,6 +1,6 @@
 ---
 title: 'Security a 24/7 operation can actually live with'
-date: 2026-06-12
+date: 2026-06-03
 summary: 'Security leadership is a negotiation with a business that does not stop. A bypassed control is worse than no control.'
 kind: essay
 tags: ['leadership', 'risk', 'security-program']

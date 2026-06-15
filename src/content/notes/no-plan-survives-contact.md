@@ -1,6 +1,6 @@
 ---
 title: 'No plan survives contact'
-date: 2026-06-13
+date: 2026-06-05
 kind: essay
 tags: ['leadership', 'incident-response', 'crisis-management']
 draft: false
