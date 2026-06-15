@@ -2,12 +2,14 @@
 import Base from '../layouts/Base.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import WriteupRow from '../components/WriteupRow.astro';
+import NoteRow from '../components/NoteRow.astro';
 import ThmCard from '../components/ThmCard.astro';
 import { SITE, WORLDS } from '../consts';
-import { getFeaturedProjects, getWriteups } from '../lib/content';
+import { getFeaturedProjects, getWriteups, getNotes } from '../lib/content';
 
 const featured = await getFeaturedProjects(4);
 const writeups = (await getWriteups()).slice(0, 3);
+const notes = (await getNotes()).slice(0, 3);
 const worlds = Object.values(WORLDS);
 ---
 
@@ -27,6 +29,28 @@ const worlds = Object.values(WORLDS);
       </div>
     </div>
   </section>
+
+  <!-- Field Notes -->
+  {
+    notes.length > 0 && (
+      <section class="section notes-feature">
+        <div class="wrap">
+          <header class="sec-head">
+            <div class="sec-title">
+              <h2>Field Notes</h2>
+              <p class="sec-intro">Essays and playbooks on leadership, incident response, and the lessons that don't fit in a writeup.</p>
+            </div>
+            <a class="more" href="/notes">All notes →</a>
+          </header>
+          <div class="notes-list">
+            {notes.map((item) => (
+              <NoteRow item={item} />
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
 
   <!-- Featured builds -->
   {
@@ -127,6 +151,19 @@ const worlds = Object.values(WORLDS);
   }
   .sec-head h2 {
     margin: 0;
+  }
+  .sec-title {
+    min-width: 0;
+  }
+  .sec-intro {
+    margin: 0.35rem 0 0;
+    font-size: 0.92rem;
+    line-height: 1.5;
+    color: var(--ink-muted);
+    max-width: 56ch;
+  }
+  .notes-feature .sec-head {
+    align-items: start;
   }
   .more {
     font-size: 0.9rem;
