@@ -13,7 +13,7 @@ It was running longer than it should have. Parts of the old config wouldn't take
 
 My grandmother had died in the night. The last of my grandparents, gone, found in her apartment not long before the call. I was standing in a cold room full of machines, holding that, with a multi-billion-dollar company dark behind me and the work only half done.
 
-I tried to tell the man on the call what had happened. But a datacenter is a wall of noise, and all he caught was me mumbling something about my mom phoning. He couldn't hear it, and there was no one to hand any of it to anyway. So I did the only thing the moment left me. I swallowed it and went back to the work.
+I tried to tell him what had happened. But a datacenter is a wall of noise, and all he caught was me mumbling something about my mom phoning. He couldn't hear it, and there was no one to hand any of it to anyway. So I did the only thing the moment left me. I swallowed it and went back to the work.
 
 I'm honestly not sure how I got through the next hour. I finished the replacement as well as it could be finished, brought global operations back up, took care of the few small things left over, and walked out into what became the longest drive home of my life. The wall I'd held up in that room came down somewhere on that drive, once the work was safe and nothing was resting on me holding it together.
 
