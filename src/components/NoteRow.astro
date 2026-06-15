@@ -13,7 +13,7 @@ const kindLabel = data.kind === 'playbook' ? 'Playbook' : 'Essay';
 <a class="row" href={href}>
   <div class="main">
     <h3>{data.title}</h3>
-    <p>{data.summary}</p>
+    <p class:list={[{ 'cw-blur': data.contentWarning }]}>{data.summary}</p>
     <div class="meta">
       <time datetime={data.date.toISOString()}>{formatDate(data.date)}</time>
       <span class={`chip kind-${data.kind}`}>{kindLabel}</span>
@@ -59,6 +59,12 @@ const kindLabel = data.kind === 'playbook' ? 'Playbook' : 'Essay';
   .kind-essay { color: #0c447c; background: #e6f1fb; }
   .kind-playbook { color: #5a3a86; background: #efe8fb; }
   .cw-chip { color: #8a4b00; background: #fbe9d3; }
+  .cw-blur {
+    filter: blur(6px);
+    transition: filter 0.18s ease;
+  }
+  .row:hover .cw-blur,
+  .row:focus .cw-blur { filter: none; }
   .arrow {
     font-size: 1.2rem;
     color: var(--ink-faint);
