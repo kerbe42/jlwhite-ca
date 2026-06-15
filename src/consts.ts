@@ -96,7 +96,7 @@ export const CV: {
       note: 'Senior IT Architect; Team Lead, Network Services; and Senior Network Analyst. Ran the enterprise network across 8 countries, built a disaster-recovery datacenter, handled secure network cutover for acquired companies, and replaced legacy wireless that couldn’t be secured.',
     },
     {
-      role: 'Network Analyst → Senior Network Analyst',
+      role: 'Infrastructure Analyst → Senior Network Analyst',
       org: 'Diversified industrial conglomerate',
       period: '~2008 – Feb 2018',
       note: 'Led core and datacenter network redesign and segmentation, and served as network lead on security projects and major incident response.',
