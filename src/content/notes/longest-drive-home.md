@@ -22,4 +22,4 @@ I finished the replacement as well as it could be finished, brought global opera
 
 I don't have a tidy lesson from that night, and I'm not sure it needs one. The closest I've got is something that sounds like a cliché until a night like that makes you mean it: keep the glass half full. There is a light at the end of the tunnel. It doesn't come find you, though. You have to look for it, and then move toward it, one small step at a time, until you're out the other side. I finished the work because there was no other option, and I let myself grieve her once it was done, because that was the only order the night allowed.
 
-You get through the hard nights. You come out the other side carrying scars, but the scars aren't only damage. They're reminders that you made it through, even when you were sure you wouldn't.
+You get through the hard nights. You come out the other side carrying scars, but the scars aren't only damage. They're reminders that you made it through, even when it felt impossible.
