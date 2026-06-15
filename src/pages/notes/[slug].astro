@@ -87,4 +87,15 @@ const kindLabel = data.kind === 'playbook' ? 'Playbook' : 'Essay';
     color: var(--ink-muted);
     font-style: italic;
   }
+  .prose :global(.cw) {
+    border-left: 3px solid var(--accent-w);
+    background: var(--card-warm);
+    padding: 0.7rem 1rem;
+    border-radius: var(--radius);
+    margin: 0 0 1.6rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--ink-muted);
+  }
+  .prose :global(.cw strong) { color: var(--ink); }
 </style>
