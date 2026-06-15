@@ -15,7 +15,7 @@ Once the door opened onto a world of information, there was no measured version 
 
 Along the way I figured out how my own head works. The more emotion I attach to something, the more of it I keep. Get me excited about a subject and I'll go deep and it sticks; leave me cold and it slides straight off. So I don't fight that, I use it. I find the part of a new thing that's genuinely exciting and let it pull the rest along behind it. Immersion is the method, and emotion is the fuel.
 
-The newer skill has been learning to feel that same excitement about how everything works, not just the machine. The wonder started with technology and kept spreading: into the things I [build](/builds), the food I [grow](/garden), the radios and sensors that fill the [lab](/lab). Once you know the feeling, you can go looking for it anywhere, and almost everything rewards the look.
+The newer skill has been learning to feel that same excitement about how everything works, not just the machine. The wonder started with books, blossomed with technology, and kept spreading: into the things I [build](/builds), the food I [grow](/garden), the radios and sensors that fill the [lab](/lab). Once you know the feeling, you can go looking for it anywhere, and almost everything rewards the look.
 
 The kid with two channels has more access now than he could have dreamed of, and his answer to it hasn't changed: dive in. The TryHackMe streak, the certifications, the home lab I run to understand things rather than just use them, none of it is for a resume. It's the same hungry kid who finally got online and couldn't believe his luck.
 
