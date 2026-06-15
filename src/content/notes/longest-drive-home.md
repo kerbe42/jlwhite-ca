@@ -1,6 +1,6 @@
 ---
 title: 'The longest drive home'
-date: 2026-06-14
+date: 2026-06-11
 kind: essay
 tags: ['grief', 'resilience', 'career']
 contentWarning: 'grief, and the sudden death of a family member'

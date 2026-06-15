@@ -1,6 +1,6 @@
 ---
 title: 'Burnout is a temperature check'
-date: 2026-06-12
+date: 2026-06-13
 kind: essay
 tags: ['burnout', 'leadership', 'career']
 draft: false

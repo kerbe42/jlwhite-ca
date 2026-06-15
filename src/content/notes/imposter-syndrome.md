@@ -1,6 +1,6 @@
 ---
 title: 'Listen to your imposter syndrome'
-date: 2026-06-11
+date: 2026-06-12
 kind: essay
 tags: ['imposter-syndrome', 'leadership', 'career']
 draft: false
