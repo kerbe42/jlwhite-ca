@@ -39,6 +39,7 @@ const elsewhere = [
     </div>
 
     <div class="bottom">
+      <p class="disclaimer">The opinions here are my own and do not represent my employer.</p>
       <p class="copyright">© {year} {SITE.author}. Built with Astro.</p>
       <p class="utility">
         <a href="/uses">Uses</a>
@@ -138,6 +139,13 @@ const elsewhere = [
     margin-top: 2.5rem;
     padding-top: 1.25rem;
     border-top: 1px solid var(--line);
+  }
+  .disclaimer {
+    width: 100%;
+    margin: 0 0 0.5rem;
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: var(--ink-faint);
   }
   .copyright {
     margin: 0;
