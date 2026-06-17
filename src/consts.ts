@@ -81,7 +81,7 @@ export const CV: {
       role: 'Director, Cybersecurity',
       org: 'Large privately held multinational',
       period: 'Oct 2025 – present',
-      note: 'Accountable for the global cybersecurity posture across 17 countries and ~18,000 employees: security architecture, GRC, and security operations.',
+      note: 'Accountable for the global cybersecurity posture across more than a dozen countries and tens of thousands of employees: security architecture, GRC, and security operations.',
     },
     {
       role: 'Senior Manager, IT Security',
@@ -93,7 +93,7 @@ export const CV: {
       role: 'Network & architecture roles',
       org: 'Large privately held multinational',
       period: 'Feb 2018 – Jan 2023',
-      note: 'Senior IT Architect; Team Lead, Network Services; and Senior Network Analyst. Ran the enterprise network across 8 countries, built a disaster-recovery datacenter, handled secure network cutover for acquired companies, and replaced legacy wireless that couldn’t be secured.',
+      note: 'Senior IT Architect; Team Lead, Network Services; and Senior Network Analyst. Ran the enterprise network across several countries, built a disaster-recovery datacenter, handled secure network cutover for acquired companies, and replaced legacy wireless that couldn’t be secured.',
     },
     {
       role: 'Infrastructure Analyst → Senior Network Analyst',
