@@ -79,19 +79,19 @@ export const CV: {
   experience: [
     {
       role: 'Director, Cybersecurity',
-      org: 'Global seafood & aquaculture company',
+      org: 'Large privately held multinational',
       period: 'Oct 2025 – present',
       note: 'Accountable for the global cybersecurity posture across 17 countries and ~18,000 employees: security architecture, GRC, and security operations.',
     },
     {
       role: 'Senior Manager, IT Security',
-      org: 'Global seafood & aquaculture company',
+      org: 'Large privately held multinational',
       period: 'Jan 2023 – Oct 2025',
       note: 'Built and operationalized the enterprise cybersecurity function spanning security architecture, GRC, and security operations.',
     },
     {
       role: 'Network & architecture roles',
-      org: 'Global seafood & aquaculture company',
+      org: 'Large privately held multinational',
       period: 'Feb 2018 – Jan 2023',
       note: 'Senior IT Architect; Team Lead, Network Services; and Senior Network Analyst. Ran the enterprise network across 8 countries, built a disaster-recovery datacenter, handled secure network cutover for acquired companies, and replaced legacy wireless that couldn’t be secured.',
     },
