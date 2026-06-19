@@ -101,6 +101,12 @@ export const CV: {
       period: '~2008 – Feb 2018',
       note: 'Led core and datacenter network redesign and segmentation, and served as network lead on security projects and major incident response.',
     },
+    {
+      role: 'Service desk & field services',
+      org: 'Various contracts',
+      period: '2003 – 2008',
+      note: 'Where it started: a string of contracts on the service desk and out in field services, the unglamorous trade of keeping hardware and humans running. A lot of tickets, a lot of windshield time, and the foundation everything since was built on.',
+    },
   ],
   education: [],
 };
