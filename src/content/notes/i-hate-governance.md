@@ -4,7 +4,7 @@ date: 2026-06-18
 kind: essay
 tags: ['governance', 'leadership', 'risk', 'security-program']
 draft: false
-summary: 'I don''t hate governance. I hate bad governance, the kind that treats a trivial change like a load-bearing wall. Done right it is efficient, effective, and built around what the business needs: hard stops where the risk is real, fast lanes where it isn''t, and a translation layer between business intent and security reality.'
+summary: 'Why the department of no doesn''t fly anymore, and what good governance does instead.'
 ---
 
 Well, I used to think I hated governance. Then I understood: what I hate is bad governance.
