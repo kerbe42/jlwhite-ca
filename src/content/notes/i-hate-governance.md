@@ -1,9 +1,9 @@
 ---
 title: 'I Hate Governance'
-date: 2026-06-16
+date: 2026-06-18
 kind: essay
 tags: ['governance', 'leadership', 'risk', 'security-program']
-draft: true
+draft: false
 summary: 'I don''t hate governance. I hate bad governance, the kind that treats a trivial change like a load-bearing wall. Done right it is efficient, effective, and built around what the business needs: hard stops where the risk is real, fast lanes where it isn''t, and a translation layer between business intent and security reality.'
 ---
 
