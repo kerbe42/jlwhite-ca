@@ -1,4 +1,5 @@
 // Site-wide configuration and shared constants.
+import thm from './data/thm.json';
 
 export const SITE = {
   title: 'Justin White',
@@ -45,18 +46,21 @@ export const LINKS = {
   credly: 'https://www.credly.com/users/justin-white',
 };
 
-// TryHackMe profile. The auto-generated S3 badge went stale (it under-reported
-// rank, badges, and streak), so these stats are kept by hand from the live
-// profile and the card links out to it for the current numbers.
+// TryHackMe profile. The S3 badge image under-reports, so the numbers come from
+// the public-profile API instead, refreshed daily into src/data/thm.json by
+// .github/workflows/update-thm.yml (a headless browser clears TryHackMe's bot
+// checkpoint). Each refresh is a commit, which rebuilds the site with the
+// current values. "Legend" is the only static piece; it effectively never moves.
 export const THM = {
   url: 'https://tryhackme.com/p/kerbe42',
   user: 'kerbe42',
-  tier: 'Legend · top 1%',
+  tier: `Legend · top ${thm.topPercentage}%`,
   stats: [
-    { label: 'Rooms', value: '252' },
-    { label: 'Badges', value: '45' },
-    { label: 'Day streak', value: '112' },
+    { label: 'Rooms', value: String(thm.completedRooms) },
+    { label: 'Badges', value: String(thm.badges) },
+    { label: 'Day streak', value: String(thm.streak) },
   ],
+  updatedAt: thm.updatedAt,
 };
 
 // CV / credentials, formal entries. Empty arrays are simply omitted from the page,

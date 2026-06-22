@@ -1,0 +1,13 @@
+{
+  "name": "thm-scraper",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "description": "Refreshes the TryHackMe stats baked into jlwhite.ca (src/data/thm.json). Run by .github/workflows/update-thm.yml; kept out of the site's own dependencies so it never touches the Cloudflare Pages build.",
+  "scripts": {
+    "update": "node update-thm.mjs"
+  },
+  "dependencies": {
+    "playwright": "^1.61.0"
+  }
+}
