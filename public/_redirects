@@ -9,3 +9,6 @@
 /notes/building-a-security-program-from-zero/  /notes/building-a-security-program  301
 # RFC 9116 legacy location → canonical
 /security.txt               /.well-known/security.txt  301
+# Essay retitled shortly after publish
+/notes/y-is-not-a-crooked-letter    /notes/the-importance-of-why  301
+/notes/y-is-not-a-crooked-letter/   /notes/the-importance-of-why  301

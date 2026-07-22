@@ -1,10 +1,10 @@
 ---
-title: 'Y is not a crooked letter'
+title: 'The importance of Why'
 date: 2026-07-07
 kind: essay
 tags: ['curiosity', 'leadership', 'communication']
 draft: false
-summary: 'Why is not a crooked question. On working out the why for yourself, the fiction you sometimes build instead, and why a leader hands out the real one.'
+summary: 'On working out the why for yourself, the fiction you sometimes build instead, and why a leader hands out the real one.'
 ---
 
 Why is the most useful question I own, and most of the time I never have to ask it out loud.
@@ -34,5 +34,3 @@ The why is the grease on the bearings. The icing on the cake. It doesn't change 
 So I've made my peace with it. I chase the why for myself, because that's the only way I actually understand anything, and I check the ones I build, because certainty isn't proof I got it right. I hand the why to other people every chance I get, because it's the cheapest force multiplier there is. And when there's no time for either, I do the thing anyway, and go find the why after.
 
 The why was never a requirement. It's the lubricant. Get the job done first. But if you can pass someone the reason on the way past, do it, because everything moves easier when people know why.
-
-Y was never a crooked letter.
