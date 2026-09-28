@@ -113,6 +113,16 @@ const { Content } = await render(entry);
     border: 1px solid var(--line);
     margin: 1.5rem auto;
   }
+  .prose :global(video) {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    background: #000;
+    border-radius: var(--radius);
+    border: 1px solid var(--line);
+    margin: 1.5rem auto;
+  }
   .prose :global(ul),
   .prose :global(ol) {
     padding-left: 1.3rem;
