@@ -23,6 +23,16 @@ Notes fall onto an on-screen keyboard: orange for the right hand, violet for the
 
 The tour above was made by the app itself. A script drives it headless one frame at a time, narrates in the same voice as the teacher, and renders the piano from the app's own samples.
 
+## Getting started
+
+A first visit opens a short welcome tour. It asks how your piano is connected, checks that it can hear you by having you play middle C, puts a spotlight on each part of the screen while the teacher explains it, and then takes you straight into the course or into the song library.
+
+![The welcome tour asking how the piano is connected: a cable, a microphone, a USB-MIDI cable, the computer keyboard, or no piano right now](./welcome.jpg)
+
+No piano to hand? The computer keyboard works too. The home row becomes two hands in a five-finger position, thumbs on V and N, and each key is a finger, so it plays whatever the fingering gives that finger. That limits it to songs whose hands stay in one place: eleven in the library and about half of the course's exercises, including nearly all of the first two weeks. For the rest, you play along and tell the teacher how it went.
+
+![Ode to Joy with the computer keyboard: a keycap on each piano key it plays, A S D F V for the left hand and N J K L ; for the right](./keyboard.jpg)
+
 ## A teacher that listens
 
 What makes it more than a player is that it hears you. My digital piano's headphone output runs by cable into the laptop's audio input; an acoustic piano works through a microphone, and a USB/MIDI keyboard works in browsers that support Web MIDI.
