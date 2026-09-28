@@ -12,7 +12,7 @@ draft: false
 
 ## What it is
 
-I'm relearning the piano after 25 years away from it. Piano Trainer is the teacher I built for that. It runs in a web browser straight from a folder of files, with no server, no account and no internet connection.
+I'm relearning the piano after 25 years away from it. Piano Trainer is the teacher I built for that. It runs in a web browser with no account and nothing to install: try it at **[piano.jlwhite.ca](https://piano.jlwhite.ca)**, or open it straight from a folder of files, offline.
 
 Notes fall onto an on-screen keyboard: orange for the right hand, violet for the left, with a finger number on each. You can slow a song down to 10% without the pitch changing, loop the bars you keep missing, or have it wait at each of your notes until you play them. The strip along the bottom flips to real sheet music that scrolls with the song, so you practise reading while you play.
 
@@ -62,7 +62,7 @@ The game and film shelf is public-domain music with a famous second life: Korobe
 
 ## Built for an ordinary laptop
 
-It runs from a local file in Firefox, Chrome or Edge. The keyboard and note shapes are drawn once and reused, the picture is redrawn only while something moves, the graphics switch to a lighter look on their own if frames start taking too long, and the note detector costs about 35 ms of computing per second of sound. Songs without fingering in their score get a suggested fingering, worked out as the cheapest path for a hand through the notes: stretches, crossings, the thumb on a black key.
+It runs online or from a local file, in Firefox, Chrome or Edge. The keyboard and note shapes are drawn once and reused, the picture is redrawn only while something moves, the graphics switch to a lighter look on their own if frames start taking too long, and the note detector costs about 35 ms of computing per second of sound. Songs without fingering in their score get a suggested fingering, worked out as the cheapest path for a hand through the notes: stretches, crossings, the thumb on a black key.
 
 ## Closing
 
