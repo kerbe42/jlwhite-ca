@@ -25,13 +25,17 @@ The tour above was made by the app itself. A script drives it headless one frame
 
 ## Getting started
 
-A first visit opens a short welcome tour. It asks how your piano is connected, checks that it can hear you by having you play middle C, puts a spotlight on each part of the screen while the teacher explains it, and then takes you straight into the course or into the song library.
+The first time you open it, a short welcome tour appears straight away. It asks how your piano is connected, checks that it can hear you by having you play middle C, puts a spotlight on each part of the screen while the teacher explains it, and then takes you straight into the course or into the song library.
 
-![The welcome tour asking how the piano is connected: a cable, a microphone, a USB-MIDI cable, the computer keyboard, or no piano right now](./welcome.jpg)
+![The welcome tour asking how the piano is connected: a cable, a microphone, a USB-MIDI cable, the keys on the screen, the computer keyboard, or no piano right now](./welcome.jpg)
 
 No piano to hand? The computer keyboard works too. The home row becomes two hands in a five-finger position, thumbs on V and N, and each key is a finger, so it plays whatever the fingering gives that finger. That limits it to songs whose hands stay in one place: eleven in the library and about half of the course's exercises, including nearly all of the first two weeks. For the rest, you play along and tell the teacher how it went.
 
 ![Ode to Joy with the computer keyboard: a keycap on each piano key it plays, A S D F V for the left hand and N J K L ; for the right](./keyboard.jpg)
+
+It works on a phone or a tablet too. On a small screen the controls fold into one row and a ⋯ panel, the teacher's panel moves under the notes (or beside them, with the phone on its side), and the keyboard narrows to the hand you're playing so the keys are big enough to tap. The keys on the screen can be the piano, chords included, or the phone's own microphone can listen from the piano's music stand.
+
+![Piano Trainer on a phone: the welcome tour, and Ode to Joy with the right hand's keys big enough to tap](./phone.jpg)
 
 ## A teacher that listens
 
