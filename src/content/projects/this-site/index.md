@@ -1,16 +1,16 @@
 ---
-title: 'Building jlwhite.ca: a static site, an email fix, and an AI collaborator on a short leash'
+title: 'Building jlwhite.ca: a static site, an email fix, and DNSSEC'
 world: work
 date: 2026-06-09
-summary: A boring-by-design Astro site on Cloudflare, the DNS/email/DNSSEC work behind it, and an AI agent that built most of it under a human who owned every call.
+summary: A boring-by-design Astro site on Cloudflare, and the DNS, email-authentication and DNSSEC work behind it.
 featured: false
 cover: ./cover.png
-coverAlt: A flow diagram, you set direction and boundaries, an AI agent scaffolds and writes, output is an Astro site on Cloudflare Pages
-tags: ['astro', 'cloudflare', 'dns', 'dnssec', 'email-security', 'ai-collaboration', 'static-site', 'security']
+coverAlt: 'The jlwhite.ca homepage: "Things I build, grow & break." above the latest Field Notes'
+tags: ['astro', 'cloudflare', 'dns', 'dnssec', 'email-security', 'static-site', 'security']
 draft: false
 ---
 
-jlwhite.ca is a personal site for a security person who builds software with AI. It publishes a few case studies and the occasional security note. None of that needs a server, a database, or a login, so it has none of those. What follows is what it actually is, how the infrastructure underneath it was moved and fixed, and how it was built.
+jlwhite.ca is my personal site. It publishes a few case studies and the occasional security note. None of that needs a server, a database, or a login, so it has none of those. What follows is what it actually is, and how the infrastructure underneath it was moved and fixed.
 
 ## The site
 
@@ -36,7 +36,7 @@ Receiving mail is the easy part. Keeping the domain from being trivially spoofab
 
 - **SPF**: `v=spf1 include:_spf.google.com ~all`, authorizing Google's infrastructure to send for the domain.
 - **DKIM**: a 2048-bit key, selector `google`, generated in the Workspace admin console, with signing active. Outbound mail is signed `d=jlwhite.ca, s=google`.
-- **DMARC**: published starting at `p=none` with aggregate reporting turned on, so receivers report what they see without anything being quarantined yet, with a plan to ratchet up once the reports come back clean.
+- **DMARC**: published first at `p=none` with aggregate reporting turned on, so receivers reported what they saw without anything being quarantined, and since tightened to `p=quarantine`.
 
 This was verified end to end in both directions, not assumed from the records existing: inbound mail lands in the Workspace inbox, and outbound mail passes SPF (aligned), DKIM (`d=jlwhite.ca, s=google`), and DMARC at the receiver.
 
@@ -52,18 +52,4 @@ The security posture here is mostly a consequence of the choices above. Mail can
 
 Most of the protection comes from how little there is to attack. A static site has no application server to patch, no database, no login or admin panel to compromise. The content compiles to flat files served from Cloudflare's edge, which also absorbs DDoS. Privacy-respecting defaults round it out.
 
-A few things are queued and not yet in place: a CAA record to restrict which certificate authorities may issue for the domain; moving MTA-STS from its current testing mode to enforce, with TLS-RPT failure reporting alongside; tightening DMARC from monitoring to enforcement (`quarantine`, then `reject`) once the aggregate reports are clean; and enforcing 2-Step Verification org-wide in Google Workspace, with a passkey on the admin account.
-
-## How it was built
-
-I built this with an AI coding agent, and the agent did most of the building.
-
-The split was deliberate. I set the direction, the scope, the voice, and, this being a public surface for a person whose other projects are live in production, the publishing boundaries: what's safe to say about each project and what stays out. I supplied the real facts and the real photos. I made the calls. The agent did the building: it scaffolded the Astro project and wrote the code, including the OG endpoint and the image pipeline, then turned my notes and corrections into prose.
-
-The writeups went through a small pipeline rather than a single pass. The agent drafted, then a separate adversarial step re-read each draft against the source facts to catch anything invented, overstated, or quietly leaking a detail it shouldn't, and only then finalized. The same fan-out approach ran a code review across the projects I describe here. That structure is the same discipline I apply to the AI features inside HouseGRC and DeepReview: don't trust a single model pass, ground claims in evidence, and put an adversarial check between the draft and the published artifact.
-
-I want to be precise about what the agent did not get to decide. It didn't decide what was true, what was in scope, or what crossed a line. When a draft drifted, with a metric I never measured, a capability stated more confidently than the code supports, or a line that read like marketing, I cut it. The boundaries on these pages are mine, and I read every word before it shipped. The agent is fast and frequently wrong; I'm the one accountable for what ships.
-
-## Why write it down
-
-I run security for a living and I build software with AI for the rest of it, and those two things are converging whether anyone is ready or not. The honest version of "AI-assisted" is a capable, confident collaborator that needs the same governance you'd put around any other untrusted-but-useful input: clear scope, grounded facts, a verification step, and a human who owns the result. It is not a magic button, and it is not a junior engineer you can ignore. This site is the smallest instance of that arrangement I run, and it works the same way the larger ones do.
+MTA-STS is in enforce mode, so sending servers must deliver over authenticated TLS, with TLS-RPT failure reporting alongside. A few things are still queued: a CAA record to restrict which certificate authorities may issue for the domain; the last DMARC step, from `quarantine` to `reject`; and enforcing 2-Step Verification org-wide in Google Workspace, with a passkey on the admin account.
