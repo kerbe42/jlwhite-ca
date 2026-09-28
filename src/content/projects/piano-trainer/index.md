@@ -17,6 +17,7 @@ I'm relearning the piano after 25 years away from it. Piano Trainer is the teach
 Notes fall onto an on-screen keyboard: orange for the right hand, violet for the left, with a finger number on each. You can slow a song down to 10% without the pitch changing, loop the bars you keep missing, or have it wait at each of your notes until you play them. The strip along the bottom flips to real sheet music that scrolls with the song, so you practise reading while you play.
 
 <video controls preload="metadata" playsinline poster="/media/piano-trainer-demo-poster.jpg" aria-label="A 78-second narrated tour of Piano Trainer">
+  <source src="/media/piano-trainer-demo/index.m3u8" type="application/vnd.apple.mpegurl" />
   <source src="/media/piano-trainer-demo.mp4" type="video/mp4" />
 </video>
 
