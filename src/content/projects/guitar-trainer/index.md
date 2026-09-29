@@ -40,7 +40,7 @@ A guitar is harder to hear than a piano in a few specific ways:
 - **Low notes.** A bass's low E is 41 Hz, and down there the semitones are only about 2.5 Hz apart. For a bass, the detector listens with a longer window and a finer spectrum, down to 35 Hz so drop D works too.
 - **Techniques.** Hammer-ons, pull-offs and slides don't have a pick attack. A new pitch that holds steady for a moment counts as a new note even without one.
 
-It's tested the way it's used: a harness renders the app's own guitar and bass samples with room noise (open strings, scales, fast repeated notes, strummed chords on electric and acoustic, the bass from its low E up) and checks every note is heard, along with a wrong note and a wrong chord that must *not* count.
+It's tested the way it's used. One harness plays every exercise in both courses, all 1,069 of them, correctly through the app's own guitar and bass samples with room noise, into the detector the way a cable does, and fails if a single note is missed or marked wrong; it found and fixed a bass note re-plucked while it rings, a chord struck again while it rings, fast repeated notes, and bends. Another feeds the detector a wrong note, a wrong chord, and a ringing note that must not be counted twice, all of which must *not* count.
 
 There are honest limits. Through a microphone the room is noisy, so only right notes are counted; judging wrong ones needs the cable or MIDI.
 
