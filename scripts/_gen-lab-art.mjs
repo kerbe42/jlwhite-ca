@@ -1,11 +1,11 @@
 // One-off: generate Lab section cover art.
 //  - network-lab/cover.jpg     : the old Cisco rack, web-optimized from the source photo
-//  - home-lab-overview/cover.png : architecture diagram of the current 4-node Proxmox cluster
+//  - home-lab-overview/cover.png : architecture diagram of the current lab (Fortinet edge + 4-node Proxmox cluster)
 //  - edge-ai-bench/cover.png   : component diagram of the Raspberry Pi 5 + Hailo bench
 // Diagrams use the warm-maker palette and are intentionally sanitized
 // (no hostnames, addresses, or versions). Run: node scripts/_gen-lab-art.mjs
 import sharp from 'sharp';
-import { mkdirSync } from 'node:fs';
+import { existsSync, mkdirSync } from 'node:fs';
 import { dirname } from 'node:path';
 
 const SRC = 'C:/Users/white/Downloads/OneDrive Jun 10 2026';
@@ -30,7 +30,8 @@ const out = (dest) => {
 };
 
 // --- 1. Cisco rack photo -> network-lab/cover.jpg --------------------------
-{
+// (skipped when the source photo folder isn't on this machine)
+if (existsSync(SRC)) {
   const dest = out('src/content/projects/network-lab/cover.jpg');
   const info = await sharp(`${SRC}/Justin_Cisco_Lab.jpg`)
     .rotate()
@@ -50,7 +51,7 @@ const out = (dest) => {
   const node = (x, y, n) => `
     <rect x="${x}" y="${y}" width="245" height="88" rx="10" fill="#ffffff" stroke="${lineStrong}" stroke-width="2"/>
     <text x="${x + 18}" y="${y + 38}" font-family="${serif}" font-size="21" fill="${ink}">node ${n}</text>
-    <text x="${x + 18}" y="${y + 66}" font-family="${sans}" font-size="15" fill="${muted}">VMs · LXC · local storage</text>`;
+    <text x="${x + 18}" y="${y + 66}" font-family="${sans}" font-size="15" fill="${muted}">VMs · local storage</text>`;
 
   const svg = `
 <svg width="1200" height="800" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
@@ -58,7 +59,7 @@ const out = (dest) => {
   <rect x="20" y="20" width="1160" height="760" rx="24" fill="none" stroke="${line}" stroke-width="2"/>
 
   <text x="60" y="92" font-family="${serif}" font-size="44" fill="${ink}">The home lab</text>
-  <text x="62" y="128" font-family="${sans}" font-size="22" fill="${muted}">Four-node Proxmox cluster · HA firewall · dual WAN</text>
+  <text x="62" y="128" font-family="${sans}" font-size="22" fill="${muted}">Four-node Proxmox cluster · FortiGate HA pair · dual WAN</text>
 
   <!-- connectors (drawn first, behind boxes) -->
   <g stroke="${lineStrong}" stroke-width="2" fill="none">
@@ -75,19 +76,19 @@ const out = (dest) => {
   <text x="325" y="188" text-anchor="middle" font-family="${sans}" font-size="21" fill="${ink}">Starlink</text>
   <text x="430" y="188" font-family="${sans}" font-size="18" fill="${faint}">dual WAN · failover</text>
 
-  <!-- pfSense HA pair -->
+  <!-- FortiGate HA pair -->
   <rect x="60" y="250" width="250" height="72" rx="12" fill="#ffffff" stroke="${lab}" stroke-width="2.5"/>
-  <text x="82" y="286" font-family="${serif}" font-size="22" fill="${ink}">pfSense</text>
-  <text x="82" y="310" font-family="${sans}" font-size="16" fill="${muted}">active</text>
+  <text x="82" y="286" font-family="${serif}" font-size="22" fill="${ink}">FortiGate 60F</text>
+  <text x="82" y="310" font-family="${sans}" font-size="16" fill="${muted}">primary</text>
   <rect x="340" y="250" width="250" height="72" rx="12" fill="#ffffff" stroke="${line}" stroke-width="2"/>
-  <text x="362" y="286" font-family="${serif}" font-size="22" fill="${ink}">pfSense</text>
-  <text x="362" y="310" font-family="${sans}" font-size="16" fill="${muted}">passive</text>
+  <text x="362" y="286" font-family="${serif}" font-size="22" fill="${ink}">FortiGate 60F</text>
+  <text x="362" y="310" font-family="${sans}" font-size="16" fill="${muted}">secondary</text>
   <line x1="310" y1="286" x2="340" y2="286" stroke="${lab}" stroke-width="2.5" stroke-dasharray="4 3"/>
   <text x="325" y="244" text-anchor="middle" font-family="${sans}" font-size="14" fill="${lab}">HA</text>
 
   <!-- switch -->
   <rect x="60" y="360" width="530" height="50" rx="10" fill="${paper2}" stroke="${line}" stroke-width="2"/>
-  <text x="82" y="391" font-family="${sans}" font-size="20" fill="${ink}">Managed switch · VLAN-segmented LAN</text>
+  <text x="82" y="391" font-family="${sans}" font-size="20" fill="${ink}">FortiSwitch 248E · VLAN-segmented LAN</text>
 
   <!-- cluster -->
   <rect x="60" y="448" width="560" height="260" rx="16" fill="${tint}" stroke="${line}" stroke-width="2"/>
@@ -100,7 +101,7 @@ const out = (dest) => {
 
   <!-- service chips -->
   ${chip(158, 'DNS: redundant Pi-hole pair')}
-  ${chip(240, 'Wi-Fi: UniFi controller + APs')}
+  ${chip(240, 'Wi-Fi: 2× FortiAP 231F')}
   ${chip(322, 'Media: Plex · Audiobookshelf')}
   ${chip(404, 'Monitoring: Wazuh · Zabbix · Graylog')}
   ${chip(486, 'Automation: n8n Proxmox AI agent')}

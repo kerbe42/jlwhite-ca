@@ -49,7 +49,7 @@ const technologies = [
   {
     group: 'Networking',
     lead: 'Home network, plus routing and switching depth backed by Cisco and Juniper certs.',
-    tags: ['pfSense (CARP HA)', 'dual-WAN failover', 'fibre + Starlink', 'VLAN segmentation', 'Pi-hole DNS', 'DNSSEC', 'UniFi', 'Cisco lab', 'routing & switching', 'trunking', 'spanning-tree', 'firewalls', 'VPNs'],
+    tags: ['FortiGate HA', 'FortiSwitch', 'FortiAP', 'pfSense (CARP HA)', 'dual-WAN failover', 'fibre + Starlink', 'VLAN segmentation', 'Pi-hole DNS', 'DNSSEC', 'UniFi', 'Cisco lab', 'routing & switching', 'trunking', 'spanning-tree', 'firewalls', 'VPNs'],
   },
   {
     group: 'Electronics and making',
@@ -148,9 +148,9 @@ const hasCredentials =
             {LINKS.tryhackme && (<> <a href={LINKS.tryhackme} rel="me">View profile →</a></>)}
           </li>
           <li>
-            <strong>Home lab</strong>: a four-node Proxmox cluster running an active/passive
-            pfSense HA firewall, redundant Pi-hole DNS with DNSSEC, Docker/LXC services, and
-            monitoring (Wazuh, Zabbix) as a live environment to test against.
+            <strong>Home lab</strong>: a four-node Proxmox cluster behind a FortiGate 60F HA
+            pair, with a FortiSwitch 248E and FortiAP Wi-Fi, redundant Pi-hole DNS with DNSSEC,
+            Docker services, and monitoring (Wazuh, Zabbix) as a live environment to test against.
           </li>
           <li>
             <strong>Open source</strong>: public work on

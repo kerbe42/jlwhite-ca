@@ -25,8 +25,9 @@ import Base from '../layouts/Base.astro';
       <h2>The lab</h2>
       <ul class="uses">
         <li>A four-node <b>Proxmox</b> cluster doing the job a rack of appliances used to.</li>
-        <li><b>pfSense</b> as an active/passive HA pair, fronting a dual-WAN edge (fibre + Starlink).</li>
-        <li>Redundant <b>Pi-hole</b> for DNS; <b>UniFi</b> for wireless.</li>
+        <li>A pair of <b>FortiGate 60F</b> firewalls in HA, fronting a dual-WAN edge (fibre + Starlink).</li>
+        <li>A <b>FortiSwitch 248E</b> for the VLAN-segmented LAN; two <b>FortiAP 231F</b> for Wi-Fi.</li>
+        <li>Redundant <b>Pi-hole</b> for DNS.</li>
         <li><b>Wazuh</b>, <b>Zabbix</b>, and <b>Graylog</b> for monitoring and home-scale detection.</li>
         <li><b>Ansible</b> and <b>n8n</b> for automation, including an LLM ops agent on a short leash.</li>
       </ul>
