@@ -33,9 +33,9 @@ No piano to hand? The computer keyboard works too. The home row becomes two hand
 
 ![Ode to Joy with the computer keyboard: a keycap on each piano key it plays, A S D F V for the left hand and N J K L ; for the right](./keyboard.jpg)
 
-It works on a phone or a tablet too. On a small screen the controls fold into one row and a ⋯ panel, the teacher's panel moves under the notes (or beside them, with the phone on its side), and the keyboard narrows to the hand you're playing so the keys are big enough to tap. The keys on the screen can be the piano, chords included, or the phone's own microphone can listen from the piano's music stand.
+It works on a phone or a tablet too. On a small screen the toolbar is one row with the song's name, and the rest of the controls sit in a ⋯ panel, grouped and sized for a finger. The teacher's panel moves under the notes (or beside them, with the phone on its side) and keeps Next within reach of your thumb, and the keyboard narrows to the hand you're playing so the keys are big enough to tap. The keys on the screen can be the piano, with chords and a finger sliding across the keys, or the phone's own microphone can listen from the piano's music stand. Added to the home screen, it opens full screen like an app, and the screen stays on while you play.
 
-![Piano Trainer on a phone: the welcome tour, and Ode to Joy with the right hand's keys big enough to tap](./phone.jpg)
+![Piano Trainer on a phone: Ode to Joy with the right hand's keys big enough to tap, the ⋯ panel with speed, hands, loop and sound, and a lesson with the teacher under the notes](./phone.jpg)
 
 ## A teacher that listens
 
