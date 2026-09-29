@@ -5,7 +5,7 @@ date: 2026-06-10
 summary: A four-node Proxmox cluster behind a FortiGate HA pair, with Fortinet switching and Wi-Fi, redundant DNS, and the self-hosted services I actually use.
 featured: true
 cover: ./cover.png
-coverAlt: Architecture diagram of a four-node Proxmox cluster behind a FortiGate 60F HA pair, with dual WAN, a FortiSwitch 248E carrying the VLAN-segmented LAN, FortiAP Wi-Fi, and self-hosted services
+coverAlt: Topology diagram. Fibre and Starlink each feed both FortiGate 60F firewalls in an HA pair. Both firewalls uplink to a FortiSwitch 248E, which serves two FortiAP 231F access points and a four-node Proxmox cluster running DNS, media, monitoring, automation, and self-hosted apps
 tags: ['homelab', 'proxmox', 'fortinet', 'networking', 'docker', 'automation']
 draft: false
 ---
@@ -18,7 +18,7 @@ Four **Lenovo M900 Tiny** nodes (`PMX-CLUSTER1`), clustered over knet and quorat
 
 ## The edge
 
-Two WAN links, fibre and Starlink, so the connection fails over instead of just failing. They terminate on a **pair of FortiGate 60F firewalls running as an HA cluster**, so one unit can fail, or be taken down for a firmware upgrade, without taking the internet edge with it. Behind them, a **FortiSwitch 248E** does the physical L2 and carries the VLAN-segmented LAN, and **two FortiAP 231F** Wi-Fi 6 access points handle wireless. DNS is a **redundant Pi-hole pair** (the subject of the [DNS/DNSSEC writeup](/writeups/pihole-dnssec-tcp-fallback)).
+Two WAN links, fibre and Starlink, so the connection fails over instead of just failing. They terminate on a **pair of FortiGate 60F firewalls running as an HA cluster**, and each link is cabled into both units, so either firewall can carry both WANs on its own. One unit can fail, or be taken down for a firmware upgrade, without taking the internet edge or either uplink with it. Behind them, a **FortiSwitch 248E** does the physical L2 and carries the VLAN-segmented LAN, and **two FortiAP 231F** Wi-Fi 6 access points handle wireless. DNS is a **redundant Pi-hole pair** (the subject of the [DNS/DNSSEC writeup](/writeups/pihole-dnssec-tcp-fallback)).
 
 The edge used to be virtual: an active/passive pfSense pair running as VMs on two of the cluster nodes, with the WANs, the LAN, and the pair's CARP/pfsync heartbeat each handed to the firewalls on their own VLAN tag ([how and why](/writeups/pfsense-ha-proxmox), and [the VLAN plumbing](/writeups/home-network-vlan-segmentation)). It worked, and it taught me a lot, but it tied the internet edge to the hypervisor. With the firewall, switching, and wireless on dedicated Fortinet hardware, cluster maintenance and the network's uptime no longer depend on each other.
 

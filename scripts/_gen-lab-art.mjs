@@ -41,17 +41,41 @@ if (existsSync(SRC)) {
   console.log(`${dest}  ${info.width}x${info.height}  ${Math.round(info.size / 1024)}KB`);
 }
 
-// --- 2. Proxmox cluster diagram -> home-lab-overview/cover.png --------------
+// --- 2. Home lab topology -> home-lab-overview/cover.png -------------------
+// Both WAN links are cabled into both FortiGates; fibre is drawn over Starlink
+// at the one crossing, with a paper-coloured halo so the crossing reads as a gap.
 {
-  const chip = (y, label) => `
-    <rect x="660" y="${y}" width="480" height="64" rx="12" fill="#ffffff" stroke="${line}" stroke-width="2"/>
-    <circle cx="688" cy="${y + 32}" r="6" fill="${lab}"/>
-    <text x="710" y="${y + 40}" font-family="${sans}" font-size="20" fill="${ink}">${label}</text>`;
+  const fibre = builds;
+  const starlink = '#0f6e56';
 
-  const node = (x, y, n) => `
-    <rect x="${x}" y="${y}" width="245" height="88" rx="10" fill="#ffffff" stroke="${lineStrong}" stroke-width="2"/>
-    <text x="${x + 18}" y="${y + 38}" font-family="${serif}" font-size="21" fill="${ink}">node ${n}</text>
-    <text x="${x + 18}" y="${y + 66}" font-family="${sans}" font-size="15" fill="${muted}">VMs · local storage</text>`;
+  const wan = (x, w, colour, label) => `
+    <rect x="${x}" y="156" width="${w}" height="48" rx="24" fill="${paper2}" stroke="${colour}" stroke-width="2"/>
+    <circle cx="${x + 30}" cy="180" r="6" fill="${colour}"/>
+    <text x="${x + w / 2 + 10}" y="187" text-anchor="middle" font-family="${sans}" font-size="21" fill="${ink}">${label}</text>`;
+
+  const fortigate = (x, role, stroke, width) => `
+    <rect x="${x}" y="262" width="300" height="72" rx="12" fill="#ffffff" stroke="${stroke}" stroke-width="${width}"/>
+    <text x="${x + 22}" y="294" font-family="${serif}" font-size="22" fill="${ink}">FortiGate 60F</text>
+    <text x="${x + 22}" y="318" font-family="${sans}" font-size="16" fill="${muted}">${role}</text>`;
+
+  const box = (x, y, w, title, sub, size) => `
+    <rect x="${x}" y="${y}" width="${w}" height="80" rx="10" fill="#ffffff" stroke="${lineStrong}" stroke-width="2"/>
+    <text x="${x + 16}" y="${y + 34}" font-family="${serif}" font-size="${size}" fill="${ink}">${title}</text>
+    <text x="${x + 16}" y="${y + 58}" font-family="${sans}" font-size="14" fill="${muted}">${sub}</text>`;
+
+  const card = (y, label, text) => `
+    <rect x="740" y="${y}" width="400" height="84" rx="12" fill="#ffffff" stroke="${line}" stroke-width="2"/>
+    <text x="762" y="${y + 32}" font-family="${sans}" font-size="13" letter-spacing="1.2" fill="${lab}">${label}</text>
+    <text x="762" y="${y + 60}" font-family="${sans}" font-size="18" fill="${ink}">${text}</text>`;
+
+  const cardY = [188, 297, 406, 515, 624];
+  const cards = [
+    ['DNS', 'Redundant Pi-hole pair'],
+    ['MEDIA', 'Plex · Audiobookshelf · Transmission'],
+    ['MONITORING', 'Wazuh · Zabbix · Graylog'],
+    ['AUTOMATION', 'Ansible · n8n LLM ops agent'],
+    ['APPS', 'Self-hosted Docker services'],
+  ];
 
   const svg = `
 <svg width="1200" height="800" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
@@ -59,53 +83,59 @@ if (existsSync(SRC)) {
   <rect x="20" y="20" width="1160" height="760" rx="24" fill="none" stroke="${line}" stroke-width="2"/>
 
   <text x="60" y="92" font-family="${serif}" font-size="44" fill="${ink}">The home lab</text>
-  <text x="62" y="128" font-family="${sans}" font-size="22" fill="${muted}">Four-node Proxmox cluster · FortiGate HA pair · dual WAN</text>
+  <text x="62" y="128" font-family="${sans}" font-size="22" fill="${muted}">Dual WAN into a FortiGate HA pair · four-node Proxmox cluster</text>
 
-  <!-- connectors (drawn first, behind boxes) -->
-  <g stroke="${lineStrong}" stroke-width="2" fill="none">
-    <path d="M135 206 V250"/>
-    <path d="M315 206 V228 H185 V250"/>
-    <path d="M185 322 V360"/>
-    <path d="M325 410 V448"/>
-  </g>
-
-  <!-- WAN -->
-  <rect x="60" y="158" width="150" height="48" rx="24" fill="${paper2}" stroke="${line}" stroke-width="2"/>
-  <text x="135" y="188" text-anchor="middle" font-family="${sans}" font-size="21" fill="${ink}">Fibre</text>
-  <rect x="240" y="158" width="170" height="48" rx="24" fill="${paper2}" stroke="${line}" stroke-width="2"/>
-  <text x="325" y="188" text-anchor="middle" font-family="${sans}" font-size="21" fill="${ink}">Starlink</text>
-  <text x="430" y="188" font-family="${sans}" font-size="18" fill="${faint}">dual WAN · failover</text>
+  <!-- WAN: each link feeds both firewalls. Starlink first, fibre drawn over it. -->
+  <path d="M560 204 V244 M300 262 V244 H640 V262" stroke="${starlink}" stroke-width="2.5" fill="none"/>
+  <path d="M460 230 V258" stroke="${paper}" stroke-width="10" fill="none"/>
+  <path d="M240 204 V226 M120 262 V226 H460 V262" stroke="${fibre}" stroke-width="2.5" fill="none"/>
+  ${wan(160, 160, fibre, 'Fibre')}
+  ${wan(480, 160, starlink, 'Starlink')}
 
   <!-- FortiGate HA pair -->
-  <rect x="60" y="250" width="250" height="72" rx="12" fill="#ffffff" stroke="${lab}" stroke-width="2.5"/>
-  <text x="82" y="286" font-family="${serif}" font-size="22" fill="${ink}">FortiGate 60F</text>
-  <text x="82" y="310" font-family="${sans}" font-size="16" fill="${muted}">primary</text>
-  <rect x="340" y="250" width="250" height="72" rx="12" fill="#ffffff" stroke="${line}" stroke-width="2"/>
-  <text x="362" y="286" font-family="${serif}" font-size="22" fill="${ink}">FortiGate 60F</text>
-  <text x="362" y="310" font-family="${sans}" font-size="16" fill="${muted}">secondary</text>
-  <line x1="310" y1="286" x2="340" y2="286" stroke="${lab}" stroke-width="2.5" stroke-dasharray="4 3"/>
-  <text x="325" y="244" text-anchor="middle" font-family="${sans}" font-size="14" fill="${lab}">HA</text>
+  ${fortigate(60, 'primary', lab, 2.5)}
+  ${fortigate(400, 'secondary', lineStrong, 2)}
+  <line x1="360" y1="298" x2="400" y2="298" stroke="${lab}" stroke-width="2.5" stroke-dasharray="5 4"/>
+  <text x="380" y="288" text-anchor="middle" font-family="${sans}" font-size="14" fill="${lab}">HA</text>
+  <text x="380" y="318" text-anchor="middle" font-family="${sans}" font-size="14" fill="${lab}">sync</text>
+
+  <!-- both firewalls uplink to the switch; switch feeds Wi-Fi and the cluster -->
+  <g stroke="${lineStrong}" stroke-width="2" fill="none">
+    <path d="M210 334 V372"/>
+    <path d="M550 334 V372"/>
+    <path d="M150 420 V458"/>
+    <path d="M485 420 V458"/>
+  </g>
+  <text x="380" y="358" text-anchor="middle" font-family="${sans}" font-size="14" fill="${faint}">LAN uplinks</text>
+  <text x="495" y="444" font-family="${sans}" font-size="14" fill="${faint}">VLAN trunks</text>
 
   <!-- switch -->
-  <rect x="60" y="360" width="530" height="50" rx="10" fill="${paper2}" stroke="${line}" stroke-width="2"/>
-  <text x="82" y="391" font-family="${sans}" font-size="20" fill="${ink}">FortiSwitch 248E · VLAN-segmented LAN</text>
+  <rect x="60" y="372" width="640" height="48" rx="10" fill="${paper2}" stroke="${line}" stroke-width="2"/>
+  <text x="82" y="403" font-family="${serif}" font-size="21" fill="${ink}">FortiSwitch 248E</text>
+  <text x="272" y="402" font-family="${sans}" font-size="17" fill="${muted}">VLAN-segmented LAN</text>
 
-  <!-- cluster -->
-  <rect x="60" y="448" width="560" height="260" rx="16" fill="${tint}" stroke="${line}" stroke-width="2"/>
-  <text x="82" y="484" font-family="${serif}" font-size="24" fill="${ink}">Proxmox cluster</text>
-  <text x="290" y="484" font-family="${sans}" font-size="16" fill="${faint}">clustered · quorate</text>
-  ${node(80, 500, 1)}
-  ${node(343, 500, 2)}
-  ${node(80, 604, 3)}
-  ${node(343, 604, 4)}
+  <!-- Wi-Fi -->
+  <rect x="60" y="458" width="180" height="250" rx="16" fill="${tint}" stroke="${line}" stroke-width="2"/>
+  <text x="78" y="494" font-family="${serif}" font-size="22" fill="${ink}">Wi-Fi 6</text>
+  ${box(76, 510, 148, 'FortiAP 231F', 'access point 1', 18)}
+  ${box(76, 614, 148, 'FortiAP 231F', 'access point 2', 18)}
 
-  <!-- service chips -->
-  ${chip(158, 'DNS: redundant Pi-hole pair')}
-  ${chip(240, 'Wi-Fi: 2× FortiAP 231F')}
-  ${chip(322, 'Media: Plex · Audiobookshelf')}
-  ${chip(404, 'Monitoring: Wazuh · Zabbix · Graylog')}
-  ${chip(486, 'Automation: n8n Proxmox AI agent')}
-  ${chip(568, 'Self-hosted: Docker · Ansible')}
+  <!-- Proxmox cluster -->
+  <rect x="270" y="458" width="430" height="250" rx="16" fill="${tint}" stroke="${line}" stroke-width="2"/>
+  <text x="290" y="494" font-family="${serif}" font-size="22" fill="${ink}">Proxmox cluster</text>
+  <text x="682" y="494" text-anchor="end" font-family="${sans}" font-size="15" fill="${faint}">quorate</text>
+  ${box(288, 510, 189, 'node 1', 'VMs · local storage', 20)}
+  ${box(493, 510, 189, 'node 2', 'VMs · local storage', 20)}
+  ${box(288, 614, 189, 'node 3', 'VMs · local storage', 20)}
+  ${box(493, 614, 189, 'node 4', 'VMs · local storage', 20)}
+
+  <!-- what the cluster runs -->
+  <text x="740" y="170" font-family="${sans}" font-size="14" letter-spacing="1.5" fill="${faint}">RUNS ON THE CLUSTER</text>
+  <g stroke="${lineStrong}" stroke-width="2" fill="none">
+    <path d="M700 583 H720 M720 ${cardY[0] + 42} V${cardY[4] + 42}"/>
+    ${cardY.map((y) => `<path d="M720 ${y + 42} H740"/>`).join('')}
+  </g>
+  ${cards.map(([label, text], i) => card(cardY[i], label, text)).join('')}
 
   <text x="60" y="744" font-family="${sans}" font-size="15" fill="${faint}">Topology only. No hostnames, addresses, or versions.</text>
   <text x="1140" y="744" text-anchor="end" font-family="${sans}" font-size="15" fill="${faint}">jlwhite.ca</text>
