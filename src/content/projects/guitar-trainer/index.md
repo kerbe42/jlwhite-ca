@@ -18,7 +18,7 @@ A piano's falling notes don't suit a guitar, so the screen is a tab highway inst
 
 ![House of the Rising Sun, fingerpicked in six-eight: the thumb on the bass string, then the G, B and high E strings one at a time, with the F chord's fingers on the fretboard](./picking.jpg)
 
-One switch changes the instrument: electric, acoustic or bass, each with its own sampled sound. Guitars can be in standard tuning, drop D, DADGAD, open G or half a step down, and a bass in standard, drop D or half a step down; songs are re-placed on the neck for the tuning you're in. Everything mirrors for left-handed players. There's a tuner built in, and it's accurate to a couple of cents.
+One switch changes the instrument: electric, acoustic or bass, each with its own sampled sound. Guitars can be in standard tuning, drop D, DADGAD, open G or half a step down, and a bass in standard, drop D or half a step down. In drop D, DADGAD or open G a song is re-placed on the neck for the new tuning; tuned half a step down, it keeps its shapes and the whole thing, backing and all, sounds half a step lower, the way players who tune down expect. Everything mirrors for left-handed players. There's a tuner built in, and it's accurate to a couple of cents.
 
 ## Getting started
 
@@ -74,7 +74,9 @@ The library has 365 songs, about twelve and a half hours of music, in three part
 
 ![A twelve-bar blues in A on the bass: the boogie line climbing through the root, third, fifth, sixth and flat seventh](./bass.jpg)
 
-For anything else, you bring the music. Paste a guitar or bass tab or a chord sheet from anywhere, and it becomes a song: tab is read string by string, and a chord sheet gets a strumming pattern to choose from. A MIDI file works too: it picks out the guitar or bass part, leaves the drums out, and places the notes on the neck. Your own songs stay in your browser.
+The library filters by group and difficulty, and each song reopens at the speed you last played it.
+
+For anything else, you bring the music. Paste a guitar or bass tab or a chord sheet from anywhere, and it becomes a song. Tab is read string by string, including 7-string guitar and 5-string bass tabs, bends and repeat marks like "x2". A chord sheet, with the chords over the lyrics or written inline like [G], gets a strumming pattern to choose from, and any chord symbol you're likely to meet has a shape. A MIDI file works too: it picks out the guitar or bass part, leaves the drums out, and places the notes on the neck. Your own songs stay in your browser.
 
 ## Built for an ordinary laptop
 
