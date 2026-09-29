@@ -26,7 +26,7 @@ The first time you open it, a welcome appears straight away, before the rest of 
 
 ![The welcome checking it can hear the guitar: play the open low E string, lit on a small fretboard, with the input level and "I heard: E2" underneath](./welcome.jpg)
 
-On a phone or tablet the controls fold into a ⋯ panel, the teacher's panel moves under the music, and when the screen is the instrument the fretboard shows fewer, wider frets so a finger can hit them.
+On a phone or tablet the controls fold into a ⋯ panel, the teacher's panel moves under the music, and when the screen is the instrument the fretboard shows fewer, wider frets so a finger can hit them. On a piece that climbs the neck, those frets follow the music up and down it.
 
 ![Guitar Trainer on a phone: the welcome asking which guitar and how it's connected, and Ode to Joy with the fretboard big enough to tap](./phone.jpg)
 
