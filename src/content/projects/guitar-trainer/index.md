@@ -60,6 +60,8 @@ As in Piano Trainer, it keeps you on an exercise until you get it 100%, and the 
 
 The games are the ones guitar teachers actually use. **One-minute changes** has you switch between two chords, strumming each once, as many times as you can in a minute; the count only goes up when the whole chord rings. **Name that chord**, **find the fret** (a note anywhere, or on a given string), **echo me** (play back a riff you can hear but not see) and a rhythm game fill out the rest. Reviews are spaced at 1, 2, 4, 8 and 16 days, and there are XP, levels from *Newcomer* to *Headliner*, badges for things like your first barre chord or a walking bass line, a daily goal and a streak.
 
+The teacher talks, in a choice of two voices: every intro, exercise, hint and word of encouragement in both courses, and the welcome tour, is pre-recorded with the Kokoro text-to-speech model running locally, more than two thousand lines in each voice. Each clip was transcribed back with Whisper to check it says what the script says, which caught the note A being read as "eye" and a few composers' names.
+
 ## Songs
 
 The library has 365 songs, about twelve and a half hours of music, in three parts.
