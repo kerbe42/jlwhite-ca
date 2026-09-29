@@ -14,11 +14,21 @@ draft: false
 
 Guitar Trainer is the guitar and bass version of [Piano Trainer](/work/piano-trainer). It runs in a web browser with no account and nothing to install: try it at **[guitar.jlwhite.ca](https://guitar.jlwhite.ca)**, or open it straight from a folder of files, offline.
 
-A piano's falling notes don't suit a guitar, so the screen is a tab highway instead. Each string is a lane, with the high E on top the way tab is written, and the notes slide toward a playhead carrying the fret to press. Strums show as a column of frets with an arrow for down or up and the chord's name above it. Underneath, a fretboard lights up where the fingers go, with a finger number on each note. You can slow any song down without changing its pitch, loop the bars you keep missing, or have it wait at each note or chord until you play it.
+A piano's falling notes don't suit a guitar, so the screen is a tab highway instead. Each string is a lane, with the high E on top the way tab is written, and the notes slide toward a playhead carrying the fret to press. Strums show as a column of frets with an arrow for down or up and the chord's name above it. Underneath, a fretboard lights up where the fingers go, with a finger number on each note. You can slow any song down without changing its pitch, loop the bars you keep missing (the loop goes straight round, in time, with no pause at the join), or have it wait at each note or chord until you play it.
 
 ![House of the Rising Sun, fingerpicked in six-eight: the thumb on the bass string, then the G, B and high E strings one at a time, with the F chord's fingers on the fretboard](./picking.jpg)
 
 One switch changes the instrument: electric, acoustic or bass, each with its own sampled sound. Guitars can be in standard tuning, drop D, DADGAD, open G or half a step down, and a bass in standard, drop D or half a step down; songs are re-placed on the neck for the tuning you're in. Everything mirrors for left-handed players. There's a tuner built in, and it's accurate to a couple of cents.
+
+## Getting started
+
+The first time you open it, a welcome appears straight away, before the rest of the page has even loaded. It asks which instrument you're playing and how it's connected, then checks it can hear you by having you play the open low E, with the tuner's reading beside it and a button into the tuner if you're out. Then there's a spotlight tour of the screen, and it takes you into day one of the course or into the song library.
+
+![The welcome checking it can hear the guitar: play the open low E string, lit on a small fretboard, with the input level and "I heard: E2" underneath](./welcome.jpg)
+
+On a phone or tablet the controls fold into a ⋯ panel, the teacher's panel moves under the music, and when the screen is the instrument the fretboard shows fewer, wider frets so a finger can hit them.
+
+![Guitar Trainer on a phone: the welcome asking which guitar and how it's connected, and Ode to Joy with the fretboard big enough to tap](./phone.jpg)
 
 ## Listening to a guitar
 
@@ -52,7 +62,13 @@ The games are the ones guitar teachers actually use. **One-minute changes** has 
 
 ## Songs
 
-The songbook is public-domain music set for this app: traditional songs, Greensleeves, House of the Rising Sun's changes, the twelve-bar blues, Ode to Joy, the Minuet in G, Für Elise and more. Each tune comes several ways, depending on the instrument: the melody, strummed while the band plays the tune, fingerpicked, as a bass line under a strumming guitar, and as a melody down in the bass's range.
+The library has 365 songs, about twelve and a half hours of music, in three parts.
+
+**Classical guitar.** 58 complete pieces from the [Mutopia Project](https://www.mutopiaproject.org)'s public-domain and Creative Commons editions: studies by Sor, Carcassi, Giuliani, Carulli, Aguado and Mertz for the early months, then Bach's Bourrée in E minor and Prelude BWV 999, the Spanish Romance, and Tárrega's Adelita, Capricho árabe and Recuerdos de la Alhambra. Every repeat is written out, D.C. and D.S. endings included. The edition's own string numbers and fingering are kept, and every other note gets a string, fret and finger from the same model the app uses. For the bass there are 13 movements from Bach's cello suites, played an octave below the cello the way bassists read them.
+
+**The songbook.** 37 public-domain tunes, from Hot Cross Buns to Scarborough Fair, Amazing Grace and the Skye Boat Song, played as whole songs: an intro, then verse after verse, with a new strumming, picking or bass pattern each time round. Each tune comes as the melody, strummed while the band plays the tune, fingerpicked, as a bass line under a strumming guitar, and as a melody in the bass's range. The melodies added most recently were checked note by note against printed scores.
+
+**Arrangements.** Piano Trainer's pieces from score editions (Für Elise and the whole Minuet in G, The Entertainer, Chopin's preludes, Satie's Gymnopédie, Schumann, Grieg, Mozart, the Blue Danube) and its sixteen original tunes, set for guitar and bass: the melody over the rest of the score, a fingerstyle version with the melody and its bass line where a hand can reach every note, and the bass line on its own.
 
 ![A twelve-bar blues in A on the bass: the boogie line climbing through the root, third, fifth, sixth and flat seventh](./bass.jpg)
 
@@ -60,7 +76,7 @@ For anything else, you bring the music. Paste a guitar or bass tab or a chord sh
 
 ## Built for an ordinary laptop
 
-It runs online or from a local file in Firefox, Chrome or Edge. On a phone or tablet the controls fold into a compact bar, and the fretboard on the screen can be the instrument. The guitar and bass sounds are short recordings of real instruments from the [tonejs-instruments](https://github.com/nbrosowsky/tonejs-instruments) library (University of Iowa, Karoryfer Samples and Freesound recordings), trimmed and bundled so the app works without a network.
+It runs online or from a local file in Firefox, Chrome or Edge, and the courses and big song files load only when they're needed. The guitar and bass sounds are short recordings of real instruments from the [tonejs-instruments](https://github.com/nbrosowsky/tonejs-instruments) library (University of Iowa, Karoryfer Samples and Freesound recordings), trimmed and bundled so the app works without a network.
 
 ## Closing
 
