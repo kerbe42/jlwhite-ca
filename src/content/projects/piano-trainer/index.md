@@ -29,9 +29,9 @@ The first time you open it, a short welcome tour appears straight away. It asks 
 
 ![The welcome tour asking how the piano is connected: a cable, a microphone, a USB-MIDI cable, the keys on the screen, the computer keyboard, or no piano right now](./welcome.jpg)
 
-No piano to hand? The computer keyboard works too. The home row becomes two hands in a five-finger position, thumbs on V and N, and each key is a finger, so it plays whatever the fingering gives that finger. That limits it to songs whose hands stay in one place: eleven in the library and about half of the course's exercises, including nearly all of the first two weeks. For the rest, you play along and tell the teacher how it went.
+No piano to hand? The computer keyboard works too, two ways. For the early lessons the home row becomes two hands in a five-finger position, thumbs on V and N, and each key is a finger, so you learn the fingering as you go. For everything else, two rows become two and a half octaves of a piano, the layout music programs use: Z to / and Q to ] are the white keys, and the row above each has the black keys. The rows sit where the song is, Page Up and Page Down move them, and a note beyond them is played by its key an octave away. By default it switches between the two by itself, so the whole course and every song in the library can be played from a laptop.
 
-![Ode to Joy with the computer keyboard: a keycap on each piano key it plays, A S D F V for the left hand and N J K L ; for the right](./keyboard.jpg)
+![Canon in D on the computer keyboard: a keycap on every piano key, Z X C V and Q W E R on the white keys, S D G H and 2 3 5 6 on the black ones, with the keys to play next lit](./keyboard.jpg)
 
 It works on a phone or a tablet too. On a small screen the toolbar is one row with the song's name, and the rest of the controls sit in a ⋯ panel, grouped and sized for a finger. The teacher's panel moves under the notes (or beside them, with the phone on its side) and keeps Next within reach of your thumb, and the keyboard narrows to the hand you're playing so the keys are big enough to tap. The keys on the screen can be the piano, with chords and a finger sliding across the keys, or the phone's own microphone can listen from the piano's music stand. Added to the home screen, it opens full screen like an app, and the screen stays on while you play.
 
