@@ -2,7 +2,7 @@
 title: 'HouseGRC: a self-hosted, multi-tenant GRC platform, built solo'
 world: work
 date: 2026-06-11
-summary: A solo-built, owner-controlled GRC platform that consolidates frameworks, risk, controls, audits, vendor risk, and resilience planning into one encrypted, multi-tenant app with central fail-closed tenant scoping and an AI copilot, paired with its outward-facing counterpart, DeepReview.
+summary: A solo-built, owner-controlled GRC platform that runs a whole security and compliance programme from one encrypted, multi-tenant app, from frameworks, risk and audits through access reviews, incident response, privacy, AI governance and the external attack surface, with central fail-closed tenant scoping.
 featured: true
 cover: ./cover.png
 coverAlt: A module map of the HouseGRC GRC platform (frameworks, controls, risk, audits, vendor risk, dashboards) over a Python/Reflex stack
@@ -14,7 +14,7 @@ draft: false
 
 HouseGRC is a self-hosted, multi-tenant governance, risk, and compliance platform that I built solo and run myself. The sensitive part of GRC, meaning your open risks, your control gaps, your incident playbooks, is what you least want sitting in a SaaS you don't control. HouseGRC keeps that record in a single owner-controlled deployment, encrypted at rest: one app that consolidates an organization's compliance frameworks, risk register, controls and evidence, policies, audits, third-party/vendor risk, software and asset inventory, BIA/BCP/DR and incident-response planning, and executive reporting. You hold the keys and the data stays inside your boundary.
 
-It is the inward half of a two-part idea. [DeepReview](/work/deepreview), my outward-facing, authorized-use-only vendor-risk and reconnaissance counterpart, is the inverse. Where HouseGRC manages your own posture, DeepReview profiles the third parties you depend on. The two are wired together with a signed, single-use SSO hand-off that maps a HouseGRC SuperAdmin to a DeepReview admin, and a completed DeepReview assessment can flow back into HouseGRC's vendor-risk register. They stand alone, but they're built as two ends of one workflow.
+It is the inward half of a two-part idea. [DeepReview](/work/deepreview), my outward-facing, authorized-use-only vendor-risk and reconnaissance project, is the inverse. Where HouseGRC manages your own posture, DeepReview profiles the third parties you depend on. The two started as one app and now run as separate deployments, each standing on its own.
 
 ## Domain breadth
 
@@ -35,6 +35,20 @@ On top of that catalog sit the working surfaces:
 - **The long tail of GRC hygiene**: exceptions, access reviews, a regulations register with change tracking, privacy DSAR handling and right-to-be-forgotten redaction, and retention.
 
 It also exposes a REST API and supports enterprise SSO and multi-org operation, so a larger installation can integrate it with existing identity and provision multiple business units under one deployment.
+
+## Running the programme, not just recording it
+
+A register tells you what you have. The newer half of HouseGRC is about the work a security leader does every week, so each area produces owned, dated actions that land in a personal My Work queue and on a shared calendar, and is backed by evidence an auditor can follow.
+
+- **Governance and risk**: business objectives with a coverage rollup, per-category risk appetite bands with over-appetite badges and two-approver acceptance, a key-risk-indicator library with stored history and breach alerts, a single register of open risks, audit findings and exceptions on one severity scale, and a board pack carrying the organization's own branding.
+- **Assurance**: a criticality-weighted audit-readiness score per framework with its blockers and a daily trend, continuous control checks that assert against collected evidence and open (and close) findings on their own, evidence-freshness chasing, and a governance calendar of ceremonies, audit windows, certifications and reviews.
+- **Identity and access**: separation of duties with self-approval blocked on every approval gate and toxic permission combinations reported, time-limited group membership with just-in-time requests and break-glass sessions, and per-user access reviews where a "revoke" decision actually removes the access.
+- **Vulnerabilities and exposure**: remediation SLAs ranked by known exploitation (CISA KEV) and exploit probability (EPSS), import of common scanner export formats matched to the software inventory, an asset-exposure ranking, and external attack-surface discovery from Certificate Transparency for verified domains, with a TLS expiry watch.
+- **Third parties**: vendor criticality derived from business impact and the recovery objectives of the processes that depend on each vendor, a concentration and single-point-of-failure view, contract renewal tracking that warns before an auto-renewal locks in, and an offboarding checklist built from everything the vendor touches.
+- **Incidents**: corrective actions and a structured post-incident review, a live countdown to each regulatory notification deadline with escalation, an on-call rota that assigns new incidents, and links between incidents and the risks they realised.
+- **Privacy**: data classification on systems, a record of processing activities with lawful-basis rules and transfer safeguards, DPIA screening and sign-off, and a map of where restricted data flows.
+- **AI governance**: a register of AI systems and agents with EU AI Act risk classification, the obligations each one triggers (serious-incident reporting included), impact assessments, scheduled kill-switch tests and evaluations, and detection of AI in use that nobody registered.
+- **People and architecture**: recurring security-awareness and AI-literacy training with completion evidence, phishing-simulation records with automatic refreshers, a privacy-respecting human-risk score, and per-assessment STRIDE threat models traced to controls behind a design-review sign-off.
 
 ## Architecture
 
@@ -60,7 +74,7 @@ Layered on top of the tenant boundary:
 
 The chat copilot is read-only and data-aware: it can query your own GRC data and answer across it, but it cannot mutate anything. The tool surface exposed to the model is deliberately read-only, so it can't turn an assist into an action. Its data access runs through the same org-scoped filtering as everything else, which means read-only is also tenant-scoped: the copilot can't reach another org's rows any more than a service method can. AI risk and control suggestions, predictive analytics, AI-written executive summaries, and AI-governance scoring round out the assistive layer.
 
-The most involved piece is the DeepReview review engine, which also powers the outward product. A run assembles subject context, then fans out to multiple focused "lens" analysts that each examine the subject through a single viewpoint and return structured findings rather than prose. Those findings feed an adversarial challenge pass that critiques the first draft, so the pipeline red-teams its own conclusions before they're allowed to stand, and a synthesis pass then aggregates the surviving, scored sub-findings into a rating, a normalized score, and a prioritized action list. Constraining each stage to a structured schema is what makes the passes composable and the aggregation deterministic instead of a second model "summarizing vibes." Runs are kept in history, and any finding can be promoted into the risk register. Underneath sits a provider-agnostic LLM adapter with a single configuration and connection-test path: the same pipeline runs against Anthropic, OpenAI, or an operator-supplied custom endpoint, with the adapter normalizing model families, request shape, and JSON-wrapping quirks so the orchestration code doesn't care which provider is behind it. System prompts are editable rather than hard-coded, so analysis behavior can be tuned without touching code.
+Elsewhere AI drafts and a person decides: AI impact assessments, post-incident review hypotheses, architecture threat models and control suggestions all arrive as drafts that fill only what is still empty and never overwrite what someone wrote, and each runs the record it reasons over through the same untrusted-input guardrail. Underneath sits a provider-agnostic LLM adapter with a single configuration and connection-test path: the same pipeline runs against Anthropic, OpenAI, or an operator-supplied custom endpoint, with the adapter normalizing model families, request shape, and JSON-wrapping quirks so the orchestration code doesn't care which provider is behind it. System prompts are editable rather than hard-coded, so analysis behavior can be tuned without touching code.
 
 ## Built solo
 
