@@ -31,7 +31,7 @@ A scan starts from the ranges you look after, pasted the way they arrive: CIDR b
 
 From there it works in stages:
 
-- **Find what is alive.** Each range is ping-swept with Nmap, one /24 block at a time and eight blocks at once. A block that runs out of time keeps every host it had already found, and the rest is tried again with twice the time.
+- **Find what is alive.** Each range is ping-swept with Nmap, one /24 block at a time and eight blocks at once, with aggressive discovery timing so a block of dead, firewall-dropped addresses is given up on in seconds rather than minutes — sweeping several /16s takes minutes, not hours. A block that runs out of time keeps every host it had already found, and the rest is tried again with twice the time.
 - **Read the devices.** Everything that answers is tried over SNMP. From each device it reads LLDP and CDP neighbours, routing tables, ARP and MAC address tables, VLANs, interfaces, hardware and serial numbers. What each device *is* — a switch, a router, an L3 switch, a firewall, a wireless access point — is decided from the capabilities it and its neighbours advertise, its bridge table and its ports, rather than guessed from its model name, so unfamiliar kit is still typed correctly. Neighbours, next-hop routers and subnet gateways are followed outwards to more devices.
 - **Identify the hosts.** Hosts are identified with small, read-only probes: NetBIOS, mDNS, SSDP, web and TLS banners, SSH banners, and the building and industrial protocols (BACnet, Modbus, EtherNet/IP, IPMI) that show up on real estates.
 - **Scan ports.** Nmap service scans go only to addresses that answered, so it never waits out every port of a switched-off PC.
