@@ -32,7 +32,7 @@ A scan starts from the ranges you look after, pasted the way they arrive: CIDR b
 From there it works in stages:
 
 - **Find what is alive.** Each range is ping-swept with Nmap, one /24 block at a time and eight blocks at once. A block that runs out of time keeps every host it had already found, and the rest is tried again with twice the time.
-- **Read the devices.** Everything that answers is tried over SNMP. From each device it reads LLDP and CDP neighbours, routing tables, ARP and MAC address tables, VLANs, interfaces, hardware and serial numbers. Neighbours, next-hop routers and subnet gateways are followed outwards to more devices.
+- **Read the devices.** Everything that answers is tried over SNMP. From each device it reads LLDP and CDP neighbours, routing tables, ARP and MAC address tables, VLANs, interfaces, hardware and serial numbers. What each device *is* — a switch, a router, an L3 switch, a firewall, a wireless access point — is decided from the capabilities it and its neighbours advertise, its bridge table and its ports, rather than guessed from its model name, so unfamiliar kit is still typed correctly. Neighbours, next-hop routers and subnet gateways are followed outwards to more devices.
 - **Identify the hosts.** Hosts are identified with small, read-only probes: NetBIOS, mDNS, SSDP, web and TLS banners, SSH banners, and the building and industrial protocols (BACnet, Modbus, EtherNet/IP, IPMI) that show up on real estates.
 - **Scan ports.** Nmap service scans go only to addresses that answered, so it never waits out every port of a switched-off PC.
 
@@ -48,7 +48,7 @@ The **Overview** is the first answer to "what have we got". It separates the net
 
 ![The Overview page of the sample campus: cards for network infrastructure (20, of which 11 polled), endpoints (457), subnets, VLANs and links, with bars for the infrastructure by type, the network gear by vendor, the endpoints by kind and the busiest subnets](./overview.png)
 
-**Topology.** The physical map is worked out from LLDP/CDP neighbours and MAC address tables, so it shows the cabling, including the devices that don't speak LLDP. The logical map shows subnets, gateways and the routers between them. Maps can be laid out automatically or by hand, positions are saved in the project, and they export to draw.io (and from there to Visio).
+**Topology.** The physical map is worked out from LLDP and CDP neighbours, so it shows the cabling, including the devices that don't speak LLDP. Where a network has LLDP and CDP switched off entirely — so the switches report no neighbours at all — SubnetSleuth reconstructs the switch‑to‑switch links from the bridge MAC tables instead: the port through which one switch learns another switch's address is the port facing it. Those inferred links are drawn dashed, to set them apart from links a device actually reported. The logical map shows subnets, gateways and the routers between them. Maps can be laid out automatically or by hand, positions are saved in the project, and they export to draw.io (and from there to Visio).
 
 **Paths.** Pick any address and SubnetSleuth traces the path to it, switch by switch through the MAC tables and router by router through the routing tables, and lights it up on the map.
 
@@ -76,7 +76,7 @@ Right-click any device or host, or type an address, and **Deep scan with Nmap** 
 
 ## Keeping it honest and current
 
-**Needs attention** collects the things worth acting on: neighbours that were seen but couldn't be polled, links whose ends disagree on speed or duplex, VLANs named differently on different switches, subnets whose router was never reached, overlapping subnets, single uplinks. A compliance page checks device configurations against common hardening standards and flags hardware that is past, or nearing, the end of vendor support.
+**Needs attention** collects the things worth acting on: neighbours that were seen but couldn't be polled, devices that answer SNMP but hide their topology (no LLDP/CDP, MAC table or routes — usually a restricted SNMP view), links whose ends disagree on speed or duplex, VLANs named differently on different switches, subnets whose router was never reached, overlapping subnets, single uplinks. A compliance page checks device configurations against common hardening standards and flags hardware that is past, or nearing, the end of vendor support.
 
 ![The Needs attention page: link speed mismatches, neighbours not polled, subnets not yet scanned, VLANs named inconsistently and single uplinks, each with a level, the item and a suggested action](./findings.png)
 
