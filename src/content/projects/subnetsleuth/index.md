@@ -38,13 +38,15 @@ From there it works in stages:
 
 While it runs, the Activity panel's **Now:** line names exactly what is in flight: the /24 blocks being swept, the batch being port-scanned and Nmap's current stage, the devices being polled. On a large network that line is the difference between "it's working" and "is it stuck?".
 
+If the SNMP credentials came with the network, you add them. If they did not — common on a network nobody documented — SubnetSleuth can also try the handful of well-known factory-default community strings, read-only, after anything you did provide. Any device that still answers one is listed under *Needs attention* so you can change it.
+
 Everything it sends is read-only (SNMP GET and GETBULK, never SET), and every step checks the same scope before contacting an address, so nothing outside your ranges is touched, whichever step found it.
 
 ## What it works out
 
-The **Overview** is the first answer to "what have we got": devices by role and vendor, hosts by type, the busiest subnets, and the findings that need attention.
+The **Overview** is the first answer to "what have we got". It separates the network itself — firewalls, routers, switches and access points, with the gear you have not yet polled shown as a lighter part of each bar — from the endpoints attached to it, grouped by kind (PCs, phones, printers, servers and so on). Alongside are the gear by vendor, the busiest subnets, what each server actually does, and the findings that need attention.
 
-![The Overview page of the sample campus: 11 network devices, 465 hosts, 11 subnets, 7 VLANs and 27 links, with bars for devices by role and vendor, endpoints by type and the busiest subnets](./overview.png)
+![The Overview page of the sample campus: cards for network infrastructure (20, of which 11 polled), endpoints (457), subnets, VLANs and links, with bars for the infrastructure by type, the network gear by vendor, the endpoints by kind and the busiest subnets](./overview.png)
 
 **Topology.** The physical map is worked out from LLDP/CDP neighbours and MAC address tables, so it shows the cabling, including the devices that don't speak LLDP. The logical map shows subnets, gateways and the routers between them. Maps can be laid out automatically or by hand, positions are saved in the project, and they export to draw.io (and from there to Visio).
 
@@ -81,7 +83,7 @@ Right-click any device or host, or type an address, and **Deep scan with Nmap** 
 Beyond SNMP, SubnetSleuth can:
 
 - capture running configurations over SSH and show what changed between captures;
-- inspect servers over SSH or WinRM (OS, hardware, installed software, services and live connections, which become a dependency map of who talks to which server);
+- inspect hosts over SSH or WinRM — with your credentials it reads the OS, hardware, installed software, services and live connections (which become a dependency map of who talks to which server), and on Windows the OS product type tells a server, a domain controller and a workstation apart;
 - read VMware vCenter;
 - import DHCP leases;
 - listen for syslog and SNMP traps while you are on site;
