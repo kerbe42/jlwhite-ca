@@ -2,7 +2,7 @@
 title: 'SubnetSleuth: inventory and map a network you inherit'
 world: work
 date: 2026-10-01
-summary: "A Windows desktop app and command-line tool for taking stock of a network you are now responsible for but did not build. It reads the network's own devices over SNMP, read-only, and works out what is there and how it is wired: devices, links, subnets, VLANs and every host. It pulls in what the firewalls, management platforms, Active Directory and vCenter already know, from one place that holds every connection and credential, draws the VPN tunnels, and lets you ask Claude what it all means."
+summary: "A Windows desktop app and command-line tool for taking stock of a network you are now responsible for but did not build. It reads the network's own devices over SNMP, read-only, and works out what is there and how it is wired: devices, links, subnets, VLANs and every host. It pulls in what the firewalls, management platforms, Active Directory and vCenter already know, from one place that holds every connection and credential, draws the VPN tunnels, and lets you ask Claude, or another AI model, what it all means."
 featured: false
 cover: ./cover.png
 coverAlt: "SubnetSleuth's physical topology map of a sample campus: an edge firewall and WAN router above a core switch pair, with floor, server and warehouse switches below and access points under them"
@@ -96,11 +96,21 @@ What comes back is lined up with what the scan found. A device the platform mana
 
 ## Asking Claude about it
 
-Once the scan and the platforms are in, the questions are about meaning: what is this network, what is missing from the handover, which records are wrong. **Ask Claude** answers those from the project. It runs through the engineer's own Claude Code, signed in to their own Claude account (single sign-on through the organisation's identity provider works), so SubnetSleuth never handles that sign-in.
+Once the scan and the platforms are in, the questions are about meaning: what is this network, what is missing from the handover, which records are wrong. The **Ask AI** panel answers those from the project, with ready-made questions (explain this network, what the platforms add, clean up the asset register, models and firmware, questions for the previous owner) or your own. A quick answer works from a summary of the project. A thorough one lets the model list, read and search an export of the whole project, and nothing else: it cannot run commands, change files or browse. You can preview exactly what will be sent, and addresses, MACs, serials and names can be masked before anything leaves the machine and restored in the answer.
 
-There is a model and effort selector (Claude Haiku 5.5 by default, because it is quick and light on a plan's usage) and ready-made questions: explain this network, what the platforms add, clean up the asset register, models and firmware, and questions for the previous owner. A quick answer works from a summary of the project. A thorough one gives Claude read-only access to an export of the whole project, which it searches as it needs to. It cannot run commands, change files or browse. You can preview exactly what will be sent, and addresses, MACs, serials and names can be masked before anything leaves the machine and restored in the answer.
+![The Ask AI panel, asking through Claude Code signed in to a Claude Enterprise account, showing a kept answer to "Explain this network" for the sample campus: a first-day briefing that lists the sites, including three reached over VPN and one tunnel that is down, and the edge and core with their models and links](./assistant.png)
 
-![The Ask Claude panel answering "Explain this network" for the sample campus: a first-day briefing that lists the sites, including three reached over VPN and one tunnel that is down, the edge and core with their models and links, and the gaps — an unowned basement switch, single-homed warehouse switches](./assistant.png)
+**On a Claude plan.** Anthropic does not let other applications sign in to a Claude account, so SubnetSleuth works through Anthropic's own apps instead, under your own sign-in (single sign-on through your organisation included):
+
+- **Claude Code**: if your plan includes it, the panel asks through your own Claude Code.
+- **Claude Desktop and Cowork**: one button adds SubnetSleuth to Claude Desktop as a local connector, and each release also ships it as a desktop extension that an organisation can allow-list. In a chat or in Cowork, Claude can then read the project you last saved: a briefing, and read-only search over the exported data.
+- **claude.ai by hand**: a briefing file to attach to a chat or a Claude Project, or a data folder for Cowork, with the prompt on the clipboard. Nothing is sent by SubnetSleuth.
+
+![The Use your Claude plan window: SubnetSleuth added to Claude Desktop's connectors and reading the Northwind project, buttons for a chat briefing and a Cowork data folder, and a note on Claude Code](./claude-plan.png)
+
+**Through an API.** Claude can also be asked through Anthropic's API, Claude Platform on AWS, Amazon Bedrock, Google Cloud Vertex AI or Microsoft Foundry. Other vendors work too: OpenAI, Azure OpenAI, Google Gemini, Mistral, xAI, OpenRouter, a local Ollama, or any OpenAI-compatible gateway. Each is saved once as an **AI provider** in the same place as the connections and credentials, offers its current models and effort levels, and can list what your account can use. An API key is an ordinary saved credential. The cloud sign-ins (an AWS profile or SSO, Google Cloud, **Sign in with Microsoft** through Entra ID) are the cloud's own, so no password is stored. Questions go only to the provider's own address over HTTPS, and nothing in the environment can redirect them or the key.
+
+![The AI providers tab of Connections and credentials: Claude on Bedrock signing in with an AWS profile, the Claude API with an API key, Azure OpenAI signing in with Microsoft Entra ID, and a lab Ollama, each with its model and when it was last used](./ai-providers.png)
 
 ## Deep scan
 
@@ -144,4 +154,4 @@ subnetsleuth diff last-month.sleuth site.sleuth
 
 SubnetSleuth is written in Python: asyncio for the scanning, pysnmp for SNMP (v1, v2c and v3), Nmap when it is installed, and a PySide6 (Qt) desktop app. The scan engine has no Qt in it, so the app and the command line run the same code. Saved secrets are encrypted at rest with Windows DPAPI or the system keyring, and the log masks any secret that would otherwise be written to it.
 
-About 1,200 tests cover it, many of them against a simulated eleven-device campus and real SNMP agents bound to loopback addresses. Every connector is tested against responses recorded from its vendor's documented API, including tests that every request it can send is a read, that credentials never follow a redirect to another address, and that no secret ends up in a project file, an error message or the log. Every push builds the Windows installer on a Windows machine, starts the built app in a self-test mode that opens every page and every export, and screenshots it. The pictures on this page are those screenshots.
+About 1,250 tests cover it, many of them against a simulated eleven-device campus and real SNMP agents bound to loopback addresses. Every connector is tested against responses recorded from its vendor's documented API, including tests that every request it can send is a read, that credentials never follow a redirect to another address, and that no secret ends up in a project file, an error message or the log. Every push builds the Windows installer on a Windows machine, starts the built app in a self-test mode that opens every page and every export, and screenshots it. Most of the pictures on this page are those screenshots.
