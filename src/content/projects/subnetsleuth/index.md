@@ -2,11 +2,11 @@
 title: 'SubnetSleuth: inventory and map a network you inherit'
 world: work
 date: 2026-10-01
-summary: "A Windows desktop app and command-line tool for taking stock of a network you are now responsible for but did not build. It reads the network's own devices over SNMP, read-only, and works out what is there and how it is wired: devices, links, subnets, VLANs and every host, with a topology map, a deep Nmap scan of any address, and exports for the team."
+summary: "A Windows desktop app and command-line tool for taking stock of a network you are now responsible for but did not build. It reads the network's own devices over SNMP, read-only, and works out what is there and how it is wired: devices, links, subnets, VLANs and every host. It pulls in what the firewalls, management platforms and Active Directory already know, draws the VPN tunnels, and lets you ask Claude what it all means."
 featured: false
 cover: ./cover.png
 coverAlt: "SubnetSleuth's physical topology map of a sample campus: an edge firewall and WAN router above a core switch pair, with floor, server and warehouse switches below and access points under them"
-tags: ['networking', 'network-inventory', 'snmp', 'topology', 'nmap', 'python', 'pyside6']
+tags: ['networking', 'network-inventory', 'snmp', 'topology', 'firewalls', 'active-directory', 'nmap', 'python', 'pyside6']
 draft: false
 ---
 
@@ -68,6 +68,28 @@ The **Overview** is the first answer to "what have we got". It separates the net
 
 ![A subnet's address map: a grid of a /22's addresses, green where a host is, blue for network devices, alongside the subnet list with utilisation bars](./subnet.png)
 
+## What the firewalls and the domain already know
+
+A scan from the outside only sees what answers. The people who ran the network left a lot more behind in their own tools: the firewall knows which tunnels go where, the cloud dashboard knows which switch port and VLAN every laptop is on and who signs in to it, the firewall manager knows the serial and firmware of boxes that are switched off today, and Active Directory knows every machine that has joined the domain and what each site's subnets are called.
+
+SubnetSleuth reads that, read-only, from **Cisco Meraki**, **Cisco Security Cloud Control**, **Cisco Secure Firewall Management Center**, **FortiGate** and **FortiManager**, **Palo Alto** firewalls and **Panorama**, **Check Point**, **SonicWall** and **Sophos**, and from **Active Directory**, Windows DNS and DHCP servers and any DNS server that allows a zone transfer. Each connector sends only the requests on its own read-only list, checked before anything leaves the machine, and sends credentials only to the platform's own hosts.
+
+What comes back is lined up with what the scan found. A device the platform manages is matched to the polled device by serial number, then MAC, address and name, and a serial that disagrees vetoes the weaker clues. Clients and DHCP leases follow their MAC, so a laptop that has taken a new address shows as **moved** instead of becoming a second laptop, and an address that now belongs to a different machine is flagged as **re-assigned**. That is the trap of scanning a DHCP network repeatedly: done by IP address alone, it counts the same machine twice and attaches it to the wrong record. A **Platforms** page lists every record and where it landed: on a polled device, on a host, added to the map, or kept off it because its only address was public.
+
+![The Platforms page filtered to managed devices: the Meraki dashboard's access switches and the FortiGate pair, each matched to the polled switch or firewall by serial number, plus an offline fifth-floor switch and the standby firewall, which no scan reached, added to the map from the platform](./platforms.png)
+
+**VPN tunnels go on the map.** Every site-to-site tunnel a platform reports is drawn from the firewall that owns it to the far end, green when it is up and red when it is down. The networks behind the far end hang off it on the logical view. When the far end is a box the project already knows, such as the other side of a Meraki AutoVPN pair or a branch firewall that a firewall manager reports, the tunnel joins the two. Otherwise the remote site gets its own node.
+
+![The logical map: the edge firewall with three site-to-site tunnels to a Leeds branch, an Azure hub and an old disaster-recovery site — the last drawn in red because it is down — with the networks behind each tunnel hanging off its far end](./tunnels.png)
+
+## Asking Claude about it
+
+Once the scan and the platforms are in, the questions are about meaning: what is this network, what is missing from the handover, which records are wrong. **Ask Claude** answers those from the project. It runs through the engineer's own Claude Code, signed in to their own Claude account (single sign-on through the organisation's identity provider works), so SubnetSleuth never handles that sign-in.
+
+There is a model and effort selector (Claude Haiku 5.5 by default, because it is quick and light on a plan's usage) and ready-made questions: explain this network, what the platforms add, clean up the asset register, models and firmware, and questions for the previous owner. A quick answer works from a summary of the project. A thorough one gives Claude read-only access to an export of the whole project, which it searches as it needs to. It cannot run commands, change files or browse. You can preview exactly what will be sent, and addresses, MACs, serials and names can be masked before anything leaves the machine and restored in the answer.
+
+![The Ask Claude panel answering "Explain this network" for the sample campus: a first-day briefing that lists the sites, including three reached over VPN and one tunnel that is down, the edge and core with their models and links, and the gaps — an unowned basement switch, single-homed warehouse switches](./assistant.png)
+
 ## Deep scan
 
 Right-click any device or host, or type an address, and **Deep scan with Nmap** looks at it as thoroughly as Nmap can. It covers all 65,535 TCP ports, every service-version probe, OS detection and a traceroute, and the common UDP services if you ask. It also runs Nmap's scripts that are both *default* and *safe*, which read TLS certificates, web page titles, SSH host keys and SMB/RDP names, and nothing intrusive. The result stays in the project: every port with its product and version, the OS guesses, the uptime and the path, and a Scripts tab with what each script read.
@@ -110,4 +132,4 @@ subnetsleuth diff last-month.sleuth site.sleuth
 
 SubnetSleuth is written in Python: asyncio for the scanning, pysnmp for SNMP (v1, v2c and v3), Nmap when it is installed, and a PySide6 (Qt) desktop app. The scan engine has no Qt in it, so the app and the command line run the same code. SNMP secrets are encrypted at rest with Windows DPAPI or the system keyring.
 
-About 400 tests cover it, many of them against a simulated eleven-device campus and real SNMP agents bound to loopback addresses. Every push builds the Windows installer on a Windows machine, starts the built app in a self-test mode that opens every page and every export, and screenshots it. The pictures on this page are those screenshots.
+Nearly 800 tests cover it, many of them against a simulated eleven-device campus and real SNMP agents bound to loopback addresses. Every platform connector is tested against responses recorded from its vendor's documented API, including tests that every request it can send is a read and that no secret ends up in a project file. Every push builds the Windows installer on a Windows machine, starts the built app in a self-test mode that opens every page and every export, and screenshots it. The pictures on this page are those screenshots.
