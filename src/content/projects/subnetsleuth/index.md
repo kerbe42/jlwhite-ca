@@ -2,7 +2,7 @@
 title: 'SubnetSleuth: inventory and map a network you inherit'
 world: work
 date: 2026-10-01
-summary: "A Windows desktop app and command-line tool for taking stock of a network you are now responsible for but did not build. It reads the network's own devices over SNMP, read-only, and works out what is there and how it is wired: devices, links, subnets, VLANs and every host. It pulls in what the firewalls, management platforms, Active Directory and vCenter already know, from one place that holds every connection and credential, draws the VPN tunnels, and lets you ask Claude, or another AI model, what it all means."
+summary: "A Windows desktop app and command-line tool for taking stock of a network you are now responsible for but did not build. It reads the network's own devices over SNMP, read-only, and works out what is there and how it is wired: devices, links, subnets, VLANs and every host. It pulls in what the firewalls, management platforms, Active Directory, hypervisors, clouds and Kubernetes clusters already know, from one place that holds every connection and credential, shows what no scan has covered yet, turns it all into day-one health checks, and lets you ask Claude, or another AI model, what it all means."
 featured: false
 cover: ./cover.png
 coverAlt: "SubnetSleuth's physical topology map of a sample campus: an edge firewall and WAN router above a core switch pair, with floor, server and warehouse switches below and access points under them"
@@ -14,7 +14,7 @@ draft: false
 
 Taking over a network is mostly archaeology. An acquisition, a handover from a departing engineer, or a new job: the network comes with a spreadsheet that was last right two years ago and a diagram of how somebody meant it to be. SubnetSleuth is for that moment. You give it the address ranges you are responsible for and a read-only SNMP credential, and it reads the network's own devices to work out what is actually there and how it connects.
 
-It is a **Windows desktop app** and a **command-line tool** (Windows and Linux) that share one project file. It is available at [subnetsleuth.com](https://subnetsleuth.com), with the installer, a portable zip and the command-line builds on its [download page](https://subnetsleuth.com/download) and a 14-day free trial.
+It is a **Windows desktop app** and a **command-line tool** (Windows and Linux) that share one project file. It is available at [subnetsleuth.com](https://subnetsleuth.com), with the installer, a portable zip and the command-line builds on its [download page](https://subnetsleuth.com/download) and a 14-day free trial that covers one whole network.
 
 <video controls preload="metadata" playsinline poster="/media/subnetsleuth-demo-poster.jpg" aria-label="An 80-second tour of SubnetSleuth: a live scan, then the map, device, host, subnet, path and deep-scan views">
   <source src="/media/subnetsleuth-demo/index.m3u8" type="application/vnd.apple.mpegurl" />
@@ -38,7 +38,7 @@ From there it works in stages:
 
 While it runs, the Activity panel's **Now:** line names exactly what is in flight: the /24 blocks being swept, the batch being port-scanned and Nmap's current stage, the devices being polled. On a large network that line is the difference between "it's working" and "is it stuck?".
 
-If the SNMP credentials came with the network, you add them. If they did not — common on a network nobody documented — SubnetSleuth can also try the handful of well-known factory-default community strings, read-only, after anything you did provide. Any device that still answers one is listed under *Needs attention* so you can change it.
+If the SNMP credentials came with the network, you add them. If they did not — common on a network nobody documented — SubnetSleuth can also try the handful of well-known factory-default community strings, read-only, after anything you did provide. Any device that still answers one is flagged on the *Compliance* page so you can change it.
 
 Everything it sends is read-only (SNMP GET and GETBULK, never SET), and every step checks the same scope before contacting an address, so nothing outside your ranges is touched, whichever step found it.
 
@@ -82,7 +82,7 @@ Secrets never go into a project file. On Windows they are encrypted for the Wind
 
 A scan from the outside only sees what answers. The people who ran the network left a lot more behind in their own tools: the firewall knows which tunnels go where, the cloud dashboard knows which switch port and VLAN every laptop is on and who signs in to it, the firewall manager knows the serial and firmware of boxes that are switched off today, and Active Directory knows every machine that has joined the domain and what each site's subnets are called.
 
-SubnetSleuth reads that, read-only, from **Cisco Meraki**, **Cisco Security Cloud Control**, **Cisco Secure Firewall Management Center**, **FortiGate** and **FortiManager**, **Palo Alto** firewalls and **Panorama**, **Check Point**, **SonicWall** and **Sophos**, from **Active Directory**, Windows DNS and DHCP servers and any DNS server that allows a zone transfer, and from **VMware vCenter**, which knows every virtual machine and the host it runs on. A DHCP server's lease export goes through the same path. Each connector sends only the requests on its own read-only list, checked before anything leaves the machine, and sends credentials only to the platform's own address, never to a redirect elsewhere.
+SubnetSleuth reads that, read-only, from **Cisco Meraki**, **Cisco Security Cloud Control**, **Cisco Secure Firewall Management Center**, **FortiGate** and **FortiManager**, **Palo Alto** firewalls and **Panorama**, **Check Point**, **SonicWall** and **Sophos**, and from **Active Directory**, Windows DNS and DHCP servers and any DNS server that allows a zone transfer. A DHCP server's lease export goes through the same path. Each connector sends only the requests on its own read-only list, checked before anything leaves the machine, and sends credentials only to the platform's own address, never to a redirect elsewhere.
 
 What comes back is lined up with what the scan found. A device the platform manages is matched to the polled device by serial number, then MAC, address and name, and a serial that disagrees vetoes the weaker clues. Clients and DHCP leases follow their MAC, so a laptop that has taken a new address shows as **moved** instead of becoming a second laptop, and an address that now belongs to a different machine is flagged as **re-assigned**. That is the trap of scanning a DHCP network repeatedly: done by IP address alone, it counts the same machine twice and attaches it to the wrong record. A **Sources** page lists every record and where it landed: on a polled device, on a host, added to the map, or kept off it because its only address was public.
 
@@ -93,6 +93,20 @@ What comes back is lined up with what the scan found. A device the platform mana
 **VPN tunnels go on the map.** Every site-to-site tunnel a platform reports is drawn from the firewall that owns it to the far end, green when it is up and red when it is down. The networks behind the far end hang off it on the logical view. When the far end is a box the project already knows, such as the other side of a Meraki AutoVPN pair or a branch firewall that a firewall manager reports, the tunnel joins the two. Otherwise the remote site gets its own node.
 
 ![The logical map: the edge firewall with three site-to-site tunnels to a Leeds branch, an Azure hub and an old disaster-recovery site — the last drawn in red because it is down — with the networks behind each tunnel hanging off its far end](./tunnels.png)
+
+## Behind the network: hypervisors, clouds and clusters
+
+Half of a modern network is virtual: the servers are virtual machines, a site's "core" is a pair of hypervisors with distributed switches, and the newest systems live in a cloud account reached over a VPN. SubnetSleuth reads those too, read-only: **VMware vCenter and ESXi**, **VMware NSX**, **Microsoft Hyper-V** (failover clusters included) and **System Center VMM**, **Proxmox VE**, **Nutanix**, **XenServer and XCP-ng** and **Xen Orchestra**, **oVirt, RHV and OLVM**, KVM hosts over libvirt, **OpenStack**, **AWS** (a whole AWS Organization at once), **Azure** (every subscription the sign-in can read, Azure Arc servers included), **Google Cloud**, **Oracle Cloud** and **Kubernetes**.
+
+Every virtual machine hangs off its host on the map, labelled with its port group and VLAN, and merges with what the scan found at the same address, so a server that answered SNMP and the VM record behind it are one machine. A hypervisor whose network cards hear CDP or LLDP is drawn cabled to its switch port. Cloud networks keep their own address space: two VPCs that both use 10.0.0.0/16, or a VNet that reuses an office range, are never merged into one subnet. A cloud network that overlaps the office stays off the map until you attach it on the **Cloud & virtual** page, and each source documents the least access to ask for.
+
+![The Cloud & virtual page of the sample campus: the virtual machines of its vCenter, each with its address and the host it runs on, and the port groups with the subnet each carries](./virtual.png)
+
+## What hasn't been covered yet
+
+The question at the end of a first scan is "what have we not looked at?" The **Coverage** page answers it from what the project already holds, without sending anything more: subnets that routing tables, DHCP scopes, firewalls, tunnels, clouds and reverse DNS zones reveal but no scan covered; machines with addresses in more than one subnet; addresses seen outside the agreed ranges (listed, never touched); and unknown MAC addresses learned on access ports that nothing else accounts for. Inside the agreed ranges they are the next thing to scan; outside them they are what to ask about.
+
+![The Coverage page: subnets no scan covered yet with where each was seen, machines that bridge subnets, and addresses seen outside the agreed ranges](./coverage.png)
 
 ## Asking Claude about it
 
@@ -120,22 +134,21 @@ Right-click any device or host, or type an address, and **Deep scan with Nmap** 
 
 ## Keeping it honest and current
 
-**Needs attention** collects the things worth acting on: neighbours that were seen but couldn't be polled, devices that answer SNMP but hide their topology (no LLDP/CDP, MAC table or routes — usually a restricted SNMP view), links whose ends disagree on speed or duplex, VLANs named differently on different switches, subnets whose router was never reached, overlapping subnets, single uplinks. A compliance page checks device configurations against common hardening standards and flags hardware that is past, or nearing, the end of vendor support.
+**Needs attention** collects the things worth acting on, starting with the **day-one health checks**: link ends that disagree on speed, duplex, MTU, access or native VLAN, the VLANs a trunk allows or a bundle's members; gateways with no standby router (HSRP, VRRP) and spanning-tree roots in the wrong place; IP address conflicts, overlapping subnets and mismatched masks; devices whose NTP, DNS, syslog or AAA servers differ from the rest of the fleet; ports in use in VLAN 1, VLANs nothing uses and trunks that went down. Each comes with its evidence (both ends of the link, the values, which devices said so), nothing extra is contacted to work it out, and a check whose data was not collected stays silent rather than claiming all is well. Alongside them are neighbours that were seen but couldn't be polled, devices that answer SNMP but hide their topology (usually a restricted SNMP view), VLANs named differently on different switches, subnets whose router was never reached, and single uplinks. A compliance page checks device configurations against common hardening standards and flags hardware that is past, or nearing, the end of vendor support.
 
-![The Needs attention page: link speed mismatches, neighbours not polled, subnets not yet scanned, VLANs named inconsistently and single uplinks, each with a level, the item and a suggested action](./findings.png)
+![The Needs attention page: day-one health checks (a duplex mismatch, a gateway with no standby router, MTU, speed and NTP differences, an address with two MACs), coverage findings and neighbours not polled, each with a level, the item and the detail](./findings.png)
 
 Beyond SNMP, SubnetSleuth can:
 
 - capture running configurations over SSH and show what changed between captures;
 - inspect hosts over SSH or WinRM — with your credentials it reads the OS, hardware, installed software, services and live connections (which become a dependency map of who talks to which server), and on Windows the OS product type tells a server, a domain controller and a workstation apart;
-- read VMware vCenter;
 - import DHCP leases;
 - listen for syslog and SNMP traps while you are on site;
 - reconcile everything against the asset list you were handed.
 
 ![A core switch's configuration history: the diff between two captures, with a VLAN renamed from Voice to VOICE and an NTP server changed](./config-diff.png)
 
-Rescans re-poll what is already known and keep your notes, the map layout and the scan history. *Compare with another scan* shows what moved, appeared or disappeared since last time.
+Rescans re-poll what is already known and keep your notes, the map layout and the scan history. *Tools ▸ Compare with another project* shows what moved, appeared or disappeared since last time.
 
 ## Sharing it
 
@@ -154,4 +167,4 @@ subnetsleuth diff last-month.sleuth site.sleuth
 
 SubnetSleuth is written in Python: asyncio for the scanning, pysnmp for SNMP (v1, v2c and v3), Nmap when it is installed, and a PySide6 (Qt) desktop app. The scan engine has no Qt in it, so the app and the command line run the same code. Saved secrets are encrypted at rest with Windows DPAPI or the system keyring, and the log masks any secret that would otherwise be written to it.
 
-About 1,300 tests cover it, many of them against a simulated eleven-device campus and real SNMP agents bound to loopback addresses. Every connector is tested against responses recorded from its vendor's documented API, including tests that every request it can send is a read, that credentials never follow a redirect to another address, and that no secret ends up in a project file, an error message or the log. Every push builds the Windows installer on a Windows machine, starts the built app in a self-test mode that opens every page and every export, and screenshots it. Most of the pictures on this page are those screenshots.
+About 2,600 tests cover it, many of them against a simulated eleven-device campus and real SNMP agents bound to loopback addresses. Every connector is tested against responses recorded from its vendor's documented API, including tests that every request it can send is a read, that credentials never follow a redirect to another address, and that no secret ends up in a project file, an error message or the log. Every release is built on a build server of my own: the suite runs with Linux and Windows Python, the built app starts in a self-test mode that opens every page and every export and screenshots it, and the installer is installed, upgraded and removed before anything is published. Most of the pictures on this page are those screenshots.
