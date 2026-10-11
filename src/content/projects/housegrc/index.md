@@ -14,7 +14,7 @@ draft: false
 
 HouseGRC is a self-hosted, multi-tenant governance, risk, and compliance platform that I built solo and run myself. The sensitive part of GRC, meaning your open risks, your control gaps, your incident playbooks, is what you least want sitting in a SaaS you don't control. HouseGRC keeps that record in a single owner-controlled deployment, encrypted at rest: one app that consolidates an organization's compliance frameworks, risk register, controls and evidence, policies, audits, third-party/vendor risk, software and asset inventory, BIA/BCP/DR and incident-response planning, and executive reporting. You hold the keys and the data stays inside your boundary.
 
-It is also a product: organizations can license it from [housegrc.com](https://housegrc.com), with a yearly license per organization and a free trial, and run it on their own servers with the same single Docker image.
+It is also a product: since version 2.0 (October 2026), organizations can license it from [housegrc.com](https://housegrc.com), with a yearly license per organization and a free trial, and run it on their own servers with the same single Docker image.
 
 It is the inward half of a two-part idea. [DeepReview](/work/deepreview), my outward-facing, authorized-use-only vendor-risk and reconnaissance project, is the inverse. Where HouseGRC manages your own posture, DeepReview profiles the third parties you depend on. The two started as one app and now run as separate deployments, each standing on its own.
 
