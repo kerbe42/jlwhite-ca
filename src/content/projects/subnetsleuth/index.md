@@ -14,7 +14,7 @@ draft: false
 
 Taking over a network is mostly archaeology. An acquisition, a handover from a departing engineer, or a new job: the network comes with a spreadsheet that was last right two years ago and a diagram of how somebody meant it to be. SubnetSleuth is for that moment. You give it the address ranges you are responsible for and a read-only SNMP credential, and it reads the network's own devices to work out what is actually there and how it connects.
 
-It is a **Windows desktop app** and a **command-line tool** (Windows and Linux) that share one project file. It is available at [subnetsleuth.com](https://subnetsleuth.com), with the installer, a portable zip and the command-line builds on its [download page](https://subnetsleuth.com/download) and a 14-day free trial that covers one whole network.
+It is a **Windows desktop app** and a **command-line tool** (Windows and Linux) that share one project file. It is available at [subnetsleuth.com](https://subnetsleuth.com), with the installer, a portable zip and the command-line builds on its [download page](https://subnetsleuth.com/download). It is currently free for personal use with a free license key, and organizations license it by quote. It is one of the [MNA Tools](https://mnatools.com), with [HouseGRC](/work/housegrc) and [DeepReview](/work/deepreview): tools for the IT side of mergers and acquisitions, where SubnetSleuth is the inside view of the network a deal hands you.
 
 <video controls preload="metadata" playsinline poster="/media/subnetsleuth-demo-poster.jpg" aria-label="An 80-second tour of SubnetSleuth: a live scan, then the map, device, host, subnet, path and deep-scan views">
   <source src="/media/subnetsleuth-demo/index.m3u8" type="application/vnd.apple.mpegurl" />
