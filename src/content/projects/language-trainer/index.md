@@ -2,12 +2,12 @@
 title: 'Language Trainer: a language teacher in the browser that listens when you speak'
 world: work
 date: 2026-10-06
-summary: "Piano and Guitar Trainer's sibling for languages. You say every word out loud: it shows how each one sounds, waits while you take your time, and coaches the words you miss one at a time. Spanish has a full 48-day course with a library of stories; starter courses in fourteen more languages, from French to Korean, are being added one at a time."
+summary: "Piano and Guitar Trainer's sibling for languages. You say every word out loud: it shows how each one sounds, waits while you take your time, and coaches the words you miss one at a time. Spanish has a full 48-day course with a library of stories; starter courses in more languages, French and Ukrainian first, are being added one at a time, and every language has a patient sound practice for the words you stumble on."
 featured: true
 featuredRank: 1
 cover: ./cover.jpg
 coverAlt: "Language Trainer’s language picker: a card for each language with a greeting in its own script and how it sounds, ¡Hola! (OH-lah) with the 48-day course, then Bonjour, Hallo, Hoi, Ciao, Olá, Γεια σου and Hei"
-tags: ['language-learning', 'spanish', 'french', 'speech', 'javascript', 'education']
+tags: ['language-learning', 'spanish', 'french', 'ukrainian', 'speech', 'pronunciation', 'javascript', 'education']
 draft: false
 ---
 
@@ -47,7 +47,7 @@ Starting out, nothing is said blind. For the first two weeks, every word you're 
 
 ![Day one's warm-up on a phone: hola, spelled out as oh-lah, the tip "The silent h. The h is never said", and the microphone listening](./start.jpg)
 
-As in the siblings, it keeps you on an exercise until it's 100% right, and the help escalates a step at a time: "nearly!", then slower voices, hints with the first letter of each word, just the sentences you missed until they're right, word tiles instead of writing, and after a while a break and the offer to skip it for now so it comes back in a review. A missed sentence is shown, said and asked again at the end of the run, but the score is what was right the first time.
+As in the siblings, it keeps you on an exercise until it's 100% right, and the help escalates a step at a time: "nearly!", then slower voices, hints with the first letter of each word, just the sentences you missed until they're right, word tiles instead of writing, and after a while a break and the offer to skip it for now so it comes back in a review. A missed sentence is shown, said and asked again at the end of the run, but the score is what was right the first time. Nothing moves on by itself: after each answer the card stays, with **Say it again** (for practice, it doesn't change the score) and **Hear it again**, until you tap Next, and a word being learned always has its English beside it.
 
 Reviews bring exercises back before you forget them, at 1, 2, 4, 8 and 16 days, and sooner for one that needed help. **Learn this** does the same for anything in the library, a few lines at a time. Around it all there are XP, levels, badges, a daily goal and a streak, and **My words** lists every word you've met, how well you know it, and a quick quiz on the ones that are due.
 
@@ -58,6 +58,14 @@ Spanish is said the way it's written, so the app works out every word's pronunci
 ![A tapped word, Buenos: bue·nos, bweh-nohs, /ˈbwe.nos/, the tip "Two vowels, one beat", a link to all the sounds of Spanish, and the phrases it appears in](./word.jpg)
 
 The tips cover the sounds English speakers find hard: the rolled r, the breathy j, ll said like y, the soft d, two vowels in one beat. In a lesson, a word that wasn't heard right is shown spelled out the same way, and the teacher says the tip for its trickiest sound. **The sounds of Spanish**, in Help, has every tip with words to hear.
+
+## Sound practice
+
+**🗣 Sounds** is for the words that won't come out right. It lists the sounds of the language that English speakers find hard, each with words from the course that have it, and **Your tricky words**, the ones a lesson had to coach. A word at a time, it shows the word, its meaning and how it sounds, says it (slowly too), gives the tip for its tricky sound, and waits for you as long as you need: long pauses don't end your turn, and ✓ I'm done says when you've finished.
+
+It's built for stumbling. When it hears a word started twice, a piece repeated, or a second miss, it says something encouraging and builds the word up from its end, the way speech therapists do: *VWAHR*, then *ruh-VWAHR*, then *au revoir*, each piece said for you to echo, then the whole word again. Nothing is marked wrong, and a word that still won't come is put aside kindly for next time. Each piece is recorded ahead of time from the word's pronunciation, so it's the same voice saying it. It's practice, not therapy, and it says so: a speech-language pathologist can help in ways an app can't.
+
+An English edition, for the sounds people find hard in English (the two *th*s, *r* and *l*, *v* and *w*, the short vowels, *str*-type clusters and *-ed* endings), is on its way.
 
 ## The reader and the library
 
@@ -81,20 +89,20 @@ On a small screen the toolbar is one row, the rest moves into a ⋯ panel, and a
 
 ## More languages
 
-Every language uses the same app and the same kind of course: the language's own sounds and most common words first, each word coached until it's right, then greetings, numbers, names, ordering at a café, finding your way, and conversations where you choose your part. A starter course is seven days; the full course follows, one language at a time. French is the first live, at [french.jlwhite.ca](https://french.jlwhite.ca). Starter courses are also written for German, Italian, Brazilian Portuguese, Dutch, Swedish, Norwegian, Danish, Greek, Ukrainian, Hindi and Korean, with Filipino and Japanese next, and each goes live once its voices are recorded and checked.
+Every language uses the same app and the same kind of course: the language's own sounds and most common words first, each word coached until it's right, then greetings, numbers, names, ordering at a café, finding your way, and conversations where you choose your part. A starter course is seven days; the full course follows, one language at a time. French and Ukrainian are live, at [french.jlwhite.ca](https://french.jlwhite.ca) and [ukrainian.jlwhite.ca](https://ukrainian.jlwhite.ca). Starter courses are also written for German, Italian, Brazilian Portuguese, Dutch, Swedish, Norwegian, Danish, Greek, Hindi, Korean, Filipino and Japanese, and each goes live once its voices are recorded and checked. Each language is a course of its own: the teacher names the language you're learning, and the tips compare its sounds to English, never to another language.
 
 Almost all of the work to add a language runs on my own machines, with free tools:
 
 - **Every sentence is checked against what's been taught.** Each day's words are listed with every form a sentence may use, and the build refuses a sentence with a word that hasn't been taught yet.
 - **How each word sounds** comes from a pronunciation engine (espeak-ng), turned into the same English-friendly spelling the Spanish course uses (*bonjour*: bohn-ZHOOR, *grazie*: GRAH-tsyeh, *привіт*: pree-VEET), with corrections per language where the engine is wrong.
-- **The voices** are free voices recorded locally: two per language where there are two (Danish, Greek and Korean have one), chosen by having a speech recogniser transcribe each candidate and keeping the clearest.
+- **The voices** are free voices recorded locally: two per language where there are two (Danish, Greek, Korean and Filipino have one), chosen by having a speech recogniser transcribe each candidate and keeping the clearest.
 - **The English matches.** Every sentence is translated back into English by a local translation model, and the ones whose meaning drifts from the course's English are read again by hand.
 
 Each language has its own speech-recognition locale, its own sound-alike rules (a recogniser writing *das* or *dass*, *ces* or *ses*), its own number words, and its own letters for typing. Greek, Ukrainian, Hindi and Korean are written in their own scripts, with the sounds-like spelling under every word while you learn to read them.
 
 ## Honest limits
 
-Speech recognition is the browser's, not the app's. Chrome and Edge send what you say to Google's or Microsoft's speech service unless the browser can recognise it on the device, and Firefox has none at all, so there it's typing or checking yourself. On Android a page that holds the microphone leaves the recogniser hearing silence, so on phones the level meter follows the recogniser instead of opening the microphone itself. The tests drive every exercise through a stand-in recogniser, which proves the app's side but not how well a given browser hears a given accent.
+Speech recognition is the browser's, not the app's. Chrome and Edge send what you say to Google's or Microsoft's speech service unless the browser can recognise it on the device, and Firefox has none at all, so there it's typing or checking yourself. On Android a page that holds the microphone leaves the recogniser hearing silence, so on phones the level meter follows the recogniser instead of opening the microphone itself. Sound practice is practice, not speech therapy. The tests drive every exercise through a stand-in recogniser, which proves the app's side but not how well a given browser hears a given accent.
 
 The voices are synthetic. Alex is made from a native speaker's recordings; Dora is right sound by sound, but on single words she can still sound less natural than a native speaker. The newer languages' sounds-like spellings and voices come from free tools and are checked by machine and by eye, not yet by native speakers of each language.
 
