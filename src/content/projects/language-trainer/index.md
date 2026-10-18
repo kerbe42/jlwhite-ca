@@ -2,12 +2,12 @@
 title: 'Language Trainer: a language teacher in the browser that listens when you speak'
 world: work
 date: 2026-10-06
-summary: "Piano and Guitar Trainer's sibling for languages. You say every word out loud: it shows how each one sounds, waits while you take your time, and coaches the words you miss one at a time. Spanish has a full 48-day course with a library of stories; starter courses in French, Ukrainian, Danish and Korean are live with more on the way, every language has a patient sound practice for the words you stumble on, and English has a speech practice site of its own."
+summary: "Piano and Guitar Trainer's sibling for languages. You say every word out loud: it shows how each one sounds, waits while you take your time, and coaches the words you miss one at a time. Spanish has a full 48-day course with a library of stories; starter courses in French, Ukrainian, Danish, Korean, Japanese, Filipino and Greek are live with more on the way, every language has a patient sound practice for the words you stumble on, and English has a speech practice site of its own."
 featured: true
 featuredRank: 1
 cover: ./cover.jpg
 coverAlt: "Language Trainer’s language picker: a card for each language with a greeting in its own script and how it sounds, ¡Hola! (OH-lah) with the 48-day course, then Bonjour, Hallo, Hoi, Ciao, Olá, Γεια σου and Hei"
-tags: ['language-learning', 'spanish', 'french', 'ukrainian', 'danish', 'korean', 'english', 'speech', 'pronunciation', 'javascript', 'education']
+tags: ['language-learning', 'spanish', 'french', 'ukrainian', 'danish', 'korean', 'japanese', 'filipino', 'greek', 'english', 'speech', 'pronunciation', 'javascript', 'education']
 draft: false
 ---
 
@@ -79,7 +79,7 @@ The course is written in a small notation, a week to a file, and built from it. 
 
 ## The voices
 
-Every line is pre-recorded locally, more than twelve thousand clips in four voices: the teachers and Dora with the Kokoro text-to-speech model, and Alex, the Spanish man, with a Piper voice made from recordings of a native Spanish speaker. Kokoro's own Spanish man didn't sound like Spanish (a speech recogniser heard his *hola* as another language), and on the same test the new Alex is the clearest of the Spanish voices. The teachers speak English, and the Spanish inside what they say ("To say hello, say *hola*") is spoken by the Spanish voice that goes with them, joined into one clip. Every Spanish sentence is recorded in both Spanish voices, pronounced as Latin American Spanish, and Whisper finds when each word starts so the reader can light the words up as they're said.
+Every line is pre-recorded locally, more than twelve thousand clips in four voices: the English teachers with the Kokoro text-to-speech model, and Dora and Alex, the Spanish voices, with a Piper voice made from recordings of native Spanish speakers. Kokoro's own Spanish voices didn't sound like Spanish (a speech recogniser heard his *hola* as another language, and hers as "go lad"), and on the same test the Piper voices are the clearest. The teachers speak English, and the Spanish inside what they say ("To say hello, say *hola*") is spoken by the Spanish voice that goes with them, joined into one clip. Every Spanish sentence is recorded in both Spanish voices, pronounced as Latin American Spanish, and Whisper finds when each word starts so the reader can light the words up as they're said.
 
 ## Phones and tablets
 
@@ -89,7 +89,7 @@ On a small screen the toolbar is one row, the rest moves into a ⋯ panel, and a
 
 ## More languages
 
-Every language uses the same app and the same kind of course: the language's own sounds and most common words first, each word coached until it's right, then greetings, numbers, names, ordering at a café, finding your way, and conversations where you choose your part. A starter course is seven days; the full course follows, one language at a time. French, Ukrainian, Danish and Korean are live, at [french.jlwhite.ca](https://french.jlwhite.ca), [ukrainian.jlwhite.ca](https://ukrainian.jlwhite.ca), [danish.jlwhite.ca](https://danish.jlwhite.ca) and [korean.jlwhite.ca](https://korean.jlwhite.ca). Starter courses are also written for German, Italian, Brazilian Portuguese, Dutch, Swedish, Norwegian, Greek, Hindi, Filipino and Japanese, and each goes live once its voices are recorded and checked. Each language is a course of its own: the teacher names the language you're learning, and the tips compare its sounds to English, never to another language.
+Every language uses the same app and the same kind of course: the language's own sounds and most common words first, each word coached until it's right, then greetings, numbers, names, ordering at a café, finding your way, and conversations where you choose your part. A starter course is seven days; the full course follows, one language at a time. French, Ukrainian, Danish, Korean, Japanese, Filipino and Greek are live, at [french.jlwhite.ca](https://french.jlwhite.ca), [ukrainian.jlwhite.ca](https://ukrainian.jlwhite.ca), [danish.jlwhite.ca](https://danish.jlwhite.ca), [korean.jlwhite.ca](https://korean.jlwhite.ca), [japanese.jlwhite.ca](https://japanese.jlwhite.ca), [filipino.jlwhite.ca](https://filipino.jlwhite.ca) and [greek.jlwhite.ca](https://greek.jlwhite.ca). Starter courses are also written for German, Italian, Brazilian Portuguese, Dutch, Swedish, Norwegian and Hindi, and each goes live once its voices are recorded and checked. Each language is a course of its own: the teacher names the language you're learning, and the tips compare its sounds to English, never to another language.
 
 Almost all of the work to add a language runs on my own machines, with free tools:
 
@@ -102,9 +102,9 @@ Each language has its own speech-recognition locale, its own sound-alike rules (
 
 ## Honest limits
 
-Speech recognition is the browser's, not the app's. Chrome and Edge send what you say to Google's or Microsoft's speech service unless the browser can recognise it on the device, and Firefox has none at all, so there it's typing or checking yourself. On Android a page that holds the microphone leaves the recogniser hearing silence, so on phones the level meter follows the recogniser instead of opening the microphone itself. Sound practice is practice, not speech therapy. The tests drive every exercise through a stand-in recogniser, which proves the app's side but not how well a given browser hears a given accent.
+Speech recognition is the browser's, not the app's. Chrome and Edge send what you say to Google's or Microsoft's speech service unless the browser can recognise it on the device, and Firefox has none at all, so there it's typing or checking yourself, and sound practice waits for you to say the word and tap when you're happy with it. On Android a page that holds the microphone leaves the recogniser hearing silence, so on phones the level meter follows the recogniser instead of opening the microphone itself. Sound practice is practice, not speech therapy. The tests drive every exercise through a stand-in recogniser, which proves the app's side but not how well a given browser hears a given accent.
 
-The voices are synthetic. Alex is made from a native speaker's recordings; Dora is right sound by sound, but on single words she can still sound less natural than a native speaker. The newer languages' sounds-like spellings and voices come from free tools and are checked by machine and by eye, not yet by native speakers of each language.
+The voices are synthetic, made from native speakers' recordings where a free voice like that exists. Every voice is now checked on single words as well as sentences before it's used: Greek's first voice read sentences well but babbled on single words, and was replaced. The newer languages' sounds-like spellings and voices come from free tools and are checked by machine and by eye, not yet by native speakers of each language.
 
 ## Closing
 
