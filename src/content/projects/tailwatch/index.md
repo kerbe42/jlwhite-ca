@@ -72,6 +72,6 @@ Carried in a bag, it doesn't need the GPS module at all: while the phone is conn
 
 The log holds the addresses and network names of other people's devices, so the app has an *Erase history* button, and it is meant for one purpose: checking whether you are being followed.
 
-## Where it went next
+## Several units, one picture
 
-The home-security side of the project, home nodes, cameras and arming, grew big enough to need its own system and became HomeGuard. TailWatch kept follow detection. Units that report to a small server at home feed a TailWatch service there that clusters places, scores followers and links identities across all of them, and it shares its list of followers with HomeGuard so a device that follows you is noticed if it ever turns up at the house.
+A unit doesn't have to work alone. Units can report to a small self-hosted server, where a TailWatch service clusters places, scores followers and links changing addresses into identities across all of them, so a device that turns up near any of them is judged against everything the others have heard.
