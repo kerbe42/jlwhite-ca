@@ -54,27 +54,27 @@ Large networks stay readable. Nothing is drawn on top of anything else, in any v
 
 **Paths.** Pick any address and SubnetSleuth traces the path to it, switch by switch through the MAC tables and router by router through the routing tables, and lights it up on the map.
 
-![A traced path on the physical map: from the core switch through an access switch to a desktop PC's switch port, highlighted among the other switches and hosts](./path.png)
+![A traced path on the physical map: from the core switch through an access switch to a desktop PC’s switch port, highlighted among the other switches and hosts](./path.png)
 
 **Devices.** Each device has its model, serial number, software version and uptime, its interfaces with VLANs, speeds, errors and PoE, its neighbours, ARP and routing tables, redundancy groups, routing peers and spanning-tree role. Switches get a faceplate of their ports.
 
-![A switch's details: Cisco Catalyst access switch with its management addresses, model, serial number, IOS version, location and contact](./device.png)
+![A switch’s details: Cisco Catalyst access switch with its management addresses, model, serial number, IOS version, location and contact](./device.png)
 
 ![The ports panel of a core switch: a faceplate of 25 ports, green where the port is up, grey where it is down, and outlined where a neighbouring device is plugged in](./ports-panel.png)
 
 **Hosts.** Every address seen in an ARP table, a MAC table or a sweep becomes a host, with its vendor, the switch port it is plugged into, and a type (Windows PC, printer, phone, camera, hypervisor, database server…). Each type comes with a confidence level and a *Why* tab listing the evidence behind it: a MAC vendor, open ports, a NetBIOS name, an mDNS service, a web page title.
 
-![A host's details: a VMware virtual machine typed as a web server with high confidence, with its name, MAC, operating system, open ports and the services it runs](./host-inspected.png)
+![A host’s details: a VMware virtual machine typed as a web server with high confidence, with its name, MAC, operating system, open ports and the services it runs](./host-inspected.png)
 
 **Subnets.** Each subnet gets an address map of what is used, what is free and what is on each address, with its gateway, VLAN and utilisation, so you can tell the swept subnets from the ones that are only known from routing tables.
 
-![A subnet's address map: a grid of a /22's addresses, green where a host is, blue for network devices, alongside the subnet list with utilisation bars](./subnet.png)
+![A subnet’s address map: a grid of a /22’s addresses, green where a host is, blue for network devices, alongside the subnet list with utilisation bars](./subnet.png)
 
 ## One place for access
 
 Taking stock of a network means signing in to a lot of things: SNMP on the switches, SSH on the routers, a domain account for Active Directory and the DHCP servers, an API key for the cloud dashboard, a read-only admin on each firewall manager, an account for vCenter. SubnetSleuth keeps all of it in one place. **Credentials** are saved once and chosen wherever a job signs in, so one domain service account can serve Active Directory, every DHCP server and the inspection of Windows hosts, and changing its password is one edit. **Connections** are the systems to read from, each with its settings and the credential it uses, and a **Test** button that signs in and reads one small thing without pulling anything. **Pull all** reads every connection into the project, and can follow each scheduled rescan.
 
-![The Connections and credentials window: four saved connections (a Meraki organisation, a FortiGate pair, the domain and a DHCP server), each with its source, target, the credential it signs in with, and when it was last pulled and what came back; the DHCP server's last pull failed and carries a warning sign](./connections.png)
+![The Connections and credentials window: four saved connections (a Meraki organisation, a FortiGate pair, the domain and a DHCP server), each with its source, target, the credential it signs in with, and when it was last pulled and what came back; the DHCP server’s last pull failed and carries a warning sign](./connections.png)
 
 Secrets never go into a project file. On Windows they are encrypted for the Windows account, or a secret can be read from an environment variable each time it is used. A secret that can't be read, because it was saved under another account or its variable isn't set, is reported as such rather than quietly sent empty. A credential that belongs to one customer's network can be limited to that network, so it is never tried anywhere else. Every use is written to the log: which credential, for what and against what, never the secret. The command line reads and writes the same list, so a connection set up in the app can be pulled from a scheduled job on a jump box.
 
@@ -86,7 +86,7 @@ SubnetSleuth reads that, read-only, from **Cisco Meraki**, **Cisco Security Clou
 
 What comes back is lined up with what the scan found. A device the platform manages is matched to the polled device by serial number, then MAC, address and name, and a serial that disagrees vetoes the weaker clues. Clients and DHCP leases follow their MAC, so a laptop that has taken a new address shows as **moved** instead of becoming a second laptop, and an address that now belongs to a different machine is flagged as **re-assigned**. That is the trap of scanning a DHCP network repeatedly: done by IP address alone, it counts the same machine twice and attaches it to the wrong record. A **Sources** page lists every record and where it landed: on a polled device, on a host, added to the map, or kept off it because its only address was public.
 
-![The Sources page filtered to managed devices: the Meraki dashboard's access switches and the FortiGate pair, each matched to the polled switch or firewall by serial number, plus an offline fifth-floor switch and the standby firewall, which no scan reached, added to the map from the platform](./platforms.png)
+![The Sources page filtered to managed devices: the Meraki dashboard’s access switches and the FortiGate pair, each matched to the polled switch or firewall by serial number, plus an offline fifth-floor switch and the standby firewall, which no scan reached, added to the map from the platform](./platforms.png)
 
 **What a pull points at gets identified and scanned.** The boxes a platform manages are listed with the network devices, its own LLDP and CDP links are drawn as cabling, and each client hangs off the switch port or access point the platform saw it on, so a network known only from its dashboard is already a connected map. What the platform says about each client — "iPhone", "Printer", "Windows 11", the maker — is weighed with everything else the scan found, so phones and tablets, laptops, printers, desk phones and cameras come out as what they are. When a pull finishes, SubnetSleuth offers to scan what it found: the internal subnets the platform serves are added to the scan ranges and swept, and the devices it manages are polled and their neighbours followed. Networks behind a site-to-site tunnel are left out, because a tunnel can lead to a partner's network.
 
@@ -120,7 +120,7 @@ Once the scan and the platforms are in, the questions are about meaning: what is
 - **Claude Desktop and Cowork**: one button adds SubnetSleuth to Claude Desktop as a local connector, and each release also ships it as a desktop extension that an organisation can allow-list. In a chat or in Cowork, Claude can then read the project you last saved: a briefing, and read-only search over the exported data.
 - **claude.ai by hand**: a briefing file to attach to a chat or a Claude Project, or a data folder for Cowork, with the prompt on the clipboard. Nothing is sent by SubnetSleuth.
 
-![The Use your Claude plan window: SubnetSleuth added to Claude Desktop's connectors and reading the Northwind project, buttons for a chat briefing and a Cowork data folder, and a note on Claude Code](./claude-plan.png)
+![The Use your Claude plan window: SubnetSleuth added to Claude Desktop’s connectors and reading the Northwind project, buttons for a chat briefing and a Cowork data folder, and a note on Claude Code](./claude-plan.png)
 
 **Through an API.** Claude can also be asked through Anthropic's API, Claude Platform on AWS, Amazon Bedrock, Google Cloud Vertex AI or Microsoft Foundry. Other vendors work too: OpenAI, Azure OpenAI, Google Gemini, Mistral, xAI, OpenRouter, a local Ollama, or any OpenAI-compatible gateway. Each is saved once as an **AI provider** in the same place as the connections and credentials, offers its current models and effort levels, and can list what your account can use. An API key is an ordinary saved credential. The cloud sign-ins (an AWS profile or SSO, Google Cloud, **Sign in with Microsoft** through Entra ID) are the cloud's own, so no password is stored. Questions go only to the provider's own address over HTTPS, and nothing in the environment can redirect them or the key.
 
@@ -130,7 +130,7 @@ Once the scan and the platforms are in, the questions are about meaning: what is
 
 Right-click any device or host, or type an address, and **Deep scan with Nmap** looks at it as thoroughly as Nmap can. It covers all 65,535 TCP ports, every service-version probe, OS detection and a traceroute, and the common UDP services if you ask. It also runs Nmap's scripts that are both *default* and *safe*, which read TLS certificates, web page titles, SSH host keys and SMB/RDP names, and nothing intrusive. The result stays in the project: every port with its product and version, the OS guesses, the uptime and the path, and a Scripts tab with what each script read.
 
-![A host's Deep scan tab: finished in about 6 minutes, all TCP ports with OS detection and safe scripts, Linux 5.x at 97%, and a port table listing SSH (OpenSSH 8.9p1), HTTP and HTTPS (nginx 1.18.0) open, two ports closed and 65,530 filtered](./deep-scan.png)
+![A host’s Deep scan tab: finished in about 6 minutes, all TCP ports with OS detection and safe scripts, Linux 5.x at 97%, and a port table listing SSH (OpenSSH 8.9p1), HTTP and HTTPS (nginx 1.18.0) open, two ports closed and 65,530 filtered](./deep-scan.png)
 
 ## Keeping it honest and current
 
@@ -146,7 +146,7 @@ Beyond SNMP, SubnetSleuth can:
 - listen for syslog and SNMP traps while you are on site;
 - reconcile everything against the asset list you were handed.
 
-![A core switch's configuration history: the diff between two captures, with a VLAN renamed from Voice to VOICE and an NTP server changed](./config-diff.png)
+![A core switch’s configuration history: the diff between two captures, with a VLAN renamed from Voice to VOICE and an NTP server changed](./config-diff.png)
 
 Rescans re-poll what is already known and keep your notes, the map layout and the scan history. *Tools ▸ Compare with another project* shows what moved, appeared or disappeared since last time.
 

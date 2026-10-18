@@ -35,7 +35,7 @@ No piano to hand? The computer keyboard works too, two ways. For the early lesso
 
 It works on a phone or a tablet too. On a small screen the toolbar is one row with the song's name, and the rest of the controls sit in a ⋯ panel, grouped and sized for a finger. The teacher's panel moves under the notes (or beside them, with the phone on its side) and keeps Next within reach of your thumb, and the keyboard narrows to the hand you're playing so the keys are big enough to tap. The keys on the screen can be the piano, with chords and a finger sliding across the keys, or the phone's own microphone can listen from the piano's music stand. Added to the home screen, it opens full screen like an app, and the screen stays on while you play.
 
-![Piano Trainer on a phone: Ode to Joy with the right hand's keys big enough to tap, the ⋯ panel with speed, hands, loop and sound, and a lesson with the teacher under the notes](./phone.jpg)
+![Piano Trainer on a phone: Ode to Joy with the right hand’s keys big enough to tap, the ⋯ panel with speed, hands, loop and sound, and a lesson with the teacher under the notes](./phone.jpg)
 
 ## A teacher that listens
 

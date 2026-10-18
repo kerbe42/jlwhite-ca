@@ -16,7 +16,7 @@ Guitar Trainer is the guitar and bass version of [Piano Trainer](/work/piano-tra
 
 A piano's falling notes don't suit a guitar, so the screen is a tab highway instead. Each string is a lane, with the high E on top the way tab is written, and the notes slide toward a playhead carrying the fret to press. Strums show as a column of frets with an arrow for down or up and the chord's name above it. Underneath, a fretboard lights up where the fingers go, with a finger number on each note. You can slow any song down without changing its pitch, loop the bars you keep missing (the loop goes straight round, in time, with no pause at the join), or have it wait at each note or chord until you play it.
 
-![House of the Rising Sun, fingerpicked in six-eight: the thumb on the bass string, then the G, B and high E strings one at a time, with the F chord's fingers on the fretboard](./picking.jpg)
+![House of the Rising Sun, fingerpicked in six-eight: the thumb on the bass string, then the G, B and high E strings one at a time, with the F chord’s fingers on the fretboard](./picking.jpg)
 
 One switch changes the instrument: electric, acoustic or bass, each with its own sampled sound. Guitars can be in standard tuning, drop D, DADGAD, open G or half a step down, and a bass in standard, drop D or half a step down. In drop D, DADGAD or open G a song is re-placed on the neck for the new tuning; tuned half a step down, it keeps its shapes and the whole thing, backing and all, sounds half a step lower, the way players who tune down expect. Everything mirrors for left-handed players. There's a tuner built in, and it's accurate to a couple of cents.
 
@@ -28,7 +28,7 @@ The first time you open it, a welcome appears straight away, before the rest of 
 
 On a phone or tablet the controls fold into a ⋯ panel, the teacher's panel moves under the music, and when the screen is the instrument the fretboard shows fewer, wider frets so a finger can hit them. On a piece that climbs the neck, those frets follow the music up and down it.
 
-![Guitar Trainer on a phone: the welcome asking which guitar and how it's connected, and Ode to Joy with the fretboard big enough to tap](./phone.jpg)
+![Guitar Trainer on a phone: the welcome asking which guitar and how it’s connected, and Ode to Joy with the fretboard big enough to tap](./phone.jpg)
 
 ## Listening to a guitar
 
