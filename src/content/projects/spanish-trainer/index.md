@@ -12,7 +12,7 @@ draft: false
 
 ## What it is
 
-Spanish Trainer is the language version of [Piano Trainer](/work/piano-trainer) and [Guitar Trainer](/work/guitar-trainer): a teacher in the browser that hears your answers, keeps you on each exercise until it's right, and helps when it isn't. It needs no account and nothing installed. Try it at **[language.jlwhite.ca](https://language.jlwhite.ca)**, or open it straight from a folder of files, offline (speech recognition is the one part that may need a connection, see below).
+Spanish Trainer is the language version of [Piano Trainer](/work/piano-trainer) and [Guitar Trainer](/work/guitar-trainer): a teacher in the browser that hears your answers, keeps you on each exercise until it's right, and helps when it isn't. It needs no account and nothing installed. Try it at **[spanish.jlwhite.ca](https://spanish.jlwhite.ca)**, or open it straight from a folder of files, offline (speech recognition is the one part that may need a connection, see below). The same app is growing into other languages, each with a site of its own, picked from [language.jlwhite.ca](https://language.jlwhite.ca).
 
 The Spanish is Latin American, as it's spoken from Mexico to Argentina: *ustedes* for "you all" and never *vosotros*, *seseo* in the voices, *carro*, *celular* and *computadora*.
 
@@ -24,7 +24,7 @@ The first visit opens a short welcome. It asks how you'd like to answer, checks 
 
 There are three ways to answer, and you can switch at any time:
 
-- **Speaking.** The browser's own speech recognition turns what you say into words, in Chrome, Edge, Safari and Chrome on Android. Answers are compared by sound, not spelling: the spellings a recogniser might pick for the same sounds (*hola* and *ola*, *vaca* and *baca*, and *casa* and *caza*, which sound alike in Latin America) all count, numbers it writes as digits are read as words, and the best of its guesses is used. What it heard is shown with each word of the answer marked right, wrong or missing.
+- **Speaking.** The browser's own speech recognition turns what you say into words, in Chrome, Edge, Safari and Chrome on Android. Answers are compared by sound, not spelling: the spellings a recogniser might pick for the same sounds (*hola* and *ola*, *vaca* and *baca*, and *casa* and *caza*, which sound alike in Latin America) all count, numbers it writes as digits are read as words, and the best of its guesses is used. It's patient: a learner reading a word out slowly pauses, and a recogniser calls the first pause the end, so a pause ends a piece of the answer, not the answer, and it keeps listening until all of it has been said. What it heard is shown with each word of the answer marked right, wrong or missing.
 - **Typing.** Every word is checked; case and punctuation never matter. A missing accent (*esta* for *está*, *ano* for *año*) counts as right but is pointed out, unless strict accents are turned on. The accented letters are buttons under the box, or typed as `a'`, `n~` and `u"`.
 - **Say it, and check myself.** No microphone: say it out loud, hear it said, and tell the teacher how it went.
 
@@ -40,6 +40,10 @@ The exercises are the ones a language teacher uses: what does it mean, build the
 
 ![Building a sentence: "The soup is cold." with the words la, sopa, está, fría and two that don’t belong as tiles to tap in order, and the teacher’s panel beside it](./lesson.jpg)
 
+Starting out, nothing is said blind. For the first two weeks, every word you're asked to say is on the screen, spelled out the way it sounds, with a tip for its trickiest sound, and each conversation begins by practising its words one at a time. A word you miss is coached on its own: shown big with its syllables, said slowly, then just that word from you, a few goes, before the whole sentence again.
+
+![Day one's warm-up on a phone: hola, spelled out as oh-lah, the tip "The silent h. The h is never said", and the microphone listening](./start.jpg)
+
 As in the siblings, it keeps you on an exercise until it's 100% right, and the help escalates a step at a time: "nearly!", then slower voices, hints with the first letter of each word, just the sentences you missed until they're right, word tiles instead of writing, and after a while a break and the offer to skip it for now so it comes back in a review. A missed sentence is shown, said and asked again at the end of the run, but the score is what was right the first time.
 
 Reviews bring exercises back before you forget them, at 1, 2, 4, 8 and 16 days, and sooner for one that needed help. **Learn this** does the same for anything in the library, a few lines at a time. Around it all there are XP, levels, badges, a daily goal and a streak, and **My words** lists every word you've met, how well you know it, and a quick quiz on the ones that are due.
@@ -54,7 +58,7 @@ The tips cover the sounds English speakers find hard: the rolled r, the breathy 
 
 ## The reader and the library
 
-The reader plays a conversation, a story or a poem a line at a time, each word lighting up as it's said, with the English underneath, a tap away, or off. You can take a part and say your lines when it waits for you, repeat every line after the voice, or keep going like a real conversation and be scored. It slows down without changing the voice, loops a few lines, and the strip along the bottom jumps to any line.
+The reader plays a conversation, a story or a poem a line at a time, each word lighting up as it's said, with the English underneath, a tap away, or off. It asks which of the people you'd like to be, then you say your lines when it waits for you, repeat every line after the voice, or keep going like a real conversation and be scored. It slows down without changing the voice, loops a few lines, and the strip along the bottom jumps to any line.
 
 The library holds 6 first stories, 12 everyday conversations, 10 short stories, 6 fables retold, 20 sayings, 6 poems by Martí, Bécquer, Machado and Darío, and the openings of *Don Quijote*, *Platero y yo* and *Tres héroes*, plus the 96 conversations and readings of the course. Each one says from which day of the course you know its words, and a word only a classic uses has its meaning there.
 
@@ -64,7 +68,7 @@ The course is written in a small notation, a week to a file, and built from it. 
 
 ## The voices
 
-Every line is pre-recorded with the Kokoro text-to-speech model running locally, more than twelve thousand clips in four voices. The teachers speak English, and the Spanish inside what they say ("To say hello, say *hola*") is spoken by the Spanish voice that goes with them, joined into one clip. Every Spanish sentence is recorded in both Spanish voices, pronounced as Latin American Spanish, and Whisper finds when each word starts so the reader can light the words up as they're said.
+Every line is pre-recorded locally, more than twelve thousand clips in four voices: the teachers and Dora with the Kokoro text-to-speech model, and Alex, the Spanish man, with a Piper voice made from recordings of a native Spanish speaker. Kokoro's own Spanish man didn't sound like Spanish (a speech recogniser heard his *hola* as another language), and on the same test the new Alex is the clearest of the Spanish voices. The teachers speak English, and the Spanish inside what they say ("To say hello, say *hola*") is spoken by the Spanish voice that goes with them, joined into one clip. Every Spanish sentence is recorded in both Spanish voices, pronounced as Latin American Spanish, and Whisper finds when each word starts so the reader can light the words up as they're said.
 
 ## Phones and tablets
 
@@ -76,7 +80,7 @@ On a small screen the toolbar is one row, the rest moves into a ⋯ panel, and a
 
 Speech recognition is the browser's, not the app's. Chrome and Edge send what you say to Google's or Microsoft's speech service unless the browser can recognise it on the device, and Firefox has none at all, so there it's typing or checking yourself. On Android a page that holds the microphone leaves the recogniser hearing silence, so on phones the level meter follows the recogniser instead of opening the microphone itself. The tests drive every exercise through a stand-in recogniser, which proves the app's side but not how well a given browser hears a given accent.
 
-The Spanish voices are synthetic. Sound by sound the pronunciation is right, but they don't yet sound as natural as a native speaker.
+The Spanish voices are synthetic. Alex is now made from a native speaker's recordings; Dora is right sound by sound, but on single words she can still sound less natural than a native speaker.
 
 ## Closing
 
