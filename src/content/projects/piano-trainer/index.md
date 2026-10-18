@@ -82,3 +82,5 @@ It runs online or from a local file, in Firefox, Chrome or Edge. The keyboard an
 ## Closing
 
 Most of the engineering went into one question: did the person at the piano just play the right notes? Everything else, from the course to the games to the stars, depends on answering that honestly, which means never calling a right note wrong and never letting a wrong one through.
+
+The same teacher now has two siblings: [Guitar Trainer](/work/guitar-trainer) for guitar and bass, and [Spanish Trainer](/work/spanish-trainer) for a language.

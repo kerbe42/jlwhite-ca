@@ -74,4 +74,4 @@ The log holds the addresses and network names of other people's devices, so the 
 
 ## Where it went next
 
-The home-security side of the project, home nodes, cameras and arming, grew big enough to need its own system and became [HomeGuard](/work/homeguard). TailWatch kept follow detection. Units that report to a small server at home feed a TailWatch service there that clusters places, scores followers and links identities across all of them, and it shares its list of followers with HomeGuard so a device that follows you is noticed if it ever turns up at the house.
+The home-security side of the project, home nodes, cameras and arming, grew big enough to need its own system and became HomeGuard. TailWatch kept follow detection. Units that report to a small server at home feed a TailWatch service there that clusters places, scores followers and links identities across all of them, and it shares its list of followers with HomeGuard so a device that follows you is noticed if it ever turns up at the house.

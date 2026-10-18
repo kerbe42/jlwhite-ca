@@ -12,7 +12,7 @@ draft: false
 
 ## What it is
 
-Guitar Trainer is the guitar and bass version of [Piano Trainer](/work/piano-trainer). It runs in a web browser with no account and nothing to install: try it at **[guitar.jlwhite.ca](https://guitar.jlwhite.ca)**, or open it straight from a folder of files, offline.
+Guitar Trainer is the guitar and bass version of [Piano Trainer](/work/piano-trainer), and [Spanish Trainer](/work/spanish-trainer) is its sibling for a language. It runs in a web browser with no account and nothing to install: try it at **[guitar.jlwhite.ca](https://guitar.jlwhite.ca)**, or open it straight from a folder of files, offline.
 
 A piano's falling notes don't suit a guitar, so the screen is a tab highway instead. Each string is a lane, with the high E on top the way tab is written, and the notes slide toward a playhead carrying the fret to press. Strums show as a column of frets with an arrow for down or up and the chord's name above it. Underneath, a fretboard lights up where the fingers go, with a finger number on each note. You can slow any song down without changing its pitch, loop the bars you keep missing (the loop goes straight round, in time, with no pause at the join), or have it wait at each note or chord until you play it.
 
