@@ -81,7 +81,7 @@ On a small screen the toolbar is one row, the rest moves into a ⋯ panel, and a
 
 ## More languages
 
-Every language uses the same app and the same kind of course: the language's own sounds and most common words first, each word coached until it's right, then greetings, numbers, names, ordering at a café, finding your way, and conversations where you choose your part. A starter course is seven days; the full course follows, one language at a time. Starter courses are written for French, German, Italian, Brazilian Portuguese, Dutch, Swedish, Norwegian, Danish, Greek, Ukrainian, Hindi and Korean, with Filipino and Japanese next, and each goes live once its voices are recorded and checked.
+Every language uses the same app and the same kind of course: the language's own sounds and most common words first, each word coached until it's right, then greetings, numbers, names, ordering at a café, finding your way, and conversations where you choose your part. A starter course is seven days; the full course follows, one language at a time. French is the first live, at [french.jlwhite.ca](https://french.jlwhite.ca). Starter courses are also written for German, Italian, Brazilian Portuguese, Dutch, Swedish, Norwegian, Danish, Greek, Ukrainian, Hindi and Korean, with Filipino and Japanese next, and each goes live once its voices are recorded and checked.
 
 Almost all of the work to add a language runs on my own machines, with free tools:
 
