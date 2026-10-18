@@ -2,12 +2,12 @@
 title: 'Language Trainer: a language teacher in the browser that listens when you speak'
 world: work
 date: 2026-10-06
-summary: "Piano and Guitar Trainer's sibling for languages. You say every word out loud: it shows how each one sounds, waits while you take your time, and coaches the words you miss one at a time. Spanish has a full 48-day course with a library of stories; starter courses in more languages, French and Ukrainian first, are being added one at a time, and every language has a patient sound practice for the words you stumble on."
+summary: "Piano and Guitar Trainer's sibling for languages. You say every word out loud: it shows how each one sounds, waits while you take your time, and coaches the words you miss one at a time. Spanish has a full 48-day course with a library of stories; starter courses in French, Ukrainian, Danish and Korean are live with more on the way, every language has a patient sound practice for the words you stumble on, and English has a speech practice site of its own."
 featured: true
 featuredRank: 1
 cover: ./cover.jpg
 coverAlt: "Language Trainer’s language picker: a card for each language with a greeting in its own script and how it sounds, ¡Hola! (OH-lah) with the 48-day course, then Bonjour, Hallo, Hoi, Ciao, Olá, Γεια σου and Hei"
-tags: ['language-learning', 'spanish', 'french', 'ukrainian', 'speech', 'pronunciation', 'javascript', 'education']
+tags: ['language-learning', 'spanish', 'french', 'ukrainian', 'danish', 'korean', 'english', 'speech', 'pronunciation', 'javascript', 'education']
 draft: false
 ---
 
@@ -65,7 +65,7 @@ The tips cover the sounds English speakers find hard: the rolled r, the breathy 
 
 It's built for stumbling. When it hears a word started twice, a piece repeated, or a second miss, it says something encouraging and builds the word up from its end, the way speech therapists do: *VWAHR*, then *ruh-VWAHR*, then *au revoir*, each piece said for you to echo, then the whole word again. Nothing is marked wrong, and a word that still won't come is put aside kindly for next time. Each piece is recorded ahead of time from the word's pronunciation, so it's the same voice saying it. It's practice, not therapy, and it says so: a speech-language pathologist can help in ways an app can't.
 
-An English edition, for the sounds people find hard in English (the two *th*s, *r* and *l*, *v* and *w*, the short vowels, *str*-type clusters and *-ed* endings), is on its way.
+**English speech practice**, at [english.jlwhite.ca](https://english.jlwhite.ca), is the same practice on its own, for the sounds people find hard in English: the two *th*s, *r* and *l*, *v* and *w*, *s* and *sh*, the short vowels, *str*-type clusters and *-ed* endings, each with the most common words that have it.
 
 ## The reader and the library
 
@@ -89,7 +89,7 @@ On a small screen the toolbar is one row, the rest moves into a ⋯ panel, and a
 
 ## More languages
 
-Every language uses the same app and the same kind of course: the language's own sounds and most common words first, each word coached until it's right, then greetings, numbers, names, ordering at a café, finding your way, and conversations where you choose your part. A starter course is seven days; the full course follows, one language at a time. French and Ukrainian are live, at [french.jlwhite.ca](https://french.jlwhite.ca) and [ukrainian.jlwhite.ca](https://ukrainian.jlwhite.ca). Starter courses are also written for German, Italian, Brazilian Portuguese, Dutch, Swedish, Norwegian, Danish, Greek, Hindi, Korean, Filipino and Japanese, and each goes live once its voices are recorded and checked. Each language is a course of its own: the teacher names the language you're learning, and the tips compare its sounds to English, never to another language.
+Every language uses the same app and the same kind of course: the language's own sounds and most common words first, each word coached until it's right, then greetings, numbers, names, ordering at a café, finding your way, and conversations where you choose your part. A starter course is seven days; the full course follows, one language at a time. French, Ukrainian, Danish and Korean are live, at [french.jlwhite.ca](https://french.jlwhite.ca), [ukrainian.jlwhite.ca](https://ukrainian.jlwhite.ca), [danish.jlwhite.ca](https://danish.jlwhite.ca) and [korean.jlwhite.ca](https://korean.jlwhite.ca). Starter courses are also written for German, Italian, Brazilian Portuguese, Dutch, Swedish, Norwegian, Greek, Hindi, Filipino and Japanese, and each goes live once its voices are recorded and checked. Each language is a course of its own: the teacher names the language you're learning, and the tips compare its sounds to English, never to another language.
 
 Almost all of the work to add a language runs on my own machines, with free tools:
 
