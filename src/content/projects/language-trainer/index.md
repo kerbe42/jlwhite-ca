@@ -1,18 +1,21 @@
 ---
-title: 'Spanish Trainer: a Spanish teacher in the browser that listens when you speak'
+title: 'Language Trainer: a language teacher in the browser that listens when you speak'
 world: work
 date: 2026-10-06
-summary: "Piano and Guitar Trainer's sibling for Latin American Spanish. A 48-day spoken course takes you from your first ¡hola! to telling a story in the past, a reader plays conversations, stories and poems a line at a time, and every word you tap tells you what it means and how it sounds."
-featured: false
+summary: "Piano and Guitar Trainer's sibling for languages. You say every word out loud: it shows how each one sounds, waits while you take your time, and coaches the words you miss one at a time. Spanish has a full 48-day course with a library of stories; starter courses in fourteen more languages, from French to Korean, are being added one at a time."
+featured: true
+featuredRank: 1
 cover: ./cover.jpg
-coverAlt: "Spanish Trainer’s reader playing a conversation at the doctor’s: each line in Spanish with the speaker’s name and the English underneath, the current line highlighted, and a strip of the conversation’s lines along the bottom"
-tags: ['language-learning', 'spanish', 'speech', 'javascript', 'education']
+coverAlt: "Language Trainer’s language picker: a card for each language with a greeting in its own script and how it sounds, ¡Hola! (OH-lah) with the 48-day course, then Bonjour, Hallo, Hoi, Ciao, Olá, Γεια σου and Hei"
+tags: ['language-learning', 'spanish', 'french', 'speech', 'javascript', 'education']
 draft: false
 ---
 
 ## What it is
 
-Spanish Trainer is the language version of [Piano Trainer](/work/piano-trainer) and [Guitar Trainer](/work/guitar-trainer): a teacher in the browser that hears your answers, keeps you on each exercise until it's right, and helps when it isn't. It needs no account and nothing installed. Try it at **[spanish.jlwhite.ca](https://spanish.jlwhite.ca)**, or open it straight from a folder of files, offline (speech recognition is the one part that may need a connection, see below). The same app is growing into other languages, each with a site of its own, picked from [language.jlwhite.ca](https://language.jlwhite.ca).
+Language Trainer is the language version of [Piano Trainer](/work/piano-trainer) and [Guitar Trainer](/work/guitar-trainer): a teacher in the browser that hears your answers, keeps you on each exercise until it's right, and helps when it isn't. It needs no account and nothing installed. Pick a language at **[language.jlwhite.ca](https://language.jlwhite.ca)**; each one is a site of its own, such as [spanish.jlwhite.ca](https://spanish.jlwhite.ca), and can also be opened straight from a folder of files, offline (speech recognition is the one part that may need a connection, see below).
+
+It started as Spanish Trainer, and Spanish is still the most complete: a 48-day course and a library of stories, described below. The same app now teaches other languages from the same code, each with a starter course first (see **More languages**).
 
 The Spanish is Latin American, as it's spoken from Mexico to Argentina: *ustedes* for "you all" and never *vosotros*, *seseo* in the voices, *carro*, *celular* and *computadora*.
 
@@ -28,7 +31,7 @@ There are three ways to answer, and you can switch at any time:
 - **Typing.** Every word is checked; case and punctuation never matter. A missing accent (*esta* for *está*, *ano* for *año*) counts as right but is pointed out, unless strict accents are turned on. The accented letters are buttons under the box, or typed as `a'`, `n~` and `u"`.
 - **Say it, and check myself.** No microphone: say it out loud, hear it said, and tell the teacher how it went.
 
-## The course
+## The Spanish course
 
 The course is 48 days over eight weeks, each day under an hour, from saying hello and spelling your name to the preterite and the imperfect, commands, *por* and *para*, and a graduation conversation. About 1,100 new words are taught along the way, a couple of dozen a day.
 
@@ -76,11 +79,24 @@ On a small screen the toolbar is one row, the rest moves into a ⋯ panel, and a
 
 ![Spanish Trainer on a phone: a conversation in the reader, and a typed answer with "libro" marked as the word that was misspelled and the right sentence shown](./phone.jpg)
 
+## More languages
+
+Every language uses the same app and the same kind of course: the language's own sounds and most common words first, each word coached until it's right, then greetings, numbers, names, ordering at a café, finding your way, and conversations where you choose your part. A starter course is seven days; the full course follows, one language at a time. Starter courses are written for French, German, Italian, Brazilian Portuguese, Dutch, Swedish, Norwegian, Danish, Greek, Ukrainian, Hindi and Korean, with Filipino and Japanese next, and each goes live once its voices are recorded and checked.
+
+Almost all of the work to add a language runs on my own machines, with free tools:
+
+- **Every sentence is checked against what's been taught.** Each day's words are listed with every form a sentence may use, and the build refuses a sentence with a word that hasn't been taught yet.
+- **How each word sounds** comes from a pronunciation engine (espeak-ng), turned into the same English-friendly spelling the Spanish course uses (*bonjour*: bohn-ZHOOR, *grazie*: GRAH-tsyeh, *привіт*: pree-VEET), with corrections per language where the engine is wrong.
+- **The voices** are free voices recorded locally: two per language where there are two (Danish, Greek and Korean have one), chosen by having a speech recogniser transcribe each candidate and keeping the clearest.
+- **The English matches.** Every sentence is translated back into English by a local translation model, and the ones whose meaning drifts from the course's English are read again by hand.
+
+Each language has its own speech-recognition locale, its own sound-alike rules (a recogniser writing *das* or *dass*, *ces* or *ses*), its own number words, and its own letters for typing. Greek, Ukrainian, Hindi and Korean are written in their own scripts, with the sounds-like spelling under every word while you learn to read them.
+
 ## Honest limits
 
 Speech recognition is the browser's, not the app's. Chrome and Edge send what you say to Google's or Microsoft's speech service unless the browser can recognise it on the device, and Firefox has none at all, so there it's typing or checking yourself. On Android a page that holds the microphone leaves the recogniser hearing silence, so on phones the level meter follows the recogniser instead of opening the microphone itself. The tests drive every exercise through a stand-in recogniser, which proves the app's side but not how well a given browser hears a given accent.
 
-The Spanish voices are synthetic. Alex is now made from a native speaker's recordings; Dora is right sound by sound, but on single words she can still sound less natural than a native speaker.
+The voices are synthetic. Alex is made from a native speaker's recordings; Dora is right sound by sound, but on single words she can still sound less natural than a native speaker. The newer languages' sounds-like spellings and voices come from free tools and are checked by machine and by eye, not yet by native speakers of each language.
 
 ## Closing
 

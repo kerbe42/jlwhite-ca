@@ -3,7 +3,8 @@ title: 'SubnetSleuth: inventory and map a network you inherit'
 world: work
 date: 2026-10-01
 summary: "A Windows desktop app and command-line tool for taking stock of a network you are now responsible for but did not build. It reads the network's own devices over SNMP, read-only, and works out what is there and how it is wired: devices, links, subnets, VLANs and every host. It pulls in what the firewalls, management platforms, Active Directory, hypervisors, clouds and Kubernetes clusters already know, from one place that holds every connection and credential, shows what no scan has covered yet, turns it all into day-one health checks, and lets you ask Claude, or another AI model, what it all means."
-featured: false
+featured: true
+featuredRank: 4
 cover: ./cover.png
 coverAlt: "SubnetSleuth's physical topology map of a sample campus: an edge firewall and WAN router above a core switch pair, with floor, server and warehouse switches below and access points under them"
 tags: ['networking', 'network-inventory', 'snmp', 'topology', 'firewalls', 'active-directory', 'nmap', 'python', 'pyside6']

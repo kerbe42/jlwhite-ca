@@ -27,7 +27,8 @@ export async function getProjects(world?: 'builds' | 'garden' | 'lab' | 'work'):
 
 export async function getFeaturedProjects(limit = 4): Promise<ProjectItem[]> {
   const all = await getProjects();
-  const featured = all.filter((p) => p.data.featured);
+  const rank = (p: ProjectItem) => p.data.featuredRank ?? Number.MAX_SAFE_INTEGER;
+  const featured = all.filter((p) => p.data.featured).sort((a, b) => rank(a) - rank(b));   // stable: newest first after
   return (featured.length ? featured : all).slice(0, limit);
 }
 

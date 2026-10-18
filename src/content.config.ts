@@ -14,6 +14,7 @@ const projects = defineCollection({
       cover: image().optional(),
       coverAlt: z.string().optional(),
       featured: z.boolean().default(false),
+      featuredRank: z.number().optional(),       // home page order: 1 first; unranked after, newest first
       tags: z.array(z.string()).default([]),
       draft: z.boolean().default(false),
     }),

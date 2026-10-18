@@ -7,7 +7,7 @@ import ThmCard from '../components/ThmCard.astro';
 import { SITE, WORLDS } from '../consts';
 import { getFeaturedProjects, getWriteups, getNotes } from '../lib/content';
 
-const featured = await getFeaturedProjects(4);
+const featured = await getFeaturedProjects(6);
 const writeups = (await getWriteups()).slice(0, 3);
 const notes = (await getNotes()).slice(0, 3);
 const worlds = Object.values(WORLDS);
@@ -20,8 +20,9 @@ const worlds = Object.values(WORLDS);
       <p class="eyebrow">Justin White</p>
       <h1>Things I build, grow&nbsp;&amp; break.</h1>
       <p class="lead">
-        A workshop notebook: the software I build on my own, a home lab I run, 3D prints
-        and a hydroponic garden, and security writeups from the rooms I tinker with.
+        A workshop notebook: the apps I build on my own, from a language teacher that listens
+        when you speak to security and M&amp;A tools, a home lab I run, 3D prints and a hydroponic
+        garden, and security writeups from the rooms I tinker with.
       </p>
       <div class="cta">
         <a class="btn btn-accent" href="/builds">See the builds</a>
@@ -29,6 +30,25 @@ const worlds = Object.values(WORLDS);
       </div>
     </div>
   </section>
+
+  <!-- Featured builds -->
+  {
+    featured.length > 0 && (
+      <section class="section">
+        <div class="wrap">
+          <header class="sec-head">
+            <h2>Featured work</h2>
+            <a class="more" href="/builds">All projects →</a>
+          </header>
+          <div class="grid">
+            {featured.map((item) => (
+              <ProjectCard item={item} />
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
 
   <!-- Field Notes -->
   {
@@ -45,25 +65,6 @@ const worlds = Object.values(WORLDS);
           <div class="notes-list">
             {notes.map((item) => (
               <NoteRow item={item} />
-            ))}
-          </div>
-        </div>
-      </section>
-    )
-  }
-
-  <!-- Featured builds -->
-  {
-    featured.length > 0 && (
-      <section class="section">
-        <div class="wrap">
-          <header class="sec-head">
-            <h2>Featured work</h2>
-            <a class="more" href="/builds">All projects →</a>
-          </header>
-          <div class="grid">
-            {featured.map((item) => (
-              <ProjectCard item={item} />
             ))}
           </div>
         </div>

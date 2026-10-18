@@ -4,6 +4,7 @@ world: work
 date: 2026-06-11
 summary: A solo-built, owner-controlled GRC platform that runs a whole security and compliance programme from one encrypted, multi-tenant app, from frameworks, risk and audits through access reviews, incident response, privacy, AI governance and the external attack surface, with central fail-closed tenant scoping.
 featured: true
+featuredRank: 3
 cover: ./cover.png
 coverAlt: A module map of the HouseGRC GRC platform (frameworks, controls, risk, audits, vendor risk, dashboards) over a Python/Reflex stack
 tags: ['grc', 'compliance', 'security-engineering', 'reflex', 'ai', 'multi-tenant']
