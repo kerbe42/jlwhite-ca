@@ -2,11 +2,11 @@
 title: 'Language Trainer: a language teacher in the browser that listens when you speak'
 world: work
 date: 2026-10-06
-summary: "Piano and Guitar Trainer's sibling for languages. You say every word out loud: it shows how each one sounds, waits while you take your time, and coaches the words you miss one at a time. Spanish has a full 48-day course with a library of stories; starter courses in fourteen more languages, from French and German to Japanese and Hindi, are live, every language has a patient sound practice for the words you stumble on, and English has a speech practice site of its own."
+summary: "Piano and Guitar Trainer's sibling for languages. You say every word out loud: it shows how each one sounds, waits while you take your time, and coaches the words you miss one at a time. Every course starts very simple and ramps up slowly. Spanish has a full 78-day course with a library of stories; starter courses in fourteen more languages, from French and German to Japanese and Hindi, are live, every language has a patient sound practice for the words you stumble on, and English has a speech practice site of its own."
 featured: true
 featuredRank: 1
 cover: ./cover.jpg
-coverAlt: "Language Trainer’s language picker: a card for each language with a greeting in its own script and how it sounds, ¡Hola! (OH-lah) with the 48-day course, then Bonjour, Hallo, Hoi, Ciao, Olá, Γεια σου and Hei"
+coverAlt: "Language Trainer’s language picker: a card for each language with a greeting in its own script and how it sounds, ¡Hola! (OH-lah) with the 78-day course, then Bonjour, Hallo, Hoi, Ciao, Olá, Γεια σου and Hei"
 tags: ['language-learning', 'spanish', 'french', 'german', 'japanese', 'korean', 'hindi', 'english', 'speech', 'pronunciation', 'javascript', 'education']
 draft: false
 ---
@@ -15,7 +15,7 @@ draft: false
 
 Language Trainer is the language version of [Piano Trainer](/work/piano-trainer) and [Guitar Trainer](/work/guitar-trainer): a teacher in the browser that hears your answers, keeps you on each exercise until it's right, and helps when it isn't. It needs no account and nothing installed. Pick a language at **[language.jlwhite.ca](https://language.jlwhite.ca)**; each one is a site of its own, such as [spanish.jlwhite.ca](https://spanish.jlwhite.ca), and can also be opened straight from a folder of files, offline (speech recognition is the one part that may need a connection, see below).
 
-It started as Spanish Trainer, and Spanish is still the most complete: a 48-day course and a library of stories, described below. The same app now teaches other languages from the same code, each with a starter course first (see **More languages**).
+It started as Spanish Trainer, and Spanish is still the most complete: a 78-day course and a library of stories, described below. The same app now teaches other languages from the same code, each with a starter course first (see **More languages**).
 
 The Spanish is Latin American, as it's spoken from Mexico to Argentina: *ustedes* for "you all" and never *vosotros*, *seseo* in the voices, *carro*, *celular* and *computadora*.
 
@@ -33,7 +33,7 @@ There are three ways to answer, and you can switch at any time:
 
 ## The Spanish course
 
-The course is 48 days over eight weeks, each day under an hour, from saying hello and spelling your name to the preterite and the imperfect, commands, *por* and *para*, and a graduation conversation. About 1,100 new words are taught along the way, a couple of dozen a day.
+The course is 78 days over thirteen weeks, from saying hello to the preterite and the imperfect, commands, *por* and *para*, and a graduation conversation, about 1,100 words in all. It starts very simple and ramps up slowly, by rule: the first three days teach about eight words each, in sentences of one to three words, with a four-line conversation, no reading yet, and only listening, repeating and saying; building sentences comes in on day 4, typing on day 6, filling gaps on day 10, writing what you hear on day 15, and the past tenses after day 60. The build measures every day of every course against the same ramp, so no course can quietly get harder too soon.
 
 ![The course home: level and XP, today’s goal, a button to start day one, and the first two weeks of days, from ¡Hola! and ¿Cómo estás? to Hay and Mi familia y mi casa](./course.jpg)
 
@@ -89,7 +89,7 @@ On a small screen the toolbar is one row, the rest moves into a ⋯ panel, and a
 
 ## More languages
 
-Every language uses the same app and the same kind of course: the language's own sounds and most common words first, each word coached until it's right, then greetings, numbers, names, ordering at a café, finding your way, and conversations where you choose your part. A starter course is seven days; the full course follows, one language at a time. Fourteen are live: [French](https://french.jlwhite.ca), [German](https://german.jlwhite.ca), [Dutch](https://dutch.jlwhite.ca), [Italian](https://italian.jlwhite.ca), [Brazilian Portuguese](https://portuguese.jlwhite.ca), [Swedish](https://swedish.jlwhite.ca), [Norwegian](https://norwegian.jlwhite.ca), [Danish](https://danish.jlwhite.ca), [Greek](https://greek.jlwhite.ca), [Ukrainian](https://ukrainian.jlwhite.ca), [Hindi](https://hindi.jlwhite.ca), [Filipino](https://filipino.jlwhite.ca), [Japanese](https://japanese.jlwhite.ca) and [Korean](https://korean.jlwhite.ca). Each went live once its voices were recorded and checked. Each language is a course of its own: the teacher names the language you're learning, and the tips compare its sounds to English, never to another language. And every one follows the same pattern as Spanish's first week: a reading every day with questions, fill the gap and write what you hear, the same games (with a gender game in each language's own terms: *le or la?*, *der, die or das?*, *ο, η or το?*), a library of its conversations and readings, and levels and badges in the language.
+Every language uses the same app and the same kind of course: the language's own sounds and most common words first, each word coached until it's right, then greetings, numbers, names, ordering at a café, finding your way, and conversations where you choose your part. A starter course is two gentle weeks, the same fourteen days in every language (hello, how are you, your name, where you're from, family, things you want, then numbers, the café, directions, asking for help and a day out), on the same ramp as Spanish; the full course follows, one language at a time. Fourteen are live: [French](https://french.jlwhite.ca), [German](https://german.jlwhite.ca), [Dutch](https://dutch.jlwhite.ca), [Italian](https://italian.jlwhite.ca), [Brazilian Portuguese](https://portuguese.jlwhite.ca), [Swedish](https://swedish.jlwhite.ca), [Norwegian](https://norwegian.jlwhite.ca), [Danish](https://danish.jlwhite.ca), [Greek](https://greek.jlwhite.ca), [Ukrainian](https://ukrainian.jlwhite.ca), [Hindi](https://hindi.jlwhite.ca), [Filipino](https://filipino.jlwhite.ca), [Japanese](https://japanese.jlwhite.ca) and [Korean](https://korean.jlwhite.ca). Each went live once its voices were recorded and checked. Each language is a course of its own: the teacher names the language you're learning, and the tips compare its sounds to English, never to another language. And every one follows the same pattern as Spanish's first week: a reading every day with questions, fill the gap and write what you hear, the same games (with a gender game in each language's own terms: *le or la?*, *der, die or das?*, *ο, η or το?*), a library of its conversations and readings, and levels and badges in the language.
 
 Almost all of the work to add a language runs on my own machines, with free tools:
 
