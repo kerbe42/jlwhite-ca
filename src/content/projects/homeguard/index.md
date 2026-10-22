@@ -46,6 +46,8 @@ The "picture changed" test is what keeps false alarms down. The things a detecto
 
 **A second look.** Every event also goes to a vision model running on a GPU machine in the house, never a cloud service. It is shown each box that set the event off, cut from the full frame, and asked whether a real person is in it; the answer goes on the alert as one line, such as "a real person, dark shirt, doing laundry" or "no person: looks like a pile of clothes". Asking about each box worked where asking about the whole picture didn't: replayed over the stored events, every verdict was right, including the punching ball that used to set off alarms, while whole annotated frames confused the model. By default the second look only annotates, so the alert goes out at once and the note follows. An optional mode lets an alarm it is sure about go out as a normal "possible person" notice instead; any other answer, an error or the model's machine being off leaves the alarm as it was.
 
+**Who was it.** Household recognition is opt-in, person by person: someone is added only with a note that they have agreed, and from then on the faces in each event's full-resolution clip are compared with theirs, adding "probably" or "possibly" a name to the alert, or "not recognised". Faces of people who aren't enrolled are never turned into anything comparable, and removing a person deletes everything kept about them. It runs on the server's CPU with small open face models, after the alert has gone out, and never changes an alert.
+
 Cameras that only work through their maker's cloud are supported the long way round: HomeGuard downloads each new clip, runs its own person detector over it, and arms and disarms those cameras along with its own watch states.
 
 ## Drones from a software radio
@@ -70,5 +72,6 @@ Alerts go to the phone through a self-hosted push server, with the photo and the
 - A person who is perfectly still from the moment the watch starts isn't detected until they move.
 - Radio alone can't tell a guest from an intruder; it only knows familiar from unfamiliar, which is why it's weighed against the cameras and the watch state.
 - Encrypted DroneID gives detection and a session identifier, not the drone's position or serial.
+- Cameras mounted high see the tops of heads more often than faces, so recognition is a note when it works, and each person needs several examples from different days before it works well.
 - The second look is a mid-sized vision model. It describes well but misjudges a single box now and then (it once called a real person a mannequin), which is why it annotates rather than decides.
 - Where the decoded altitude fields come from is still uncertain in the published sources; HomeGuard keeps the raw values beside its interpretation.
