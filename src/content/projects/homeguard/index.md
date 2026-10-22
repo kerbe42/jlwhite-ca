@@ -44,6 +44,8 @@ The "picture changed" test is what keeps false alarms down. The things a detecto
 
 **Motion gating** keeps it affordable. The detector is the expensive part and the scenes are still most of the time, so it runs only when the picture changes, during an active event, or every ten seconds for someone standing still, and not at all while the household is home. That took the service from about two busy CPU cores to under a fifth of one while nothing is happening.
 
+**A second look.** Every event also goes to a vision model running on a GPU machine in the house, never a cloud service. It is shown each box that set the event off, cut from the full frame, and asked whether a real person is in it; the answer goes on the alert as one line, such as "a real person, dark shirt, doing laundry" or "no person: looks like a pile of clothes". Asking about each box worked where asking about the whole picture didn't: replayed over the stored events, every verdict was right, including the punching ball that used to set off alarms, while whole annotated frames confused the model. By default the second look only annotates, so the alert goes out at once and the note follows. An optional mode lets an alarm it is sure about go out as a normal "possible person" notice instead; any other answer, an error or the model's machine being off leaves the alarm as it was.
+
 Cameras that only work through their maker's cloud are supported the long way round: HomeGuard downloads each new clip, runs its own person detector over it, and arms and disarms those cameras along with its own watch states.
 
 ## Drones from a software radio
@@ -61,11 +63,12 @@ A security system that has quietly stopped is worse than none, because you think
 
 ## Alerts, the app and the dashboard
 
-Alerts go to the phone through a self-hosted push server, with the photo and the clip. HomeGuard's Android app arms and disarms, shows each camera's live still and the recent alerts, lists the nodes, drones and household devices, and updates itself from the server. The web dashboard is where zones are drawn (by clicking around the area on a live image), firmware is rolled out and the radio's spectrum is shown.
+Alerts go to the phone through a self-hosted push server, with the photo and the clip. HomeGuard's Android app arms and disarms, shows each camera's live still and the recent alerts, lists the nodes, drones and household devices, and updates itself from the server. After the overnight watch, one quiet notification sums up the night: alarms, camera events with the second look's verdicts, radio alerts grouped by what was heard, and health problems. The web dashboard is where zones are drawn (by clicking around the area on a live image), firmware is rolled out and the radio's spectrum is shown.
 
 ## Limits
 
 - A person who is perfectly still from the moment the watch starts isn't detected until they move.
 - Radio alone can't tell a guest from an intruder; it only knows familiar from unfamiliar, which is why it's weighed against the cameras and the watch state.
 - Encrypted DroneID gives detection and a session identifier, not the drone's position or serial.
+- The second look is a mid-sized vision model. It describes well but misjudges a single box now and then (it once called a real person a mannequin), which is why it annotates rather than decides.
 - Where the decoded altitude fields come from is still uncertain in the published sources; HomeGuard keeps the raw values beside its interpretation.
