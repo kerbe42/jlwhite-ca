@@ -15,7 +15,7 @@ draft: false
 
 DeepReview builds a security profile of a third party from public information. The subject can be a vendor, a supplier, a SaaS provider, an individual consultant, or a company you are thinking of buying. Each profile is a living scorecard: eight area scores, an overall A–F grade, the findings behind them, how those findings could chain into a breach, and a do-business recommendation. Every finding cites the public artifact it rests on, and the run log accounts for every source, including the ones that failed or never ran.
 
-It is one of the [MNA Tools](/work/mna-tools), where it is the outside view of an acquisition target before anyone signs. It is free there, on request, for organizations with a legitimate interest in the company. It started as one app with [HouseGRC](/work/housegrc), the inward half of the same idea. The two now run as separate deployments, and nothing passes between them on its own: a DeepReview finding goes into a HouseGRC risk register when someone triages it.
+It is one of the [MNA Tools](/work/mna-tools), where it is the outside view of an acquisition target before anyone signs. It is free there, by invitation, for organizations with a legitimate interest in the company, which install it on their own servers. It started as one app with [HouseGRC](/work/housegrc), the inward half of the same idea. The two now run as separate deployments, and nothing passes between them on its own: a DeepReview finding goes into a HouseGRC risk register when someone triages it.
 
 It's at version 0.38 (October 2026), self-hosted on my home lab, and meant for authorized vendor-risk work and red-team reconnaissance.
 
