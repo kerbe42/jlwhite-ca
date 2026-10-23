@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1312" height="760" viewBox="0 0 1312 760" role="img" aria-labelledby="t d">
+<title id="t">One PicoFarm automatic dosing cycle</title>
+<desc id="d">A timeline: after boot, dosing waits 10 minutes. A reading shows EC low, so Nutrient A doses, then after a 60 second gap Nutrient B, then a 10 minute mix with circulation forced on. A fresh reading shows EC in band and pH high, so pH Down doses, then another mix. The next reading is in band and nothing runs.</desc>
+<style>
+text{font-family:'Helvetica Neue',Helvetica,Arial,'Liberation Sans',sans-serif;font-size:24px;fill:#2c2c2a}
+.ti{font-family:Georgia,'Liberation Serif','Times New Roman',serif;font-size:34px}
+.b{font-weight:700}
+.m{fill:#5f5e5a}
+.c{text-anchor:middle}
+.e{text-anchor:end}
+.lo{fill:#b5441d;font-weight:700}
+.ok{fill:#3f7a22;font-weight:700}
+.lv{fill:#b5441d}
+.ov{fill:#3f7a22}
+.sep{stroke:#ded3bf;stroke-width:2;stroke-dasharray:5 6}
+.base{stroke:#e2d8c6;stroke-width:2}
+.dose{fill:#e08a2c}
+.wt{fill:#fff;font-weight:700}
+</style>
+<rect width="1312" height="760" fill="#fbf7ef"/>
+<text x="30" y="54" class="ti">One automatic dosing cycle</text>
+<text x="1290" y="54" class="e m">time not to scale</text>
+
+<!-- phase headers -->
+<g class="c">
+<text x="255" y="102" class="c">boot</text><text x="255" y="130" class="c m">10 min</text>
+<text x="375" y="102" class="c">reading</text><text x="375" y="130" class="c lo">EC low</text>
+<text x="490" y="102" class="c">Nutrient A</text><text x="490" y="130" class="c m">2 ml</text>
+<text x="585" y="102" class="c">gap</text><text x="585" y="130" class="c m">60 s</text>
+<text x="680" y="102" class="c">Nutrient B</text><text x="680" y="130" class="c m">2 ml</text>
+<text x="795" y="102" class="c">mix</text><text x="795" y="130" class="c m">10 min</text>
+<text x="905" y="102" class="c">reading</text><text x="905" y="130" class="c lo">pH high</text>
+<text x="1015" y="102" class="c">pH Down</text><text x="1015" y="130" class="c m">1 ml</text>
+<text x="1125" y="102" class="c">mix</text><text x="1125" y="130" class="c m">10 min</text>
+<text x="1235" y="102" class="c">reading</text><text x="1235" y="130" class="c ok">in band</text>
+</g>
+<path d="M320 146 V560 M430 146 V560 M550 146 V560 M620 146 V560 M740 146 V560 M850 146 V560 M960 146 V560 M1070 146 V560 M1180 146 V560" class="sep"/>
+
+<!-- lane labels -->
+<text x="30" y="183" class="b">waiting</text>
+<text x="30" y="243" class="b">circulation</text>
+<text x="30" y="303" class="b">Nutrient A</text>
+<text x="30" y="363" class="b">Nutrient B</text>
+<text x="30" y="423" class="b">pH Down</text>
+<text x="30" y="493" class="b">EC (mS/cm)</text>
+<text x="30" y="543" class="b">pH</text>
+<path d="M190 175 H1290 M190 235 H1290 M190 295 H1290 M190 355 H1290 M190 415 H1290" class="base"/>
+
+<!-- waiting: boot wait, then the mix lock after each dose -->
+<rect x="192" y="160" width="126" height="30" rx="6" fill="#9b9384"/><text x="255" y="183" class="c wt">waits</text>
+<rect x="490" y="160" width="358" height="30" rx="6" fill="#9b9384"/><text x="669" y="183" class="c wt">waits for the mix</text>
+<rect x="1050" y="160" width="128" height="30" rx="6" fill="#9b9384"/><text x="1114" y="183" class="c wt">waits</text>
+
+<!-- circulation: own setting at boot, forced on from the first dose to the end of the mix -->
+<rect x="193" y="221" width="124" height="28" rx="6" fill="none" stroke="#2f6690" stroke-width="2.5" stroke-dasharray="6 5"/><text x="255" y="243" class="c" style="fill:#2f6690">as set</text>
+<rect x="450" y="220" width="398" height="30" rx="6" fill="#2f6690"/><text x="649" y="243" class="c wt">forced on</text>
+<rect x="980" y="220" width="198" height="30" rx="6" fill="#2f6690"/><text x="1079" y="243" class="c wt">forced on</text>
+
+<!-- dosing pumps -->
+<rect x="450" y="281" width="40" height="28" rx="5" class="dose"/>
+<rect x="640" y="341" width="40" height="28" rx="5" class="dose"/>
+<rect x="980" y="401" width="70" height="28" rx="5" class="dose"/>
+
+<!-- readings -->
+<text x="375" y="493" class="c lv">1.33 low</text>
+<text x="375" y="543" class="c m">6.45</text>
+<text x="905" y="493" class="c ov">1.44 ok</text>
+<text x="905" y="543" class="c lv">6.36 high</text>
+<text x="1235" y="493" class="c ov">1.46 ok</text>
+<text x="1235" y="543" class="c ov">6.02 ok</text>
+
+<!-- notes -->
+<text x="30" y="616" class="m">Example readings with the default targets: EC 1.6 ± 0.2 mS/cm, pH 5.9 ± 0.3.</text>
+<text x="30" y="648" class="m">EC is corrected first, because nutrients move pH; B follows A after a 60 s gap.</text>
+<text x="30" y="680" class="m">Circulation is forced on from the first dose to the end of the mix; then a fresh reading decides.</text>
+<text x="30" y="712" class="m">EC above its band only raises an alarm: it needs fresh water, not a dose.</text>
+</svg>

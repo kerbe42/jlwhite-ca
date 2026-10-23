@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+<!-- Source of cover.png: rendered at 2x (2400x1600). -->
+<defs>
+<marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#2f6690"/></marker>
+</defs>
+<style>
+text{font-family:'Helvetica Neue',Helvetica,Arial,'Liberation Sans',sans-serif;font-size:24px;fill:#2c2c2a}
+.ti{font-family:Georgia,'Liberation Serif','Times New Roman',serif;font-size:76px}
+.b{font-weight:700}
+.m{fill:#5f5e5a}
+.k{font-weight:700;fill:#2f6690;letter-spacing:1.5px;font-size:21px}
+.card{fill:#fff;stroke:#ded3bf;stroke-width:2.5}
+.ln{stroke:#2f6690;stroke-width:3.5;fill:none}
+</style>
+<rect width="1200" height="800" fill="#fbf7ef"/>
+<rect x="24" y="24" width="1152" height="752" rx="28" fill="none" stroke="#e6dccb" stroke-width="3"/>
+<text x="80" y="150" class="ti">PicoFarm</text>
+<text x="82" y="204" class="m" style="font-size:28px">Measures the water, doses it and keeps it safe</text>
+
+<text x="80" y="286" class="k">MEASURES</text>
+<rect x="80" y="300" width="230" height="190" rx="14" class="card"/>
+<text x="102" y="348" class="b" style="font-size:27px">Reservoir</text>
+<text x="102" y="390">pH and EC</text>
+<text x="102" y="424">temperature</text>
+<text x="102" y="458">level and leak</text>
+
+<text x="350" y="286" class="k">ACTS</text>
+<rect x="350" y="300" width="230" height="190" rx="14" fill="#fff" stroke="#4d8a2a" stroke-width="3.5"/>
+<text x="372" y="348" class="b" style="font-size:27px">ESP32</text>
+<text x="372" y="390">7 pumps</text>
+<text x="372" y="424">interlocks</text>
+<text x="372" y="458">auto dosing</text>
+
+<text x="620" y="286" class="k">RECORDS</text>
+<rect x="620" y="300" width="230" height="190" rx="14" class="card"/>
+<text x="642" y="348" class="b" style="font-size:27px">Home server</text>
+<text x="642" y="390">MQTT broker</text>
+<text x="642" y="424">history, alerts</text>
+<text x="642" y="458">dashboard</text>
+
+<text x="890" y="286" class="k">SHOWS</text>
+<rect x="890" y="300" width="230" height="190" rx="14" class="card"/>
+<text x="912" y="348" class="b" style="font-size:27px">Android app</text>
+<text x="912" y="390">live readings</text>
+<text x="912" y="424">pump control</text>
+<text x="912" y="458">home or VPN</text>
+
+<line x1="312" y1="395" x2="347" y2="395" class="ln" marker-end="url(#a)"/>
+<line x1="582" y1="395" x2="617" y2="395" class="ln" marker-end="url(#a)"/>
+<line x1="852" y1="395" x2="887" y2="395" class="ln" marker-end="url(#a)"/>
+
+<rect x="80" y="540" width="1040" height="70" rx="14" fill="#eef5e6" stroke="#4d8a2a" stroke-width="2.5"/>
+<text x="600" y="584" style="text-anchor:middle;fill:#2f6e22;font-weight:700">Safety logic runs on the controller: it keeps working if the server is down.</text>
+
+<text x="80" y="728" class="m" style="font-size:22px">ESP32 · ADS1115 · MQTT · FastAPI · SQLite · Android</text>
+<text x="1120" y="728" class="m" style="font-size:22px;text-anchor:end">jlwhite.ca</text>
+</svg>

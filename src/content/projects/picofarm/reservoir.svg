@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1312" height="880" viewBox="0 0 1312 880" role="img" aria-labelledby="t d">
+<title id="t">The PicoFarm reservoir in cross-section</title>
+<desc id="d">A reservoir with pH, EC and temperature probes hanging into the water, an ultrasonic level sensor above it, four dosing lines from the pH Up, pH Down, Nutrient A and Nutrient B pumps, a refill line in, a drain pump out, a circulation pump on the bottom, and float switches on the wall: low near the bottom, high near the top and an emergency float above it that cuts the refill pump's power. A leak sensor sits on the floor beside the tank.</desc>
+<defs>
+<marker id="o" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="userSpaceOnUse" markerWidth="15" markerHeight="15" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#d07a1a"/></marker>
+<marker id="w" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="userSpaceOnUse" markerWidth="18" markerHeight="18" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#2f6690"/></marker>
+</defs>
+<style>
+text{font-family:'Helvetica Neue',Helvetica,Arial,'Liberation Sans',sans-serif;font-size:24px;fill:#2c2c2a}
+.ti{font-family:Georgia,'Liberation Serif','Times New Roman',serif;font-size:34px}
+.b{font-weight:700}
+.m{fill:#5f5e5a}
+.r{fill:#a8321f}
+.c{text-anchor:middle}
+.e{text-anchor:end}
+.ld{stroke:#5f5e5a;stroke-width:2;fill:none}
+.tube{stroke:#d07a1a;stroke-width:5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.pipe{stroke:#2f6690;stroke-width:7;fill:none;stroke-linejoin:round}
+.pump{fill:#fdf0e1;stroke:#d07a1a;stroke-width:2.5}
+</style>
+<rect width="1312" height="880" fill="#fbf7ef"/>
+<text x="30" y="54" class="ti">The reservoir</text>
+
+<!-- water and tank -->
+<rect x="403" y="430" width="494" height="367" fill="#d9e9f4"/>
+<path d="M403 430 q 19 -8 38 0 t 38 0 t 38 0 t 38 0 t 38 0 t 38 0 t 38 0 t 38 0 t 38 0 t 38 0 t 38 0 t 38 0 t 38 0" fill="none" stroke="#5b8fb9" stroke-width="3"/>
+<path d="M400 280 V800 H900 V280" fill="none" stroke="#5f5e5a" stroke-width="7" stroke-linejoin="round"/>
+<text x="770" y="560" class="c m">nutrient solution</text>
+
+<!-- floor and leak sensor -->
+<line x1="20" y1="815" x2="1292" y2="815" stroke="#5f5e5a" stroke-width="3"/>
+<path d="M40 815 l-14 16 M80 815 l-14 16 M120 815 l-14 16 M160 815 l-14 16 M200 815 l-14 16 M240 815 l-14 16 M280 815 l-14 16 M320 815 l-14 16 M960 815 l-14 16 M1000 815 l-14 16 M1040 815 l-14 16 M1080 815 l-14 16 M1120 815 l-14 16 M1160 815 l-14 16 M1200 815 l-14 16 M1240 815 l-14 16 M1280 815 l-14 16" stroke="#9a9488" stroke-width="2"/>
+<rect x="320" y="803" width="60" height="10" rx="2" fill="#2f6690"/>
+<text x="30" y="784" class="b">leak sensor</text>
+<text x="30" y="810" class="m">on the floor</text>
+<path d="M190 776 H300 L326 801" class="ld"/>
+
+<!-- probes on a rail -->
+<rect x="410" y="290" width="150" height="12" rx="3" fill="#8a8578"/>
+<rect x="433" y="302" width="14" height="243" rx="4" fill="#4a4844"/>
+<circle cx="440" cy="555" r="12" fill="#eef5fa" stroke="#4a4844" stroke-width="3"/>
+<rect x="478" y="302" width="14" height="296" rx="4" fill="#4a4844"/>
+<path d="M481 598 V616 M489 598 V616" stroke="#4a4844" stroke-width="3"/>
+<line x1="530" y1="302" x2="530" y2="640" stroke="#4a4844" stroke-width="4"/>
+<rect x="523" y="640" width="14" height="42" rx="6" fill="#b8b5ae" stroke="#4a4844" stroke-width="2"/>
+<text x="30" y="563" class="b">pH probe</text>
+<path d="M146 555 H424" class="ld"/>
+<text x="30" y="616" class="b">EC probe</text>
+<path d="M146 608 H474" class="ld"/>
+<text x="30" y="668" class="b">water temperature</text>
+<text x="30" y="696" class="m">DS18B20</text>
+<path d="M252 660 H519" class="ld"/>
+
+<!-- ultrasonic level sensor -->
+<path d="M664 150 H736 M670 150 l-8 -10 M686 150 l-8 -10 M702 150 l-8 -10 M718 150 l-8 -10 M734 150 l-8 -10" stroke="#5f5e5a" stroke-width="2.5"/>
+<rect x="670" y="152" width="60" height="44" rx="6" fill="#fff" stroke="#2f6690" stroke-width="3"/>
+<circle cx="700" cy="174" r="12" fill="#dfe9f1" stroke="#2f6690" stroke-width="2.5"/>
+<path d="M688 198 L650 428 M712 198 L750 428" stroke="#5b8fb9" stroke-width="2.5" stroke-dasharray="7 6"/>
+<text x="744" y="176" class="b">ultrasonic level</text>
+<text x="744" y="204" class="m">above the full mark</text>
+
+<!-- dosing pumps and lines -->
+<g>
+<rect x="30" y="100" width="180" height="36" rx="7" class="pump"/><text x="120" y="126" class="c">pH Up</text>
+<rect x="30" y="146" width="180" height="36" rx="7" class="pump"/><text x="120" y="172" class="c">pH Down</text>
+<rect x="30" y="192" width="180" height="36" rx="7" class="pump"/><text x="120" y="218" class="c">Nutrient A</text>
+<rect x="30" y="238" width="180" height="36" rx="7" class="pump"/><text x="120" y="264" class="c">Nutrient B</text>
+</g>
+<path d="M210 118 H625 V352" class="tube" marker-end="url(#o)"/>
+<path d="M210 164 H605 V352" class="tube" marker-end="url(#o)"/>
+<path d="M210 210 H585 V352" class="tube" marker-end="url(#o)"/>
+<path d="M210 256 H565 V352" class="tube" marker-end="url(#o)"/>
+
+<!-- refill in -->
+<path d="M1290 256 H820 V334" class="pipe" marker-end="url(#w)"/>
+<rect x="960" y="236" width="150" height="40" rx="7" class="pump"/>
+<text x="1035" y="264" class="c">refill pump</text>
+<text x="1150" y="240">fresh water</text>
+
+<!-- floats on the right wall -->
+<line x1="884" y1="320" x2="900" y2="320" stroke="#4a4844" stroke-width="3"/>
+<rect x="850" y="309" width="34" height="22" rx="11" fill="#f6d5cf" stroke="#c0392b" stroke-width="3"/>
+<line x1="884" y1="380" x2="900" y2="380" stroke="#4a4844" stroke-width="3"/>
+<rect x="850" y="369" width="34" height="22" rx="11" fill="#fff" stroke="#2f6690" stroke-width="3"/>
+<line x1="884" y1="660" x2="900" y2="660" stroke="#4a4844" stroke-width="3"/>
+<rect x="850" y="649" width="34" height="22" rx="11" fill="#fff" stroke="#2f6690" stroke-width="3"/>
+<path d="M904 320 H926 M904 380 H926 M904 660 H926" class="ld"/>
+<text x="932" y="318" class="b r">emergency float</text>
+<text x="932" y="346" class="m">cuts refill power</text>
+<text x="932" y="388" class="b">high float</text>
+<text x="932" y="416" class="m">stops the refill</text>
+<text x="932" y="658" class="b">low float</text>
+<text x="932" y="686" class="m">blocks dosing,</text>
+<text x="932" y="714" class="m">circulation and drain</text>
+
+<!-- circulation -->
+<rect x="560" y="752" width="140" height="42" rx="7" class="pump"/>
+<text x="630" y="781" class="c">circulation</text>
+<path d="M600 746 C 560 700, 560 640, 620 610" fill="none" stroke="#2f6690" stroke-width="3" marker-end="url(#w)"/>
+<path d="M664 746 C 720 700, 760 680, 800 690" fill="none" stroke="#2f6690" stroke-width="3" marker-end="url(#w)"/>
+
+<!-- drain out -->
+<path d="M900 780 H940" class="pipe"/>
+<rect x="940" y="760" width="150" height="40" rx="7" class="pump"/>
+<text x="1015" y="788" class="c">drain pump</text>
+<path d="M1090 780 H1170" class="pipe" marker-end="url(#w)"/>
+<text x="1196" y="788">out</text>
+
+<text x="30" y="864" class="m">Not to scale. Each float trips at its height; a cut float wire reads as its alarm.</text>
+</svg>
