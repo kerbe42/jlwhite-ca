@@ -24,7 +24,7 @@ It is a work in progress. The controller firmware is written and bench-tested; t
 
 The controllers join the home Wi-Fi and talk MQTT to a broker on the home server. Each one publishes its readings every few seconds, plus events: a pump started or stopped, a command refused, an alarm raised or cleared. Commands and settings flow the other way. Each controller only has access to its own topics, and if one drops off the network the broker tells the server, which raises an offline alert.
 
-The most important choice is where the decisions live. **Every safety rule and all the automation run on the controller.** The server records, relays and alerts, but it never decides anything that matters for safety: if it goes down, or the Wi-Fi does, each controller keeps measuring, keeps dosing within its limits and keeps every interlock. A command from the app is a request. The controller checks it against its own rules and either runs it or answers with the reason it refused, such as "blocked: low water".
+The most important choice is where the decisions live. **Every safety rule and all the automation run on the controller.** The server records, relays and alerts, but it never decides anything that matters for safety: if it goes down, or the Wi-Fi does, each controller keeps measuring, keeps dosing within its limits and enforces every interlock. A command from the app is a request. The controller checks it against its own rules and either runs it or answers with the reason it refused, such as "blocked: low water".
 
 Settings are versioned. A controller applies a new configuration only if it is newer than the one it has, stores it, and runs on it from then on. Controllers also don't hold on to commands while they're offline: a "run the drain pump" sent while a controller was unreachable is dropped, not carried out hours later.
 
@@ -35,7 +35,7 @@ The controller is an ESP32 dev board (the firmware builds for the ESP32-WROOM-32
 - **Analog sensors go through an ADS1115**, a 16-bit converter on I²C. The ESP32's own converter is noisy, and part of it stops working once Wi-Fi is on.
 - **pH:** a pH-4502C board with a BNC probe. Its output swings up to 5 V, so a 10 k/20 k divider brings it under the ADS1115's limit.
 - **EC:** an analog conductivity board and probe. An EC probe drives current through the water, which skews a pH probe in the same reservoir, so the board is powered from a GPIO and only switched on while EC is being read.
-- **Water temperature:** a waterproof DS18B20. EC readings need it for compensation, and the pH maths uses it to correct the probe's slope; automatic EC dosing refuses to run without it.
+- **Water temperature:** a waterproof DS18B20. EC readings need it for compensation, and the pH calculation uses it to correct the probe's slope; automatic EC dosing refuses to run without it.
 - **Level:** an analog level sensor, or an ultrasonic JSN-SR04T looking down at the water from above.
 - **Float switches** for low, high and emergency water, and a **leak sensor** on the floor. Each float is mounted so its contact is closed when things are normal, so a cut wire reads as the alarm and stops the pumps instead of hiding the fault.
 - **Seven 12 V pumps**: four peristaltic pumps for the dosing, and three small pumps for refill, circulation and drain. Each one is switched on its low side by a logic-level MOSFET.
@@ -56,7 +56,7 @@ The probes hang in the solution, the four dosing lines drip in from above, and t
 
 - **Low float:** below it, dosing, circulation and drain are all blocked, so nothing is dosed into a nearly empty tank and no pump runs dry.
 - **High float:** stops the refill.
-- **Emergency float:** sits above the high float and is wired in series with the refill pump's 12 V supply. If the water ever reaches it, the refill pump loses power, whatever the firmware is doing. A second float at the same height reports the trip to the controller, which locks refill out until the alarm is cleared and shows it on the phone.
+- **Emergency float:** sits above the high float and is wired in series with the refill pump's 12 V supply. If the water ever reaches it, the refill pump loses power, whatever the firmware is doing. A second float at the same height reports the trip to the controller, which locks out the refill pump until the alarm is cleared and shows the trip on the phone.
 - **Leak sensor:** on the floor beside the tank. Wet means every pump stops, and they stay stopped until someone clears the alarm.
 
 ## How it decides
@@ -104,6 +104,6 @@ The app is how I'll use PicoFarm day to day, on the home network or from anywher
 
 - **Firmware:** builds for the ESP32-WROOM-32 and the ESP32-S3, and is bench-tested on a WROOM-32. It boots, opens its setup hotspot, answers console commands, and its interlocks refuse what they should. The 36 host tests pass.
 - **Hardware:** the sensors and pump drivers are being wired.
-- **Server and app:** being built now.
+- **Server and app:** in development.
 
 Next comes wiring it to a real reservoir, calibrating the probes, and watching the first automatic doses closely before I trust it alone.
