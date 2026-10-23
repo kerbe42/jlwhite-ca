@@ -66,9 +66,10 @@ The probes hang in the solution, the four dosing lines drip in from above, and t
 Automatic dosing works from a target and a band for each value (by default pH 5.9 ± 0.3 and EC 1.6 ± 0.2 mS/cm) and a dose size in millilitres. Each pump's flow rate is calibrated, so a dose in millilitres becomes an exact run time. The controller is deliberately patient:
 
 - **It waits after every dose, refill and boot.** The default is a 10-minute mix, with circulation forced on after a dose, and then it needs a fresh reading taken after the mix before it may act again. Waiting after boot also means a controller stuck in a reboot loop can never dose.
-- **EC comes before pH**, because adding nutrients moves the pH. pH is only corrected once EC is in band.
+- **EC comes before pH**, because adding nutrients moves the pH. But never twice in a row while pH is also out of band, so an EC that won't rise can't hold off the pH correction.
 - **Nutrient B follows A after a gap** (60 seconds by default), so the two concentrates never meet undiluted. If A is cut short, B doesn't follow.
-- **EC above the band only raises an alarm.** There is nothing to dose for that: the reservoir needs fresh water.
+- **EC that stays high gets diluted.** Nutrients can't be taken back out, and the normal refills usually bring EC down as the plants drink. If EC is still above its band after a grace period (two hours by default), the controller adds measured steps of fresh water while there's room, and once the tank is full it can drain a share and refill it with fresh water, a few times a day at most. It needs a level reading to measure what goes in and out, and stops with a `dilute_blocked` alarm when it can't go on.
+- **Nutrient doses that don't move EC stop.** After six doses that haven't brought EC into band (an empty bottle, a failed pump, or a probe past its range) it pauses nutrient dosing and says so, rather than keep pouring.
 - **Automatic refill needs something to stop it**, either a level sensor or the high float, and won't run without one. If a refill runs for its maximum time without reaching the stop level, something is wrong (an empty supply, a stuck float), so it latches a `refill_timeout` alarm and stays off until cleared.
 - **It won't guess.** Automatic mode refuses to run with an uncalibrated probe or pump, and says so as an alarm. A refused automatic action is retried at most once a minute.
 
@@ -80,13 +81,19 @@ Automatic dosing works from a target and a band for each value (by default pH 5.
 4. **Limits.** Each pump can have a maximum single run and a daily run-time cap, and the dosing and refill pumps have both by default. A manual refill with nothing to stop it is limited to 60 seconds.
 5. **Patience.** The mix wait, the fresh reading, EC before pH and B after A, as above. The leak, emergency and refill-timeout alarms survive a reboot and clear only when someone clears them.
 
-The control core is plain C++ with no hardware calls, so the same code runs on the controllers and on my computer. 38 unit tests cover it there: the E-STOP and the other interlocks, the limits, the dosing order, the calibration maths, alarms that survive a reboot, and edge cases such as losing the level sensor in the middle of a refill or the millisecond counter wrapping around after 49 days.
+The control core is plain C++ with no hardware calls, so the same code runs on the controllers and on my computer. 46 unit tests cover it there: the E-STOP and the other interlocks, dilution, the limits, the dosing order, the calibration maths, alarms that survive a reboot, and edge cases such as losing the level sensor in the middle of a refill or the millisecond counter wrapping around after 49 days.
 
 ## The server
 
 The server runs on a home machine: an MQTT broker for the controllers, and a Python FastAPI service that does everything else. It stores the readings in SQLite and serves them back as charts, keeps a log of events, and holds each controller's settings so that a change made while a controller is offline is applied when it reconnects. It also serves the web dashboard and the API the app uses.
 
-Alerts are the server's other job. On top of the controllers' own alarms, it watches thresholds I set for each controller (pH, EC and temperature out of range, a low level, a controller offline for too long) and sends every warning and critical event to the phone through a self-hosted ntfy server. Nothing goes through an outside cloud service.
+Alerts are the server's other job. On top of the controllers' own alarms, it watches thresholds I set for each controller (pH, EC and temperature out of range, a low level, a controller offline for too long) and sends every warning and critical event to the phone through a self-hosted ntfy server. Short excursions are the controller's job, so the alerts that matter most are about time: EC above its band for six hours, or pH outside its band for four. Nothing goes through an outside cloud service.
+
+## Crop profiles
+
+Different crops want different water. A profile holds, for each growth stage, the pH and EC targets and the alert limits, plus the recipe for the two nutrient stock bottles. There are built-in starting points for lettuce, leafy greens, herbs, strawberries, tomatoes, peppers and cucumbers, and my own copies can be edited. Applying a stage to a controller sets its targets and alert limits in one step and leaves everything else alone, and the screens show when the targets have been changed by hand since.
+
+The recipes use a three-part dry nutrient (a base fertiliser, magnesium sulfate and calcium nitrate, mixed 2:1:2). Three parts go into two bottles because calcium nitrate can't share a concentrate with the sulfate and phosphate in the other two: bottle A holds the base and the magnesium sulfate, bottle B the calcium nitrate, and equal doses of each keep the ratio. Fruiting crops run at a higher EC than the analog EC board reads, so their profiles say to fit a higher-range probe.
 
 ## The process screen
 
@@ -98,7 +105,7 @@ The server's main page is a process control screen, laid out like a plant's oper
 
 The E-STOP is always on screen. It stops every pump and holds the controller there, manual runs and automation included, until someone presses RESTART. It survives a reboot, and after a restart automatic dosing waits a full mix period before it acts again. On a workstation the whole screen fits in one browser window without scrolling; on a phone it stacks into a scrolling page. A second page holds the settings, calibration and history in more detail.
 
-**[Try the demo](https://picofarm.jlwhite.ca).** It is the same screen running entirely in your browser, against a simulated reservoir that drifts, doses itself and reacts. Buttons at the bottom cause a leak, drop the water level or fail the pH probe, so you can watch the interlocks, the alarms and the E-STOP respond. Nothing in it is connected to real equipment.
+**[Try the demo](https://picofarm.jlwhite.ca).** It is the same screen running entirely in your browser, against a simulated reservoir that drifts, doses itself and reacts. A fault menu at the bottom simulates fifteen failures: a leak, low water, a failed pH, EC, temperature or level sensor, an empty nutrient or pH Down bottle, a shut-off water supply, a stuck high float, an emergency overfill, a nutrient overdose, a heat wave, a Wi-Fi drop and a power cut. Each one shows how the controller, the alarms and the dilution respond; the overdose is the one to watch, as EC climbs, waits out its grace period, and comes back down through top-ups and an exchange. Nothing in it is connected to real equipment.
 
 ## The Android app
 
@@ -116,9 +123,9 @@ The app is how I'll use PicoFarm day to day, on the home network or from anywher
 
 ## Status
 
-- **Firmware:** builds for the ESP32-WROOM-32 and the ESP32-S3, and is bench-tested on a WROOM-32: it boots, opens its setup hotspot, answers console commands, its interlocks refuse what they should, and an E-STOP survives a reset. The 38 host tests pass.
-- **Server:** running on a home server with the process screen, the settings page and push alerts, and tested end to end against a simulated controller.
-- **App:** built and tested against the server and the simulator, including push alerts and the E-STOP.
+- **Firmware:** builds for the ESP32-WROOM-32 and the ESP32-S3, and is bench-tested on a WROOM-32: it boots, opens its setup hotspot, answers console commands, its interlocks refuse what they should, and an E-STOP survives a reset. The 46 host tests pass.
+- **Server:** running on a home server with the process screen, the settings page, crop profiles and push alerts, and tested end to end against a simulated controller.
+- **App:** built and tested against the server and the simulator, including push alerts, crop profiles, dilution settings and the E-STOP.
 - **Hardware:** the sensors and pump drivers are being wired.
 
 Next comes wiring it to a real reservoir, calibrating the probes, and watching the first automatic doses closely before I trust it alone.
