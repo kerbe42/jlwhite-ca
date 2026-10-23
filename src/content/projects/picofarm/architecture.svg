@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1312" height="880" viewBox="0 0 1312 880" role="img" aria-labelledby="t d">
+<title id="t">How PicoFarm fits together</title>
+<desc id="d">ESP32 controllers, one per reservoir, talk over the home Wi-Fi to an MQTT broker on a home server. The server runs a FastAPI service with SQLite history, alert thresholds, a REST API, push alerts through ntfy and a process control screen. The Android app connects at home on the home network or away over a VPN; push alerts reach the phone; the process screen opens in a browser. Interlocks, limits, automatic dosing and the watchdog run on each controller.</desc>
+<defs>
+<marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#2f6690"/></marker>
+<marker id="p" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#c0512a"/></marker>
+</defs>
+<style>
+text{font-family:'Helvetica Neue',Helvetica,Arial,'Liberation Sans',sans-serif;font-size:24px;fill:#2c2c2a}
+.ti{font-family:Georgia,'Liberation Serif','Times New Roman',serif;font-size:34px}
+.h{font-family:Georgia,'Liberation Serif','Times New Roman',serif;font-size:30px}
+.b{font-weight:700}
+.m{fill:#5f5e5a}
+.c{text-anchor:middle}
+.k{font-weight:700;fill:#2f6690;letter-spacing:1px}
+.box{fill:#fff;stroke:#ded3bf;stroke-width:2}
+.ln{stroke:#2f6690;stroke-width:3;fill:none}
+.bd{fill:#2f6690}
+</style>
+<rect width="1312" height="880" fill="#fbf7ef"/>
+<text x="30" y="54" class="ti">How PicoFarm fits together</text>
+
+<!-- controllers -->
+<text x="30" y="104" class="k">ONE PER RESERVOIR</text>
+<rect x="30" y="120" width="300" height="140" rx="12" fill="#fff" stroke="#2f6690" stroke-width="3"/>
+<text x="52" y="160" class="b" style="font-size:26px">ESP32 controller</text>
+<text x="52" y="196">pH · EC · temperature</text>
+<text x="52" y="230">level · 7 pumps</text>
+<rect x="30" y="280" width="300" height="140" rx="12" fill="#fff" stroke="#2f6690" stroke-width="3"/>
+<text x="52" y="320" class="b" style="font-size:26px">ESP32 controller</text>
+<text x="52" y="356">pH · EC · temperature</text>
+<text x="52" y="390">level · 7 pumps</text>
+<rect x="30" y="440" width="300" height="60" rx="12" fill="none" stroke="#2f6690" stroke-width="2.5" stroke-dasharray="8 6"/>
+<text x="180" y="479" class="c m">+ more reservoirs</text>
+
+<!-- Wi-Fi / MQTT links -->
+<g fill="none" stroke="#2f6690" stroke-width="4" stroke-linecap="round">
+<path d="M404 462 A36 36 0 0 1 456 462"/>
+<path d="M413 471 A23 23 0 0 1 447 471"/>
+</g>
+<circle cx="430" cy="482" r="5" class="bd"/>
+<text x="430" y="522" class="c b">home Wi-Fi</text>
+<text x="430" y="550" class="c m">MQTT</text>
+
+<!-- on-controller callout -->
+<rect x="30" y="590" width="470" height="240" rx="12" fill="#eef5e6" stroke="#4d8a2a" stroke-width="2.5"/>
+<text x="54" y="630" class="b" style="font-size:26px;fill:#2f6e22">Runs on each controller</text>
+<g>
+<circle cx="62" cy="667" r="6" fill="#4d8a2a"/><text x="80" y="675">every interlock and run limit</text>
+<circle cx="62" cy="707" r="6" fill="#4d8a2a"/><text x="80" y="715">automatic dosing and refill</text>
+<circle cx="62" cy="747" r="6" fill="#4d8a2a"/><text x="80" y="755">5 s watchdog, latched alarms</text>
+<circle cx="62" cy="787" r="6" fill="#4d8a2a"/><text x="80" y="795">carries on if the server is down</text>
+</g>
+
+<!-- home server -->
+<rect x="520" y="90" width="380" height="560" rx="14" fill="#f3ecdd" stroke="#2f6690" stroke-width="3"/>
+<text x="545" y="136" class="h">Home server</text>
+<g>
+<rect x="545" y="160" width="330" height="56" rx="9" class="box"/><circle cx="570" cy="188" r="6" class="bd"/><text x="590" y="196">MQTT broker</text>
+<rect x="545" y="230" width="330" height="56" rx="9" class="box"/><circle cx="570" cy="258" r="6" class="bd"/><text x="590" y="266">FastAPI service</text>
+<rect x="545" y="300" width="330" height="56" rx="9" class="box"/><circle cx="570" cy="328" r="6" class="bd"/><text x="590" y="336">History (SQLite)</text>
+<rect x="545" y="370" width="330" height="56" rx="9" class="box"/><circle cx="570" cy="398" r="6" class="bd"/><text x="590" y="406">Alert thresholds</text>
+<rect x="545" y="440" width="330" height="56" rx="9" class="box"/><circle cx="570" cy="468" r="6" class="bd"/><text x="590" y="476">REST API</text>
+<rect x="545" y="510" width="330" height="56" rx="9" class="box"/><circle cx="570" cy="538" r="6" fill="#c0512a"/><text x="590" y="546">Push alerts (ntfy)</text>
+<rect x="545" y="580" width="330" height="56" rx="9" class="box"/><circle cx="570" cy="608" r="6" class="bd"/><text x="590" y="616">Process screen</text>
+</g>
+<text x="520" y="700" class="m">Keeps the history, relays commands</text>
+<text x="520" y="732" class="m">and settings, and sends alerts.</text>
+<text x="520" y="764" class="m">The controller still checks every</text>
+<text x="520" y="796" class="m">command against its interlocks.</text>
+
+<!-- clients -->
+<text x="970" y="130" class="m">No cloud service: everything</text>
+<text x="970" y="162" class="m">stays on the home network.</text>
+<text x="970" y="194" class="m">Away from home, the app</text>
+<text x="970" y="226" class="m">connects over a VPN.</text>
+<text x="970" y="282" class="k">PHONE AND BROWSER</text>
+
+<rect x="970" y="300" width="320" height="100" rx="12" class="box"/>
+<rect x="990" y="312" width="44" height="76" rx="8" fill="#fff" stroke="#2f6690" stroke-width="3"/><rect x="996" y="322" width="32" height="52" rx="2" fill="#dfe9f1"/>
+<text x="1052" y="342" class="b">Android app</text>
+<text x="1052" y="374">at home</text>
+
+<rect x="970" y="418" width="320" height="100" rx="12" class="box"/>
+<rect x="990" y="430" width="44" height="76" rx="8" fill="#fff" stroke="#2f6690" stroke-width="3"/><rect x="996" y="440" width="32" height="52" rx="2" fill="#dfe9f1"/>
+<text x="1052" y="460" class="b">Android app</text>
+<text x="1052" y="492">away, over a VPN</text>
+
+<rect x="970" y="540" width="320" height="100" rx="12" class="box"/>
+<path d="M997 610 H1029 L1024 602 V584 A11 11 0 0 0 1002 584 V602 Z" fill="#fbe3d6" stroke="#c0512a" stroke-width="3" stroke-linejoin="round"/>
+<circle cx="1013" cy="616" r="5" fill="#c0512a"/>
+<text x="1052" y="582" class="b">Push alerts</text>
+<text x="1052" y="614">on the phone</text>
+
+<rect x="970" y="660" width="320" height="100" rx="12" class="box"/>
+<rect x="986" y="684" width="54" height="44" rx="5" fill="#fff" stroke="#2f6690" stroke-width="3"/><line x1="986" y1="696" x2="1040" y2="696" stroke="#2f6690" stroke-width="3"/>
+<text x="1052" y="702" class="b">Process screen</text>
+<text x="1052" y="734">in a browser</text>
+
+<!-- controller links, drawn over the panel edge -->
+<line x1="332" y1="190" x2="543" y2="182" class="ln" marker-start="url(#a)" marker-end="url(#a)"/>
+<line x1="332" y1="350" x2="543" y2="192" class="ln" marker-start="url(#a)" marker-end="url(#a)"/>
+<line x1="332" y1="470" x2="543" y2="202" class="ln" marker-start="url(#a)" marker-end="url(#a)" stroke-dasharray="8 6"/>
+<!-- server to clients -->
+<path d="M875 468 H930 V350 H966" class="ln" marker-end="url(#a)"/>
+<path d="M930 468 H966" class="ln" marker-end="url(#a)" stroke-dasharray="7 5"/>
+<path d="M875 538 H945 V590 H966" class="ln" marker-end="url(#p)" style="stroke:#c0512a"/>
+<path d="M875 608 H920 V710 H966" class="ln" marker-end="url(#a)"/>
+</svg>

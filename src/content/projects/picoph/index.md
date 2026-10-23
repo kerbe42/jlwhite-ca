@@ -25,3 +25,5 @@ Then it went to work, watching the towers:
 ![The finished PicoPH unit installed beside the 3D-printed hydroponic grow towers](./installed.jpg)
 
 It's the project that ties the three hobbies together: a bit of electronics, a bit of 3D printing, in service of the [garden](/garden/hydroponic-garden).
+
+Its successor, [PicoFarm](/work/picofarm), also acts on what it measures: ESP32 controllers that dose, refill and protect the reservoir on their own.

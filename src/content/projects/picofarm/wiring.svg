@@ -1,0 +1,223 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1312" height="960" viewBox="0 0 1312 960" role="img" aria-labelledby="t d">
+<title id="t">PicoFarm controller wiring (ESP32-WROOM-32)</title>
+<desc id="d">An ESP32-WROOM-32 with an ADS1115 on I2C (GPIO21 and 22) reading the pH board through a 10k/20k divider on A0, the EC board on A1 (powered from GPIO13) and an analog level sensor on A2; a DS18B20 on GPIO4 with a 4.7k pull-up; low, high and emergency floats on GPIO32, 33 and 25; a leak sensor on GPIO35 with a 10k pull-up; an ultrasonic level sensor on GPIO14 and 34 through a 1k/2k divider; seven MOSFET pump drivers on GPIO16, 17, 18, 19, 23, 26 and 27; a 12 V supply through a 5 A fuse to the pump rail and a buck converter to 5 V; one star ground.</desc>
+<style>
+text{font-family:'Helvetica Neue',Helvetica,Arial,'Liberation Sans',sans-serif;font-size:24px;fill:#2c2c2a}
+.ti{font-family:Georgia,'Liberation Serif','Times New Roman',serif;font-size:34px}
+.b{font-weight:700}
+.m{fill:#5f5e5a}
+.r{fill:#a8321f}
+.c{text-anchor:middle}
+.e{text-anchor:end}
+.pw{stroke:#c0392b;stroke-width:4;fill:none}
+.gn{stroke:#2c2c2a;stroke-width:4;fill:none}
+.gs{stroke:#2c2c2a;stroke-width:2.5;fill:none}
+.sg{stroke:#2f6690;stroke-width:3;fill:none}
+.i2{stroke:#3f8a2e;stroke-width:3.5;fill:none}
+.pu{stroke:#d07a1a;stroke-width:4;fill:none}
+.box{fill:#fff;stroke:#d6cbb6;stroke-width:2}
+.res{fill:#fff;stroke:#2c2c2a;stroke-width:2.5}
+.dot{fill:#2c2c2a}
+</style>
+<rect width="1312" height="960" fill="#fbf7ef"/>
+
+<!-- title and legend -->
+<text x="30" y="54" class="ti">Controller wiring · ESP32-WROOM-32</text>
+<line x1="700" y1="45" x2="734" y2="45" class="pw"/><text x="742" y="53">power</text>
+<line x1="830" y1="45" x2="864" y2="45" class="gn"/><text x="872" y="53">ground</text>
+<line x1="966" y1="45" x2="1000" y2="45" class="sg"/><text x="1008" y="53">signal</text>
+<line x1="1088" y1="45" x2="1122" y2="45" class="i2"/><text x="1130" y="53">I²C</text>
+<line x1="1182" y1="45" x2="1216" y2="45" class="pu"/><text x="1224" y="53">pump</text>
+
+<!-- power: supply, fuse, +12 V rail, buck -->
+<rect x="30" y="86" width="170" height="48" rx="8" fill="#fff" stroke="#c0392b" stroke-width="2.5"/>
+<text x="115" y="118" class="c b">12 V supply</text>
+<line x1="200" y1="110" x2="240" y2="110" class="pw"/>
+<rect x="240" y="94" width="110" height="32" rx="6" fill="#fff" stroke="#c0392b" stroke-width="2.5"/>
+<text x="295" y="118" class="c">5 A fuse</text>
+<path d="M350 110 H1266 V800" class="pw"/>
+<text x="1255" y="98" class="e r">+12 V rail to every pump</text>
+<circle cx="430" cy="110" r="6" fill="#c0392b"/>
+<line x1="430" y1="110" x2="430" y2="148" class="pw"/>
+<rect x="360" y="148" width="190" height="44" rx="8" fill="#fff" stroke="#c0392b" stroke-width="2.5"/>
+<text x="455" y="178" class="c">buck 12 → 5 V</text>
+<path d="M550 170 H590 V210" class="pw"/>
+<text x="562" y="160" class="r">5 V</text>
+<path d="M700 210 V176 M690 176 H710" class="pw"/>
+<text x="714" y="190" class="r">3.3 V out: ADS1115, DS18B20, pull-ups</text>
+<!-- supply 0 V to the star ground -->
+<path d="M30 110 H14 V945 H905" class="gn"/>
+<text x="22" y="170">0 V</text>
+
+<!-- ESP32 -->
+<rect x="540" y="210" width="220" height="700" rx="12" fill="#eaf1f6" stroke="#2f6690" stroke-width="3"/>
+<text x="650" y="250" class="c b" style="font-size:27px">ESP32</text>
+<text x="650" y="280" class="c m">WROOM-32</text>
+<text x="590" y="312" class="c">VIN</text>
+<text x="700" y="312" class="c">3V3</text>
+<text x="700" y="896" class="c">GND</text>
+<g>
+<text x="550" y="353">GPIO21</text>
+<text x="550" y="398">GPIO22</text>
+<text x="550" y="448">GPIO13</text>
+<text x="550" y="598">GPIO4</text>
+<text x="550" y="648">GPIO32</text>
+<text x="550" y="693">GPIO33</text>
+<text x="550" y="738">GPIO25</text>
+<text x="550" y="808">GPIO35</text>
+<text x="550" y="858">GPIO14</text>
+<text x="550" y="893">GPIO34</text>
+</g>
+<g class="e">
+<text x="750" y="388" class="e">GPIO16</text>
+<text x="750" y="458" class="e">GPIO17</text>
+<text x="750" y="528" class="e">GPIO18</text>
+<text x="750" y="598" class="e">GPIO19</text>
+<text x="750" y="668" class="e">GPIO23</text>
+<text x="750" y="738" class="e">GPIO26</text>
+<text x="750" y="808" class="e">GPIO27</text>
+</g>
+<!-- ESP32 GND to the star point -->
+<line x1="700" y1="910" x2="700" y2="945" class="gn"/>
+<circle cx="700" cy="945" r="9" class="dot"/>
+<text x="714" y="934">star ground</text>
+
+<!-- ADS1115 and I2C -->
+<rect x="300" y="285" width="170" height="200" rx="8" class="box"/>
+<text x="385" y="316" class="c b">ADS1115</text>
+<text x="310" y="353">A0</text>
+<text x="310" y="438">A1</text>
+<text x="310" y="476">A2</text>
+<text x="460" y="472" class="e m">0x48</text>
+<path d="M385 285 V262 M375 262 H395" class="pw"/>
+<text x="400" y="268" class="r">3.3 V</text>
+<line x1="470" y1="345" x2="540" y2="345" class="i2"/>
+<line x1="470" y1="390" x2="540" y2="390" class="i2"/>
+<text x="480" y="337" style="fill:#2f6e22">SDA</text>
+<text x="480" y="382" style="fill:#2f6e22">SCL</text>
+
+<!-- pH board through the 10k/20k divider to A0 -->
+<rect x="30" y="300" width="135" height="80" rx="8" class="box"/>
+<text x="97" y="332" class="c b">pH-4502C</text>
+<text x="97" y="362" class="c m">+ probe</text>
+<path d="M97 300 V278 M87 278 H107" class="pw"/>
+<text x="112" y="285" class="r">5 V</text>
+<line x1="165" y1="345" x2="180" y2="345" class="sg"/>
+<rect x="180" y="337" width="46" height="16" class="res"/>
+<text x="203" y="328" class="c">10 k</text>
+<line x1="226" y1="345" x2="300" y2="345" class="sg"/>
+<circle cx="250" cy="345" r="5" class="dot"/>
+<line x1="250" y1="345" x2="250" y2="352" class="gs"/>
+<rect x="242" y="352" width="16" height="30" class="res"/>
+<path d="M250 382 V388 M236 388 H264 M241 394 H259 M246 400 H254" class="gs"/>
+<text x="233" y="378" class="e">20 k</text>
+
+<!-- EC board to A1, powered from GPIO13 -->
+<rect x="30" y="400" width="135" height="80" rx="8" class="box"/>
+<text x="97" y="432" class="c b">EC board</text>
+<text x="97" y="462" class="c m">+ probe</text>
+<line x1="165" y1="430" x2="300" y2="430" class="sg"/>
+<path d="M540 440 H505 V515 H97 V480" class="sg"/>
+<text x="30" y="545" class="m">VCC: on only while reading</text>
+
+<!-- analog level to A2 -->
+<circle cx="186" cy="468" r="5" fill="#fff" stroke="#2f6690" stroke-width="2.5"/>
+<line x1="191" y1="468" x2="300" y2="468" class="sg"/>
+<text x="196" y="459">level</text>
+
+<!-- DS18B20 on GPIO4 with 4.7k pull-up -->
+<rect x="30" y="570" width="200" height="40" rx="8" class="box"/>
+<text x="130" y="598" class="c">DS18B20 temp</text>
+<line x1="230" y1="590" x2="540" y2="590" class="sg"/>
+<circle cx="470" cy="590" r="5" class="dot"/>
+<path d="M470 590 V582 M470 558 V552 M460 552 H480" class="gs"/>
+<rect x="462" y="558" width="16" height="24" class="res"/>
+<text x="455" y="576" class="e">4.7 k to 3.3 V</text>
+
+<!-- floats: switch to ground, internal pull-ups -->
+<g>
+<text x="30" y="648">low-water float</text>
+<path d="M350 640 V648 M338 648 H362 M342 653 H358 M346 658 H354" class="gs"/>
+<line x1="350" y1="640" x2="370" y2="640" class="sg"/>
+<circle cx="372" cy="640" r="3.5" class="dot"/><line x1="372" y1="640" x2="406" y2="626" class="gs"/><circle cx="410" cy="640" r="3.5" class="dot"/>
+<line x1="410" y1="640" x2="540" y2="640" class="sg"/>
+
+<text x="30" y="693">high-water float</text>
+<path d="M350 685 V693 M338 693 H362 M342 698 H358 M346 703 H354" class="gs"/>
+<line x1="350" y1="685" x2="370" y2="685" class="sg"/>
+<circle cx="372" cy="685" r="3.5" class="dot"/><line x1="372" y1="685" x2="406" y2="671" class="gs"/><circle cx="410" cy="685" r="3.5" class="dot"/>
+<line x1="410" y1="685" x2="540" y2="685" class="sg"/>
+
+<text x="30" y="738">emergency float (sense)</text>
+<path d="M350 730 V738 M338 738 H362 M342 743 H358 M346 748 H354" class="gs"/>
+<line x1="350" y1="730" x2="370" y2="730" class="sg"/>
+<circle cx="372" cy="730" r="3.5" class="dot"/><line x1="372" y1="730" x2="406" y2="716" class="gs"/><circle cx="410" cy="730" r="3.5" class="dot"/>
+<line x1="410" y1="730" x2="540" y2="730" class="sg"/>
+</g>
+
+<!-- leak on GPIO35 with 10k pull-up -->
+<text x="30" y="808">leak (wet = closed)</text>
+<path d="M350 800 V808 M338 808 H362 M342 813 H358 M346 818 H354" class="gs"/>
+<line x1="350" y1="800" x2="370" y2="800" class="sg"/>
+<circle cx="372" cy="800" r="3.5" class="dot"/><line x1="372" y1="800" x2="406" y2="786" class="gs"/><circle cx="410" cy="800" r="3.5" class="dot"/>
+<line x1="410" y1="800" x2="540" y2="800" class="sg"/>
+<circle cx="470" cy="800" r="5" class="dot"/>
+<path d="M470 800 V792 M470 768 V762 M460 762 H480" class="gs"/>
+<rect x="462" y="768" width="16" height="24" class="res"/>
+<text x="455" y="782" class="e">10 k to 3.3 V</text>
+
+<!-- ultrasonic: trig on 14, echo through 1k/2k to 34 -->
+<rect x="30" y="836" width="190" height="66" rx="8" class="box"/>
+<text x="125" y="862" class="c b">JSN-SR04T</text>
+<text x="125" y="890" class="c m">5 V · level</text>
+<line x1="220" y1="850" x2="540" y2="850" class="sg"/>
+<text x="236" y="843">trig</text>
+<line x1="220" y1="885" x2="330" y2="885" class="sg"/>
+<text x="236" y="878">echo</text>
+<rect x="330" y="877" width="46" height="16" class="res"/>
+<text x="353" y="870" class="c">1 k</text>
+<line x1="376" y1="885" x2="540" y2="885" class="sg"/>
+<circle cx="400" cy="885" r="5" class="dot"/>
+<line x1="400" y1="885" x2="400" y2="893" class="gs"/>
+<rect x="392" y="893" width="16" height="24" class="res"/>
+<path d="M400 917 V922 M388 922 H412 M392 927 H408 M396 932 H404" class="gs"/>
+<text x="416" y="913">2 k</text>
+
+<!-- pump drivers -->
+<text x="830" y="345" class="m">pump drivers (detail below)</text>
+<line x1="905" y1="400" x2="905" y2="945" class="gn"/>
+<g>
+<line x1="760" y1="380" x2="830" y2="380" class="sg"/><rect x="830" y="360" width="150" height="40" rx="7" class="box"/><text x="905" y="388" class="c">MOSFET</text>
+<line x1="980" y1="380" x2="1030" y2="380" class="pu"/><rect x="1030" y="360" width="160" height="40" rx="7" fill="#fdf0e1" stroke="#d07a1a" stroke-width="2.5"/><text x="1110" y="388" class="c">pH Up</text>
+<line x1="1190" y1="380" x2="1266" y2="380" class="pw"/>
+
+<line x1="760" y1="450" x2="830" y2="450" class="sg"/><rect x="830" y="430" width="150" height="40" rx="7" class="box"/><text x="905" y="458" class="c">MOSFET</text>
+<line x1="980" y1="450" x2="1030" y2="450" class="pu"/><rect x="1030" y="430" width="160" height="40" rx="7" fill="#fdf0e1" stroke="#d07a1a" stroke-width="2.5"/><text x="1110" y="458" class="c">pH Down</text>
+<line x1="1190" y1="450" x2="1266" y2="450" class="pw"/>
+
+<line x1="760" y1="520" x2="830" y2="520" class="sg"/><rect x="830" y="500" width="150" height="40" rx="7" class="box"/><text x="905" y="528" class="c">MOSFET</text>
+<line x1="980" y1="520" x2="1030" y2="520" class="pu"/><rect x="1030" y="500" width="160" height="40" rx="7" fill="#fdf0e1" stroke="#d07a1a" stroke-width="2.5"/><text x="1110" y="528" class="c">Nutrient A</text>
+<line x1="1190" y1="520" x2="1266" y2="520" class="pw"/>
+
+<line x1="760" y1="590" x2="830" y2="590" class="sg"/><rect x="830" y="570" width="150" height="40" rx="7" class="box"/><text x="905" y="598" class="c">MOSFET</text>
+<line x1="980" y1="590" x2="1030" y2="590" class="pu"/><rect x="1030" y="570" width="160" height="40" rx="7" fill="#fdf0e1" stroke="#d07a1a" stroke-width="2.5"/><text x="1110" y="598" class="c">Nutrient B</text>
+<line x1="1190" y1="590" x2="1266" y2="590" class="pw"/>
+
+<line x1="760" y1="660" x2="830" y2="660" class="sg"/><rect x="830" y="640" width="150" height="40" rx="7" class="box"/><text x="905" y="668" class="c">MOSFET</text>
+<line x1="980" y1="660" x2="1030" y2="660" class="pu"/><rect x="1030" y="640" width="160" height="40" rx="7" fill="#fdf0e1" stroke="#d07a1a" stroke-width="2.5"/><text x="1110" y="668" class="c">Refill</text>
+<line x1="1190" y1="660" x2="1202" y2="660" class="pw"/>
+<circle cx="1205" cy="660" r="3.5" fill="#c0392b"/><line x1="1205" y1="660" x2="1240" y2="645" stroke="#c0392b" stroke-width="2.5"/><circle cx="1244" cy="660" r="3.5" fill="#c0392b"/>
+<line x1="1247" y1="660" x2="1266" y2="660" class="pw"/>
+<text x="1254" y="702" class="e r">emergency float</text>
+
+<line x1="760" y1="730" x2="830" y2="730" class="sg"/><rect x="830" y="710" width="150" height="40" rx="7" class="box"/><text x="905" y="738" class="c">MOSFET</text>
+<line x1="980" y1="730" x2="1030" y2="730" class="pu"/><rect x="1030" y="710" width="160" height="40" rx="7" fill="#fdf0e1" stroke="#d07a1a" stroke-width="2.5"/><text x="1110" y="738" class="c">Circulation</text>
+<line x1="1190" y1="730" x2="1266" y2="730" class="pw"/>
+
+<line x1="760" y1="800" x2="830" y2="800" class="sg"/><rect x="830" y="780" width="150" height="40" rx="7" class="box"/><text x="905" y="808" class="c">MOSFET</text>
+<line x1="980" y1="800" x2="1030" y2="800" class="pu"/><rect x="1030" y="780" width="160" height="40" rx="7" fill="#fdf0e1" stroke="#d07a1a" stroke-width="2.5"/><text x="1110" y="808" class="c">Drain</text>
+<line x1="1190" y1="800" x2="1266" y2="800" class="pw"/>
+</g>
+<text x="918" y="870" class="m">sources to the star ground</text>
+<text x="918" y="904" class="m">S3 boards use their own pin map</text>
+</svg>
