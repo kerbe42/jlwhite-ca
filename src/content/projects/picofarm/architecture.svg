@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1312" height="880" viewBox="0 0 1312 880" role="img" aria-labelledby="t d">
 <title id="t">How PicoFarm fits together</title>
-<desc id="d">ESP32 controllers, one per reservoir, talk over the home Wi-Fi to an MQTT broker on a home server. The server runs a FastAPI service with SQLite history, alert thresholds, a REST API, push alerts through ntfy and a web dashboard. The Android app connects at home on the home network or away over a VPN; push alerts reach the phone; the dashboard opens in a browser. Interlocks, limits, automatic dosing and the watchdog run on each controller.</desc>
+<desc id="d">ESP32 controllers, one per reservoir, talk over the home Wi-Fi to an MQTT broker on a home server. The server runs a FastAPI service with SQLite history, alert thresholds, a REST API, push alerts through ntfy and a process control screen. The Android app connects at home on the home network or away over a VPN; push alerts reach the phone; the process screen opens in a browser. Interlocks, limits, automatic dosing and the watchdog run on each controller.</desc>
 <defs>
 <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#2f6690"/></marker>
 <marker id="p" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#c0512a"/></marker>
@@ -62,7 +62,7 @@ text{font-family:'Helvetica Neue',Helvetica,Arial,'Liberation Sans',sans-serif;f
 <rect x="545" y="370" width="330" height="56" rx="9" class="box"/><circle cx="570" cy="398" r="6" class="bd"/><text x="590" y="406">Alert thresholds</text>
 <rect x="545" y="440" width="330" height="56" rx="9" class="box"/><circle cx="570" cy="468" r="6" class="bd"/><text x="590" y="476">REST API</text>
 <rect x="545" y="510" width="330" height="56" rx="9" class="box"/><circle cx="570" cy="538" r="6" fill="#c0512a"/><text x="590" y="546">Push alerts (ntfy)</text>
-<rect x="545" y="580" width="330" height="56" rx="9" class="box"/><circle cx="570" cy="608" r="6" class="bd"/><text x="590" y="616">Web dashboard</text>
+<rect x="545" y="580" width="330" height="56" rx="9" class="box"/><circle cx="570" cy="608" r="6" class="bd"/><text x="590" y="616">Process screen</text>
 </g>
 <text x="520" y="700" class="m">Keeps the history, relays commands</text>
 <text x="520" y="732" class="m">and settings, and sends alerts.</text>
@@ -94,7 +94,7 @@ text{font-family:'Helvetica Neue',Helvetica,Arial,'Liberation Sans',sans-serif;f
 
 <rect x="970" y="660" width="320" height="100" rx="12" class="box"/>
 <rect x="986" y="684" width="54" height="44" rx="5" fill="#fff" stroke="#2f6690" stroke-width="3"/><line x1="986" y1="696" x2="1040" y2="696" stroke="#2f6690" stroke-width="3"/>
-<text x="1052" y="702" class="b">Web dashboard</text>
+<text x="1052" y="702" class="b">Process screen</text>
 <text x="1052" y="734">in a browser</text>
 
 <!-- controller links, drawn over the panel edge -->

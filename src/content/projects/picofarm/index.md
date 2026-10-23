@@ -2,7 +2,7 @@
 title: 'PicoFarm: ESP32 controllers that measure, dose and protect a hydroponic reservoir'
 world: work
 date: 2026-10-23
-summary: "My hydroponics monitoring and control system, in progress: ESP32 controllers measure pH, EC, water temperature and level and run seven pumps, with every safety rule enforced on the controller itself. A home server keeps the history, relays commands and sends push alerts, and an Android app watches and controls it from the phone, at home or away."
+summary: "My hydroponics monitoring and control system, in progress: ESP32 controllers measure pH, EC, water temperature and level and run seven pumps, with every safety rule enforced on the controller itself. A home server keeps the history, relays commands, sends push alerts and shows a process control screen, and an Android app watches and controls it from the phone, at home or away."
 featured: false
 cover: ./cover.png
 coverAlt: "PicoFarm in four steps: the reservoir is measured (pH, EC, temperature, level and leak), an ESP32 acts (seven pumps, interlocks, automatic dosing), a home server records (MQTT broker, history, alerts, dashboard) and an Android app shows it at home or over a VPN; the safety logic runs on the controller and keeps working if the server is down"
@@ -16,11 +16,11 @@ PicoFarm is my hydroponics monitoring and control system. Each reservoir gets an
 
 It grew out of [PicoPH](/builds/picoph), the Raspberry Pi Pico monitor that has been watching the [garden](/garden/hydroponic-garden). PicoPH told me the pH and EC, but every correction was still done by hand: measure, add a little, wait, measure again. PicoFarm does that loop itself, for the reservoirs that feed the [printed towers](/builds/hydro-tower). A system that pumps acid, nutrients and water in a room of the house needs to be careful above all, so most of the design is about what it must never do.
 
-It is a work in progress. The controller firmware is written and bench-tested; the sensors and pumps are being wired, and the server and the app are being built now.
+It is a work in progress: the controller firmware, the server with its process screen, and the Android app are built and running against a simulated controller, and the sensors and pumps are being wired. You can [try the process screen](https://picofarm.jlwhite.ca) in your browser, against a simulated reservoir.
 
 ## How it fits together
 
-![The PicoFarm architecture: ESP32 controllers, one per reservoir, connect over the home Wi-Fi to an MQTT broker on a home server, which also runs a FastAPI service, SQLite history, alert thresholds, a REST API, push alerts and a web dashboard; the Android app connects at home or away over a VPN, alerts reach the phone, and the dashboard opens in a browser. Interlocks, run limits, automatic dosing and the watchdog run on each controller.](./architecture.svg)
+![The PicoFarm architecture: ESP32 controllers, one per reservoir, connect over the home Wi-Fi to an MQTT broker on a home server, which also runs a FastAPI service, SQLite history, alert thresholds, a REST API, push alerts and a process control screen; the Android app connects at home or away over a VPN, alerts reach the phone, and the process screen opens in a browser. Interlocks, run limits, automatic dosing and the watchdog run on each controller.](./architecture.svg)
 
 The controllers join the home Wi-Fi and talk MQTT to a broker on the home server. Each one publishes its readings every few seconds, plus events: a pump started or stopped, a command refused, an alarm raised or cleared. Commands and settings flow the other way. Each controller only has access to its own topics, and if one drops off the network the broker tells the server, which raises an offline alert.
 
@@ -76,11 +76,11 @@ Automatic dosing works from a target and a band for each value (by default pH 5.
 
 1. **Hardware.** The emergency float cuts the refill pump's power, the gate pull-downs hold every pump off through a reset, and the 12 V rail is fused.
 2. **Watchdog.** If the control loop stalls for 5 seconds, the chip resets and every pump stops.
-3. **Interlocks.** A leak stops everything. Low water blocks dosing, circulation and drain. High water and the emergency float block refill. Drain and refill never run together, and neither do pH Up and pH Down. Manual commands from the app go through the same checks as the automation.
+3. **Interlocks.** E-STOP holds everything, manual runs included, until someone presses RESTART, even across a reboot. A leak stops everything. Low water blocks dosing, circulation and drain. High water and the emergency float block refill. Drain and refill never run together, and neither do pH Up and pH Down. Manual commands from the app go through the same checks as the automation.
 4. **Limits.** Each pump can have a maximum single run and a daily run-time cap, and the dosing and refill pumps have both by default. A manual refill with nothing to stop it is limited to 60 seconds.
 5. **Patience.** The mix wait, the fresh reading, EC before pH and B after A, as above. The leak, emergency and refill-timeout alarms survive a reboot and clear only when someone clears them.
 
-The control core is plain C++ with no hardware calls, so the same code runs on the controllers and on my computer. 36 unit tests cover it there: the interlocks, the limits, the dosing order, the calibration maths, alarms that survive a reboot, and edge cases such as losing the level sensor in the middle of a refill or the millisecond counter wrapping around after 49 days.
+The control core is plain C++ with no hardware calls, so the same code runs on the controllers and on my computer. 38 unit tests cover it there: the E-STOP and the other interlocks, the limits, the dosing order, the calibration maths, alarms that survive a reboot, and edge cases such as losing the level sensor in the middle of a refill or the millisecond counter wrapping around after 49 days.
 
 ## The server
 
@@ -88,22 +88,37 @@ The server runs on a home machine: an MQTT broker for the controllers, and a Pyt
 
 Alerts are the server's other job. On top of the controllers' own alarms, it watches thresholds I set for each controller (pH, EC and temperature out of range, a low level, a controller offline for too long) and sends every warning and critical event to the phone through a self-hosted ntfy server. Nothing goes through an outside cloud service.
 
+## The process screen
+
+![The PicoFarm process screen, running against the simulated controller: an alarm annunciator across the top; a mimic of the reservoir with its four dosing tanks and pumps, the refill pump and water supply, the recirculation loop, the drain, the low, high and emergency floats, the leak sensor and tagged pH, EC, temperature and level instruments showing live values; and on the right the pH, EC, level and circulation faceplates, four trends and the event list](./process-screen.png)
+
+*Shown running against the simulated controller.*
+
+The server's main page is a process control screen, laid out like a plant's operator display. A mimic shows the reservoir and everything around it, with every instrument and pump tagged (AIT-101 is the pH analyser, P-102 the pH Down pump, LSL-105 the low float) and showing its live value or state. Pipes animate while their pump runs. Across the top, an alarm annunciator lights a tile for each active alarm and flashes it until someone acknowledges it, and latched alarms need a deliberate reset. Faceplates for the pH, EC, level and circulation loops show each value against its setpoint and band, and open to change the mode or the setpoint. Trends cover the last hour to the last day, and the event list records every dose, refusal and alarm. Clicking a pump opens its own faceplate to run, dose or stop it, always subject to the controller's checks.
+
+The E-STOP is always on screen. It stops every pump and holds the controller there, manual runs and automation included, until someone presses RESTART. It survives a reboot, and after a restart automatic dosing waits a full mix period before it acts again. On a workstation the whole screen fits in one browser window without scrolling; on a phone it stacks into a scrolling page. A second page holds the settings, calibration and history in more detail.
+
+**[Try the demo](https://picofarm.jlwhite.ca).** It is the same screen running entirely in your browser, against a simulated reservoir that drifts, doses itself and reacts. Buttons at the bottom cause a leak, drop the water level or fail the pH probe, so you can watch the interlocks, the alarms and the E-STOP respond. Nothing in it is connected to real equipment.
+
 ## The Android app
 
 The app is how I'll use PicoFarm day to day, on the home network or from anywhere over a VPN. Its screens:
 
 - **Live readings:** pH, EC, temperature and level for each controller, with its alarms.
-- **Pumps:** manual control of each pump, and a STOP ALL button.
+- **Pumps:** manual control of each pump, STOP ALL, and an E-STOP that holds everything until RESTART.
 - **Control settings:** the automatic modes, targets and bands.
 - **Guided calibration:** step-by-step calibration of the probes, with a stability indicator that shows when a reading has settled enough to store.
 - **History:** charts of pH, EC, temperature and level over time.
 - **Events:** doses, refusals, alarms and settings changes.
 - **Push alerts:** warnings and critical events arrive as notifications.
 
+![Three screens of the Android app, against the simulated controller: live pH, EC, temperature and level readings with the automatic dosing state and the inputs; the pumps, each with its run time today, cap and flow, above STOP ALL and E-STOP; and the pH calibration wizard showing a stable reading](./app.png)
+
 ## Status
 
-- **Firmware:** builds for the ESP32-WROOM-32 and the ESP32-S3, and is bench-tested on a WROOM-32. It boots, opens its setup hotspot, answers console commands, and its interlocks refuse what they should. The 36 host tests pass.
+- **Firmware:** builds for the ESP32-WROOM-32 and the ESP32-S3, and is bench-tested on a WROOM-32: it boots, opens its setup hotspot, answers console commands, its interlocks refuse what they should, and an E-STOP survives a reset. The 38 host tests pass.
+- **Server:** running on a home server with the process screen, the settings page and push alerts, and tested end to end against a simulated controller.
+- **App:** built and tested against the server and the simulator, including push alerts and the E-STOP.
 - **Hardware:** the sensors and pump drivers are being wired.
-- **Server and app:** in development.
 
 Next comes wiring it to a real reservoir, calibrating the probes, and watching the first automatic doses closely before I trust it alone.
