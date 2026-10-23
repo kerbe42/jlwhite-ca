@@ -2,7 +2,7 @@
 title: 'TailWatch: a pocket sensor that notices what keeps following you'
 world: work
 date: 2026-10-04
-summary: "An ESP32-S3 that listens to the Wi-Fi and Bluetooth around you, passively, and an Android app that works out what keeps turning up wherever you go: a tracker hidden in a bag or a car, a phone that follows you between places, a new device lingering nearby. It links devices that keep changing their address back into one identity, and several boards can mesh to cover the whole band and point at the one a device is nearest."
+summary: "An ESP32 board that listens to the Wi-Fi and Bluetooth around you, passively, and an Android app that works out what keeps turning up wherever you go: a tracker hidden in a bag or a car, a phone that follows you between places, a new device lingering nearby. It links devices that keep changing their address back into one identity, and several boards can mesh to cover the whole band and point at the one a device is nearest."
 featured: false
 cover: ./cover.png
 coverAlt: "A diagram of three places a person visited on different days, kilometres apart, each with a scatter of nearby devices; one device appears at all three and is flagged as a follower"
@@ -12,7 +12,7 @@ draft: false
 
 ## What it is
 
-Location trackers are small, cheap and built to be found by their owner's phone, which also makes them easy to slip into someone else's bag or car. Phones pass the test of "is this following me?" even more quietly. TailWatch is a pocket device and an Android app that answer that question from radio alone. The device listens to the 2.4 GHz Wi-Fi and Bluetooth traffic around you, the app keeps the history, and together they flag anything that keeps showing up in places you go and nobody else's.
+Location trackers are small, cheap and built to be found by their owner's phone, which also makes them easy to slip into someone else's bag or car. Phones pass the test of "is this following me?" even more quietly. TailWatch is a pocket device and an Android app that answer that question from radio alone. The device listens to the Wi-Fi (2.4 GHz, and 5 GHz on the dual-band build) and Bluetooth traffic around you, the app keeps the history, and together they flag anything that keeps showing up in places you go and nobody else's.
 
 Everything it does is passive. The device never transmits on Wi-Fi, and on Bluetooth it only talks to the phone it is paired with, over an encrypted link. What it hears stays on the device and the phone.
 
@@ -30,6 +30,8 @@ Anything can be tagged *Mine* (never alert), *Watch* (alert whenever it is near)
 ## How it works
 
 **The device** is an ESP32-S3 with 8 MB of PSRAM. The firmware puts Wi-Fi into promiscuous mode and hops channels 1 to 13, reading beacons, probe requests, association and data frames to learn the access points, the clients and which network each client is using. Bluetooth is scanned passively, with tracker classification on the device. Devices are tracked in PSRAM, summarized every observation window (two minutes by default) together with the current location, scored on the device for follow and tracker alerts, written to a roughly 13 MB ring log in flash, and streamed to the phone. When the phone comes back after being out of range, it syncs whatever it missed.
+
+**A dual-band build** runs on the ESP32-C5, which also hears 5 GHz Wi-Fi: every third channel hop goes to a 5 GHz channel, the common ones often and the radar-sharing (DFS) ones now and then, so phone hotspots, newer cameras and 5.8 GHz drone links that never touch 2.4 GHz show up as well. The C5 has no PSRAM, so its live table is smaller and Wi-Fi is brought up before the tables to get the large memory blocks it needs. When a burst of lines (a window of 200 devices) doesn't fit its smaller send buffer, it streams them from the flash log as the buffer drains instead of dropping them. A hardware watchdog on the low-power clock restarts it if the main loop ever stops, and the firmware works around an early-silicon fault in which a reset sent over USB could leave the chip stuck until it was unplugged.
 
 **The link** is one Bluetooth service with LE Secure Connections bonding required: the device drops any connection that does not encrypt within a minute, and only accepts new bonds while a pairing window is open. Both directions carry newline-delimited JSON, and the same protocol runs over USB serial for testing.
 
@@ -61,11 +63,11 @@ Every mesh message is authenticated with HMAC-SHA256, so a board without the key
 
 The parts are an ESP32-S3 board with 16 MB of flash and 8 MB of PSRAM, an optional UART GPS module, and either a USB power bank or a protected LiPo with a charger and a boost converter. A battery gauge and a vibration motor or buzzer for silent alerts are optional. On a 2,000 mAh LiPo it runs for roughly eight to ten hours with everything scanning; a 10,000 mAh power bank lasts about two days.
 
-Carried in a bag, it doesn't need the GPS module at all: while the phone is connected, the app sends its location about once a minute and the device uses that. The app takes that position from Wi-Fi and cell positioning rather than GPS, which is accurate enough for places a few hundred metres wide, and only turns GPS on when those positions are too vague to use. A second build target for the original ESP32 (4 MB of flash, no PSRAM) shrinks every table to fit, for a unit that stays in one place such as a car.
+Carried in a bag, it doesn't need the GPS module at all: while the phone is connected, the app sends its location about once a minute and the device uses that. The app takes that position from Wi-Fi and cell positioning rather than GPS, which is accurate enough for places a few hundred metres wide, and only turns GPS on when those positions are too vague to use. A second build target for the original ESP32 (4 MB of flash, no PSRAM) shrinks every table to fit, for a unit that stays in one place such as a car, and a third targets the dual-band ESP32-C5.
 
 ## Limits
 
-- The ESP32-S3 hears 2.4 GHz Wi-Fi only; a device that uses only 5 or 6 GHz is invisible to it.
+- The ESP32-S3 hears 2.4 GHz Wi-Fi only; a device that uses only 5 or 6 GHz is invisible to it. The ESP32-C5 build adds 5 GHz (not 6 GHz), but with one radio for both bands each channel gets less listening time.
 - A device that rotates every field of its advertisements can't be linked across addresses, as above.
 - Trackers that report only over the cellular network, with no Bluetooth or Wi-Fi radio, can't be heard by any scanner like this. A physical check is still worth doing.
 - Without a location (no GPS fix and no phone), the device can judge time but not movement.
