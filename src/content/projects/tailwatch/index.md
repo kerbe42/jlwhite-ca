@@ -33,7 +33,7 @@ Anything can be tagged *Mine* (never alert), *Watch* (alert whenever it is near)
 
 **The link** is one Bluetooth service with LE Secure Connections bonding required: the device drops any connection that does not encrypt within a minute, and only accepts new bonds while a pairing window is open. Both directions carry newline-delimited JSON, and the same protocol runs over USB serial for testing.
 
-**The app** is Kotlin and Compose. A foreground service holds the link, stores every window and observation in SQLite, clusters locations into places of about 200 m, and scores every device over the last 14 days. A setup checklist makes sure Android will actually let it run in a pocket (location "all the time", no battery restrictions, notifications), and a watchdog raises a banner and a notification if detection ever pauses.
+**The app** is Kotlin and Compose. A foreground service holds the link, stores every window and observation in SQLite, clusters locations into places of about 200 m, and scores every device over the last 14 days. A setup checklist makes sure Android will actually let it run in a pocket (location "all the time", no battery restrictions, notifications), and a watchdog raises a banner and a notification if detection ever pauses. Because it runs all day, it does as little as it can while no screen is open: a long Bluetooth connection interval, the history analysis every ten minutes instead of every minute, live views that stop when the app goes to the background, and far less re-downloading of data that already arrived live.
 
 **Pairing is deliberately narrow.** A sensor that stays pairable whenever it has no phone can be paired by any phone that happens to be nearby. So a new device opens a ten-minute window after power-on, a three-second press on its button reopens it for two minutes, and it remembers up to four phones.
 
@@ -61,7 +61,7 @@ Every mesh message is authenticated with HMAC-SHA256, so a board without the key
 
 The parts are an ESP32-S3 board with 16 MB of flash and 8 MB of PSRAM, an optional UART GPS module, and either a USB power bank or a protected LiPo with a charger and a boost converter. A battery gauge and a vibration motor or buzzer for silent alerts are optional. On a 2,000 mAh LiPo it runs for roughly eight to ten hours with everything scanning; a 10,000 mAh power bank lasts about two days.
 
-Carried in a bag, it doesn't need the GPS module at all: while the phone is connected, the app sends its location every 30 seconds and the device uses that. A second build target for the original ESP32 (4 MB of flash, no PSRAM) shrinks every table to fit, for a unit that stays in one place such as a car.
+Carried in a bag, it doesn't need the GPS module at all: while the phone is connected, the app sends its location about once a minute and the device uses that. The app takes that position from Wi-Fi and cell positioning rather than GPS, which is accurate enough for places a few hundred metres wide, and only turns GPS on when those positions are too vague to use. A second build target for the original ESP32 (4 MB of flash, no PSRAM) shrinks every table to fit, for a unit that stays in one place such as a car.
 
 ## Limits
 
