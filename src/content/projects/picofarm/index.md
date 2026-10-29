@@ -24,7 +24,7 @@ This page describes revision B of the controller. The firmware, the server with 
 
 **[Open the live demo](https://picofarm.jlwhite.ca).** The dashboard runs entirely in your browser against a simulated revision B controller: the reservoir drifts, the controller doses it back into range, and the circulation pump cycles. The menu at the bottom simulates faults (a leak, low water, a pH probe fault, a switch left in HAND, the E-stop pressed, a blown pump fuse, a welded relay) so you can watch the interlocks react, and the settings page has the crop profiles, the calibration and the firmware update. Nothing in the demo reaches real equipment.
 
-The **Controller panel** button at the bottom opens the controller's own front panel in the middle of the screen: the touch screen, the knob, the seven HAND/OFF/AUTO switches and the latching E-stop button. The screen is the firmware's real screen code, compiled to run in the browser, and it drives the same simulated controller as the dashboard: press E-STOP on either and both show it, put a switch to OFF and the dashboard's run is refused, change a setpoint with the knob and it appears in the settings.
+The **Controller panel** button in the header opens the controller's own front panel in the middle of the screen: the touch screen, the knob, the seven HAND/OFF/AUTO switches and the latching E-stop button. The screen is the firmware's real screen code, compiled to run in the browser, and it drives the same simulated controller as the dashboard: press the panel's E-stop or the dashboard's E-STOP and both show it, put a switch to OFF and the dashboard's run is refused, change a setpoint with the knob and it appears in the settings.
 
 ![The controller's front panel open over the demo dashboard: the Overview screen with the tank at 62 %, pH 6.44, EC 1.29 mS/cm and 21.4 °C, the K1 relay closed and the E-stop circuit ready, the seven pumps in AUTO; beside it the knob and the red E-stop button, and below it the seven HAND/OFF/AUTO switches](./demo-panel.png)
 
@@ -40,7 +40,7 @@ Settings are versioned. A controller applies a new configuration only if it is n
 
 ## The controller
 
-![Eight screens of the front panel, rendered from the firmware’s own screen code: the Overview with the tank level, pH, EC and temperature, the K1 relay and E-stop state and the seven pumps with their AUTO, OFF or HAND state; the Pumps page; the Setpoints page; the pH target dialog edited with the knob; the pH trend over 24 hours; the Calibration page with its pH 7, pH 4, pH 10 and EC 1413 buttons; the Alarms page with ACK, CLEAR and RESTART; and the Overview after a panel E-stop, with the relay open and automation held](./panel-screens.png)
+![Eight screens of the front panel, rendered from the firmware’s own screen code: the Overview with the tank level, pH, EC and temperature, the K1 relay and E-stop state and the seven pumps with their AUTO, OFF or HAND state; the Pumps page; the Setpoints page; the pH target dialog edited with the knob; the pH trend over 24 hours; the Calibration page with its pH 7, pH 4, pH 10 and EC 1413 buttons; the Alarms page with ACK, CLEAR and RESTART; and the Overview after the E-stop button was pressed, with the relay open and automation held](./panel-screens.png)
 
 *The front-panel screens, rendered on a PC from the firmware's own screen code before the hardware exists.*
 
@@ -48,7 +48,7 @@ The controller is a box with a front panel and two circuit boards, running on 5 
 
 **On the front panel:**
 
-- A **3.5" IPS touch screen** (480 × 320, ST7796 over SPI, FT6336 touch over I²C) with seven pages: Overview, Trends, Pumps, Setpoints, Alarms, Calibration and Network. The software E-STOP sits at the top right of every page. The screen dims after 2 minutes without input; a touch or the knob wakes it, and that first input does nothing else, except a touch on E-STOP, which stops everything at the first touch.
+- A **3.5" IPS touch screen** (480 × 320, ST7796 over SPI, FT6336 touch over I²C) with seven pages: Overview, Trends, Pumps, Setpoints, Alarms, Calibration and Network. The screen has no software E-STOP: the lid's own E-stop button cuts the pumps' power, and the dashboard and the app keep their remote one. The screen dims after 2 minutes without input; a touch or the knob wakes it, and that first input does nothing else.
 - A **rotary knob** (EC11): turn to move between buttons or to change a value in a dialog, push to press, hold to cancel or go back to the Overview. Every button also works by touch.
 - **Seven AUTO / OFF / HAND toggles**, one per pump, in the firmware's pump order: pH UP, pH DN, NUTR A, NUTR B, REFILL, CIRC, DRAIN.
 - A **22 mm latching E-stop** with a normally closed contact, wired into the pumps' power, and a **buzzer** for critical alarms.
@@ -80,7 +80,7 @@ The pumps' power runs through a chain of things that can each cut it on their ow
 | --- | --- | --- |
 | E-STOP pressed | the NC contact: the rail dies at once, whatever the firmware is doing; K1's coil, fed from the same node, also drops | sees the node go low, latches `estop` (source `hardware`) |
 | E-STOP released | nothing restarts: K1 stays off until the firmware closes it | holds `estop` until RESTART from the panel, app or dashboard |
-| software E-STOP (panel, app, dashboard) | the firmware drops K1 (a hardware cut) and every pump output | latches `estop` (source `panel`, `app` or `server`) |
+| software E-STOP (app, dashboard) | the firmware drops K1 (a hardware cut) and every pump output | latches `estop` (source `app` or `server`) |
 | leak | the firmware drops K1 and every output | latches `leak` |
 | firmware hang or crash | the 5 s watchdog resets the chip; the outputs and K1 drop, because the driver inputs and the relay transistor's base are pulled down | restarts with K1 off and automation held |
 | power-up | K1 is off: its coil can't energize until the firmware drives its pin | turns K1 on only after the sensors start, with no latched `estop` or `leak` |

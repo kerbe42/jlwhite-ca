@@ -511,7 +511,7 @@ These prove the safety features before any water is near the box. Connect one pu
 | 3 | Relay at boot | Unplug and replug both chargers. | relay off at power-up, then on after the first reading | stop: don't connect pumps until this is right |
 | 4 | Hardware E-stop | Press it while a pump runs. | pump stops at once, `estop` latched, source hardware | |
 | 5 | Restart needed | Release the E-stop. | nothing runs until RESTART (Alarms page, confirm) | |
-| 6 | Software E-stop | Touch E-STOP on the screen while a pump runs. | pump stops, relay drops a moment later | |
+| 6 | Remote E-stop | Press E-STOP on the dashboard while a pump runs. | pump stops, relay drops a moment later, `estop` latched, source server | |
 | 7 | OFF cuts power | Toggle at OFF, then ask for a run from the Pumps page. | refused, reason `switch_off`; the pump never moves | the toggle's pole 1 is mis-wired |
 | 8 | HAND | Toggle to HAND. | pump runs, stops after its `max_s`, alarm `hand_timeout` until the toggle leaves HAND | |
 | 9 | Pump budget | Three dosing toggles to HAND together. | two run, the third waits ("waiting: two pumps already running") and starts when one stops | |
