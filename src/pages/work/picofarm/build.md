@@ -77,17 +77,18 @@ A wrong part found now costs nothing; found after soldering, it costs an evening
 
 | Part | Check | Pass | If it fails |
 | --- | --- | --- | --- |
-| ESP32-S3 dev board | Read the pin labels down both rows. Left row from the antenna end: 3V3 3V3 RST 4 5 6 7 15 16 17 18 8 3 46 9 10 11 12 13 14 5V G. Right row: G 43 44 1 2 42 41 40 39 38 37 36 35 0 45 48 47 21 20 19 G G. | every label matches, and pin 15 of the right row is 45 | stop: the board needs a different layout |
+| ESP32-S3 dev board | Hold it components up, antenna away from you, and read the pin labels down both rows. Left row from the antenna end: 3V3 3V3 RST 4 5 6 7 15 16 17 18 8 3 46 9 10 11 12 13 14 5V G. Right row: G 43 44 1 2 42 41 40 39 38 37 36 35 0 45 48 47 21 20 19 G G. | every label matches, and pin 15 of the right row is 45 | stop: the board needs a different layout |
 | ESP32-S3 dev board | Stand it in the protoboard without soldering. | its two rows land exactly ten holes apart | a narrow-row board does not fit this layout |
 | Relay K1 (SRD-05VDC-SL-C) | Meter on beep, no power on the coil. Find the lone offset pin (COM). Test COM to each of the two far pins. | one far pin beeps (that is NC), the other stays open (that is NO) | mark the pins with a marker now; if neither or both beep, use another relay |
 | Relay K1 | Touch 5 V from a USB lead across the two pins nearest COM (the coil). | it clicks, and COM to NO now beeps | try another relay |
+| S8050 transistors × 2 | Meter on diode test. Hold it flat face toward you, legs down. Red lead on the middle leg, black on each outer leg in turn; then swap the leads. | about 0.6-0.7 V to each outer leg with red on the middle; open with the leads swapped | it isn't an NPN with its base in the middle: use another |
 | D4184 module (circulation) | Module unpowered. Meter on its highest resistance range: the module's signal GND pin to DC−, and PWM to DC+. | both read open (over 1 MΩ) | don't use that module for circulation: a different module is needed |
 | Display (3.5" ST7796) | Look at the back for a small 3- or 5-legged regulator marked 662K, XC6206 or AMS1117. Read the 14 header labels. | a regulator is there; pins read VCC GND CS RST DC SDI SCK LED SDO CTP_SCL CTP_RST CTP_SDA CTP_INT SD_CS | no regulator: don't connect it to 5 V; header pin 1 must move to 3.3 V first |
 | E-stop (22 mm, NC) | Beep across its two contact screws, button released, then pressed. | released beeps, pressed is open | the contact block is the wrong type (NO); swap the block |
 | Toggles (MTS-203) × 7 | For each lever position, find which outer lugs beep to each middle lug. | centre: nothing beeps; each end: each middle lug beeps to one outer lug | note the lug pattern; Stage 6 uses it |
 | USB-C to 2-pin adapters × 2 | Meter on resistance: each CC pin (or the two tiny pads marked CC1, CC2) to GND. | about 5.1 kΩ each | without them a USB-C charger won't switch on: use USB-C breakouts that have them |
 | Float switch | Hang it by its thread. Beep its two wires with the float down, then lifted. | it beeps with the float down and goes open when lifted | pull the clip, flip the float over on its stem, refit, test again |
-| ADS1115 modules × 2 | Read the header: VDD GND SCL SDA ADDR ALRT A0 A1 A2 A3. | same order | the socket wiring would need to change |
+| ADS1115 modules × 2 | Hold it components up, header along the edge nearest you, and read the header: VDD GND SCL SDA ADDR ALRT A0 A1 A2 A3. | same order, VDD at the left end | the socket wiring would need to change |
 | Protoboards | Count the holes along a long and a short edge. | 53 × 33 or more, plated on both sides | use a larger board and line it up on the top-left hole |
 | 2-pin red/black wire | Cut the end and look. | many fine strands (stranded) | solid wire breaks in the lid hinge: use stranded 22 AWG for the lid leads |
 | Resistors | Measure each value before you fit it (Stage 4 says which goes where). | within 1 % of its value | sort it back into the right bag |
@@ -147,7 +148,7 @@ Work from the lowest parts to the tallest, so the board lies flat while you sold
 
 1. Component side up, hole A1 at the top left. Write the column numbers every five holes along the top and bottom edges, and the row letters every five rows down both sides. Do the same on the solder side, mirrored.
 2. Drill four holes out to 1.6 mm for the big 1N5822 diodes, whose leads are too thick for normal holes: U48, R48, M47 and P47. Turn the bit by hand in a pin vise; don't tear the copper ring.
-3. Solder a right-angle 1×10 male header onto each ADS1115 module, pins pointing away from the components. The module must lie flat on its socket with its components facing up.
+3. Solder the straight 1×10 male header that comes with each ADS1115 module: short ends up through the module from underneath, plastic under the module, long pins pointing down, away from the components. The module must lie flat on its socket with its components facing up.
 
 ### 4.2 Hidden wires (component side)
 
@@ -223,7 +224,7 @@ Use the 2.54 mm-lead ones where the two holes are side by side, and the 5 mm one
 | F2 | 1.6 A PTC (marked 160) | M51, M49 | either way round; don't swap it with F1 |
 | C1 | 1000 µF 16 V | + in U45, − in S45 | stripe away from U45 |
 | C2 | 1000 µF 16 V | + in K49, − in I49 | stripe away from K49 |
-| Q2 | S8050 | E X30, B X31, C X32 | flat face as in the drawing |
+| Q2 | S8050 | E X30, B X31, C X32 | flat face toward row Y, as drawn |
 
 ### 4.8 Headers and plugs
 
@@ -272,8 +273,8 @@ The wire list has 44 insulated wires, W1 to W44, each with its colour and holes.
 
 ### 4.11 The relay K1, legs up
 
-1. Solder four short stranded 22 AWG leads to the relay's COM, NO and two coil pins, each with a small loop.
-2. Glue the relay on its back inside the outline on the drawing (body over columns 34-41, rows P-V).
+1. Solder four short stranded 22 AWG leads to the relay's COM, NO and two coil pins, each with a small loop. NO is the far pin you marked in Stage 2: with the relay on its back and COM to the left it is the top-right pin, as drawn. Cut the NC pin (bottom right) off short.
+2. Glue the relay on its back inside the outline on the drawing (body over columns 34-41, rows P-U).
 3. From the solder side, solder COM into S33, NO into W42 and the two coil leads into Q33 and W33.
 4. Run a cable tie through the free holes P33 and P42, over the relay's back, and put a dab of epoxy under it.
 
@@ -331,13 +332,13 @@ Lay these three insulated wires on the solder side now. The bodies of R7, R8 and
 | C1, C2 | 100 nF, 2.54 mm leads | C1 J48–J49, C2 Q34–R34 | |
 | C3, C4 | 10 nF, 2.54 mm leads | C3 AB44–AC44, C4 AD43–AC43 | |
 | C5 | **1 nF** (marked 102), 2.54 mm leads | Z50–AC50 | spread its leads to the 7.62 mm gap (two empty holes between); not 10 nF: the knob's push switch shares a boot pin with the chip |
-| Q1 | S8050 | E C49, B C50, C C51 | flat face as drawn |
+| Q1 | S8050 | E C49, B C50, C C51 | flat face toward row D, as drawn |
 | BZ1 | 5 V buzzer | + in H48, − in E48 | fit it after the resistors; it is tall |
 
 ### 5.4 Socket and headers
 
 1. **MCP23017 socket (DIP-28):** pins 1-14 in I36 to V36, pins 15-28 in V39 back to I39, with the notch at the row-I end. Pin 1 is I36: seen from the parts side the notch is at the top and pin 1 at its left, as on the chip's datasheet.
-2. **Ribbon headers (straight male pins):** a 15-pin strip in column 52 from P52 to AD52 (TO MAIN A), a 10-pin strip in row AE from AE25 to AE34 (TO MAIN B), and one single pin in AE44 (A16).
+2. **Ribbon headers (straight male pins):** a 15-pin strip in column 52 from P52 to AD52 (TO MAIN A), a 10-pin strip in row AE from AE25 to AE34 (TO MAIN B), and one single pin in AE44 (labelled A16: J1 pin 16).
 3. **Display header J2 (1×14, right-angle male):** along the bottom edge, pin 1 in AF51, then AF50, … pin 14 in AF38, pins pointing off the board's edge.
 
 ### 5.5 Bare runs and the other wires
@@ -428,7 +429,7 @@ Two stranded 22 AWG leads, twisted together, from the E-stop's two contact screw
 1. **Display:** 14 female-female jumper leads, pin for pin: display pin 1 (VCC) to header J2 pin 1 (AF51), and so on to pin 14 (SD_CS). SDO (pin 9) and CTP_INT (pin 13) are joined to nothing on the board; connect their leads anyway, it does no harm.
 2. **Ribbon:** peel a 15-wide strip, a 10-wide strip and one single lead off the 40-way female-female jumper ribbon. Each lead joins the two pins with the same number (the lid wiring drawing above).
     - The 15-wide strip: panel TO MAIN A to the main board's header A (column 24).
-    - The single lead: panel A16 (AE44) to the main board's pin A17 (backlight).
+    - The single lead: the panel's pin labelled A16 (hole AE44) to the main board's single pin in hole A17 (backlight).
     - The 10-wide strip: panel TO MAIN B to the main board's single pins: 25 (X21), 23 (X25), 22 (X33), 21 (X37), 20 (X41), 19 (X45), the 3-pin piece 17-18-24 (X47-X49) and 26 (P26).
 3. Don't plug the ribbon into the main board yet: the ESP32 has to be flashed first (Stage 7), and the ribbon blocks its USB ports.
 
@@ -526,7 +527,7 @@ These prove the safety features before any water is near the box. Connect one pu
 | 3 | Relay at boot | Unplug and replug both chargers. | relay off at power-up, then on after the first reading | stop: don't connect pumps until this is right |
 | 4 | Hardware E-stop | Press it while a pump runs. | pump stops at once, `estop` latched, source hardware | |
 | 5 | Restart needed | Release the E-stop. | nothing runs until RESTART (Alarms page, confirm) | |
-| 6 | Remote E-stop | Press E-STOP on the dashboard while a pump runs. | pump stops, relay drops a moment later, `estop` latched, source server | |
+| 6 | Remote E-stop | Press E-STOP on the dashboard while a pump runs (the controller's screen has no E-STOP button: the lid's E-stop is the local one). | pump stops, relay drops a moment later, `estop` latched, source server | |
 | 7 | OFF cuts power | Toggle at OFF, then ask for a run from the Pumps page. | refused, reason `switch_off`; the pump never moves | the toggle's pole 1 is mis-wired |
 | 8 | HAND | Toggle to HAND. | pump runs, stops after its `max_s`, alarm `hand_timeout` until the toggle leaves HAND | |
 | 9 | Pump budget | Three dosing toggles to HAND together. | two run, the third waits ("waiting: two pumps already running") and starts when one stops | |
@@ -582,7 +583,7 @@ Calibrate with the circulation pump running, as it will be in use. Rinse the pro
 2. **pH supply sensitivity:** still in pH 7.00, note the page's voltage and the voltage at LOGIC IN +. Swap the logic charger for another 5 V supply and read both again. More than about 10 mV of change on the page for every 100 mV of supply difference needs a firmware correction (compensation from the power monitor's logic 5 V reading, a follow-up).
 3. **pH points:** on the Calibration page, store pH 7, then pH 4, then pH 10, each once the reading has been steady for a minute.
 4. **EC:** TDS probe in the 1413 µS/cm standard at room temperature; store EC 1413.
-5. **Level:** with the tank empty, type `cal level empty` on the serial monitor; fill it to its working level, then `cal level full`.
+5. **Level:** with the tank empty, type `cal level empty` on the serial monitor (or **Save empty** on the dashboard's Calibrate tab); fill it to its working level, then `cal level full` (or **Save full**).
 6. **Pump flow:** for each dosing pump, run it 30 s into a measuring cup and enter the result: `cal flow ph_up 30 <ml>`.
 7. Store the pH probe in its cap with a few drops of the KCl storage solution, never dry and never in plain water.
 
