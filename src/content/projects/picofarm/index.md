@@ -26,7 +26,7 @@ This page describes revision B of the controller. The firmware, the server with 
 
 The **Controller panel** button in the header opens the controller's own front panel in the middle of the screen: the touch screen, the knob, the seven HAND/OFF/AUTO switches and the latching E-stop button. The screen is the firmware's real screen code, compiled to run in the browser, and it drives the same simulated controller as the dashboard: press the panel's E-stop or the dashboard's E-STOP and both show it, put a switch to OFF and the dashboard's run is refused, change a setpoint with the knob and it appears in the settings.
 
-![The controller's front panel open over the demo dashboard: the Overview screen with the tank at 62 %, pH 6.44, EC 1.29 mS/cm and 21.4 °C, the K1 relay closed and the E-stop circuit ready, the seven pumps in AUTO; beside it the knob and the red E-stop button, and below it the seven HAND/OFF/AUTO switches](./demo-panel.png)
+![The controller's front panel open over the demo dashboard: the Overview screen with the tank at 62 %, pH 6.44, EC 1.29 mS/cm and 21.4 °C, the K1 relay closed and the lid E-stop OK with the rail live, the seven pumps in AUTO; beside it the knob and the lid’s red physical E-stop button, and below it the seven HAND/OFF/AUTO switches](./demo-panel.png)
 
 ## How it fits together
 
