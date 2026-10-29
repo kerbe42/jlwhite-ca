@@ -85,11 +85,11 @@ text{font-family:'Helvetica Neue',Helvetica,Arial,'Liberation Sans',sans-serif;f
 <line x1="884" y1="660" x2="900" y2="660" stroke="#4a4844" stroke-width="3"/>
 <rect x="850" y="649" width="34" height="22" rx="11" fill="#fff" stroke="#2f6690" stroke-width="3"/>
 <path d="M904 320 H926 M904 380 H926 M904 660 H926" class="ld"/>
-<text x="932" y="318" class="b r">emergency float</text>
-<text x="932" y="346" class="m">cuts refill power</text>
-<text x="932" y="388" class="b">high float</text>
+<text x="932" y="318" class="b r">emergency level switch</text>
+<text x="932" y="346" class="m">and a float that cuts refill power</text>
+<text x="932" y="388" class="b">high level switch</text>
 <text x="932" y="416" class="m">stops the refill</text>
-<text x="932" y="658" class="b">low float</text>
+<text x="932" y="658" class="b">low level switch</text>
 <text x="932" y="686" class="m">blocks dosing,</text>
 <text x="932" y="714" class="m">circulation and drain</text>
 
@@ -106,5 +106,5 @@ text{font-family:'Helvetica Neue',Helvetica,Arial,'Liberation Sans',sans-serif;f
 <path d="M1090 780 H1170" class="pipe" marker-end="url(#w)"/>
 <text x="1196" y="788">out</text>
 
-<text x="30" y="864" class="m">Not to scale. Each float trips at its height; a cut float wire reads as its alarm.</text>
+<text x="30" y="864" class="m">Not to scale. The level switches sit on the tank wall; the float above them is in the refill pump’s supply.</text>
 </svg>

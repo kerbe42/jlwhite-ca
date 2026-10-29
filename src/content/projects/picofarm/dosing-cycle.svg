@@ -73,5 +73,5 @@ text{font-family:'Helvetica Neue',Helvetica,Arial,'Liberation Sans',sans-serif;f
 <text x="30" y="616" class="m">Example readings with the default targets: EC 1.6 ± 0.2 mS/cm, pH 5.9 ± 0.3.</text>
 <text x="30" y="648" class="m">EC is corrected first, because nutrients move pH; B follows A after a 60 s gap.</text>
 <text x="30" y="680" class="m">Circulation is forced on from the first dose to the end of the mix; then a fresh reading decides.</text>
-<text x="30" y="712" class="m">EC above its band only raises an alarm: it needs fresh water, not a dose.</text>
+<text x="30" y="712" class="m">EC above its band is never dosed: after a grace period the controller dilutes it with fresh water.</text>
 </svg>

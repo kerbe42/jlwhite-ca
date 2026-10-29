@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 760" width="1400" height="760" role="img" aria-labelledby="t d">
+<title id="t">The revision B power and safety chain</title>
+<desc id="d">Pump supply: USB-C 5 V 3 A into PUMP IN, through fuse F1 (2.5 A) to the PFUSE node, through the E-STOP's normally closed contact to the ESN node, through relay K1's normally open contact to RAIL, through each toggle's pole 1 to the pump, and back through a ULN2803A output. D1 and C1 sit at PFUSE, before the E-stop. K1's coil runs from ESN through an S8050 driven by GPIO3. Logic supply: USB-A 5 V into LOGIC IN, through fuse F2 (1.6 A), the D2 clamp and C2 to logic 5 V, then a Schottky diode into the ESP32-S3's 5 V pin. Pump ground and logic ground meet at one star wire.</desc>
+<style>
+text{font-family:'Helvetica Neue',Helvetica,Arial,'Liberation Sans',sans-serif;font-size:22px;fill:#2c2c2a}
+.h{font-size:28px;font-weight:700}
+.b{font-weight:700}
+.s{font-size:18px;fill:#5f5e5a}
+.n{font-size:20px;font-weight:700;fill:#2f6690}
+.m{font-size:19px;fill:#5f5e5a}
+.box{fill:#fff;stroke:#4a4844;stroke-width:3;rx:10}
+.pump{fill:#fbeeea;stroke:#c0392b}
+.wire{stroke:#4a4844;stroke-width:4;fill:none}
+.stub{stroke:#8a8780;stroke-width:2;fill:none;stroke-dasharray:6 5}
+.gnd{stroke:#2f6690;stroke-width:4;fill:none}
+</style>
+<rect width="1400" height="760" fill="#fbfaf7"/>
+<text x="30" y="42" class="h">Power and the safety chain (revision B)</text>
+
+<!-- pump supply chain -->
+<text x="30" y="72" class="s">PUMP SUPPLY: 5 V DC from a USB-C charger (5 V 3 A)</text>
+<line x1="216" y1="135" x2="250" y2="135" class="wire"/>
+<line x1="436" y1="135" x2="470" y2="135" class="wire"/>
+<line x1="656" y1="135" x2="690" y2="135" class="wire"/>
+<line x1="876" y1="135" x2="910" y2="135" class="wire"/>
+<line x1="1096" y1="135" x2="1120" y2="135" class="wire"/>
+<text x="453" y="94" class="n" text-anchor="middle">PFUSE</text>
+<text x="673" y="94" class="n" text-anchor="middle">ESN</text>
+<text x="893" y="94" class="n" text-anchor="middle">RAIL</text>
+<text x="1108" y="94" class="n" text-anchor="middle">pump +</text>
+
+<rect x="30" y="100" width="186" height="70" class="box"/>
+<text x="123" y="130" class="b" text-anchor="middle">PUMP IN +</text>
+<text x="123" y="156" class="s" text-anchor="middle">USB-C 5 V 3 A</text>
+
+<rect x="250" y="100" width="186" height="70" class="box"/>
+<text x="343" y="130" class="b" text-anchor="middle">F1</text>
+<text x="343" y="156" class="s" text-anchor="middle">2.5 A PTC fuse</text>
+
+<rect x="470" y="100" width="186" height="70" class="box pump"/>
+<text x="563" y="130" class="b" text-anchor="middle">E-STOP</text>
+<text x="563" y="156" class="s" text-anchor="middle">NC contact, latching</text>
+
+<rect x="690" y="100" width="186" height="70" class="box"/>
+<text x="783" y="130" class="b" text-anchor="middle">K1 contact</text>
+<text x="783" y="156" class="s" text-anchor="middle">NO contact, relay</text>
+
+<rect x="910" y="100" width="186" height="70" class="box"/>
+<text x="1003" y="130" class="b" text-anchor="middle">toggle pole 1</text>
+<text x="1003" y="156" class="s" text-anchor="middle">AUTO/HAND; OFF cuts</text>
+
+<rect x="1120" y="100" width="250" height="70" class="box"/>
+<text x="1245" y="130" class="b" text-anchor="middle">pump → ULN2803A</text>
+<text x="1245" y="156" class="s" text-anchor="middle">×6, a 1N5819 each</text>
+
+<!-- branches below the nodes -->
+<line x1="453" y1="170" x2="453" y2="215" class="stub"/>
+<text x="300" y="242" class="m">Before the E-stop:</text>
+<text x="300" y="270" class="m">D1 1N5822 (reverse polarity) to GNDP</text>
+<text x="300" y="298" class="m">C1 1000 µF</text>
+
+<line x1="673" y1="170" x2="673" y2="340" class="stub"/>
+<text x="688" y="242" class="m">K1 coil fed from ESN, 1N5819 across it</text>
+<text x="688" y="270" class="m">S8050: GPIO3 → 1k → base, 10k base to GNDP</text>
+<text x="688" y="298" class="m">ESN sense: 22k/33k → GPIO17, 20k/10k → ADS1115 #2 A1</text>
+<text x="688" y="326" class="m">ULN2803A COM (pin 10) → ESN, not RAIL</text>
+<text x="688" y="354" class="m">ADS1115 #2 also reads PFUSE (A0), RAIL (A2), logic 5 V (A3)</text>
+
+<line x1="1108" y1="170" x2="1108" y2="192" class="stub"/>
+<text x="1370" y="212" class="m" text-anchor="end">1N5819 cathode to pump +, 100 nF at the motor</text>
+<text x="1370" y="236" class="m" text-anchor="end">circulation: its own D4184 module</text>
+
+<!-- grounds -->
+<line x1="30" y1="440" x2="1370" y2="440" class="gnd"/>
+<text x="30" y="430" class="n">GNDP</text>
+<text x="140" y="430" class="m">PUMP IN − · LOGIC IN − · ULN2803A pin 9 · S8050 emitter · D4184 V−</text>
+<text x="900" y="430" class="m">one star wire</text>
+<text x="1030" y="430" class="n">GNDL</text>
+<text x="1110" y="430" class="m">C2 − · ESP32-S3 GND</text>
+<circle cx="1015" cy="440" r="7" fill="#2f6690"/>
+
+<!-- logic supply chain -->
+<text x="30" y="492" class="s">LOGIC SUPPLY: 5 V DC from a second, separate USB charger (USB-A)</text>
+<line x1="216" y1="555" x2="250" y2="555" class="wire"/>
+<line x1="436" y1="555" x2="470" y2="555" class="wire"/>
+<line x1="656" y1="555" x2="690" y2="555" class="wire"/>
+<line x1="876" y1="555" x2="910" y2="555" class="wire"/>
+<line x1="1096" y1="555" x2="1120" y2="555" class="wire"/>
+<text x="893" y="514" class="n" text-anchor="middle">logic 5 V</text>
+
+<rect x="30" y="520" width="186" height="70" class="box"/>
+<text x="123" y="550" class="b" text-anchor="middle">LOGIC IN +</text>
+<text x="123" y="576" class="s" text-anchor="middle">USB-A 5 V</text>
+
+<rect x="250" y="520" width="186" height="70" class="box"/>
+<text x="343" y="550" class="b" text-anchor="middle">F2</text>
+<text x="343" y="576" class="s" text-anchor="middle">1.6 A PTC fuse</text>
+
+<rect x="470" y="520" width="186" height="70" class="box"/>
+<text x="563" y="550" class="b" text-anchor="middle">D2 1N5822</text>
+<text x="563" y="576" class="s" text-anchor="middle">clamp to GNDP</text>
+
+<rect x="690" y="520" width="186" height="70" class="box"/>
+<text x="783" y="550" class="b" text-anchor="middle">C2</text>
+<text x="783" y="576" class="s" text-anchor="middle">1000 µF</text>
+
+<rect x="910" y="520" width="186" height="70" class="box"/>
+<text x="1003" y="550" class="b" text-anchor="middle">D8 Schottky</text>
+<text x="1003" y="576" class="s" text-anchor="middle">no laptop back-feed</text>
+
+<rect x="1120" y="520" width="250" height="70" class="box"/>
+<text x="1245" y="550" class="b" text-anchor="middle">ESP32-S3 5 V pin</text>
+<text x="1245" y="576" class="s" text-anchor="middle">ADS1115 × 2 · MCP23017</text>
+
+<text x="30" y="650" class="m">The E-stop’s NC contact kills RAIL by itself, whatever the firmware is doing. K1 only closes when the firmware drives GPIO3 and</text>
+<text x="30" y="678" class="m">never restarts on its own after the button is released. A pump fault can’t restart the controller: the two supplies share nothing</text>
+<text x="30" y="706" class="m">but the one ground join. Nothing in the box runs on mains voltage; the two chargers stay outside it.</text>
+</svg>
