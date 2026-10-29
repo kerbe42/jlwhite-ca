@@ -299,38 +299,38 @@ Lay these three insulated wires on the solder side now. The bodies of R7, R8 and
 
 | Wire | Colour | Carries | From → to |
 | --- | --- | --- | --- |
-| W61 | blue | I2C SDA | T40 → AF40 |
-| W62 | white | display reset | V41 → AF41 |
-| W63 | yellow | I2C SCL | S42 → AF42 |
+| W65 | blue | I2C SDA | X40 → AF40 |
+| W66 | white | display reset | X41 → AF41 |
+| W67 | yellow | I2C SCL | W42 → AF42 |
 
 ### 5.2 Resistors (22 × 10 kΩ, 2 × 1 kΩ)
 
 | Value | Refs and holes |
 | --- | --- |
 | 10 kΩ, switch pull-ups | R10 P6–P10, R11 Q9–Q13, R12 R12–R16, R13 S15–S19, R14 P18–P22, R15 Q21–Q25, R16 R24–R28, R20 R19–R23, R21 Q16–Q20, R22 P13–P17, R23 S10–S14, R24 R7–R11, R25 Q4–Q8, R26 P1–P5 |
-| 10 kΩ, other | R1 Q31–Q35, R2 R35–R31, R3 P34–P30, R4 AB34–X34, R5 AC35–Y35, R8 AB39–AB43, R9 AE39–AE43, R17 Y38–AC38 |
-| 1 kΩ | R6 O48–K48, R7 Z39–Z43 |
+| 10 kΩ, other | R1 R48–N48, R2 R41–R45, R3 Q40–Q44, R4 AB34–X34, R5 AC35–Y35, R8 AB39–AB43, R9 AE39–AE43, R17 Y38–AC38 |
+| 1 kΩ | R6 A47–A51, R7 Z39–Z43 |
 
 ### 5.3 Diode, capacitors, transistor, buzzer
 
 | Ref | Part | Holes | Watch |
 | --- | --- | --- | --- |
-| D1 | BAT85 (a 1N5819 also works here) | band in E51, other end H51 | glass: bend beyond pliers |
-| C1, C2 | 100 nF, 2.54 mm leads | C1 V39–W39, C2 P42–Q42 | |
+| D1 | BAT85 (a 1N5819 also works here) | band in H51, other end E51 | glass: bend beyond pliers |
+| C1, C2 | 100 nF, 2.54 mm leads | C1 J48–J49, C2 Q34–R34 | |
 | C3, C4 | 10 nF, 2.54 mm leads | C3 AB44–AC44, C4 AD43–AC43 | |
 | C5 | **1 nF** (marked 102), 2.54 mm leads | Z50–AC50 | spread its leads to the 7.62 mm gap (two empty holes between); not 10 nF: the knob's push switch shares a boot pin with the chip |
-| Q1 | S8050 | E J47, B J48, C J49 | flat face as drawn |
-| BZ1 | 5 V buzzer | + in E48, − in H48 | fit it after the resistors; it is tall |
+| Q1 | S8050 | E C49, B C50, C C51 | flat face as drawn |
+| BZ1 | 5 V buzzer | + in H48, − in E48 | fit it after the resistors; it is tall |
 
 ### 5.4 Socket and headers
 
-1. **MCP23017 socket (DIP-28):** pins 1-14 in H39 to U39, pins 15-28 in U36 back to H36, with the notch at the row-H end. Pin 1 is H39.
+1. **MCP23017 socket (DIP-28):** pins 1-14 in I36 to V36, pins 15-28 in V39 back to I39, with the notch at the row-I end. Pin 1 is I36: seen from the parts side the notch is at the top and pin 1 at its left, as on the chip's datasheet.
 2. **Ribbon headers (straight male pins):** a 15-pin strip in column 52 from P52 to AD52 (TO MAIN A), a 10-pin strip in row AE from AE25 to AE34 (TO MAIN B), and one single pin in AE44 (A16).
 3. **Display header J2 (1×14, right-angle male):** along the bottom edge, pin 1 in AF51, then AF50, … pin 14 in AF38, pins pointing off the board's edge.
 
 ### 5.5 Bare runs and the other wires
 
-All on the solder side, from the panel wire list: the 89 bare runs B1-B89, then the other 63 insulated wires (W1-W60 and W64-W66). The rail along the bottom edge and the ground row above it are bare runs; keep them straight, because the toggle leads join them in Stage 6. Beep each group of ten as on the main board.
+All on the solder side, from the panel wire list: the 90 bare runs B1-B90, then the other 64 insulated wires (W1-W64). The rail along the bottom edge and the ground row above it are bare runs; keep them straight, because the toggle leads join them in Stage 6. Beep each group of ten as on the main board.
 
 [![Panel board, solder side: every bare run (B) and insulated wire (W) numbered](/media/picofarm/revb/panel/board-bottom-guide.svg)](/media/picofarm/revb/panel/board-bottom-guide.svg)
 
@@ -496,7 +496,7 @@ The ribbon isn't plugged in, so you can still reach the ESP32's UART port. First
 
 ### 7.6 Connect the panel (both chargers unplugged)
 
-1. Fit the **MCP23017** in its socket, notch at the row-H end.
+1. Fit the **MCP23017** in its socket, notch at the row-I end.
 2. Plug the ribbon onto the main board's header A and single pins, exactly as numbered.
 3. Plug in the logic charger: the display lights and shows the Overview page. Move each toggle and watch its pump change between AUTO, OFF and HAND on the screen. (Before the panel was plugged in, every switch read as AUTO.)
 4. Put the controller on the network from the screen (unless you did it over the cable in 7.3): touch **Network** in the bar at the bottom, then **Wi-Fi**; the list fills with the networks around you, strongest first. Touch yours, type its password on the keyboard (**Show** lets you check it), **Join**; the Wi-Fi row says "joined" with the address, or why not. Then **Server**: the server's address, port 1884, user `pf-device` and the device password (the server's `PF_DEVICE_MQTT_PASS` setting), **Save & connect**; the Server row says "connected" and the top bar "server online". **IP settings** is only for a fixed address; **Offline mode** is for a controller that will never have a server (the panel runs everything; the same page, or holding BOOT for 3 s, brings Wi-Fi back). Everything here also works with the knob: turn to move, push to press, hold to go back.
@@ -611,7 +611,7 @@ Unplug both chargers before you touch a joint. Most faults in a hand-wired board
 | The ESP32 won't boot, or reboots in a loop | something pulls the knob's push line (GPIO45) high; 3.3 V sags | redo the last row of 5.6; Stage 8 check 2 |
 | An ADS1115 isn't found | module in backwards; a dry header joint; a bridge on SDA or SCL | VDD at row A; reflow its header |
 | Display white or colours wrong | panel settings | one setting in the firmware's `board.h` |
-| Touch doesn't respond | CTP leads (display pins 10-12) | check those three leads and W61-W63 |
+| Touch doesn't respond | CTP leads (display pins 10-12) | check those three leads and W65-W67 on the panel board |
 | A toggle shows HAND at AUTO | its A and H leads swapped | swap the two leads at the toggle |
 | `switch_fault` | A and H both closed: a bridge in that toggle's group | look at its five holes |
 | The knob turns the wrong way | normal for some knobs | one setting in `board.h` |

@@ -293,7 +293,6 @@ The drawing tool draws nothing unless every pin of the circuit-board netlist is 
 
 ## Panel board
 
-
 9 × 15 cm double-sided protoboard. Holes are row letter + column number, seen from the component side: **L4** = row L, column 4 (columns 1-52 left to right, rows A-AF top to bottom). On the solder side the columns run right to left.
 
 ### Bare runs (solder side)
@@ -317,80 +316,81 @@ Tinned solid wire laid along the holes (strip a length of the 22 AWG solid wire,
 | B13 | 3.3 V | P22 → T22 | 10 mm |
 | B14 | 3.3 V | Q25 → T25 | 8 mm |
 | B15 | 3.3 V | R28 → T28 | 5 mm |
-| B16 | 3.3 V | T1 → T35 | 86 mm |
-| B17 | 3.3 V | P30 → T30 | 10 mm |
-| B18 | 3.3 V | Q31 → T31 | 8 mm |
-| B19 | pH up switch AUTO | AC6 → AC5 → U5 | 23 mm |
-| B20 | pH up switch HAND | AB6 → U6 | 18 mm |
-| B21 | pH up switch AUTO | O5 → O36 | 79 mm |
-| B22 | pH up switch HAND | G6 → G40 | 86 mm |
-| B23 | pH up switch HAND | H40 → H39 | 3 mm |
-| B24 | pH down switch AUTO | AC9 → AC8 → U8 | 23 mm |
-| B25 | pH down switch HAND | AB9 → U9 | 18 mm |
-| B26 | pH down switch AUTO | N8 → N36 | 71 mm |
-| B27 | pH down switch HAND | F9 → F41 | 81 mm |
-| B28 | pH down switch HAND | I41 → I39 | 5 mm |
-| B29 | nutrient A switch AUTO | AC12 → AC11 → U11 | 23 mm |
-| B30 | nutrient A switch HAND | AB12 → U12 | 18 mm |
-| B31 | nutrient A switch AUTO | M11 → M36 | 64 mm |
-| B32 | nutrient A switch HAND | E12 → E42 | 76 mm |
-| B33 | nutrient A switch HAND | J42 → J39 | 8 mm |
-| B34 | nutrient B switch AUTO | AC15 → AC14 → U14 | 23 mm |
-| B35 | nutrient B switch HAND | AB15 → U15 | 18 mm |
-| B36 | nutrient B switch AUTO | L14 → L36 | 56 mm |
-| B37 | nutrient B switch HAND | D15 → D43 | 71 mm |
-| B38 | nutrient B switch HAND | K43 → K39 | 10 mm |
-| B39 | refill switch AUTO | AC18 → AC17 → U17 | 23 mm |
-| B40 | refill switch HAND | AB18 → U18 | 18 mm |
-| B41 | refill switch AUTO | K17 → K36 | 48 mm |
-| B42 | refill switch HAND | C18 → C44 | 66 mm |
-| B43 | refill switch HAND | L44 → L39 | 13 mm |
-| B44 | circulation switch AUTO | AC21 → AC20 → U20 | 23 mm |
-| B45 | circulation switch HAND | AB21 → U21 | 18 mm |
-| B46 | circulation switch AUTO | J20 → J36 | 41 mm |
-| B47 | circulation switch HAND | B21 → B45 | 61 mm |
-| B48 | circulation switch HAND | M45 → M39 | 15 mm |
-| B49 | drain switch AUTO | AC24 → AC23 → U23 | 23 mm |
-| B50 | drain switch HAND | AB24 → U24 | 18 mm |
-| B51 | drain switch AUTO | I23 → I36 | 33 mm |
-| B52 | drain switch HAND | A24 → A46 | 56 mm |
-| B53 | drain switch HAND | N46 → N39 | 18 mm |
-| B54 | expander reset | R36 → R35 | 3 mm |
-| B55 | logic ground | S36 → AE36 | 30 mm |
-| B56 | 3.3 V | P39 → P42 | 8 mm |
-| B57 | logic 5 V | P52 → E52 → E48 | 38 mm |
-| B58 | logic ground | Q52 → Q39 | 33 mm |
-| B59 | 3.3 V | R52 → R40 | 30 mm |
-| B60 | I2C SDA, GPIO1 | T52 → T39 | 33 mm |
-| B61 | I2C SCL, GPIO2 | U52 → U49 | 8 mm |
-| B62 | I2C SCL, GPIO2 | S39 → S49 | 25 mm |
-| B63 | logic ground | S52 → S50 | 5 mm |
-| B64 | buzzer drive | O39 → O48 | 23 mm |
-| B65 | buzzer − | J49 → H49 | 5 mm |
-| B66 | buzzer − | H48 → H51 | 8 mm |
-| B67 | buzzer transistor base | K48 → J48 | 3 mm |
-| B68 | panel interrupt, GPIO21 | P34 → P37 | 8 mm |
-| B69 | panel interrupt, GPIO21 | X37 → X44 | 18 mm |
-| B70 | panel interrupt, GPIO21 | AA44 → AA52 | 20 mm |
-| B71 | display reset | H35 → H38 | 8 mm |
-| B72 | display reset | V38 → V41 → U41 → U48 | 28 mm |
-| B73 | logic ground | W36 → W44 | 20 mm |
-| B74 | 3.3 V | T35 → Y35 | 13 mm |
-| B75 | 3.3 V | X34 → X35 | 3 mm |
-| B76 | 3.3 V | Y37 → Y43 | 15 mm |
-| B77 | display SCK, GPIO42 | V52 → V45 | 18 mm |
-| B78 | display MOSI, GPIO41 | W52 → W46 | 15 mm |
-| B79 | display CS, GPIO40 | X52 → X49 | 8 mm |
-| B80 | display DC, GPIO39 | Y52 → Y47 | 13 mm |
-| B81 | backlight, GPIO47 | AE44 → AF44 | 3 mm |
-| B82 | knob push, GPIO45 (no pull-up) | Z52 → Z43 | 23 mm |
-| B83 | knob A, GPIO20 | AB52 → AB43 | 23 mm |
-| B84 | logic ground | AC52 → AC39 → AD39 → AD36 | 43 mm |
-| B85 | knob B, GPIO19 | AD52 → AD43 | 23 mm |
-| B86 | knob B, GPIO19 | AD43 → AE43 | 3 mm |
-| B87 | knob push contact | Z37 → Z39 | 5 mm |
-| B88 | knob A contact | AB37 → AB39 | 5 mm |
-| B89 | knob B contact | AE37 → AE39 | 5 mm |
+| B16 | 3.3 V | T1 → T34 | 84 mm |
+| B17 | 3.3 V | Q33 → T33 | 8 mm |
+| B18 | pH up switch AUTO | AC6 → AC5 → U5 | 23 mm |
+| B19 | pH up switch HAND | AB6 → U6 | 18 mm |
+| B20 | pH up switch HAND | I6 → I36 | 76 mm |
+| B21 | pH up switch AUTO | B5 → B46 | 104 mm |
+| B22 | pH up switch AUTO | P46 → P39 | 18 mm |
+| B23 | pH down switch AUTO | AC9 → AC8 → U8 | 23 mm |
+| B24 | pH down switch HAND | AB9 → U9 | 18 mm |
+| B25 | pH down switch HAND | J9 → J36 | 69 mm |
+| B26 | pH down switch AUTO | C8 → C45 | 94 mm |
+| B27 | pH down switch AUTO | O45 → O39 | 15 mm |
+| B28 | nutrient A switch AUTO | AC12 → AC11 → U11 | 23 mm |
+| B29 | nutrient A switch HAND | AB12 → U12 | 18 mm |
+| B30 | nutrient A switch HAND | K12 → K36 | 61 mm |
+| B31 | nutrient A switch AUTO | D11 → D44 | 84 mm |
+| B32 | nutrient A switch AUTO | N44 → N39 | 13 mm |
+| B33 | nutrient B switch AUTO | AC15 → AC14 → U14 | 23 mm |
+| B34 | nutrient B switch HAND | AB15 → U15 | 18 mm |
+| B35 | nutrient B switch HAND | L15 → L36 | 53 mm |
+| B36 | nutrient B switch AUTO | E14 → E43 | 74 mm |
+| B37 | nutrient B switch AUTO | M43 → M39 | 10 mm |
+| B38 | refill switch AUTO | AC18 → AC17 → U17 | 23 mm |
+| B39 | refill switch HAND | AB18 → U18 | 18 mm |
+| B40 | refill switch HAND | M18 → M36 | 46 mm |
+| B41 | refill switch AUTO | F17 → F42 | 64 mm |
+| B42 | refill switch AUTO | L42 → L39 | 8 mm |
+| B43 | circulation switch AUTO | AC21 → AC20 → U20 | 23 mm |
+| B44 | circulation switch HAND | AB21 → U21 | 18 mm |
+| B45 | circulation switch HAND | N21 → N36 | 38 mm |
+| B46 | circulation switch AUTO | G20 → G41 | 53 mm |
+| B47 | circulation switch AUTO | K41 → K39 | 5 mm |
+| B48 | drain switch AUTO | AC24 → AC23 → U23 | 23 mm |
+| B49 | drain switch HAND | AB24 → U24 | 18 mm |
+| B50 | drain switch HAND | O24 → O36 | 30 mm |
+| B51 | drain switch AUTO | H23 → H40 | 43 mm |
+| B52 | drain switch AUTO | J40 → J39 | 3 mm |
+| B53 | buzzer drive | P36 → P35 | 3 mm |
+| B54 | buzzer drive | A35 → A47 | 30 mm |
+| B55 | 3.3 V | Q36 → Q33 | 8 mm |
+| B56 | 3.3 V | T34 → X34 → X35 → Y35 | 15 mm |
+| B57 | logic ground | R36 → R34 | 5 mm |
+| B58 | logic ground | R35 → W35 → W36 → AE36 | 36 mm |
+| B59 | I2C SCL, GPIO2 | T36 → T37 | 3 mm |
+| B60 | I2C SCL, GPIO2 | W37 → W42 → U42 → U52 | 43 mm |
+| B61 | I2C SDA, GPIO1 | U36 → U38 | 5 mm |
+| B62 | I2C SDA, GPIO1 | X38 → X40 | 5 mm |
+| B63 | I2C SDA, GPIO1 | T40 → T52 | 30 mm |
+| B64 | logic ground | R36 → R38 → T38 → T39 → V39 | 18 mm |
+| B65 | display reset | I39 → I48 → N48 | 36 mm |
+| B66 | panel interrupt, GPIO21 | Q39 → Q42 → R42 → R44 | 15 mm |
+| B67 | expander reset | S39 → S40 → R40 → R41 | 8 mm |
+| B68 | 3.3 V | Q44 → Q45 → R45 → R52 | 23 mm |
+| B69 | buzzer transistor base | A51 → B51 → B50 → C50 | 8 mm |
+| B70 | buzzer − | C51 → E51 → E48 | 13 mm |
+| B71 | logic 5 V | P52 → H52 → H48 | 30 mm |
+| B72 | logic ground | Q49 → Q52 | 8 mm |
+| B73 | logic ground | S52 → S41 | 28 mm |
+| B74 | logic ground | U41 → U39 | 5 mm |
+| B75 | display reset | X41 → X48 | 18 mm |
+| B76 | panel interrupt, GPIO21 | AA44 → AA52 | 20 mm |
+| B77 | 3.3 V | Y37 → Y43 | 15 mm |
+| B78 | display SCK, GPIO42 | V52 → V45 | 18 mm |
+| B79 | display MOSI, GPIO41 | W52 → W46 | 15 mm |
+| B80 | display CS, GPIO40 | X52 → X49 | 8 mm |
+| B81 | display DC, GPIO39 | Y52 → Y47 | 13 mm |
+| B82 | backlight, GPIO47 | AE44 → AF44 | 3 mm |
+| B83 | knob push, GPIO45 (no pull-up) | Z52 → Z43 | 23 mm |
+| B84 | knob A, GPIO20 | AB52 → AB43 | 23 mm |
+| B85 | logic ground | AC52 → AC39 → AD39 → AD36 | 43 mm |
+| B86 | knob B, GPIO19 | AD52 → AD43 | 23 mm |
+| B87 | knob B, GPIO19 | AD43 → AE43 | 3 mm |
+| B88 | knob push contact | Z37 → Z39 | 5 mm |
+| B89 | knob A contact | AB37 → AB39 | 5 mm |
+| B90 | knob B contact | AE37 → AE39 | 5 mm |
 
 ### Insulated wires (solder side)
 
@@ -407,87 +407,88 @@ Tinned solid wire laid along the holes (strip a length of the 22 AWG solid wire,
 | W7 | red | circulation trigger + (from its switch) | AE28 → AA28 → AA22 → AE22 → AE21 | 44 mm |
 | W8 | green | pH up switch AUTO | U5 → P5 | 19 mm |
 | W9 | white | pH up switch HAND | U6 → P6 | 19 mm |
-| W10 | green | pH up switch AUTO | P5 → O5 | 9 mm |
-| W11 | white | pH up switch HAND | P6 → G6 | 29 mm |
-| W12 | white | pH up switch HAND | G40 → H40 | 9 mm |
+| W10 | white | pH up switch HAND | P6 → I6 | 24 mm |
+| W11 | green | pH up switch AUTO | P5 → B5 | 42 mm |
+| W12 | green | pH up switch AUTO | B46 → P46 | 42 mm |
 | W13 | green | pH down switch AUTO | U8 → Q8 | 16 mm |
 | W14 | white | pH down switch HAND | U9 → Q9 | 16 mm |
-| W15 | green | pH down switch AUTO | Q8 → N8 | 14 mm |
-| W16 | white | pH down switch HAND | Q9 → F9 | 34 mm |
-| W17 | white | pH down switch HAND | F41 → I41 | 14 mm |
+| W15 | white | pH down switch HAND | Q9 → J9 | 24 mm |
+| W16 | green | pH down switch AUTO | Q8 → C8 | 42 mm |
+| W17 | green | pH down switch AUTO | C45 → O45 | 36 mm |
 | W18 | green | nutrient A switch AUTO | U11 → R11 | 14 mm |
 | W19 | white | nutrient A switch HAND | U12 → R12 | 14 mm |
-| W20 | green | nutrient A switch AUTO | R11 → M11 | 19 mm |
-| W21 | white | nutrient A switch HAND | R12 → E12 | 39 mm |
-| W22 | white | nutrient A switch HAND | E42 → J42 | 19 mm |
+| W20 | white | nutrient A switch HAND | R12 → K12 | 24 mm |
+| W21 | green | nutrient A switch AUTO | R11 → D11 | 42 mm |
+| W22 | green | nutrient A switch AUTO | D44 → N44 | 31 mm |
 | W23 | green | nutrient B switch AUTO | U14 → S14 | 11 mm |
 | W24 | white | nutrient B switch HAND | U15 → S15 | 11 mm |
-| W25 | green | nutrient B switch AUTO | S14 → L14 | 24 mm |
-| W26 | white | nutrient B switch HAND | S15 → D15 | 44 mm |
-| W27 | white | nutrient B switch HAND | D43 → K43 | 24 mm |
+| W25 | white | nutrient B switch HAND | S15 → L15 | 24 mm |
+| W26 | green | nutrient B switch AUTO | S14 → E14 | 42 mm |
+| W27 | green | nutrient B switch AUTO | E43 → M43 | 26 mm |
 | W28 | green | refill switch AUTO | U17 → P17 | 19 mm |
 | W29 | white | refill switch HAND | U18 → P18 | 19 mm |
-| W30 | green | refill switch AUTO | P17 → K17 | 19 mm |
-| W31 | white | refill switch HAND | P18 → C18 | 39 mm |
-| W32 | white | refill switch HAND | C44 → L44 | 29 mm |
+| W30 | white | refill switch HAND | P18 → M18 | 14 mm |
+| W31 | green | refill switch AUTO | P17 → F17 | 31 mm |
+| W32 | green | refill switch AUTO | F42 → L42 | 21 mm |
 | W33 | green | circulation switch AUTO | U20 → Q20 | 16 mm |
 | W34 | white | circulation switch HAND | U21 → Q21 | 16 mm |
-| W35 | green | circulation switch AUTO | Q20 → J20 | 24 mm |
-| W36 | white | circulation switch HAND | Q21 → B21 | 44 mm |
-| W37 | white | circulation switch HAND | B45 → M45 | 34 mm |
+| W35 | white | circulation switch HAND | Q21 → N21 | 14 mm |
+| W36 | green | circulation switch AUTO | Q20 → G20 | 31 mm |
+| W37 | green | circulation switch AUTO | G41 → K41 | 16 mm |
 | W38 | green | drain switch AUTO | U23 → R23 | 14 mm |
 | W39 | white | drain switch HAND | U24 → R24 | 14 mm |
-| W40 | green | drain switch AUTO | R23 → I23 | 29 mm |
-| W41 | white | drain switch HAND | R24 → A24 | 49 mm |
-| W42 | white | drain switch HAND | A46 → N46 | 39 mm |
-| W43 | black | logic ground | Q47 → J47 | 24 mm |
-| W44 | yellow | 3.3 V | R40 → P40 | 11 mm |
-| W45 | yellow | I2C SCL, GPIO2 | U49 → S49 | 11 mm |
-| W46 | black | logic ground | S50 → Q50 | 11 mm |
-| W47 | blue | panel interrupt, GPIO21 | P37 → X37 | 26 mm |
-| W48 | blue | panel interrupt, GPIO21 | X44 → AA44 | 14 mm |
-| W49 | white | display reset | H35 → Q35 | 29 mm |
-| W50 | white | display reset | H38 → V38 | 42 mm |
-| W51 | yellow | 3.3 V | Y35 → Y37 | 11 mm |
-| W52 | yellow | 3.3 V | R43 → Y43 | 24 mm |
-| W53 | black | logic ground | Q44 → W44 | 21 mm |
-| W54 | red | logic 5 V | O52 → O51 → AF51 | 52 mm |
-| W55 | white | display SCK, GPIO42 | V45 → AF45 | 31 mm |
-| W56 | white | display MOSI, GPIO41 | W46 → AF46 | 29 mm |
-| W57 | white | display CS, GPIO40 | X49 → AF49 | 26 mm |
-| W58 | white | display DC, GPIO39 | Y47 → AF47 | 24 mm |
-| W59 | white | display reset | U48 → AF48 | 34 mm |
-| W60 | black | logic ground | AC50 → AF50 | 14 mm |
-| W61 | blue | I2C SDA, GPIO1 | T40 → AF40 | 36 mm |
-| W62 | white | display reset | V41 → AF41 | 31 mm |
-| W63 | yellow | I2C SCL, GPIO2 | S42 → AF42 | 39 mm |
-| W64 | white | knob A contact | AB37 → AB34 | 14 mm |
-| W65 | white | knob B contact | AE37 → AF37 → AF35 → AC35 | 21 mm |
-| W66 | white | display SD_CS (held high) | AC38 → AF38 | 14 mm |
+| W40 | white | drain switch HAND | R24 → O24 | 14 mm |
+| W41 | green | drain switch AUTO | R23 → H23 | 31 mm |
+| W42 | green | drain switch AUTO | H40 → J40 | 11 mm |
+| W43 | yellow | buzzer drive | P35 → A35 | 44 mm |
+| W44 | yellow | I2C SCL, GPIO2 | T37 → W37 | 14 mm |
+| W45 | blue | I2C SDA, GPIO1 | U38 → X38 | 14 mm |
+| W46 | blue | I2C SDA, GPIO1 | X40 → T40 | 16 mm |
+| W47 | black | logic ground | C49 → J49 | 24 mm |
+| W48 | black | logic ground | J49 → Q49 | 24 mm |
+| W49 | black | logic ground | S41 → U41 | 11 mm |
+| W50 | black | logic ground | S50 → Q50 | 11 mm |
+| W51 | white | display reset | I47 → X47 | 44 mm |
+| W52 | white | display reset | X48 → AF48 | 26 mm |
+| W53 | blue | panel interrupt, GPIO21 | R44 → AA44 | 29 mm |
+| W54 | yellow | 3.3 V | Y35 → Y37 | 11 mm |
+| W55 | yellow | 3.3 V | Y43 → Q43 → Q44 | 29 mm |
+| W56 | red | logic 5 V | O52 → O51 → AF51 | 52 mm |
+| W57 | white | display SCK, GPIO42 | V45 → AF45 | 31 mm |
+| W58 | white | display MOSI, GPIO41 | W46 → AF46 | 29 mm |
+| W59 | white | display CS, GPIO40 | X49 → AF49 | 26 mm |
+| W60 | white | display DC, GPIO39 | Y47 → AF47 | 24 mm |
+| W61 | black | logic ground | AC50 → AF50 | 14 mm |
+| W62 | white | knob A contact | AB37 → AB34 | 14 mm |
+| W63 | white | knob B contact | AE37 → AF37 → AF35 → AC35 | 21 mm |
+| W64 | white | display SD_CS (held high) | AC38 → AF38 | 14 mm |
+| W65 | blue | I2C SDA, GPIO1 | X40 → AF40 | 26 mm |
+| W66 | white | display reset | X41 → AF41 | 26 mm |
+| W67 | yellow | I2C SCL, GPIO2 | W42 → AF42 | 29 mm |
 
 ### Parts
 
 | ref | part | holes |
 | --- | --- | --- |
-| C1 | 100n | 1:V39, 2:W39 |
-| D1 | BAT85 | 1:E51, 2:H51 |
-| C2 | 100n | 1:P42, 2:Q42 |
+| C1 | 100n | 1:J48, 2:J49 |
+| D1 | BAT85 | 1:H51, 2:E51 |
+| C2 | 100n | 1:Q34, 2:R34 |
 | C3 | 10n | 1:AB44, 2:AC44 |
 | C4 | 10n | 1:AD43, 2:AC43 |
 | C5 | 1n | 1:Z50, 2:AC50 |
-| BZ1 | buzzer 5V | 1:E48, 2:H48 |
+| BZ1 | buzzer 5V | 1:H48, 2:E48 |
 | ENC1 | EC11 wires | C:X36, S2:AA36, MP:AE36, S1:Z37, A:AB37, B:AE37 |
 | J1A | TO MAIN A | 1:P52, 12:Q52, 3:R52, 10:S52, 5:T52, 6:U52, 11:V52, 13:W52, 14:X52, 15:Y52, 4:Z52, 7:AA52, 8:AB52, 2:AC52, 9:AD52 |
 | J1B | TO MAIN B | 25:AE25, 17:AE26, 18:AE27, 24:AE28, 23:AE29, 22:AE30, 21:AE31, 20:AE32, 19:AE33, 26:AE34 |
 | J1C | A16 | 16:AE44 |
 | J2 | DISPLAY | 1:AF51, 2:AF50, 3:AF49, 4:AF48, 5:AF47, 6:AF46, 7:AF45, 8:AF44, 9:AF43, 10:AF42, 11:AF41, 12:AF40, 13:AF39, 14:AF38 |
-| Q1 | S8050 | 1:J47, 2:J48, 3:J49 |
-| R1 | 10k | 1:Q31, 2:Q35 |
-| R2 | 10k | 1:R35, 2:R31 |
-| R3 | 10k | 1:P34, 2:P30 |
+| Q1 | S8050 | 1:C49, 2:C50, 3:C51 |
+| R1 | 10k | 1:R48, 2:N48 |
+| R2 | 10k | 1:R41, 2:R45 |
+| R3 | 10k | 1:Q40, 2:Q44 |
 | R4 | 10k | 1:AB34, 2:X34 |
 | R5 | 10k | 1:AC35, 2:Y35 |
-| R6 | 1k | 1:O48, 2:K48 |
+| R6 | 1k | 1:A47, 2:A51 |
 | R7 | 1k | 1:Z39, 2:Z43 |
 | R8 | 10k | 1:AB39, 2:AB43 |
 | R9 | 10k | 1:AE39, 2:AE43 |
@@ -513,8 +514,8 @@ Tinned solid wire laid along the holes (strip a length of the 22 AWG solid wire,
 | SW5 | SW5 | 1:AF18, 2:AE18, 3:AD18, 4:AC18, 5:AB18 |
 | SW6 | SW6 | 1:AF21, 2:AE21, 3:AD21, 4:AC21, 5:AB21 |
 | SW7 | SW7 | 1:AF24, 2:AE24, 3:AD24, 4:AC24, 5:AB24 |
-| U1 | MCP23017 | 1:H39, 2:I39, 3:J39, 4:K39, 5:L39, 6:M39, 7:N39, 8:O39, 9:P39, 10:Q39, 11:R39, 12:S39, 13:T39, 14:U39, 15:U36, 16:T36, 17:S36, 18:R36, 19:Q36, 20:P36, 21:O36, 22:N36, 23:M36, 24:L36, 25:K36, 26:J36, 27:I36, 28:H36 |
+| U1 | MCP23017 | 1:I36, 2:J36, 3:K36, 4:L36, 5:M36, 6:N36, 7:O36, 8:P36, 9:Q36, 10:R36, 11:S36, 12:T36, 13:U36, 14:V36, 15:V39, 16:U39, 17:T39, 18:S39, 19:R39, 20:Q39, 21:P39, 22:O39, 23:N39, 24:M39, 25:L39, 26:K39, 27:J39, 28:I39 |
 
 ### Checked
 
-The drawing tool draws nothing unless every pin of the circuit-board netlist is on its net and the layout has no short, no unconnected pin, no wire over a joint or along a bare run, no part standing where another part is. This layout: 45 parts, 89 bare runs, 66 wires, 0 hidden wires, 0 errors; 78 pairs of nets run bare in neighbouring holes somewhere, so keep those joints small; 0 wire crossings; pump-side neighbour rule: no allowed pairs.
+The drawing tool draws nothing unless every pin of the circuit-board netlist is on its net and the layout has no short, no unconnected pin, no wire over a joint or along a bare run, no part standing where another part is. This layout: 45 parts, 90 bare runs, 67 wires, 0 hidden wires, 0 errors; 83 pairs of nets run bare in neighbouring holes somewhere, so keep those joints small; 0 wire crossings; pump-side neighbour rule: no allowed pairs.
