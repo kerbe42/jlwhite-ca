@@ -1,7 +1,7 @@
 ---
 title: 'PicoFarm: a stand-alone controller that measures, doses and protects a hydroponic reservoir'
 world: work
-date: 2026-10-29
+date: 2026-10-29T12:00:00Z
 summary: "My hydroponics monitoring and control system. A controller with a 3.5\" touch screen, a knob and an AUTO/OFF/HAND switch per pump measures pH, EC, water temperature and level and runs seven pumps behind a hardware E-stop and a master relay, all on low-voltage DC. A home server keeps the history, sends push alerts and shows a process control screen; an Android app watches and controls it from the phone. Revision B is designed and reviewed; the bench build is next."
 featured: false
 cover: ./cover.png

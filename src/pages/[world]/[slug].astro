@@ -128,4 +128,20 @@ const { Content } = await render(entry);
     padding-left: 1.3rem;
   }
   .prose :global(li) { margin-bottom: 0.4rem; }
+  .prose :global(table) {
+    display: block;
+    overflow-x: auto;
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 0.92rem;
+    margin: 1.2rem 0;
+  }
+  .prose :global(th),
+  .prose :global(td) {
+    border: 1px solid var(--line);
+    padding: 0.35rem 0.6rem;
+    text-align: left;
+    vertical-align: top;
+  }
+  .prose :global(th) { color: var(--ink-faint); font-weight: 600; }
 </style>

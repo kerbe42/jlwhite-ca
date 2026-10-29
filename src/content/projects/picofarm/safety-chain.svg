@@ -18,56 +18,56 @@ text{font-family:'Helvetica Neue',Helvetica,Arial,'Liberation Sans',sans-serif;f
 <text x="30" y="42" class="h">Power and the safety chain (revision B)</text>
 
 <!-- pump supply chain -->
-<text x="30" y="80" class="s">PUMP SUPPLY: 5 V DC from a USB-C charger (5 V 3 A)</text>
-<line x1="200" y1="135" x2="240" y2="135" class="wire"/>
-<line x1="410" y1="135" x2="450" y2="135" class="wire"/>
-<line x1="620" y1="135" x2="660" y2="135" class="wire"/>
-<line x1="830" y1="135" x2="870" y2="135" class="wire"/>
-<line x1="1040" y1="135" x2="1080" y2="135" class="wire"/>
-<text x="430" y="118" class="n" text-anchor="middle">PFUSE</text>
-<text x="640" y="118" class="n" text-anchor="middle">ESN</text>
-<text x="850" y="118" class="n" text-anchor="middle">RAIL</text>
-<text x="1060" y="118" class="n" text-anchor="middle">pump +</text>
+<text x="30" y="72" class="s">PUMP SUPPLY: 5 V DC from a USB-C charger (5 V 3 A)</text>
+<line x1="216" y1="135" x2="250" y2="135" class="wire"/>
+<line x1="436" y1="135" x2="470" y2="135" class="wire"/>
+<line x1="656" y1="135" x2="690" y2="135" class="wire"/>
+<line x1="876" y1="135" x2="910" y2="135" class="wire"/>
+<line x1="1096" y1="135" x2="1120" y2="135" class="wire"/>
+<text x="453" y="94" class="n" text-anchor="middle">PFUSE</text>
+<text x="673" y="94" class="n" text-anchor="middle">ESN</text>
+<text x="893" y="94" class="n" text-anchor="middle">RAIL</text>
+<text x="1108" y="94" class="n" text-anchor="middle">pump +</text>
 
-<rect x="30" y="100" width="170" height="70" class="box"/>
-<text x="115" y="130" class="b" text-anchor="middle">PUMP IN +</text>
-<text x="115" y="156" class="s" text-anchor="middle">USB-C 5 V 3 A</text>
+<rect x="30" y="100" width="186" height="70" class="box"/>
+<text x="123" y="130" class="b" text-anchor="middle">PUMP IN +</text>
+<text x="123" y="156" class="s" text-anchor="middle">USB-C 5 V 3 A</text>
 
-<rect x="240" y="100" width="170" height="70" class="box"/>
-<text x="325" y="130" class="b" text-anchor="middle">F1</text>
-<text x="325" y="156" class="s" text-anchor="middle">2.5 A PTC fuse</text>
+<rect x="250" y="100" width="186" height="70" class="box"/>
+<text x="343" y="130" class="b" text-anchor="middle">F1</text>
+<text x="343" y="156" class="s" text-anchor="middle">2.5 A PTC fuse</text>
 
-<rect x="450" y="100" width="170" height="70" class="box pump"/>
-<text x="535" y="130" class="b" text-anchor="middle">E-STOP</text>
-<text x="535" y="156" class="s" text-anchor="middle">NC contact, latching</text>
+<rect x="470" y="100" width="186" height="70" class="box pump"/>
+<text x="563" y="130" class="b" text-anchor="middle">E-STOP</text>
+<text x="563" y="156" class="s" text-anchor="middle">NC contact, latching</text>
 
-<rect x="660" y="100" width="170" height="70" class="box"/>
-<text x="745" y="130" class="b" text-anchor="middle">K1 contact</text>
-<text x="745" y="156" class="s" text-anchor="middle">NO, relay SRD-05VDC</text>
+<rect x="690" y="100" width="186" height="70" class="box"/>
+<text x="783" y="130" class="b" text-anchor="middle">K1 contact</text>
+<text x="783" y="156" class="s" text-anchor="middle">NO contact, relay</text>
 
-<rect x="870" y="100" width="170" height="70" class="box"/>
-<text x="955" y="130" class="b" text-anchor="middle">toggle pole 1</text>
-<text x="955" y="156" class="s" text-anchor="middle">AUTO or HAND; OFF cuts it</text>
+<rect x="910" y="100" width="186" height="70" class="box"/>
+<text x="1003" y="130" class="b" text-anchor="middle">toggle pole 1</text>
+<text x="1003" y="156" class="s" text-anchor="middle">AUTO/HAND; OFF cuts</text>
 
-<rect x="1080" y="100" width="290" height="70" class="box"/>
-<text x="1225" y="130" class="b" text-anchor="middle">pump → ULN2803A OUTn</text>
-<text x="1225" y="156" class="s" text-anchor="middle">×7; a 1N5819 across each pump</text>
+<rect x="1120" y="100" width="250" height="70" class="box"/>
+<text x="1245" y="130" class="b" text-anchor="middle">pump → ULN2803A</text>
+<text x="1245" y="156" class="s" text-anchor="middle">×7, 1N5819 across each</text>
 
 <!-- branches below the nodes -->
-<line x1="430" y1="135" x2="430" y2="200" class="stub"/>
-<text x="300" y="228" class="m">Before the E-stop:</text>
-<text x="300" y="256" class="m">D1 1N5822 (reverse polarity) to GNDP</text>
-<text x="300" y="284" class="m">C1 1000 µF</text>
+<line x1="453" y1="170" x2="453" y2="215" class="stub"/>
+<text x="300" y="242" class="m">Before the E-stop:</text>
+<text x="300" y="270" class="m">D1 1N5822 (reverse polarity) to GNDP</text>
+<text x="300" y="298" class="m">C1 1000 µF</text>
 
-<line x1="640" y1="135" x2="640" y2="320" class="stub"/>
-<text x="655" y="228" class="m">K1 coil fed from ESN, 1N5819 across it</text>
-<text x="655" y="256" class="m">S8050: GPIO3 → 1k → base, 10k base to GNDP</text>
-<text x="655" y="284" class="m">ESN sense: 22k/33k → GPIO17, 20k/10k → ADS1115 #2 A1</text>
-<text x="655" y="312" class="m">ULN2803A COM (pin 10) → ESN, not RAIL</text>
-<text x="655" y="340" class="m">ADS1115 #2 also reads PFUSE (A0), RAIL (A2), logic 5 V (A3)</text>
+<line x1="673" y1="170" x2="673" y2="340" class="stub"/>
+<text x="688" y="242" class="m">K1 coil fed from ESN, 1N5819 across it</text>
+<text x="688" y="270" class="m">S8050: GPIO3 → 1k → base, 10k base to GNDP</text>
+<text x="688" y="298" class="m">ESN sense: 22k/33k → GPIO17, 20k/10k → ADS1115 #2 A1</text>
+<text x="688" y="326" class="m">ULN2803A COM (pin 10) → ESN, not RAIL</text>
+<text x="688" y="354" class="m">ADS1115 #2 also reads PFUSE (A0), RAIL (A2), logic 5 V (A3)</text>
 
-<line x1="1060" y1="135" x2="1060" y2="380" class="stub"/>
-<text x="1075" y="380" class="m">1N5819 cathode to pump +, 100 nF at the motor</text>
+<line x1="1108" y1="170" x2="1108" y2="192" class="stub"/>
+<text x="1370" y="212" class="m" text-anchor="end">1N5819 cathode to pump +, 100 nF at the motor</text>
 
 <!-- grounds -->
 <line x1="30" y1="440" x2="1370" y2="440" class="gnd"/>
@@ -79,37 +79,37 @@ text{font-family:'Helvetica Neue',Helvetica,Arial,'Liberation Sans',sans-serif;f
 <circle cx="1015" cy="440" r="7" fill="#2f6690"/>
 
 <!-- logic supply chain -->
-<text x="30" y="500" class="s">LOGIC SUPPLY: 5 V DC from a second, separate USB charger (USB-A)</text>
-<line x1="200" y1="555" x2="240" y2="555" class="wire"/>
-<line x1="410" y1="555" x2="450" y2="555" class="wire"/>
-<line x1="620" y1="555" x2="660" y2="555" class="wire"/>
-<line x1="830" y1="555" x2="870" y2="555" class="wire"/>
-<line x1="1040" y1="555" x2="1080" y2="555" class="wire"/>
-<text x="850" y="538" class="n" text-anchor="middle">logic 5 V</text>
+<text x="30" y="492" class="s">LOGIC SUPPLY: 5 V DC from a second, separate USB charger (USB-A)</text>
+<line x1="216" y1="555" x2="250" y2="555" class="wire"/>
+<line x1="436" y1="555" x2="470" y2="555" class="wire"/>
+<line x1="656" y1="555" x2="690" y2="555" class="wire"/>
+<line x1="876" y1="555" x2="910" y2="555" class="wire"/>
+<line x1="1096" y1="555" x2="1120" y2="555" class="wire"/>
+<text x="893" y="514" class="n" text-anchor="middle">logic 5 V</text>
 
-<rect x="30" y="520" width="170" height="70" class="box"/>
-<text x="115" y="550" class="b" text-anchor="middle">LOGIC IN +</text>
-<text x="115" y="576" class="s" text-anchor="middle">USB-A 5 V</text>
+<rect x="30" y="520" width="186" height="70" class="box"/>
+<text x="123" y="550" class="b" text-anchor="middle">LOGIC IN +</text>
+<text x="123" y="576" class="s" text-anchor="middle">USB-A 5 V</text>
 
-<rect x="240" y="520" width="170" height="70" class="box"/>
-<text x="325" y="550" class="b" text-anchor="middle">F2</text>
-<text x="325" y="576" class="s" text-anchor="middle">1.6 A PTC fuse</text>
+<rect x="250" y="520" width="186" height="70" class="box"/>
+<text x="343" y="550" class="b" text-anchor="middle">F2</text>
+<text x="343" y="576" class="s" text-anchor="middle">1.6 A PTC fuse</text>
 
-<rect x="450" y="520" width="170" height="70" class="box"/>
-<text x="535" y="550" class="b" text-anchor="middle">D2 1N5822</text>
-<text x="535" y="576" class="s" text-anchor="middle">reverse-polarity clamp</text>
+<rect x="470" y="520" width="186" height="70" class="box"/>
+<text x="563" y="550" class="b" text-anchor="middle">D2 1N5822</text>
+<text x="563" y="576" class="s" text-anchor="middle">clamp to GNDL</text>
 
-<rect x="660" y="520" width="170" height="70" class="box"/>
-<text x="745" y="550" class="b" text-anchor="middle">C2</text>
-<text x="745" y="576" class="s" text-anchor="middle">1000 µF</text>
+<rect x="690" y="520" width="186" height="70" class="box"/>
+<text x="783" y="550" class="b" text-anchor="middle">C2</text>
+<text x="783" y="576" class="s" text-anchor="middle">1000 µF</text>
 
-<rect x="870" y="520" width="170" height="70" class="box"/>
-<text x="955" y="550" class="b" text-anchor="middle">D8 Schottky</text>
-<text x="955" y="576" class="s" text-anchor="middle">no back-feed to a laptop</text>
+<rect x="910" y="520" width="186" height="70" class="box"/>
+<text x="1003" y="550" class="b" text-anchor="middle">D8 Schottky</text>
+<text x="1003" y="576" class="s" text-anchor="middle">no laptop back-feed</text>
 
-<rect x="1080" y="520" width="290" height="70" class="box"/>
-<text x="1225" y="550" class="b" text-anchor="middle">ESP32-S3 dev board, 5 V pin</text>
-<text x="1225" y="576" class="s" text-anchor="middle">ADS1115 × 2 · MCP23017 · sensors</text>
+<rect x="1120" y="520" width="250" height="70" class="box"/>
+<text x="1245" y="550" class="b" text-anchor="middle">ESP32-S3 5 V pin</text>
+<text x="1245" y="576" class="s" text-anchor="middle">ADS1115 × 2 · MCP23017</text>
 
 <text x="30" y="650" class="m">The E-stop’s NC contact kills RAIL by itself, whatever the firmware is doing. K1 only closes when the firmware drives GPIO3 and</text>
 <text x="30" y="678" class="m">never restarts on its own after the button is released. A pump fault can’t restart the controller: the two supplies share nothing</text>
