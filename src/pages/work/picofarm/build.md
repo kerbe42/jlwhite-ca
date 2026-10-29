@@ -463,14 +463,16 @@ The controller runs the PicoFarm firmware, built and flashed with PlatformIO usi
     ```
 
     If the upload can't connect, hold the board's BOOT button, tap RST, release BOOT and try again.
-3. In the monitor, type one line at a time. After `wifi`, and again after `mqtt`, the board restarts by itself: wait for its boot text before typing the next line.
+3. In the monitor, check the boot text ends with `type 'help' for commands`. The Wi-Fi and the server are normally set from the panel's own screen once it is connected (step 7.6). If you would rather do it now over the cable, the console takes the same settings, and they apply at once without a restart:
     - `wifi <your Wi-Fi name> <password>`. A name or password with a space in it needs the JSON form that `help` shows: `{"op":"wifi","ssid":"..","pass":".."}`.
     - `mqtt <server address> 1884 pf-device <device password>` (the device password is the server's `PF_DEVICE_MQTT_PASS` setting).
+    - `ip dhcp` (the default) or `ip static <ip> <mask> <gateway> [dns]` for a fixed address.
     - `name <a name for this controller>`
     - `status` prints one line of JSON. `"wifi":"<an IP address>"` means it joined; `"ads":false` and `"temp_probe":false` are expected while nothing is fitted.
+    - `offline on` if this controller will run with no server at all (the panel runs everything; `offline off`, the panel's Network page or holding BOOT for 3 s bring Wi-Fi back).
 4. Unplug the ESP32 from the computer.
 
-Until the server runs the revision B version, the controller runs on its own panel.
+Until the controller joins a server, it runs on its own panel. On the panel, Network shows the link's state and four settings (Wi-Fi, IP settings, Server, Offline mode); every dialog works by touch and by the knob, and a password is typed on the screen's keyboard.
 
 ### 7.4 Fit the chips and modules (both chargers unplugged)
 
@@ -497,6 +499,7 @@ The ribbon isn't plugged in, so you can still reach the ESP32's UART port. First
 1. Fit the **MCP23017** in its socket, notch at the row-H end.
 2. Plug the ribbon onto the main board's header A and single pins, exactly as numbered.
 3. Plug in the logic charger: the display lights and shows the Overview page. Move each toggle and watch its pump change between AUTO, OFF and HAND on the screen. (Before the panel was plugged in, every switch read as AUTO.)
+4. Put the controller on the network from the screen (unless you did it over the cable in 7.3): touch **Network** in the bar at the bottom, then **Wi-Fi**; the list fills with the networks around you, strongest first. Touch yours, type its password on the keyboard (**Show** lets you check it), **Join**; the Wi-Fi row says "joined" with the address, or why not. Then **Server**: the server's address, port 1884, user `pf-device` and the device password (the server's `PF_DEVICE_MQTT_PASS` setting), **Save & connect**; the Server row says "connected" and the top bar "server online". **IP settings** is only for a fixed address; **Offline mode** is for a controller that will never have a server (the panel runs everything; the same page, or holding BOOT for 3 s, brings Wi-Fi back). Everything here also works with the knob: turn to move, push to press, hold to go back.
 
 **Done when** 7.5 and 7.6 behave as written. If the screen stays white or shows mirrored colours, it is one setting in the firmware's board settings file, `board.h` (colour inversion, red/blue order, rotation, touch axes).
 
