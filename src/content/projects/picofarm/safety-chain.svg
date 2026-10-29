@@ -51,7 +51,7 @@ text{font-family:'Helvetica Neue',Helvetica,Arial,'Liberation Sans',sans-serif;f
 
 <rect x="1120" y="100" width="250" height="70" class="box"/>
 <text x="1245" y="130" class="b" text-anchor="middle">pump → ULN2803A</text>
-<text x="1245" y="156" class="s" text-anchor="middle">×7, 1N5819 across each</text>
+<text x="1245" y="156" class="s" text-anchor="middle">×6, a 1N5819 each</text>
 
 <!-- branches below the nodes -->
 <line x1="453" y1="170" x2="453" y2="215" class="stub"/>
@@ -68,14 +68,15 @@ text{font-family:'Helvetica Neue',Helvetica,Arial,'Liberation Sans',sans-serif;f
 
 <line x1="1108" y1="170" x2="1108" y2="192" class="stub"/>
 <text x="1370" y="212" class="m" text-anchor="end">1N5819 cathode to pump +, 100 nF at the motor</text>
+<text x="1370" y="236" class="m" text-anchor="end">circulation: its own D4184 module</text>
 
 <!-- grounds -->
 <line x1="30" y1="440" x2="1370" y2="440" class="gnd"/>
 <text x="30" y="430" class="n">GNDP</text>
-<text x="140" y="430" class="m">PUMP IN − · ULN2803A pin 9 · S8050 emitter · D4184 module V−</text>
+<text x="140" y="430" class="m">PUMP IN − · LOGIC IN − · ULN2803A pin 9 · S8050 emitter · D4184 V−</text>
 <text x="900" y="430" class="m">one star wire</text>
 <text x="1030" y="430" class="n">GNDL</text>
-<text x="1110" y="430" class="m">LOGIC IN − · ESP32-S3 GND</text>
+<text x="1110" y="430" class="m">C2 − · ESP32-S3 GND</text>
 <circle cx="1015" cy="440" r="7" fill="#2f6690"/>
 
 <!-- logic supply chain -->
@@ -97,7 +98,7 @@ text{font-family:'Helvetica Neue',Helvetica,Arial,'Liberation Sans',sans-serif;f
 
 <rect x="470" y="520" width="186" height="70" class="box"/>
 <text x="563" y="550" class="b" text-anchor="middle">D2 1N5822</text>
-<text x="563" y="576" class="s" text-anchor="middle">clamp to GNDL</text>
+<text x="563" y="576" class="s" text-anchor="middle">clamp to GNDP</text>
 
 <rect x="690" y="520" width="186" height="70" class="box"/>
 <text x="783" y="550" class="b" text-anchor="middle">C2</text>
@@ -113,5 +114,5 @@ text{font-family:'Helvetica Neue',Helvetica,Arial,'Liberation Sans',sans-serif;f
 
 <text x="30" y="650" class="m">The E-stop’s NC contact kills RAIL by itself, whatever the firmware is doing. K1 only closes when the firmware drives GPIO3 and</text>
 <text x="30" y="678" class="m">never restarts on its own after the button is released. A pump fault can’t restart the controller: the two supplies share nothing</text>
-<text x="30" y="706" class="m">but the star wire. Nothing in the box runs on mains voltage; the two chargers stay outside it.</text>
+<text x="30" y="706" class="m">but the one ground join. Nothing in the box runs on mains voltage; the two chargers stay outside it.</text>
 </svg>

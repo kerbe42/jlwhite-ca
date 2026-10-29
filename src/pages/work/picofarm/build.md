@@ -450,7 +450,7 @@ Anything else: unplug and go to Troubleshooting before fitting a chip.
 
 ### 7.3 Flash the ESP32 off the board
 
-The ribbon's header stands in front of the ESP32's USB ports, so flash it now, on the bench. To flash it again later (a display setting, a new version), unplug the 15-wide strip from header A; if the USB plug still doesn't reach, lift the ESP32 out of its sockets. Updates over Wi-Fi are not set up yet: the firmware accepts them, but nothing on the server sends one.
+The ribbon's header stands in front of the ESP32's USB ports, so flash it now, on the bench. To flash it again later (a display setting, a new version), unplug the 15-wide strip from header A; if the USB plug still doesn't reach, lift the ESP32 out of its sockets. That is only for a first flash or a changed partition table: once the controller is on the server, new firmware goes over Wi-Fi from the dashboard (Manage page, Control tab, "Firmware": pick the build's `firmware.bin` and press Update). The pumps stop, the controller downloads the file, checks it and restarts, and falls back to the old firmware if the new one doesn't come back online.
 
 The controller runs the PicoFarm firmware, built and flashed with PlatformIO using its `esp32s3` environment.
 

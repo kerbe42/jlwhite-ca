@@ -58,7 +58,7 @@ The controller is a box with a front panel and two circuit boards, running on 5 
 
 *Renders of the printed main board and panel board from their design files. The first unit is hand-wired on protoboard; the printed boards follow once it passes its bench tests.*
 
-The firmware is plain C++ with a control core that has no hardware calls, so the same code runs on the controller and on a PC, where more than 80 host tests exercise the interlocks, the E-stop, the hand-off-auto states, the dosing order, dilution, the limits, the calibration maths and alarms that survive a reboot. The front panel's screens are rendered on a PC from the same code and fonts, which is where the pictures above come from.
+The firmware is plain C++ with a control core that has no hardware calls, so the same code runs on the controller and on a PC, where more than 100 host tests exercise the interlocks, the E-stop, the hand-off-auto states, the dosing order, dilution, the limits, the calibration maths and alarms that survive a reboot. The front panel's screens are rendered on a PC from the same code and fonts, which is where the pictures above come from.
 
 ## The safety chain
 
@@ -143,6 +143,8 @@ Automatic dosing works from a target and a band for each value (by default pH 5.
 
 The server runs on a home machine: an MQTT broker for the controllers, and a Python FastAPI service that does everything else. It stores the readings in SQLite and serves them back as charts, keeps a log of events, and holds each controller's settings so that a change made while a controller is offline is applied when it reconnects. It also serves the web dashboard and the API the app uses.
 
+It also updates the controllers' firmware over Wi-Fi. I pick a new build on the settings page; the server checks that it is a firmware image for that controller's chip and that it fits, then hands the controller a one-time download link. The controller stops its pumps and opens its relay, downloads the image and checks it, restarts on it, and goes back to its previous firmware if the new one doesn't come back online within ten minutes.
+
 Alerts are the server's other job. On top of the controllers' own alarms, it watches thresholds I set for each controller (pH, EC and temperature out of range, a low level, a controller offline for too long) and sends every warning and critical event to the phone through a self-hosted ntfy server. Short excursions are the controller's job, so the alerts that matter most are about time: EC above its band for six hours, or pH outside its band for four. Nothing goes through an outside cloud service.
 
 ## Everything syncs
@@ -198,7 +200,7 @@ The **[build instructions](/work/picofarm/build)** take one controller from the 
 ## Status
 
 - **Firmware:** the revision B firmware builds for the ESP32-S3 with the front panel, the hand-off-auto states, the relay and the power monitor, covered by the host tests; the screens render from the real code.
-- **Server:** running on a home server with the process screen, the settings page, crop profiles and push alerts, extended for revision B (switch positions, relay, voltages, E-stop source, panel edits) and tested end to end against a simulated controller.
+- **Server:** running on a home server with the process screen, the settings page, crop profiles and push alerts, extended for revision B (switch positions, relay, voltages, E-stop source, panel edits) and tested end to end against a simulated controller. Firmware updates over Wi-Fi from the settings page are in place; the first real update waits for the bench unit.
 - **App:** built and tested against the server and the simulator, including push alerts, crop profiles, dilution settings and the E-STOP.
 - **Hardware:** revision B is designed and reviewed, down to the hole-by-hole protoboard drawings and the printed board files. Parts are ordered for two controllers. Nothing is built yet: the bench build is next, then the printed boards and the enclosure.
 
