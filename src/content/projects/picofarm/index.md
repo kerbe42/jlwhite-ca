@@ -24,6 +24,10 @@ This page describes revision B of the controller. The firmware, the server with 
 
 **[Open the live demo](https://picofarm.jlwhite.ca).** The dashboard runs entirely in your browser against a simulated revision B controller: the reservoir drifts, the controller doses it back into range, and the circulation pump cycles. The menu at the bottom simulates faults (a leak, low water, a pH probe fault, a switch left in HAND, the E-stop pressed, a blown pump fuse, a welded relay) so you can watch the interlocks react, and the settings page has the crop profiles, the calibration and the firmware update. Nothing in the demo reaches real equipment.
 
+The **Controller panel** button at the bottom opens the controller's own front panel in the middle of the screen: the touch screen, the knob, the seven HAND/OFF/AUTO switches and the latching E-stop button. The screen is the firmware's real screen code, compiled to run in the browser, and it drives the same simulated controller as the dashboard: press E-STOP on either and both show it, put a switch to OFF and the dashboard's run is refused, change a setpoint with the knob and it appears in the settings.
+
+![The controller's front panel open over the demo dashboard: the Overview screen with the tank at 62 %, pH 6.44, EC 1.29 mS/cm and 21.4 °C, the K1 relay closed and the E-stop circuit ready, the seven pumps in AUTO; beside it the knob and the red E-stop button, and below it the seven HAND/OFF/AUTO switches](./demo-panel.png)
+
 ## How it fits together
 
 ![The PicoFarm architecture: ESP32 controllers, one per reservoir, connect over the home Wi-Fi to an MQTT broker on a home server, which also runs a FastAPI service, SQLite history, alert thresholds, a REST API, push alerts and a process control screen; the Android app connects at home or away over a VPN, alerts reach the phone, and the process screen opens in a browser. Interlocks, run limits, automatic dosing and the watchdog run on each controller.](./architecture.svg)
