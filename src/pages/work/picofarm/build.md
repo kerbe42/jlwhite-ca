@@ -286,3 +286,216 @@ Scrub the solder side with isopropyl alcohol and the toothbrush, let it dry, the
 | ESP32 socket pins L1 (3V3) and B1 (GND) | no beep | a bridge on the 3.3 V lines |
 
 **Done when** every row of that table passes. Nothing gets power until Stage 7.
+
+## Stage 5: the panel board, in solder order
+
+The panel board hangs behind the lid and carries the toggle-switch chip (MCP23017), the knob filters, the buzzer and the display header. Same method as the main board: low parts first, wiring last. Mark the rows and columns first, as in 4.1.
+
+[![Panel board, component side](/media/picofarm/revb/panel/board-top.svg)](/media/picofarm/revb/panel/board-top.svg)
+
+### 5.1 Three wires first
+
+Lay these three insulated wires on the solder side now. The bodies of R7, R8 and R9 lie across their path, so they are easier to place first.
+
+| Wire | Colour | Carries | From → to |
+| --- | --- | --- | --- |
+| W61 | blue | I2C SDA | T40 → AF40 |
+| W62 | white | display reset | V41 → AF41 |
+| W63 | yellow | I2C SCL | S42 → AF42 |
+
+### 5.2 Resistors (22 × 10 kΩ, 2 × 1 kΩ)
+
+| Value | Refs and holes |
+| --- | --- |
+| 10 kΩ, switch pull-ups | R10 P6–P10, R11 Q9–Q13, R12 R12–R16, R13 S15–S19, R14 P18–P22, R15 Q21–Q25, R16 R24–R28, R20 R19–R23, R21 Q16–Q20, R22 P13–P17, R23 S10–S14, R24 R7–R11, R25 Q4–Q8, R26 P1–P5 |
+| 10 kΩ, other | R1 Q31–Q35, R2 R35–R31, R3 P34–P30, R4 AB34–X34, R5 AC35–Y35, R8 AB39–AB43, R9 AE39–AE43, R17 Y38–AC38 |
+| 1 kΩ | R6 O48–K48, R7 Z39–Z43 |
+
+### 5.3 Diode, capacitors, transistor, buzzer
+
+| Ref | Part | Holes | Watch |
+| --- | --- | --- | --- |
+| D1 | BAT85 (a 1N5819 also works here) | band in E51, other end H51 | glass: bend beyond pliers |
+| C1, C2 | 100 nF, 2.54 mm leads | C1 V39–W39, C2 P42–Q42 | |
+| C3, C4 | 10 nF, 2.54 mm leads | C3 AB44–AC44, C4 AD43–AC43 | |
+| C5 | **1 nF** (marked 102), 2.54 mm leads | Z50–AC50 | spread its leads to the 7.62 mm gap (two empty holes between); not 10 nF: the knob's push switch shares a boot pin with the chip |
+| Q1 | S8050 | E J47, B J48, C J49 | flat face as drawn |
+| BZ1 | 5 V buzzer | + in E48, − in H48 | fit it after the resistors; it is tall |
+
+### 5.4 Socket and headers
+
+1. **MCP23017 socket (DIP-28):** pins 1-14 in H39 to U39, pins 15-28 in U36 back to H36, with the notch at the row-H end. Pin 1 is H39.
+2. **Ribbon headers (straight male pins):** a 15-pin strip in column 52 from P52 to AD52 (TO MAIN A), a 10-pin strip in row AE from AE25 to AE34 (TO MAIN B), and one single pin in AE44 (A16).
+3. **Display header J2 (1×14, right-angle male):** along the bottom edge, pin 1 in AF51, then AF50, … pin 14 in AF38, pins pointing off the board's edge.
+
+### 5.5 Bare runs and the other wires
+
+All on the solder side, from the panel wire list: the 89 bare runs B1-B89, then the other 63 insulated wires (W1-W60 and W64-W66). The rail along the bottom edge and the ground row above it are bare runs; keep them straight, because the toggle leads join them in Stage 6. Beep each group of ten as on the main board.
+
+[![Panel board, solder side: every bare run (B) and insulated wire (W) numbered](/media/picofarm/revb/panel/board-bottom-guide.svg)](/media/picofarm/revb/panel/board-bottom-guide.svg)
+
+Leave these holes empty: they take the lid leads in Stage 6.
+
+- **Toggle groups SW1-SW7:** five holes each, in columns 6, 9, 12, 15, 18, 21 and 24, rows AF (R), AE (O), AD (G), AC (A) and AB (H). SW1 is pH up and SW7 is drain, the firmware's order.
+- **Knob group:** X36 (C), AA36 (S2), AE36 (MP), Z37 (S1), AB37 (A), AE37 (B).
+
+### 5.6 Clean and check (no power)
+
+| Between | Expect | If not |
+| --- | --- | --- |
+| TO MAIN A pin 1, 5 V (P52) and pin 2, ground (AC52) | no beep | a bridge on the 5 V line |
+| Pin 3, 3.3 V (R52) and pin 2, ground (AC52) | no beep | a bridge on the 3.3 V line |
+| TO MAIN B pin 17, rail (AE26) and ground (AC52) | open | the rail run touches the ground row |
+| Rail (AE26) and each toggle group's R hole | beep | a break in the rail run |
+| 3.3 V (R52) and each toggle group's A hole, then each H hole | about 10 kΩ | that pull-up is missing or open |
+| 3.3 V (R52) and knob A (AB37), then knob B (AE37) | about 10 kΩ | R4 or R5 |
+| 3.3 V (R52) and knob S1 (Z37) | **open** | something pulls the push switch up: find and remove it, or the controller won't boot |
+
+**Done when** every row passes. Leave the MCP23017 out of its socket until Stage 7.
+
+## Stage 6: the lid
+
+Every lid lead is stranded wire, about 15 cm long, so the lid opens without breaking anything. Put a 10 mm piece of heat-shrink over each lead before you solder it to a lug, then slide it over the lug and shrink it.
+
+[![Lid wiring: the ribbon leads, a toggle and its five leads, the knob, the E-stop and the display](/media/picofarm/revb/lid-wiring.svg)](/media/picofarm/revb/lid-wiring.svg)
+
+### 6.1 Mount the parts in the lid
+
+The printed box isn't drawn yet (see Stage 9); until then, a flat plastic plate works for the bench. Take the hole sizes and spacing from the lid layout table below: toggles 19 mm apart in a row, 6.2-6.5 mm holes; knob 7.2 mm with its anti-rotation notch; E-stop 22.3 mm; buzzer 3-4 mm. The table's positions are for the printed panel board; on the bench, place each part where its 15 cm leads reach, the toggles in pump order.
+
+- **Seven toggles** in a row, 19 mm apart, levers moving up and down: **down = AUTO, centre = OFF, up = HAND**. Labels under them, left to right: pH UP, pH DN, NUTR A, NUTR B, REFILL, CIRC, DRAIN.
+- **Knob (EC11)** with its anti-rotation tab in the notch; push the cap on last.
+- **E-stop** in a 22.3 mm hole, contact block behind.
+- **Display** behind its window, held by its own mounting holes.
+- **Buzzer sound hole** (3-4 mm) over the buzzer.
+
+**Lid layout for the printed panel board.** The panel board hangs behind the lid on its four standoffs with its parts toward the lid, so looking at the lid from outside is looking at the board's component side. Positions are in the board's own frame, millimetres from the board's top-left corner, x to the right, y down, the top edge being the hinge side.
+
+| Lid part | Centre (x, y) | Hole | Notes |
+| --- | --- | --- | --- |
+| standoffs, M3 | (4, 4), (116, 4), (4, 66), (116, 66) | 3.2 | 25 mm long, nut on the board side |
+| display window | (47, 39) | ~73.4 × 49 window | 3.5" module ~98 × 56 (measure it): lies over about x −6…92, y 11…67 with its 14-pin header end past the board's **left** edge, pins pointing back; locate the window by the module's own mounting holes. Its top edge stays at y ≥ 11 so it clears the ribbon plug on J1 (x 69-111, y 0-10). Nothing taller than 10 mm is under it. |
+| display leads | | | from the module's header to J2 at the board's left edge (x 0, y 17-50), whose pins point off the edge: the housings lie flat past the edge. 10-15 cm leads. |
+| knob, EC11 | (103, 28) | 7.2 + anti-rotation notch | over the ENC1 group (x 95-108, y 15); lid ≤ 4 mm there; body 7-9 mm behind the lid |
+| buzzer sound hole | (108.8, 47) | 3-4 | over BZ1 |
+| toggles, 7 × MTS-203 | x = 3, 22, 41, 60, 79, 98, 117; y = 82 | 6.2-6.5 with lock-ring flats | 19 mm pitch, 12 mm below the board's bottom edge, levers moving up/down (up HAND, centre OFF, down AUTO); the wire groups are centred at x = 8, 22, 41, 60, 79, 98, 112, y = 60 (the end ones pulled 5 mm in from the corner holes); lid ≤ 4 mm there; bodies 20 mm behind the lid, clear of the board and its standoffs |
+| E-stop, 22 mm | (−37, 39) | 22.3 | head 40 mm (x −57…−17), clear of the display module's header end; 45-50 mm deep behind the lid, so the enclosure must put it beside the main board or over its low sensor edge (plugs 12 mm + standoffs), never over the capacitors, K1 or the ribbon |
+| ribbon | | | J1 on the board's top edge, x 69-111; the cable folds over the top edge to J22 on the main board's top edge; both on the hinge side |
+| labels | | | pump names under the toggles (pH UP, pH DN, NUTR A, NUTR B, REFILL, CIRC, DRAIN, left to right, the same order as on the board) |
+
+The lid is at least 180 × 105 mm around these (E-stop head to the last toggle, hinge margin to the toggle labels), which the 190 × 160 mm floor covers.
+
+### 6.2 Wire each toggle (× 7)
+
+Each toggle has two poles (two rows of three lugs). Pole 1 switches the pump's power; pole 2 tells the chip which position the lever is in.
+
+1. Find pole 2's middle lug. With the lever **down (AUTO)**, find the outer lug that beeps to it: that one is **A**. With the lever **up (HAND)**, the other outer lug beeps: that is **H**.
+2. Join pole 1's two outer lugs with a short bare link.
+3. Solder five leads and run them to that toggle's group of five holes on the panel board:
+
+    | Lead | From the toggle | To the hole |
+    | --- | --- | --- |
+    | R (rail) | pole 1 middle lug | row AF |
+    | O (out to the pump) | pole 1 link | row AE |
+    | G (ground) | pole 2 middle lug | row AD |
+    | A (auto) | pole 2 lug A | row AC |
+    | H (hand) | pole 2 lug H | row AB |
+
+4. Check from the panel board: R to O beeps at AUTO and at HAND but not at OFF; G to A beeps only at AUTO; G to H only at HAND.
+
+### 6.3 Knob
+
+Six leads from the knob's tabs to the panel board's knob holes: A to AB37, C to X36, B to AE37 (the three-tab side), S1 to Z37 and S2 to AA36 (the two-tab side), and MP, either metal body tab, to AE36. Bundle them with a cable tie. If the knob later turns the wrong way, that is one setting in the firmware, not a rewire.
+
+### 6.4 E-stop
+
+Two stranded 22 AWG leads, twisted together, from the E-stop's two contact screws to a 2-pin plug for the main board's E-STOP header (J3). Leave a service loop near the hinge.
+
+### 6.5 Display and the ribbon
+
+1. **Display:** 14 female-female jumper leads, pin for pin: display pin 1 (VCC) to header J2 pin 1 (AF51), and so on to pin 14 (SD_CS). SDO (pin 9) and CTP_INT (pin 13) are joined to nothing on the board; connect their leads anyway, it does no harm.
+2. **Ribbon:** peel a 15-wide strip, a 10-wide strip and one single lead off the 40-way female-female jumper ribbon. Each lead joins the two pins with the same number (the lid wiring drawing above).
+    - The 15-wide strip: panel TO MAIN A to the main board's header A (column 24).
+    - The single lead: panel A16 (AE44) to the main board's pin A17 (backlight).
+    - The 10-wide strip: panel TO MAIN B to the main board's single pins: 25 (X21), 23 (X25), 22 (X33), 21 (X37), 20 (X41), 19 (X45), the 3-pin piece 17-18-24 (X47-X49) and 26 (P26).
+3. Don't plug the ribbon into the main board yet: the ESP32 has to be flashed first (Stage 7), and the ribbon blocks its USB ports.
+
+**Done when** every toggle passes the check in 6.2, knob A and B each beep to C in turn as you turn it, and S1 beeps to S2 when you press it.
+
+## Stage 7: first power-up, flashing, fitting the chips
+
+Power the bare board first, so a wiring fault can only damage solder and wire, not the chips. Then flash the ESP32 off the board, and fit the chips one step at a time.
+
+### 7.1 Make the two supply leads
+
+Each supply is a certified USB charger, a short USB cable, and a USB-C to 2-pin adapter whose two screws go into a 2-pin plug. Pump supply: the 5 V 3 A USB-C charger into PUMP IN. Logic supply: the 5 V USB-A charger, through a USB-A to USB-C cable, into LOGIC IN. Mark each plug's + side with red marker.
+
+The two leads need different cables: USB-C to USB-C for the pump charger (both ends are USB-C), USB-A to USB-C for the logic charger. Check which kind your 0.25 m cables are; any short cable of the missing kind works.
+
+### 7.2 Power the bare board (no chips, no modules)
+
+Meter on DC volts. Plug the E-stop into E-STOP, released.
+
+1. **Logic charger only.** Black probe on LOGIC IN − (O53).
+    - LOGIC IN + (M53): 4.9 to 5.3 V. A reading of −5 V means the lead is backwards: unplug at once.
+    - ESP32 socket L21 (the dev board's 5 V pin): 4.5 to 5.2 V.
+    - Unplug.
+2. **Pump charger only.** Black probe on PUMP IN − (Q53).
+    - E-STOP pin 1 (U53): 4.9 to 5.3 V.
+    - E-STOP pin 2 (W53): the same with the button released, 0 V with it pressed.
+    - CIRC pin 1 (Z53, the pump rail): 0 V. The relay is off, because nothing drives it yet.
+    - Unplug.
+
+Anything else: unplug and go to Troubleshooting before fitting a chip.
+
+### 7.3 Flash the ESP32 off the board
+
+The ribbon's header stands in front of the ESP32's USB ports, so flash it now, on the bench. To flash it again later (a display setting, a new version), unplug the 15-wide strip from header A; if the USB plug still doesn't reach, lift the ESP32 out of its sockets. Updates over Wi-Fi are not set up yet: the firmware accepts them, but nothing on the server sends one.
+
+The controller runs the PicoFarm firmware, built and flashed with PlatformIO using its `esp32s3` environment.
+
+1. Plug the ESP32 into the computer with a USB-C cable, on the port marked UART (or COM), not the one marked USB.
+2. In a terminal, from the firmware folder:
+
+    ```
+    pio run -e esp32s3 -t upload
+    pio device monitor -b 115200
+    ```
+
+    If the upload can't connect, hold the board's BOOT button, tap RST, release BOOT and try again.
+3. In the monitor, type one line at a time. After `wifi`, and again after `mqtt`, the board restarts by itself: wait for its boot text before typing the next line.
+    - `wifi <your Wi-Fi name> <password>`. A name or password with a space in it needs the JSON form that `help` shows: `{"op":"wifi","ssid":"..","pass":".."}`.
+    - `mqtt <server address> 1884 pf-device <device password>` (the device password is the server's `PF_DEVICE_MQTT_PASS` setting).
+    - `name <a name for this controller>`
+    - `status` prints one line of JSON. `"wifi":"<an IP address>"` means it joined; `"ads":false` and `"temp_probe":false` are expected while nothing is fitted.
+4. Unplug the ESP32 from the computer.
+
+Until the server runs the revision B version, the controller runs on its own panel.
+
+### 7.4 Fit the chips and modules (both chargers unplugged)
+
+1. **ULN2803A** into its socket, notch at the column-20 end. Check that no leg folded under.
+2. **ESP32-S3 board** into its sockets: antenna end at the left edge (column 1), USB ports toward header A.
+3. **ADS1115 modules** into their two sockets, VDD at row A, components up. Either module goes in either socket: the board sets their addresses.
+
+[![Main board, component side, assembled](/media/picofarm/revb/main/board-top.svg)](/media/picofarm/revb/main/board-top.svg)
+
+### 7.5 Power up with the chips (still no panel)
+
+The ribbon isn't plugged in, so you can still reach the ESP32's UART port. First check that the ESP32 board can't push the charger's power back into the computer. Plug a USB-A to USB-C cable into its UART port with nothing on the other end, and plug in the logic charger. Then measure the free USB-A plug's two outer pins (pin 1 to pin 4).
+
+- **0 V:** the board has a diode on that port. Unplug the charger, connect the computer, open the monitor, then plug the charger back in.
+- **About 5 V:** the board has no diode there, or its USB-OTG ("IN-OUT") jumper is bridged. Never connect the computer and the logic charger at the same time. Do this stage on the computer's power alone; the pH and level boards stay unpowered, which is fine here.
+
+1. The monitor shows the boot, including `[sensors] ADS1115 found` and `[panel] power monitor (ADS1115 0x49) found`. `[panel] no MCP23017 at 0x20 ...` is expected until the panel is connected. The relay stays off.
+2. Plug in the pump charger. Within a few seconds of the first sensor reading, the relay clicks on and CIRC pin 1 shows 5 V.
+3. Press the E-stop: the relay drops at once and CIRC pin 1 goes to 0 V. `status` lists `estop` under `alarms`, with `"estop_src":"hardware"`.
+4. Release it. Nothing restarts. Type `restart`: the relay clicks back on.
+
+### 7.6 Connect the panel (both chargers unplugged)
+
+1. Fit the **MCP23017** in its socket, notch at the row-H end.
+2. Plug the ribbon onto the main board's header A and single pins, exactly as numbered.
+3. Plug in the logic charger: the display lights and shows the Overview page. Move each toggle and watch its pump change between AUTO, OFF and HAND on the screen. (Before the panel was plugged in, every switch read as AUTO.)
+
+**Done when** 7.5 and 7.6 behave as written. If the screen stays white or shows mirrored colours, it is one setting in the firmware's board settings file, `board.h` (colour inversion, red/blue order, rotation, touch axes).
