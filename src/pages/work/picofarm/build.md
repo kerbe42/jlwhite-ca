@@ -499,3 +499,124 @@ The ribbon isn't plugged in, so you can still reach the ESP32's UART port. First
 3. Plug in the logic charger: the display lights and shows the Overview page. Move each toggle and watch its pump change between AUTO, OFF and HAND on the screen. (Before the panel was plugged in, every switch read as AUTO.)
 
 **Done when** 7.5 and 7.6 behave as written. If the screen stays white or shows mirrored colours, it is one setting in the firmware's board settings file, `board.h` (colour inversion, red/blue order, rotation, touch axes).
+
+## Stage 8: bench checks
+
+These prove the safety features before any water is near the box. Connect one pump to its plug for the run checks (pH UP is easiest), with its tube in an empty cup. Run every check; tick it off.
+
+| # | Check | How | Expect | If not |
+| --- | --- | --- | --- | --- |
+| 1 | Display backlight current | Power off. Unplug the display's LED lead (pin 8) and put the meter, on its mA range, between header pin 8 and the display's LED pin. Power on. | 10 mA or less | over 10 mA: the backlight needs its own transistor: an S8050 low-side switch for the LED pin on the panel board (GPIO47 → 1k → base) |
+| 2 | 3.3 V under Wi-Fi | Meter between the ESP32 socket's 3V3 (L1) and GND (B1) while it connects to Wi-Fi after a restart. | stays at 3.2 V or more | swap D8 for a spare 1N5822: drill U22 and X22 to 1.6 mm and stand it on end, band in U22, as for D1 |
+| 3 | Relay at boot | Unplug and replug both chargers. | relay off at power-up, then on after the first reading | stop: don't connect pumps until this is right |
+| 4 | Hardware E-stop | Press it while a pump runs. | pump stops at once, `estop` latched, source hardware | |
+| 5 | Restart needed | Release the E-stop. | nothing runs until RESTART (Alarms page, confirm) | |
+| 6 | Software E-stop | Touch E-STOP on the screen while a pump runs. | pump stops, relay drops a moment later | |
+| 7 | OFF cuts power | Toggle at OFF, then ask for a run from the Pumps page. | refused, reason `switch_off`; the pump never moves | the toggle's pole 1 is mis-wired |
+| 8 | HAND | Toggle to HAND. | pump runs, stops after its `max_s`, alarm `hand_timeout` until the toggle leaves HAND | |
+| 9 | Pump budget | Three dosing toggles to HAND together. | two run, the third waits ("waiting: two pumps already running") and starts when one stops | |
+| 10 | Both throws closed | Briefly join a toggle group's A and H holes with a clip lead. | alarm `switch_fault`, that pump treated as OFF | |
+| 11 | Pump supply lost | Unplug the pump charger while a pump runs. | alarm `pump_power` | |
+| 12 | Stuck relay | All toggles OFF. Press the E-stop, release it, and don't RESTART. Clip a lead across the relay's COM and NO. | alarm `relay_fault` | |
+| 13 | Knob | Turn and press it. Meter from R8's far end, hole AB43 on the panel board (the GPIO20 line), to GND, with the knob resting on a click. | focus moves, push presses; AB43 reads under 0.3 V in the positions where the contact is closed | stays near 3 V: GPIO20's USB pull-up is still on (a firmware fix) |
+| 14 | Pump current | Meter on 10 A in series with each pump at its plug; run it, then pinch its outlet tube for a second. | 0.3 A or less running | that pump needs its own driver module, like circulation |
+| 15 | Relay chatter | Watch the alarm list during checks 3-5. | no `relay_open` alarm when the relay closes normally | |
+
+After check 12, remove the clip lead, press CLEAR on the Alarms page (`relay_fault` stays latched; RESTART clears only the E-stop), then RESTART. **Done when** all fifteen pass.
+
+## Stage 9: sensors, pumps and calibration
+
+Wire everything with both chargers unplugged. Every sensor ships as "not installed": after wiring one, switch it on in the dashboard's Manage page (inputs, pumps, level source), or the controller ignores it.
+
+### 9.1 What plugs in where
+
+| Device | Plug | Pin 1 | Pin 2 | Pin 3 | Pin 4 |
+| --- | --- | --- | --- | --- | --- |
+| Low level switch (XKC-Y21) | LOW (J5) | 5 V, brown | signal, yellow | ground, blue | |
+| High level switch | HIGH (J6) | 5 V, brown | signal, yellow | ground, blue | |
+| Emergency level switch | EMERG (J7) | 5 V, brown | signal, yellow | ground, blue | |
+| Leak pads (two stainless screws 5 mm apart) | LEAK (J4) | pad A | pad B | | |
+| Temperature probe (DS18B20) | TEMP (J8) | 3.3 V, red | ground, black | data, yellow | |
+| Ultrasonic board (JSN-SR04T) | JSN (J9), Dupont | 5V | Trig | Echo | GND |
+| pH board (pH-4502C) | pH (J10), Dupont | V+ | G (either of its two) | Po | |
+| TDS board | TDS (J11), Dupont | + | − | A | |
+| pH up, pH down, nutrient A, nutrient B pumps | J14-J17 | pump + (red) | pump − | | |
+| Emergency float switch | FLOAT (J18) | either wire | either wire | | |
+| Refill pump | REFILL (J19) | pump + | pump − | | |
+| Drain pump | DRAIN (J20) | pump + | pump − | | |
+| Circulation module (D4184) | CIRC (J21), two 2-pin plugs | DC+ | DC− | PWM | signal GND |
+
+Notes:
+
+- **Check the level switch's colours on its label or listing first.** If yours has a fourth wire, leave it unconnected until you know what it does.
+- **Solder a 100 nF capacitor across each brushed pump's two terminals,** at the motor (dosing, refill and drain pumps). It stops the motors' noise reaching the pH probe.
+- **The float switch** goes above the high level switch. Fitted as in Stage 2, it is closed with the float down and opens when the water lifts it, cutting the refill pump's power whatever the firmware does.
+- **The circulation pump** goes on the D4184 module's output terminals, not on the board.
+- **The leak pads** sit at the lowest point of the tray under the tank.
+- **Probe leads** (BNC, TDS, temperature) stay apart from the pump leads, and the pH and TDS boards sit together on the sensor side of the box.
+
+### 9.2 Check each input
+
+For each level switch, hold water against the tank wall at its height, then take it away, and watch the screen. If a switch reads the wrong way round, flip its `alarm` setting in Manage ("open" or "closed"); no rewiring is needed. Wet the leak pads with a damp finger: `leak` latches and the relay drops. Clear it from the Alarms page.
+
+### 9.3 Calibrate
+
+Calibrate with the circulation pump running, as it will be in use. Rinse the probes in clean water between buffers.
+
+1. **pH offset (once):** probe in the pH 7.00 buffer. Turn the pH board's offset trimmer (the one nearest the BNC socket) until the Calibration page shows about 1.67 V.
+2. **pH supply sensitivity:** still in pH 7.00, note the page's voltage and the voltage at LOGIC IN +. Swap the logic charger for another 5 V supply and read both again. More than about 10 mV of change on the page for every 100 mV of supply difference needs a firmware correction (compensation from the power monitor's logic 5 V reading, a follow-up).
+3. **pH points:** on the Calibration page, store pH 7, then pH 4, then pH 10, each once the reading has been steady for a minute.
+4. **EC:** TDS probe in the 1413 µS/cm standard at room temperature; store EC 1413.
+5. **Level:** with the tank empty, type `cal level empty` on the serial monitor; fill it to its working level, then `cal level full`.
+6. **Pump flow:** for each dosing pump, run it 30 s into a measuring cup and enter the result: `cal flow ph_up 30 <ml>`.
+7. Store the pH probe in its cap with a few drops of the KCl storage solution, never dry and never in plain water.
+
+### 9.4 The box
+
+The printed enclosure isn't drawn yet. Its requirements are settled:
+
+- inner floor at least 190 × 160 mm, 70 mm inside height;
+- plastic, with no metal within 15 mm of the ESP32's antenna end;
+- cable glands on the bottom and lower sides only, with a drip loop under each;
+- a lid that hinges on the ribbon edge;
+- the box mounted above the reservoir rim.
+
+Until it is drawn, run the controller on the bench.
+
+### 9.5 Final checklist
+
+- [ ] Both boards passed their resistance checks (4.12, 5.6)
+- [ ] Supplies, relay and E-stop behaved as in 7.2 and 7.5
+- [ ] All fifteen bench checks passed (Stage 8)
+- [ ] Every sensor is switched on in Manage and reads right (9.2)
+- [ ] pH, EC, level and pump flow are calibrated (9.3)
+- [ ] Every plug is labelled, and every lead is strain-relieved at its gland
+- [ ] The controller shows on the dashboard and the app, and a setpoint changed on the panel appears there (after the server update)
+
+## Troubleshooting
+
+Unplug both chargers before you touch a joint. Most faults in a hand-wired board are a bridge, a dry joint or a part the wrong way round, in that order.
+
+| Symptom | Likely cause | What to do |
+| --- | --- | --- |
+| −5 V at a supply input | the 2-pin adapter's leads are swapped | swap them at the plug; the clamp diode has protected the board |
+| 0 V at a supply input | the USB-C adapter has no CC resistors, so the charger never switches on; or a fuse has tripped | measure CC (Stage 2); unplug for a minute to reset the fuse, then look for a short |
+| A fuse gets hot, or the supply keeps cutting out | a short on that supply | unplug; beep that supply's + to its − and find the bridge |
+| The relay never clicks | E-stop pressed or unplugged; `estop` still latched; Q2 the wrong way round | release it and RESTART; check Q2's flat face |
+| Relay on, but a pump doesn't run | its toggle at OFF; low water blocks dosing; two pumps already running; ULN2803A not seated | read the refusal reason on the Pumps page |
+| A pump runs backwards | its leads are swapped | swap them at its plug |
+| The ESP32 won't boot, or reboots in a loop | something pulls the knob's push line (GPIO45) high; 3.3 V sags | redo the last row of 5.6; Stage 8 check 2 |
+| An ADS1115 isn't found | module in backwards; a dry header joint; a bridge on SDA or SCL | VDD at row A; reflow its header |
+| Display white or colours wrong | panel settings | one setting in the firmware's `board.h` |
+| Touch doesn't respond | CTP leads (display pins 10-12) | check those three leads and W61-W63 |
+| A toggle shows HAND at AUTO | its A and H leads swapped | swap the two leads at the toggle |
+| `switch_fault` | A and H both closed: a bridge in that toggle's group | look at its five holes |
+| The knob turns the wrong way | normal for some knobs | one setting in `board.h` |
+| pH jumps while a pump runs | expected for dosing pumps: the controller pauses pH readings then | if it jumps with circulation only, move the probe lead away from the pump leads |
+| pH stuck near 7.0 | probe unplugged or dry; an old probe | reseat the BNC; soak the probe in KCl for an hour; recalibrate |
+| Leak alarm with no water | condensation or dirt between the pads | clean and dry them; raise them off the tray floor slightly |
+| `relay_open` when the relay closes | the rail reading arrives late | note it; the firmware's margin may need raising |
+
+## Parts
+
+The parts for a controller are the ones named through this guide: the ESP32-S3 dev board, two ADS1115 modules, the MCP23017, the ULN2803A, the SRD-05VDC-SL-C relay, the D4184 module, the 3.5" ST7796 display, the EC11 knob, seven MTS-203 toggles, the 22 mm NC E-stop, the buzzer, the PTC fuses, the diodes, capacitors and resistors listed in Stages 4 and 5, the pluggable terminals and headers, two 9 × 15 cm double-sided protoboards (plus spares to practise on), and the sensors and pumps in 9.1. Buy two certified 5 V 3 A USB-C chargers (CSA or UL mark) locally for the pumps; 5 V USB-A chargers do the logic side unless Stage 8 check 2 fails.
