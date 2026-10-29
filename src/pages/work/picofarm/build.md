@@ -135,6 +135,12 @@ The wire lists warn that on the main board 103 pairs of different signals run ba
 
 Work from the lowest parts to the tallest, so the board lies flat while you solder. Then lay the wiring on the solder side, where every joint is still in reach. Fit no module and no chip in this stage: only their sockets.
 
+What it looks like when done, rendered from the layout files: the component side with every module fitted, then the solder side with the bare runs and the coloured wires.
+
+[![Main board on protoboard, finished, component side: the ESP32-S3 dev board on its sockets across the top left, the two blue ADS1115 modules beside it, the Dupont strips of the panel ribbon, the ULN2803A below the dev board, relay K1 legs-up with its four leads, the capacitors, fuses and standing diodes on the right, and the green pluggable terminals along the bottom, left and right edges](/media/picofarm/revb/main/main-render.webp)](/media/picofarm/revb/main/main-render.webp)
+
+[![Main board on protoboard, finished, solder side, seen from the back with column 1 on the right: the tinned bare runs along the holes with a solder joint at every pin, and the red, black, yellow, blue, green and white insulated wires laid flat with square bends over them](/media/picofarm/revb/main/main-render-bottom.webp)](/media/picofarm/revb/main/main-render-bottom.webp)
+
 [![Main board, component side, with the modules lifted: every part, socket and hidden wire](/media/picofarm/revb/main/board-top-open.svg)](/media/picofarm/revb/main/board-top-open.svg)
 
 ### 4.1 Prepare the board
@@ -290,6 +296,12 @@ Scrub the solder side with isopropyl alcohol and the toothbrush, let it dry, the
 ## Stage 5: the panel board, in solder order
 
 The panel board hangs behind the lid and carries the toggle-switch chip (MCP23017), the knob filters, the buzzer and the display header. Same method as the main board: low parts first, wiring last. Mark the rows and columns first, as in 4.1.
+
+What it looks like when done, rendered from the layout files: the component side, then the solder side.
+
+[![Panel board on protoboard, finished, component side: the seven toggle lead groups as columns of five coloured wire stubs along the bottom left, the pull-up resistors lying across the lanes above them, the MCP23017 in its socket, the buzzer with its diode and transistor in the top right corner, and the ribbon’s Dupont strips along the bottom edge and up the right edge beside the display header’s strip](/media/picofarm/revb/panel/panel-render.webp)](/media/picofarm/revb/panel/panel-render.webp)
+
+[![Panel board on protoboard, finished, solder side, seen from the back: the rail and ground bare runs along the bottom edge, the pull-up teeth and the straight lanes, the red pump-feed wires nested above the switch groups, and the white, green, yellow, blue and black signal wires running up to the chip and across to the ribbon header](/media/picofarm/revb/panel/panel-render-bottom.webp)](/media/picofarm/revb/panel/panel-render-bottom.webp)
 
 [![Panel board, component side](/media/picofarm/revb/panel/board-top.svg)](/media/picofarm/revb/panel/board-top.svg)
 

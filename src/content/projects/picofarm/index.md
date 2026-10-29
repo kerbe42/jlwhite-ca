@@ -199,6 +199,12 @@ The first unit is hand-wired on two 9 × 15 cm protoboards, drawn hole by hole f
 
 *The main board, component side, with the modules lifted off their sockets. Open the drawing on its own to zoom in on the hole labels.*
 
+![An angled render of the main board as built on protoboard, from its layout files: the black ESP32-S3 dev board on its sockets across the top left with its antenna past the board edge, the two blue ADS1115 modules lying on their sockets beside it, the panel ribbon’s Dupont strips standing between them, the ULN2803A in its socket below the dev board, the blue relay K1 glued legs-up with its four leads, the two 1000 µF capacitors, the two yellow PTC fuses and the standing 1N5822 diodes on the right, the seven pump plugs in one green row along the bottom edge, the sensor plugs on the left edge and the supply, E-stop and circulation plugs on the right](./main-protoboard-render.png)
+
+![An angled render of the panel board as built on protoboard, from its layout files: the seven toggle lead groups as columns of five coloured wire stubs along the bottom left, the fourteen pull-up resistors lying across the lanes above them, the MCP23017 in its socket, the black buzzer with its clamp diode and driver transistor in the top right corner, and the ribbon’s Dupont strips standing along the bottom edge and up the right edge beside the display header’s own strip](./panel-protoboard-render.png)
+
+*Renders of the protoboard build from its layout files, the same data as the drawings and the wire lists: the main board and the panel board with every part and module fitted. The build instructions also show each board’s solder side with its bare runs and coloured wires.*
+
 [![The lid wiring: the ribbon leads between the panel board and the main board, a toggle with its five leads (rail, out, ground, auto, hand), the knob’s six leads, the E-stop pair to the main board and the display’s fourteen leads](/media/picofarm/revb/lid-wiring.svg)](/media/picofarm/revb/lid-wiring.svg)
 
 The **[build instructions](/work/picofarm/build)** take one controller from the first solder joint to a calibrated unit in nine stages, each ending with a meter check, with the board drawings and the two [wire lists](/work/picofarm/wire-lists). The printed enclosure comes after the bench unit: its requirements (a 190 × 160 mm floor, 70 mm inside, glands low on the walls with drip loops, a hinge on the ribbon edge, the box above the reservoir rim) are settled, the drawing isn't.
