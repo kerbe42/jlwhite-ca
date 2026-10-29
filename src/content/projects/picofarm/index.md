@@ -18,6 +18,12 @@ It grew out of [PicoPH](/builds/picoph), the Raspberry Pi Pico monitor that has 
 
 This page describes revision B of the controller. The firmware, the server with its process screen and the Android app are built and running against a simulated controller; the revision B circuit has been designed and reviewed, down to a hole-by-hole drawing of the first hand-wired unit, and the parts are ordered. The bench build is next. You can [try the process screen](https://picofarm.jlwhite.ca) in your browser against a simulated reservoir, and the [build instructions](/work/picofarm/build) are on their own page.
 
+## Try the live demo
+
+[![The PicoFarm process screen running in the live demo: the seven pumps with their hand-off-auto tags, the pump power line with the E-stop circuit live and the K1 relay closed, the reservoir at 62 % with its level switches, pH 6.42, EC 1.30 mS/cm and 21.6 °C with their trends, and the event log of automatic doses](./demo-live.png)](https://picofarm.jlwhite.ca)
+
+**[Open the live demo](https://picofarm.jlwhite.ca).** The dashboard runs entirely in your browser against a simulated revision B controller: the reservoir drifts, the controller doses it back into range, and the circulation pump cycles. The menu at the bottom simulates faults (a leak, low water, a pH probe fault, a switch left in HAND, the E-stop pressed, a blown pump fuse, a welded relay) so you can watch the interlocks react, and the settings page has the crop profiles, the calibration and the firmware update. Nothing in the demo reaches real equipment.
+
 ## How it fits together
 
 ![The PicoFarm architecture: ESP32 controllers, one per reservoir, connect over the home Wi-Fi to an MQTT broker on a home server, which also runs a FastAPI service, SQLite history, alert thresholds, a REST API, push alerts and a process control screen; the Android app connects at home or away over a VPN, alerts reach the phone, and the process screen opens in a browser. Interlocks, run limits, automatic dosing and the watchdog run on each controller.](./architecture.svg)
