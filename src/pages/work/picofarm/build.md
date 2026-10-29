@@ -135,6 +135,12 @@ The wire lists warn that on the main board 103 pairs of different signals run ba
 
 Work from the lowest parts to the tallest, so the board lies flat while you solder. Then lay the wiring on the solder side, where every joint is still in reach. Fit no module and no chip in this stage: only their sockets.
 
+[![A flat top-down drawing of the hand-wired main board to scale, component side: a 9 × 15 cm perfboard with every hole shown, the black ESP32-S3 dev board at the top left, the two blue ADS1115 modules marked 0x48 and 0x49, the ULN2803A in its socket, the blue relay K1 glued legs-up with its red and white flying leads, the two 1000 µF capacitors, the two yellow PTC fuses and the two standing 1N5822 diodes, the resistors with their colour bands, the single-pin and multi-pin headers for the panel leads, and the green pluggable terminals along three edges, each named](/media/picofarm/revb/main/main-protoboard-2d.png)](/media/picofarm/revb/main/main-protoboard-2d.png)
+
+[![The hand-wired main board’s solder side, mirrored as the builder sees it: the perfboard holes, the tinned bare runs in grey, the red, black, yellow, blue, green and white insulated wires lying over them, a solder joint on every pin, and the parts’ outlines and references ghosted through the board](/media/picofarm/revb/main/main-protoboard-2d-solder.png)](/media/picofarm/revb/main/main-protoboard-2d-solder.png)
+
+*The finished main board, component side and solder side (the solder side mirrored, as you see it with the board turned over). 2D renders to scale, drawn from the protoboard layout files: every hole, part, bare run and wire is where the wire list puts it. The hole-by-hole drawing below is the one to work from.*
+
 [![Main board, component side, with the modules lifted: every part, socket and hidden wire](/media/picofarm/revb/main/board-top-open.svg)](/media/picofarm/revb/main/board-top-open.svg)
 
 ### 4.1 Prepare the board
@@ -290,6 +296,12 @@ Scrub the solder side with isopropyl alcohol and the toothbrush, let it dry, the
 ## Stage 5: the panel board, in solder order
 
 The panel board hangs behind the lid and carries the toggle-switch chip (MCP23017), the knob filters, the buzzer and the display header. Same method as the main board: low parts first, wiring last. Mark the rows and columns first, as in 4.1.
+
+[![A flat top-down drawing of the hand-wired panel board to scale, component side: the MCP23017 in its socket, its 14 pull-up resistors to the left, the black buzzer with its transistor and diode at the top right, the knob’s filter resistors and capacitors, the display header and the two headers for the leads to the main board with their coloured wire ends, and the seven groups of five coloured wire stubs for the toggles along the bottom edge](/media/picofarm/revb/panel/panel-protoboard-2d.png)](/media/picofarm/revb/panel/panel-protoboard-2d.png)
+
+[![The hand-wired panel board’s solder side, mirrored as the builder sees it: the perfboard holes, the grey bare runs, the green, white, red, yellow, blue and black insulated wires, the solder joints, and the parts’ outlines and references ghosted through the board](/media/picofarm/revb/panel/panel-protoboard-2d-solder.png)](/media/picofarm/revb/panel/panel-protoboard-2d-solder.png)
+
+*The finished panel board, component side and solder side (mirrored). 2D renders to scale, drawn from the protoboard layout files: every hole, part, bare run and wire is where the wire list puts it.*
 
 [![Panel board, component side](/media/picofarm/revb/panel/board-top.svg)](/media/picofarm/revb/panel/board-top.svg)
 
