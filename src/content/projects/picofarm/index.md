@@ -3,9 +3,10 @@ title: 'PicoFarm: a stand-alone controller that measures, doses and protects a h
 world: work
 date: 2026-10-29T12:00:00Z
 summary: "My hydroponics monitoring and control system. A controller with a 3.5\" touch screen, a knob and an AUTO/OFF/HAND switch per pump measures pH, EC, water temperature and level and runs seven pumps behind a hardware E-stop and a master relay, all on low-voltage DC. A home server keeps the history, sends push alerts and shows a process control screen; an Android app watches and controls it from the phone. Revision B is designed and reviewed; the bench build is next."
-featured: false
+featured: true
+featuredRank: 5
 cover: ./cover.png
-coverAlt: "PicoFarm in four steps: the reservoir is measured (pH, EC, temperature, level and leak), an ESP32 acts (seven pumps, interlocks, automatic dosing), a home server records (MQTT broker, history, alerts, dashboard) and an Android app shows it at home or over a VPN; the safety logic runs on the controller and keeps working if the server is down"
+coverAlt: "PicoFarm: the printed main board drawn to scale, with the ESP32-S3, the two ADS1115 converters, the relay and the sensor and pump plugs; beside it the controller’s Overview screen and the printed panel board"
 tags: ['hydroponics', 'esp32', 'electronics', 'mqtt', 'fastapi', 'android', 'python', 'self-hosted']
 draft: false
 ---
@@ -54,6 +55,10 @@ The controller is a box with a front panel and two circuit boards, running on 5 
 - **Seven AUTO / OFF / HAND toggles**, one per pump, in the firmware's pump order: pH UP, pH DN, NUTR A, NUTR B, REFILL, CIRC, DRAIN.
 - A **22 mm latching E-stop** with a normally closed contact, wired into the pumps' power, and a **buzzer** for critical alarms.
 
+![Eight screens of the controller’s network setup, rendered from the firmware’s own screen code: the Network page with the Wi-Fi network, the address, the server link and the device; the list of Wi-Fi networks with their signal strength and a lock on the secured ones; a password typed on the on-screen keyboard; the IP settings with a static address; the server’s address, port and login; the offline-mode confirmation; the Network page in offline mode; and the Network page reporting a wrong Wi-Fi password and a refused server connection](./network-screens.png)
+
+*Network setup on the controller itself: a Wi-Fi scan and password entry, DHCP or a static address, the server and its login, and an offline mode in which the controller runs everything with no server at all. Every dialog works by touch and by the knob. The networks and addresses are made-up examples.*
+
 **Inside:**
 
 - An **ESP32-S3** dev board (DevKitC-1 layout, with PSRAM for the display buffers). The design needs 27 GPIOs, which the classic ESP32 can't offer; the S3 also has a pull-up on every pin and no input-only pins.
@@ -63,13 +68,25 @@ The controller is a box with a front panel and two circuit boards, running on 5 
 - A **master relay K1** in the pump rail, driven by an S8050 transistor from one GPIO.
 - A **main board** (130 × 110 mm) on the floor of the box with pluggable terminals on three edges (sensors on the left, pumps along the bottom, the supplies, E-stop and circulation module on the right), and a **panel board** (120 × 70 mm) behind the lid with the port expander, the knob's filters, the buzzer and the display header. A 26-way ribbon joins them.
 
+The firmware is plain C++ with a control core that has no hardware calls, so the same code runs on the controller and on a PC, where more than 100 host tests exercise the interlocks, the E-stop, the hand-off-auto states, the dosing order, dilution, the limits, the calibration maths and alarms that survive a reboot. The front panel's screens are rendered on a PC from the same code and fonts, which is where the pictures above come from.
+
+## The printed boards
+
+Both boards are laid out in KiCad from the same Python netlists the protoboard drawings come from, and placed and routed for the reviewed circuit: two layers, 1.6 mm thick, 1 oz copper. KiCad’s design-rule check finds no errors and no unconnected pads on either. The main board (130 × 110 mm, 82 parts) sits on the floor of the box; the panel board (120 × 70 mm, 47 parts) hangs behind the lid.
+
 ![A flat top-down drawing of the revision B main board to scale: the black ESP32-S3 dev board on its two sockets at the top left with its silver module, antenna and two USB-C ports; the two blue ADS1115 modules marked 0x48 and 0x49 in the middle; the ULN2803A in its socket at the bottom; the blue relay K1, the two 1000 µF capacitors, the two yellow PTC fuses and the 1N5822 diodes on the right; the seven green pump plugs along the bottom edge labelled pH UP, pH DN, NUTR A, NUTR B, FLOAT, REFILL and DRAIN; the LEAK, LOW, HIGH, EMERG and TEMP sensor plugs down the left edge; the LOGIC IN, E-STOP, PUMP IN and CIRC plugs on the right; the grey ribbon plug for the panel at the top right; the resistors with their colour bands, the diodes with their cathode bands, the copper tracks and the silkscreen](./main-board-2d.png)
 
 ![A flat top-down drawing of the revision B panel board to scale: the display header’s black Dupont housing hanging off the left edge with its fourteen coloured wires; the MCP23017 in its socket between its two rows of seven 10 kΩ pull-up resistors; the grey ribbon plug marked J1 MAIN with its red pin-1 edge along the top; the knob’s six wire pads marked A, B, C, S1, S2 and MP with its filter resistors and capacitors on the right; the black buzzer and its S8050 transistor; and the seven groups of five coloured wire stubs along the bottom edge, marked R, O, G, A and H under the names pH UP, pH DN, NUTR A, NUTR B, REFILL, CIRC and DRAIN](./panel-board-2d.png)
 
 *The printed main board and panel board: 2D renders to scale, drawn from the board design files (every position, pad and outline comes from the KiCad board; the parts are their real outlines seen from above). The first unit is hand-wired on protoboard; the printed boards follow once it passes its bench tests.*
 
-The firmware is plain C++ with a control core that has no hardware calls, so the same code runs on the controller and on a PC, where more than 100 host tests exercise the interlocks, the E-stop, the hand-off-auto states, the dosing order, dilution, the limits, the calibration maths and alarms that survive a reboot. The front panel's screens are rendered on a PC from the same code and fonts, which is where the pictures above come from.
+The tracks are sized by what they carry: 1.0 mm for the supply input, the fuses, the E-stop node, the pump rail and the pump ground (up to 2.5 A); 0.5 mm for each pump output, the switch lines, the flyback diodes, the relay coil and the logic supplies; 0.25 mm for signals. The silkscreen carries the orientation marks a builder needs: the dev board’s antenna, pin 1, 5V, GND and USB, the ADS1115 outlines and VDD, capacitor polarity, diode bars, socket notches, the ribbon header’s key, and a label beside every plug.
+
+![The routed copper of the main board seen from the component side: red tracks on the top layer and blue tracks on the bottom layer, wide supply and pump-rail tracks on the right, the ESP32-S3’s two socket rows at the top left, the ribbon header at the top right, and the plug pads along the left, bottom and right edges](./main-board-copper.png)
+
+![The routed copper of the panel board seen from the component side: red tracks on the top layer and blue tracks on the bottom layer, the MCP23017’s two pin rows in the middle, the ribbon header at the top right, the display header pads down the left edge and the seven groups of switch pads along the bottom](./panel-board-copper.png)
+
+*The routed copper of both boards, seen from the component side: red is the top layer, blue the bottom.*
 
 ## The safety chain
 
