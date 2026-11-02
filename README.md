@@ -30,7 +30,7 @@ public/favicon.svg
 
 ## Common tasks
 
-**Run locally**
+**Run locally** (Node 22.23.4 or newer; see `.node-version`)
 
 ```bash
 npm install
@@ -75,4 +75,5 @@ Cloudflare Pages, connected to this repo:
 
 - Build command: `npm run build`
 - Output directory: `dist`
+- Node version: read from `.node-version`
 - Custom domain: `jlwhite.ca` (replaces the Namecheap parking redirect)
