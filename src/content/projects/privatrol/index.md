@@ -54,7 +54,9 @@ Findings roll up into an A to F grade from eight weighted sub-scores, a breach-r
 
 ## How it works
 
-It is passive by default. Collection reads public information: routing and address data published by the providers, certificate transparency logs, DNS, vulnerability catalogs, breach indexes, regulator filings and archived pages. When it touches the organization's own systems it does only what any visitor does. Every query leaves through a commercial VPN exit, and that rule fails closed: if the tunnel is down, the run stops before its first query.
+It is passive by default. Collection reads public information: routing and address data published by the providers, certificate transparency logs, DNS, vulnerability catalogs, breach indexes, regulator filings and archived pages. When it touches the organization's own systems it does only what any visitor does. By default every query leaves through a commercial VPN exit, and that rule fails closed: if the tunnel is down, the run stops before its first query. The operator can choose the server's own connection instead, for everything or per kind of lookup (websites and sources, web searches, scanning tools), after being told who would then see the address; a lookup left on the VPN never falls back to the direct connection.
+
+A Status page shows, in one sentence and then source by source, whether the connection, the services and each data source are working, degraded, down or need setup, judged on their last three scans. An alert goes out when a source stops working and again when it recovers.
 
 An optional active tier exists for assessments the target has agreed to in writing. It is off by default, admin-only, and recorded in the audit log.
 
