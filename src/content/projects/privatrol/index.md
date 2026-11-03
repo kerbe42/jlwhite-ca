@@ -13,7 +13,7 @@ draft: false
 
 ## What it is
 
-Privatrol answers one question about an organization from the outside: is its data kept where the laws of the countries it operates in allow? It finds where each service keeps its data (mail, files, collaboration, mail filtering, web hosting, software-as-a-service), works out where the organization operates, and checks each location against law data for **91 jurisdictions and 119 laws**, every entry with its sources.
+Privatrol answers one question about an organization from the outside: is its data kept where the laws of the countries it operates in allow? It finds where each service keeps its data (mail, files, collaboration, mail filtering, web hosting, software-as-a-service), works out where the organization operates, and checks each location against law data for **91 jurisdictions**, every entry with its sources.
 
 Every result is a *potential* issue found from outside. It names the law, the citation and the document to ask for, such as a transfer assessment, contract clauses or a data-region setting. An outside view cannot see contracts, and the tool says so.
 
