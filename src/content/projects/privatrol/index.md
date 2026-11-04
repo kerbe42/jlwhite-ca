@@ -6,7 +6,7 @@ summary: "A self-hosted OSINT tool that finds where an organization's data is ke
 featured: true
 featuredRank: 2
 cover: ./cover.png
-coverAlt: "The Privatrol mascot: a troll in silhouette dragging a club and shining a flashlight across a document and a globe"
+coverAlt: "Privatrol's lighthouse logo beside an illustrative result for a fictional company: where its mailboxes, files and hosting are kept, how sure each location is, and the document to ask for"
 tags: ['osint', 'privacy', 'data-residency', 'vendor-risk', 'mergers-and-acquisitions', 'fastapi']
 draft: false
 ---
