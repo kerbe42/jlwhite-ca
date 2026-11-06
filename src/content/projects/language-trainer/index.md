@@ -2,11 +2,11 @@
 title: 'Language Trainer: a language teacher in the browser that listens when you speak'
 world: work
 date: 2026-10-06
-summary: "Piano and Guitar Trainer's sibling for languages. You say every word out loud: it shows how each one sounds, waits while you take your time, and coaches the words you miss one at a time. Every course starts very simple and ramps up slowly. Spanish has a full 78-day course with a library of stories; starter courses in fourteen more languages, from French and German to Japanese and Hindi, are live, every language has a patient sound practice for the words you stumble on, and English has a speech practice site of its own."
+summary: "Piano and Guitar Trainer's sibling for languages. You say every word out loud: it shows how each one sounds, waits while you take your time, and coaches the words you miss one at a time. Every course starts very simple and ramps up slowly. Spanish has a full 156-day course, beginner to elementary (A1 and A2), with a library of stories; starter courses in fourteen more languages, from French and German to Japanese and Hindi, are live, every language has a patient sound practice for the words you stumble on, and English has a speech practice site of its own."
 featured: true
 featuredRank: 1
 cover: ./cover.jpg
-coverAlt: "Language Trainer’s language picker: a card for each language with a greeting in its own script and how it sounds, ¡Hola! (OH-lah) with the 78-day course, then Bonjour, Hallo, Hoi, Ciao, Olá, Γεια σου and Hei"
+coverAlt: "Language Trainer’s language picker: 16 ready now, a card for each language with a greeting in its own script and how it sounds: ¡Hola! (OH-lah) with the 156-day course, Hello for speech practice, then Bonjour, Hallo, Hoi, Ciao, Olá and Γεια σου, each a starter course"
 tags: ['language-learning', 'spanish', 'french', 'german', 'japanese', 'korean', 'hindi', 'english', 'speech', 'pronunciation', 'javascript', 'education']
 draft: false
 ---
@@ -15,7 +15,7 @@ draft: false
 
 Language Trainer is the language version of [Piano Trainer](/work/piano-trainer) and [Guitar Trainer](/work/guitar-trainer): a teacher in the browser that hears your answers, keeps you on each exercise until it's right, and helps when it isn't. It needs no account and nothing installed. Pick a language at **[language.jlwhite.ca](https://language.jlwhite.ca)**; each one is a site of its own, such as [spanish.jlwhite.ca](https://spanish.jlwhite.ca), and can also be opened straight from a folder of files, offline (speech recognition is the one part that may need a connection, see below).
 
-It started as Spanish Trainer, and Spanish is still the most complete: a 78-day course and a library of stories, described below. The same app now teaches other languages from the same code, each with a starter course first (see **More languages**).
+It started as Spanish Trainer, and Spanish is still the most complete: a 156-day course in two levels and a library of stories, described below. The same app now teaches other languages from the same code, each with a starter course first (see **More languages**).
 
 The Spanish is Latin American, as it's spoken from Mexico to Argentina: *ustedes* for "you all" and never *vosotros*, *seseo* in the voices, *carro*, *celular* and *computadora*.
 
@@ -33,7 +33,7 @@ There are three ways to answer, and you can switch at any time:
 
 ## The Spanish course
 
-The course is 78 days over thirteen weeks, from saying hello to the preterite and the imperfect, commands, *por* and *para*, and a graduation conversation, about 1,100 words in all. It starts very simple and ramps up slowly, by rule: the first three days teach about eight words each, in sentences of one to three words, with a four-line conversation, no reading yet, and only listening, repeating and saying; building sentences comes in on day 4, typing on day 6, filling gaps on day 10, writing what you hear on day 15, and the past tenses after day 60. The build measures every day of every course against the same ramp, so no course can quietly get harder too soon.
+The course is 156 days over twenty-six weeks, in two levels. The first thirteen weeks (A1) go from saying hello to the preterite and the imperfect, commands, *por* and *para*, about 1,100 words. The next thirteen (A2) add about 1,050 more: telling a story in the past, the present perfect, travel, health, work and study, home life, polite requests with the conditional, restaurants and recipes, childhood, comparing, phone calls and appointments, celebrations and customs, and the future, ending in an A2 check. From A2 on, *say it with me* has you say each sentence along with the voice, as many times as you like, before saying it on your own. It starts very simple and ramps up slowly, by rule: the first three days teach about eight words each, in sentences of one to three words, with a four-line conversation, no reading yet, and only listening, repeating and saying; building sentences comes in on day 4, typing on day 6, filling gaps on day 10, writing what you hear on day 15, and the past tenses after day 60. The build measures every day of every course against the same ramp, so no course can quietly get harder too soon.
 
 ![The course home: level and XP, today’s goal, a button to start day one, and the first two weeks of days, from ¡Hola! and ¿Cómo estás? to Hay and Mi familia y mi casa](./course.jpg)
 
