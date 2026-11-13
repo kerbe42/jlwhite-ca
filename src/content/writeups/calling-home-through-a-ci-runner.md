@@ -71,3 +71,68 @@ So the lesson I'm taking isn't only about CI runners. It's that an AI agent with
 - **A way in shouldn't depend on one VM.** My second path was an accident of owning a CI runner. The replacement will be a deliberate one that doesn't live on the cluster.
 - **An exit node is a single point of failure for everything that routes through it.** When it's gone, those devices lose more than the lab.
 - **The access you've already granted is the attack surface.** The runner was the route, but the thing that made the route trivial to walk was a laptop where the shell, the keys, and a signed-in CLI were all sitting open together. That's worth an audit on its own — mine's happening this week.
+
+## If you really want the technical details: here's what it did
+
+Everything above is the gist. If you want the mechanism, here it is — but read it as something to *recognise on your own network*, not a recipe. The addresses, branch names and key names are placeholders for mine; the commands are the real ones, because the defence is in knowing what they look like going past.
+
+Three moving parts: a workflow that fires on a push, a script that opens a door outward, and a one-line client on my laptop that rides it back in.
+
+**1. One push, one run.** A throwaway branch — call it `ops` — carrying a single workflow and nothing else, so the repo's real pipeline never fires:
+
+```yaml
+name: ops
+on:
+  push:
+    branches: [ops]
+permissions:
+  contents: write        # the script publishes the tunnel address back to a branch
+jobs:
+  run:
+    runs-on: [self-hosted, my-runner-label]
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+      - run: bash cmd.sh
+```
+
+`runs-on` is the whole move: that label pins the job to my home runner. Pushing the branch is the trigger; the runner picks the job up over the connection it already holds open to GitHub, and runs `cmd.sh` inside the house. Nothing reached *in* — the runner reached out and asked for work, the way it always does.
+
+**2. The payload opens a door outward, not inward.** `cmd.sh` fetches Cloudflare's tunnel client and points a quick tunnel at exactly one internal SSH port:
+
+```bash
+curl -fsSL -o cloudflared <cloudflared release url>
+chmod +x cloudflared
+./cloudflared tunnel --no-autoupdate --url ssh://10.0.0.10:22 &
+```
+
+That `tunnel --url` is an *outbound* connection to Cloudflare's edge. No port is opened on my firewall and nothing starts listening; the runner dials out, and Cloudflare hands back a random `https://<words>.trycloudflare.com` name that now fronts that one SSH port. The script scrapes the name out of the log and leaves it where the laptop can find it — a second orphan branch, `ops-addr`, holding a single file:
+
+```bash
+addr=$(grep -oE "https://[a-z0-9-]+\.trycloudflare\.com" cf.log | head -1)
+git checkout -q --orphan ops-addr
+echo "${addr#https://}" > addr.txt
+git add addr.txt && git commit -qm x && git push -qf origin HEAD:ops-addr
+```
+
+Then it holds the tunnel open for about forty-five minutes and kills it — no standing door left behind.
+
+**3. The way back in, with a key that never leaves the laptop.** On my side it's one `ssh`, with a ProxyCommand that lets Cloudflare's client terminate the tunnel locally:
+
+```bash
+ssh -o ProxyCommand="cloudflared access ssh --hostname %h" \
+    -o HostKeyAlias=jump.lab.internal \
+    -o IdentitiesOnly=yes \
+    -i ~/.ssh/id_ed25519_lab \
+    me@<words>.trycloudflare.com
+```
+
+The tunnel only forwards bytes; it never sees the key. `IdentitiesOnly` with `-i` offers only my key and nothing from the agent, and `HostKeyAlias` pins the far end's host key — so a different machine answering that random name gets refused, not trusted. From that shell the ordinary jump worked (`ssh -J 10.0.0.10 hypervisor`), I started the exit-node VM, and it answered within the minute. Afterwards both throwaway branches came down.
+
+**What a defender sees — and where to stand.** Every step leaves a mark if something is watching, and each mark is a place to stop it:
+
+- A **new workflow file on an unreviewed branch.** Branch protection and required review on `.github/workflows/**` end it before it runs.
+- The **runner resolving and connecting to a tunnel provider** — `*.trycloudflare.com`, Cloudflare's edge on UDP/7844 — when its only legitimate conversation is with GitHub. An egress allow-list that lets the runner reach GitHub and nothing else kills the whole technique, my rescue and an intruder's pivot alike. This is the single highest-value control.
+- An **orphan branch that appears and vanishes**, and a **runner opening an outbound SSH session** — each is strange enough on its own to deserve an alert.
+
+None of it needed an exploit. It needed a machine that calls out, the ability to put a job on it, and a key that was already sitting on my laptop. That's the uncomfortable part — and it's why the fixes are about reach and identity, not patches.
