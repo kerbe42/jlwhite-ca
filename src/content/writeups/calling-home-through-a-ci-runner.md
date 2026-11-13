@@ -1,106 +1,73 @@
 ---
-title: 'Locked out by a power cut: calling home through my own CI runner'
+title: 'Locked out by a power cut, let back in by my own CI runner'
 date: 2026-11-13
-summary: 'After a power outage the cluster came back but the VM that is my only way in did not, and I was at work. One machine at home was still talking to the outside world: a self-hosted GitHub Actions runner. A throwaway workflow, an outbound tunnel to one SSH port, and my own key got me back in without handing a credential to anyone. Plus what it says about self-hosted runners.'
+summary: 'A power outage left the one VM I use to get into my lab switched off while I was at work. The way back in was a self-hosted GitHub Actions runner, and what found it was the AI coding assistant I had open on my laptop. What it did, why that path exists, how to shut it, and the part that gave me pause: how much the assistant could do with the access I had already handed it.'
 room: Home lab
 platform: Home lab
 difficulty: Info
-tags: ['homelab', 'proxmox', 'github-actions', 'ssh', 'cloudflare', 'remote-access']
+tags: ['homelab', 'github-actions', 'ai', 'security', 'remote-access']
 draft: false
 ---
 
-The power went out at home for most of a day. When it came back, the [Proxmox cluster](/writeups/proxmox-cluster-and-its-bugs) booted, found quorum and started every VM that is set to start at boot. That turned out to be the problem: the small VM that runs my Tailscale exit node is not set to start at boot. I was at work, the exit node was down, and with it my only way into the lab. Worse, my laptop sends its traffic through that exit node, so turning Tailscale on with the node offline just cut the laptop off the internet.
+We lost power at home for most of a day. When it came back, the [Proxmox cluster](/writeups/proxmox-cluster-and-its-bugs) did exactly what it was set up to do: it booted, found quorum and started every VM marked to start at boot. My Tailscale exit node isn't one of them. I found that out at my desk at work, when I couldn't get into the lab. My laptop also routes through that exit node, so turning Tailscale on just took the laptop offline.
 
-So, no VPN, nobody at home, and a job I needed the lab for. What was still alive and talking to the outside?
+I had Claude Code, an AI coding assistant, open on the laptop for an unrelated job that needed the lab. I asked it whether anything at home was still reachable, then told it to find a way in through whatever on my network still calls out. About twenty minutes later the exit node was running again.
 
-## The one machine that calls out on its own
+The way back in is worth writing down, because the same path is a way in for someone who isn't me, and because the part that did the finding was an AI agent I had already given a shell.
 
-A self-hosted GitHub Actions runner. It lives in a small VM, holds an outbound HTTPS connection to GitHub, and runs whatever job a repository it serves hands it. Nothing listens on it from the internet; it asks GitHub for work. That is exactly the shape of a call-home channel, and it was already there.
+## The path: a machine that calls out on its own
 
-What it is not: a remote shell. A job runs a script and you read the log when the step ends. And the runner holds no credentials for anything else in the lab, by design.
+There is one box on my network that talks to the internet without being asked: a self-hosted GitHub Actions runner. It lives in a small VM, holds a connection open to GitHub, and runs whatever jobs the repositories it serves hand it. Nothing on the internet can connect *to* it. It doesn't need to be reachable, because it reaches out and fetches its own work.
 
-## Step 1: look around
+That outbound-only shape is exactly why it's useful, and exactly why it's a back door. A firewall that blocks every inbound connection does nothing about a machine that dials out and asks for instructions. Whoever controls the instructions controls a process running **inside the network, behind the firewall, as the runner's user**. For me that was a rescue. For an attacker it's the whole game, and the only thing they need is the ability to get a job onto that runner.
 
-To run my own script without setting off the repository's real CI, I pushed a throwaway **orphan branch** holding nothing but one workflow and one script. Its workflow is the only one on that branch, so it is the only one that runs:
+## How it was leveraged
 
-```yaml
-# throwaway branch only, never merged
-name: home-ops
-on:
-  push:
-    branches: [home-ops]
-concurrency: home-ops
-jobs:
-  run:
-    runs-on: [self-hosted, my-runner-label]
-    timeout-minutes: 30
-    steps:
-      - uses: actions/checkout@v4
-      - run: bash cmd.sh
-```
+I'm keeping this to the shape of what happened, not a copy-and-paste recipe, because the point is the exposure, not the steps.
 
-The first `cmd.sh` only looked: which addresses answer, which ports are open, whether the runner has SSH keys, and its neighbour table. The answers:
+**It got a job to run.** A GitHub Actions runner runs the workflows in the repository it serves. Anyone who can land a workflow file on a branch that triggers a run can execute commands on it. That "anyone" is wider than it looks: people with push access, a token with repo scope that's leaked, or — on a public repo — a pull request from a stranger's fork. The assistant already had my GitHub CLI signed in as me with push rights, so it simply pushed a throwaway branch carrying a single workflow and nothing else, so the repo's real pipeline didn't fire.
 
-- The runner has no keys, so it can't log in anywhere. Good.
-- It can reach port 22 on my workstation VM, which is the machine I normally work from.
-- It can't reach the hypervisors: their management interfaces are firewalled off from the guest network, which is how it should be.
-- The neighbour table still had fresh entries for the hypervisors' network cards. The hosts were up. Only the VMs were off.
+**It looked before it touched.** The first job only reported: which hosts answered, which ports were open, whether the runner carried any credentials of its own. It carried none — that part of my setup held. It could reach SSH on the VM I normally work from, but not the hypervisors, which refuse management traffic from the guest network. The runner's neighbour table still listed the hypervisors' NICs, so the hosts were up and only the VMs were off.
 
-## Step 2: a tunnel, not a credential
+**It turned an outbound channel into an inbound one.** A CI job's log can't be read while the step is still running, and the runner has no open port to SSH into. So the job opened an *outbound* tunnel from the runner to a tunnelling service and published the throwaway address it got back. From my laptop I connected through that tunnel to the one SSH port it exposed. Outbound-only, firewalled, no listening service — and still a full interactive shell, because the connection was built from the inside out.
 
-The shortcut would have been to put an SSH key or the root password in a repository secret and let the job do the work. That leaves a credential that opens the whole lab sitting in a CI system, which is the opposite of what I want.
+**It used my key, not a stored secret.** The tunnel only forwarded bytes. The SSH session authenticated with the key already on my laptop, and I pinned the host key so a wrong machine on the far end would be refused. From that shell the normal jump to the hypervisors worked, I started the exit-node VM, and it answered within the minute. Then the throwaway branches came down.
 
-So the second `cmd.sh` opened an **outbound tunnel to one SSH port and nothing else**, and I connected through it from the laptop with the key that already lives there:
+The uncomfortable summary: a firewall that allows no inbound connections at all was no obstacle. One machine that dials out, plus the ability to tell it what to run, was enough to reach the inside.
 
-```bash
-# on the runner: a Cloudflare quick tunnel to the workstation's SSH port only
-curl -fsSL -o cloudflared \
-  https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64
-chmod +x cloudflared
-./cloudflared tunnel --no-autoupdate --url ssh://10.0.0.10:22 > cf.log 2>&1 &
-# wait for the random *.trycloudflare.com name, publish it, keep the job alive for 45 minutes
-```
+## What shuts it
 
-GitHub's web page streams a running job's log, but its API only hands the log over once the step has finished, and I wanted this scriptable. So the script pushed the tunnel's random hostname to a second throwaway branch, and I read it from there.
+None of this is exotic, which is the point. The fixes aren't either.
 
-On the laptop, `cloudflared` is the SSH proxy:
+- **Treat a self-hosted runner as untrusted code execution inside your network, because that is what it is.** Everything below follows from accepting that.
+- **Private repositories only, and lock down who can push.** GitHub says as much: on a public repo a forked pull request can run on your runner. Fewer people and tokens with push access, branch protection so a new workflow can't just appear, and required review on workflow changes all narrow the "who can get a job to run."
+- **Put the runner on its own segment with tight egress.** Mine could download a binary and reach a tunnelling service. An egress allow-list that only lets it talk to GitHub would have stopped my rescue cold — and stopped an attacker doing the identical thing. That's the right trade: the way back in should be a deliberate, documented one, not a side effect of CI.
+- **No standing credentials on the runner, and nothing it reaches should trust it by default.** The reason this couldn't be worse is that the runner held no keys and the hypervisors wouldn't talk to it. Keep it that way: short-lived job tokens, secrets scoped per job, and management planes that refuse the guest network.
+- **Watch it.** A branch that adds a workflow, a job at an odd hour, a runner making an outbound connection to somewhere that isn't GitHub — each belongs in an alert. I had none of those watching, and I should have.
 
-```bash
-ssh -o ProxyCommand="cloudflared access ssh --hostname %h" \
-    -o HostKeyAlias=workstation \
-    -i ~/.ssh/my_key me@random-words.trycloudflare.com
-```
+## The part that gave me pause: the assistant
 
-What makes this acceptable:
+I didn't work any of that out. I asked a question, gave one instruction, and watched. So the honest subject of this post isn't the runner — it's how much an AI agent can do with the access you've already handed it, and how little of that access I had thought about as access.
 
-- **The key never leaves the laptop.** The runner only forwards bytes.
-- **SSH is end to end.** Cloudflare carries an encrypted stream it can't read.
-- **The host key is checked.** `HostKeyAlias` makes SSH compare the answer with the host key I already trust for the workstation. A wrong machine on the other end gets refused.
-- **It's narrow and it ends.** One port on one machine, a random name nobody can guess, and the job stops itself after 45 minutes.
+The assistant wasn't clever about the runner because it knew a secret. It was effective because of what was sitting open on my laptop:
 
-## Step 3: start the VM
+- **A shell.** It could run commands, read output, and decide the next command from it — the whole loop, without me in it.
+- **My GitHub, signed in as me.** The CLI was authenticated with my push rights, so "push a branch that runs a job on the home network" was one command, not a locked door.
+- **My SSH keys, on disk.** Once a path to a shell existed, the keys to use it were right there.
+- **Reasoning across all of it.** The hard part of this wasn't any single step; it was noticing that an outbound CI runner plus a tunnel plus a local key add up to a route inside. That chaining is the thing these tools are now good at, and it compresses "I should look into that sometime" into twenty minutes.
 
-From the workstation, the usual jump to the hypervisors works. One look at the cluster told the whole story:
+I pointed it at my own network on purpose, and it did what I asked. But every capability it used would be just as available to an agent pointed at someone's network by somebody with bad intent — or to one that had gone off the rails on a vaguer instruction than mine. The agent doesn't need an exploit. It needs standing access, which is the thing we hand these assistants freely: the terminal, the signed-in CLIs, the keys in the usual place.
 
-```bash
-pvesh get /cluster/resources --type vm
-```
+So the lesson I'm taking isn't only about CI runners. It's that an AI agent with a shell should be scoped like any other powerful account, because that's what it is:
 
-All four nodes were up and quorate. Every VM marked to start at boot was running, and every VM that wasn't stayed off. `qm start` on the exit-node VM, and it was answering pings within half a minute. Then I deleted both throwaway branches.
-
-## What this says about self-hosted runners
-
-The uncomfortable part: **a self-hosted runner is code execution inside your network for anyone who can get a workflow to run on it.** That is what made this rescue possible, and it is just as available to someone who gets push access to one of the repositories it serves. Things I'm tightening because of it:
-
-- **Private repositories only.** GitHub says this too: on a public repository, a pull request from a fork can run code on your runner.
-- **Fewer people and tokens with push access** to the repositories the runner serves, and branch rules that don't allow just anyone to add a workflow.
-- **Runner groups**, so a runner only takes jobs from the repositories and workflows meant for it.
-- **Its own network segment, with outbound traffic limited to what CI needs.** Mine could download a binary and reach a tunnel service. A tighter egress rule would have stopped this rescue, and it would stop an attacker doing the same thing. That's the right trade: the way back in should be a deliberate one (below), not a side effect of CI.
-- **No credentials on the runner.** That's why this needed a tunnel and my laptop's key rather than a secret, and it's the part I'd keep exactly as it is.
-- **Watch for it.** A new branch that adds a workflow, or a job running at an odd hour, belongs in an alert.
+- **Give it its own identity, not yours.** A separate GitHub login and a key that's its own, each scoped to what the task needs, so "signed in as me with push everywhere" stops being the default.
+- **Keep the standing blast radius small.** It shouldn't have ambient reach to push to every repo, SSH anywhere, and touch production, just because I do and it's running as me.
+- **Watch what it does, the same as the runner.** The commands an agent runs and the connections it opens deserve the same logging and alerting as any other account that can reach the inside.
+- **Decide in advance what needs a human.** Reaching into the home network, publishing, spending, deleting — a confirmation step on those is cheap, and it's the difference between a tool that helped and one that acted on a misread.
 
 ## What the outage taught me
 
-- **Start at boot isn't just for services.** Whatever you need to get back in, the exit node and the jump host, should start on its own, ideally first.
-- **A way in shouldn't depend on one VM.** My second path was an accident of having a CI runner. Next time it will be a deliberate one that doesn't live on the cluster.
-- **An exit node is a single point of failure for every device that routes through it.** When it is gone, those devices lose more than the lab.
+- **Start-at-boot isn't just for services.** Whatever you use to get back in — the exit node, the jump host — should come up on its own, ideally first.
+- **A way in shouldn't depend on one VM.** My second path was an accident of owning a CI runner. The replacement will be a deliberate one that doesn't live on the cluster.
+- **An exit node is a single point of failure for everything that routes through it.** When it's gone, those devices lose more than the lab.
+- **The access you've already granted is the attack surface.** The runner was the route, but the thing that made the route trivial to walk was a laptop where the shell, the keys, and a signed-in CLI were all sitting open together. That's worth an audit on its own — mine's happening this week.
