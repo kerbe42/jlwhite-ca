@@ -68,7 +68,8 @@ text{font-family:'Helvetica Neue',Helvetica,Arial,'Liberation Sans',sans-serif;f
 
 <line x1="1108" y1="170" x2="1108" y2="192" class="stub"/>
 <text x="1370" y="212" class="m" text-anchor="end">1N5819 cathode to pump +, 100 nF at the motor</text>
-<text x="1370" y="236" class="m" text-anchor="end">refill, drain, circulation: a D4184 module each</text>
+<text x="1370" y="236" class="m" text-anchor="end">refill, drain, circulation:</text>
+<text x="1370" y="260" class="m" text-anchor="end">a D4184 module each</text>
 
 <!-- grounds -->
 <line x1="30" y1="440" x2="1370" y2="440" class="gnd"/>
