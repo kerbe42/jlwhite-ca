@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 760" width="1400" height="760" role="img" aria-labelledby="t d">
 <title id="t">The revision B power and safety chain</title>
-<desc id="d">Pump supply: USB-C 5 V 3 A into PUMP IN, through fuse F1 (2.5 A) to the PFUSE node, through the E-STOP's normally closed contact to the ESN node, through relay K1's normally open contact to RAIL, through each toggle's pole 1 to the pump, and back through a ULN2803A output. D1 and C1 sit at PFUSE, before the E-stop. K1's coil runs from ESN through an S8050 driven by GPIO3. Logic supply: USB-A 5 V into LOGIC IN, through fuse F2 (1.6 A), the D2 clamp and C2 to logic 5 V, then a Schottky diode into the ESP32-S3's 5 V pin. Pump ground and logic ground meet at one star wire.</desc>
+<desc id="d">Pump supply: USB-C 5 V 3 A into PUMP IN, through fuse F1 (2.5 A) to the PFUSE node, through the E-STOP's normally closed contact to the ESN node, through relay K1's normally open contact to RAIL, through each toggle's pole 1 to the pump, and back through a ULN2803A output for the four dosing pumps, or through the input of an isolated D4184 MOSFET module for the refill, drain and circulation pumps. D1 and C1 sit at PFUSE, before the E-stop. K1's coil runs from ESN through an S8050 driven by GPIO3. Logic supply: USB-A 5 V into LOGIC IN, through fuse F2 (1.6 A), the D2 clamp and C2 to logic 5 V, then a Schottky diode into the ESP32-S3's 5 V pin. Pump ground and logic ground meet at one star wire.</desc>
 <style>
 text{font-family:'Helvetica Neue',Helvetica,Arial,'Liberation Sans',sans-serif;font-size:22px;fill:#2c2c2a}
 .h{font-size:28px;font-weight:700}
@@ -50,8 +50,8 @@ text{font-family:'Helvetica Neue',Helvetica,Arial,'Liberation Sans',sans-serif;f
 <text x="1003" y="156" class="s" text-anchor="middle">AUTO/HAND; OFF cuts</text>
 
 <rect x="1120" y="100" width="250" height="70" class="box"/>
-<text x="1245" y="130" class="b" text-anchor="middle">pump → ULN2803A</text>
-<text x="1245" y="156" class="s" text-anchor="middle">×6, a 1N5819 each</text>
+<text x="1245" y="130" class="b" text-anchor="middle">dosing → ULN2803A</text>
+<text x="1245" y="156" class="s" text-anchor="middle">×4, a 1N5819 each</text>
 
 <!-- branches below the nodes -->
 <line x1="453" y1="170" x2="453" y2="215" class="stub"/>
@@ -68,7 +68,7 @@ text{font-family:'Helvetica Neue',Helvetica,Arial,'Liberation Sans',sans-serif;f
 
 <line x1="1108" y1="170" x2="1108" y2="192" class="stub"/>
 <text x="1370" y="212" class="m" text-anchor="end">1N5819 cathode to pump +, 100 nF at the motor</text>
-<text x="1370" y="236" class="m" text-anchor="end">circulation: its own D4184 module</text>
+<text x="1370" y="236" class="m" text-anchor="end">refill, drain, circulation: a D4184 module each</text>
 
 <!-- grounds -->
 <line x1="30" y1="440" x2="1370" y2="440" class="gnd"/>

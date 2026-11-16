@@ -158,7 +158,7 @@ Tinned solid wire laid along the holes (strip a length of the 22 AWG solid wire,
 | W12 | blue | E-stop sense, GPIO17 | P10 → P24 | 42 mm |
 | W13 | blue | TDS board power, GPIO16 | Q9 → Q32 → M32 | 75 mm |
 | W14 | yellow | 1-Wire, GPIO15 | R8 → R44 → E44 → E47 | 138 mm |
-| W15 | green | ultrasonic trigger, GPIO8 | S12 → S9 → AB9 → AB10 | 39 mm |
+| W15 | green | ultrasonic trigger, GPIO8 | S12 → S9 | 14 mm |
 | W16 | green | leak, GPIO4 | Q1 → Q4 | 14 mm |
 | W17 | green | leak plug | U4 → U1 | 14 mm |
 | W18 | green | low switch plug | Z5 → Z1 → Y1 | 19 mm |
@@ -188,6 +188,7 @@ Tinned solid wire laid along the holes (strip a length of the 22 AWG solid wire,
 | W42 | red | pump rail (after relay K1) | X48 → W48 → W51 → Z51 | 24 mm |
 | W43 | red | circulation trigger + (from its switch) | X49 → AD49 → AD53 | 31 mm |
 | W44 | red | E-stop node (pump 5 V after the E-stop) | X12 → V12 → V24 | 42 mm |
+| W45 | green | ultrasonic trigger past its 1k, to the header | W9 → AB9 → AB10 | 21 mm |
 
 ### Hidden wires (component side, under a module)
 
@@ -282,6 +283,7 @@ Tinned solid wire laid along the holes (strip a length of the 22 AWG solid wire,
 | R33 | 33 | 1:F10, 2:F14 |
 | R34 | 1k | 1:S31, 2:W31 |
 | R35 | 10k | 1:W30, 2:W26 |
+| R36 | 1k | 1:S9, 2:W9 |
 | U1 | ESP32-S3 | L1:L1, R1:B1, L2:L2, R2:B2, L3:L3, R3:B3, L4:L4, R4:B4, L5:L5, R5:B5, L6:L6, R6:B6, L7:L7, R7:B7, L8:L8, R8:B8, L9:L9, R9:B9, L10:L10, R10:B10, L11:L11, R11:B11, L12:L12, R12:B12, L13:L13, R13:B13, L14:L14, R14:B14, L15:L15, R15:B15, L16:L16, R16:B16, L17:L17, R17:B17, L18:L18, R18:B18, L19:L19, R19:B19, L20:L20, R20:B20, L21:L21, R21:B21, L22:L22, R22:B22 |
 | U2 | ULN2803A | 1:U20, 2:U19, 3:U18, 4:U17, 5:U16, 6:U15, 7:U14, 8:U13, 9:U12, 10:X12, 11:X13, 12:X14, 13:X15, 14:X16, 15:X17, 16:X18, 17:X19, 18:X20 |
 | U3 | ADS1115 0x48 | 1:A27, 2:B27, 3:C27, 4:D27, 5:E27, 6:F27, 7:G27, 8:H27, 9:I27, 10:J27 |
@@ -289,7 +291,7 @@ Tinned solid wire laid along the holes (strip a length of the 22 AWG solid wire,
 
 ### Checked
 
-The drawing tool draws nothing unless every pin of the circuit-board netlist is on its net and the layout has no short, no unconnected pin, no wire over a joint or along a bare run, no part standing where another part is. This layout: 86 parts, 117 bare runs, 44 wires, 2 hidden wires, 0 errors; 103 pairs of nets run bare in neighbouring holes somewhere, so keep those joints small; 0 wire crossings; pump-side neighbour rule: allowed pairs GNDL/L5V (22 holes: logic 5 V beside its own ground: the two columns down the left edge must both be bare (the sensor plugs' wires cross them) and the bus tap under the TDS header has three bare holes; a bridge shorts logic 5 V to logic ground and trips F2, no safety function is affected); PHUEN/S35V (10 holes: every line through the crossing band is bare (the band's wires cross it); S35V is the dev board's 5 V pin behind D8, not the pump supply: a bridge puts logic 5 V on GPIO14 only).
+The drawing tool draws nothing unless every pin of the circuit-board netlist is on its net and the layout has no short, no unconnected pin, no wire over a joint or along a bare run, no part standing where another part is. This layout: 87 parts, 117 bare runs, 45 wires, 2 hidden wires, 0 errors; 103 pairs of nets run bare in neighbouring holes somewhere, so keep those joints small; 0 wire crossings; pump-side neighbour rule: allowed pairs GNDL/L5V (22 holes: logic 5 V beside its own ground: the two columns down the left edge must both be bare (the sensor plugs' wires cross them) and the bus tap under the TDS header has three bare holes; a bridge shorts logic 5 V to logic ground and trips F2, no safety function is affected); PHUEN/S35V (10 holes: every line through the crossing band is bare (the band's wires cross it); S35V is the dev board's 5 V pin behind D8, not the pump supply: a bridge puts logic 5 V on GPIO14 only).
 
 ## Panel board
 

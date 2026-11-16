@@ -64,7 +64,7 @@ The controller is a box with a front panel and two circuit boards, running on 5 
 - An **ESP32-S3** dev board (DevKitC-1 layout, with PSRAM for the display buffers). The design needs 27 GPIOs, which the classic ESP32 can't offer; the S3 also has a pull-up on every pin and no input-only pins.
 - **Two ADS1115 16-bit converters**: one reads the pH, EC and analog level inputs; the other watches the power: the supply, the E-stop node, the pump rail and the logic 5 V. That is how the controller knows a fuse has tripped (`pump_power`) or the relay is stuck closed (`relay_fault`).
 - An **MCP23017** port expander reads the 14 toggle contacts, drives the buzzer and resets the display.
-- A **ULN2803A** driver sinks the six dosing, refill and drain pumps, plus the opto input of an isolated MOSFET module that runs the circulation pump.
+- A **ULN2803A** driver sinks the four dosing pumps directly, plus the inputs of three isolated MOSFET modules (D4184) that run the refill, drain and circulation pumps, which draw more current than one driver channel can carry.
 - A **master relay K1** in the pump rail, driven by an S8050 transistor from one GPIO.
 - A **main board** (130 × 110 mm) on the floor of the box with pluggable terminals on three edges (sensors on the left, pumps along the bottom, the supplies, E-stop and circulation module on the right), and a **panel board** (120 × 70 mm) behind the lid with the port expander, the knob's filters, the buzzer and the display header. A 26-way ribbon joins them.
 
@@ -72,7 +72,7 @@ The firmware is plain C++ with a control core that has no hardware calls, so the
 
 ## The printed boards
 
-Both boards are laid out in KiCad from the same Python netlists the protoboard drawings come from, and placed and routed for the reviewed circuit: two layers, 1.6 mm thick, 1 oz copper. KiCad’s design-rule check finds no errors and no unconnected pads on either. The main board (130 × 110 mm, 82 parts) sits on the floor of the box; the panel board (120 × 70 mm, 47 parts) hangs behind the lid.
+Both boards are laid out in KiCad from the same Python netlists the protoboard drawings come from, and placed and routed for the reviewed circuit: two layers, 1.6 mm thick, 1 oz copper. KiCad’s design-rule check finds no errors and no unconnected pads on either. The main board (130 × 110 mm, 83 parts) sits on the floor of the box; the panel board (120 × 70 mm, 47 parts) hangs behind the lid.
 
 ![A flat top-down drawing of the revision B main board to scale: the black ESP32-S3 dev board on its two sockets at the top left with its silver module, antenna and two USB-C ports; the two blue ADS1115 modules marked 0x48 and 0x49 in the middle; the ULN2803A in its socket at the bottom; the blue relay K1, the two 1000 µF capacitors, the two yellow PTC fuses and the 1N5822 diodes on the right; the seven green pump plugs along the bottom edge labelled pH UP, pH DN, NUTR A, NUTR B, FLOAT, REFILL and DRAIN; the LEAK, LOW, HIGH, EMERG and TEMP sensor plugs down the left edge; the LOGIC IN, E-STOP, PUMP IN and CIRC plugs on the right; the grey ribbon plug for the panel at the top right; the resistors with their colour bands, the diodes with their cathode bands, the copper tracks and the silkscreen](./main-board-2d.png)
 
@@ -90,7 +90,7 @@ The tracks are sized by what they carry: 1.0 mm for the supply input, the fuses,
 
 ## The safety chain
 
-![The revision B power and safety chain: the pump supply goes from PUMP IN through fuse F1 (2.5 A) to the PFUSE node, through the E-stop’s normally closed contact to the ESN node, through relay K1’s normally open contact to RAIL, through each toggle’s pole 1 to the pump and back through a ULN2803A output; D1 and C1 sit at PFUSE before the E-stop; K1’s coil runs from ESN through an S8050 driven by GPIO3; ESN is sensed by GPIO17 and the second ADS1115. The logic supply goes from LOGIC IN through fuse F2 (1.6 A), the D2 clamp and C2 to logic 5 V, then a Schottky diode into the ESP32-S3’s 5 V pin. Pump ground and logic ground meet at one star wire.](./safety-chain.svg)
+![The revision B power and safety chain: the pump supply goes from PUMP IN through fuse F1 (2.5 A) to the PFUSE node, through the E-stop’s normally closed contact to the ESN node, through relay K1’s normally open contact to RAIL, through each toggle’s pole 1 to the pump and back through a ULN2803A output for the four dosing pumps, or through the input of an isolated D4184 MOSFET module for the refill, drain and circulation pumps; D1 and C1 sit at PFUSE before the E-stop; K1’s coil runs from ESN through an S8050 driven by GPIO3; ESN is sensed by GPIO17 and the second ADS1115. The logic supply goes from LOGIC IN through fuse F2 (1.6 A), the D2 clamp and C2 to logic 5 V, then a Schottky diode into the ESP32-S3’s 5 V pin. Pump ground and logic ground meet at one star wire.](./safety-chain.svg)
 
 The pumps' power runs through a chain of things that can each cut it on their own: a 2.5 A fuse, the E-stop button's normally closed contact, the master relay's contact, and each pump's own toggle. The E-stop is wired like an industrial safety circuit, not like a button the software reads:
 
@@ -131,7 +131,7 @@ The controller also keeps a budget: at most two of the driver chip's pumps run a
 - **Level switches** for low, high and emergency water, and a **leak sensor** (two stainless pads) at the lowest point of the tray under the tank. The leak input is set to read wet at under about 70 kΩ, so plain tap water counts as well as nutrient solution.
 - **A float switch** above the high level, wired in series with the refill pump's power. If the water ever lifts it, the refill pump stops, whatever the firmware is doing.
 
-Every input has its protection: a small series diode and a capacitor on each level switch so the pin never sees the sensor's 5 V, a divider on the echo line, 100 Ω in the 3.3 V feed to the temperature probe and the leak cable so a wet or crushed cable can't short the logic supply, and the pump pins chosen so a reset can't twitch a pump.
+Every input has its protection: a small series diode and a capacitor on each level switch so the pin never sees the sensor's 5 V, a divider on the echo line, 1 kΩ in series with the trigger line, 100 Ω in the 3.3 V feed to the temperature probe and the leak cable so a wet or crushed cable can't short the logic supply, and the pump pins chosen so a reset can't twitch a pump.
 
 ## The reservoir
 
