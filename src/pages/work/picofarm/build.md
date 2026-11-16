@@ -96,6 +96,7 @@ Several checks need 5 V or 3.3 V on the bench. Use the ESP32 board itself, loose
 | S8050 transistors × 2 | Find which outer leg is which. Put it in the meter's hFE socket (NPN side), flat face toward you, legs in E, B, C from left to right. No hFE socket: take 5 V from a USB lead, + to one relay coil pin, the other coil pin to the transistor's right leg, its left leg to −, then touch a 1 kΩ resistor from + to the middle leg. | hFE over 80; or the relay clicks | hFE under 20, or no click: this part's outer legs are the other way round. Mark it, and fit it turned round (flat face the other way) in 4.7 and 5.3 |
 | D4184 modules × 3 (circulation, refill, drain) | Module unpowered. Meter on its highest resistance range: the module's signal GND pin to DC−, and PWM to DC+. | both read open (over 1 MΩ) on each module | don't use that module: its input isn't isolated, and its pump would run whenever the relay is closed |
 | D4184 modules × 3 | 5 V across the input: + through the meter (200 mA range) to PWM, − to signal GND. Nothing on the other terminals. | 2 to 10 mA | 0 mA: the input is dead. Over 10 mA: more than a toggle lead and the driver chip should carry. Use another module |
+| D4184 modules × 3 | Gate-drive test, on each module: the module's DC+ and DC− on the real pump charger (DC+ to the + screw, DC− to the − screw), the refill or drain pump on its output with the 1N5819 across it, and the input driven as in the row above (5 V through the meter to PWM and signal GND). While the pump runs, meter on DC volts from the module's OUT− to DC−. | under 0.1 V, and the pump starts | 0.3 V or more, or the pump doesn't start: the module's gate gets too little voltage at 5 V (some versions bias the gate at half the supply). Don't use it as is: the fix depends on the module's layout, so photograph both sides |
 | Display (3.5" ST7796) | Look at the back for a small 3- or 5-legged regulator marked 662K, XC6206 or AMS1117. Read the 14 header labels. | a regulator is there; pins read VCC GND CS RST DC SDI SCK LED SDO CTP_SCL CTP_RST CTP_SDA CTP_INT SD_CS | no regulator: don't connect it to 5 V; header pin 1 must move to 3.3 V first |
 | Display | Power it alone: VCC to 5 V and GND to ground, nothing else connected. Meter on DC volts, black probe on GND: read the pins CTP_SDA, CTP_SCL, SDO and CTP_INT. | each 3.4 V or less | a pin near 5 V would put 5 V on a 3.3 V pin of the ESP32: don't use this display |
 | Display backlight | Still powered like that: meter on its 200 mA range, red probe on 3.3 V, black probe on the display's LED pin. The backlight comes on. | 10 mA or less | over 10 mA: the ESP32 pin that drives the backlight would be overloaded from the first power-up. Leave the display's LED lead (pin 8) unplugged in 6.5 until the backlight has its own transistor |
@@ -199,8 +200,7 @@ Fit all of one value at a time. Measure each resistor first; the colours are a h
 | 4.7 kΩ | yellow violet black brown | R5 E47–A47 |
 | 220 kΩ | red red black orange | R6 Q1–M1 |
 | 1 kΩ | brown black black brown | R10 U4–Q4, R34 S31–W31, R36 S9–W9 (in series with the ultrasonic Trig line) |
-| 100 Ω | brown black black black | R9 F48–F52, R11 A48–A52 |
-| 33 Ω | orange orange black gold | R30 I7–I11, R31 H8–H12, R32 G9–G13, R33 F10–F14 (these sit under the ESP32 board) |
+| 100 Ω | brown black black black | R9 F48–F52, R11 A48–A52, R30 I7–I11, R31 H8–H12, R32 G9–G13, R33 F10–F14 (R30–R33 sit under the ESP32 board) |
 
 R1 and R2, the two resistors that divide the pH board's signal, must be 1 % parts: the five-band ones from the kit, measured as in Stage 2. With 5 % parts a pH board stuck at its top voltage could push that input past its limit.
 
@@ -847,7 +847,8 @@ Until the controller joins a server, it runs on its own panel. On the panel, Net
 1. **ULN2803A** into its socket, notch at the column-20 end. Check that no leg folded under.
 2. **ESP32-S3 board** into its sockets: antenna end at the left edge (column 1), USB ports toward header A.
 3. **ADS1115 modules** into their two sockets, VDD at row A, components up. Either module goes in either socket: the board sets their addresses.
-4. **Three checks before any power.** A chip turned round or one pin along in its socket burns at power-up.
+4. **Pull-ups for the I2C bus.** The board has none: they come from the two ADS1115 modules. Meter on resistance, both chargers unplugged: from C43 (SCL), a pin of the I2C header J12, to A43 (V33), the 3V3 pin of that header; then from D43 (SDA) to A43 (V33). It should read about 4 to 6 kΩ each, with both modules in. Over 20 kΩ: your modules have no pull-ups. Crimp or push two 4.7 kΩ resistors into a 4-pin Dupont housing: one from pin 1 (V33) to pin 3 (SCL), one from pin 1 to pin 4 (SDA), and plug it onto J12 (pin 1 at A43, beside the paint dot). Measure again.
+5. **Three checks before any power.** A chip turned round or one pin along in its socket burns at power-up.
     - Look along every socket from the side: no pin hangs outside the end of a socket, and none is bent under.
     - Unplug the E-stop's plug from E-STOP first (or press the button). Then meter on diode test, red probe on AF47 (OUT1), the lower pin of the pH UP header, black probe on Q53 (GNDP), PUMP IN −. It must read OL. A steady 0.5 to 0.7 V means the ULN2803A is in backwards: lift it out and turn it. (With the E-stop plugged in and released, the reading starts low and climbs to OL over a few seconds while the meter charges C1 through the chip: that is a correctly fitted chip, but unplug the E-stop and measure again to be sure.) Plug the E-stop back in afterwards.
     - Meter on beep, on the ESP32 board's own pins: 3V3, at L1 (V33), to G, at B1 (GNDL). It must not beep. A steady beep means the board is in the wrong way round or one pin along.
@@ -959,12 +960,15 @@ Notes:
 - **PUMP IN, LOGIC IN and E-STOP:** each plug into the header of its own colour (4.8, 7.1), + mark to + mark.
 - **The circulation, refill and drain pumps** go on their modules' output terminals, never on the board.
 - **A dosing pump that read under 8 Ω in Stage 2** gets a fourth module, wired like the drain module from its own plug.
+- **Strain-relieve every pump lead** (cable tie or a dab of glue at the plug and at the pump, so nothing can pull a bare end across another lead). A short on a dosing pump's lead is not stopped by the fuse or the charger: after any short there, replace the ULN2803A and test that pump's channel again (Stage 8).
 - **The leak pads** sit at the lowest point of the tray under the tank.
 - **Probe leads** (BNC, TDS, temperature) stay apart from the pump leads, and the pH and TDS boards sit together on the sensor side of the box.
 
 ### 9.2 Check each input
 
 For each level switch, hold water against the tank wall at its height, then take it away, and watch the screen. If a switch reads the wrong way round, flip its `alarm` setting in Manage ("open" or "closed"); no rewiring is needed. Wet the leak pads with a damp finger: `leak` latches and the relay drops. Clear it from the Alarms page.
+
+If the ultrasonic gives no reading, replace R36 (S9–W9) with a 470 Ω resistor (yellow violet black black): its trigger input may need more than the 3.3 V pulse that gets through 1 kΩ. Wet the leak pads with a damp finger: `leak` latches and the relay drops. Clear it from the Alarms page.
 
 ### 9.3 Calibrate
 
@@ -1016,6 +1020,8 @@ Unplug both chargers before you touch a joint. Most faults in a hand-wired board
 | A fuse gets hot, or the supply keeps cutting out | a short on that supply | unplug; beep that supply's + to its − and find the bridge |
 | The relay never clicks | E-stop pressed or unplugged; `estop` still latched; Q2 the wrong way round | release it and RESTART; check Q2's flat face |
 | Relay on, but a pump doesn't run | its toggle at OFF; low water blocks dosing; two pumps already running; ULN2803A not seated | read the refusal reason on the Pumps page |
+| After a short on a dosing pump's lead | the ULN2803A channel carried about 1.8 A and may be damaged, even if it still works | replace the ULN2803A (it's socketed) and check that pump's channel again; fix and strain-relieve the lead first |
+| `pump_power` stays on after the supply is back | a short on a pump lead after the relay K1: the firmware opened K1, the supply recovered, and it latched | fix the wiring (look at the module-driven pump leads), then CLEAR the alarm |
 | A pump runs backwards | its leads are swapped | swap them at its plug |
 | The ESP32 won't boot, or reboots in a loop | something pulls the knob's push line (GPIO45) high; 3.3 V sags | redo the last row of 5.6; Stage 8 check 2 |
 | An ADS1115 isn't found | module in backwards; a dry header joint; a bridge on SDA or SCL | VDD at row A; reflow its header |

@@ -217,7 +217,7 @@ The app is how I'll use PicoFarm day to day, on the home network or from anywher
 
 The first unit is hand-wired on two 9 × 15 cm protoboards, drawn hole by hole from the same netlists as the printed boards; the drawing tools refuse to draw a board unless every pin is on its net, and they check the layout rules (no bare run of a pump-side net beside another in more than two holes, no two safety-chain nets side by side).
 
-[![The main board on protoboard, component side, with the modules lifted: the ESP32-S3 sockets and the 33 Ω display resistors under them at the top left, the two ADS1115 sockets, the ULN2803A socket, the relay outline, the fuses, the big capacitors and the pluggable terminals along three edges](/media/picofarm/revb/main/board-top-open.svg)](/media/picofarm/revb/main/board-top-open.svg)
+[![The main board on protoboard, component side, with the modules lifted: the ESP32-S3 sockets and the 100 Ω display resistors under them at the top left, the two ADS1115 sockets, the ULN2803A socket, the relay outline, the fuses, the big capacitors and the pluggable terminals along three edges](/media/picofarm/revb/main/board-top-open.svg)](/media/picofarm/revb/main/board-top-open.svg)
 
 *The main board, component side, with the modules lifted off their sockets. Open the drawing on its own to zoom in on the hole labels.*
 
