@@ -101,7 +101,7 @@ Several checks need 5 V or 3.3 V on the bench. Use the ESP32 board itself, loose
 | D4184 modules × 3 | **Gate-drive test, on each module:** the module's DC+ and DC− on the real pump charger (DC+ to the + screw, DC− to the − screw), the refill or drain pump on its output with the 1N5819 across it. First with the input unconnected, then with the input driven as in the input-current row (5 V through the meter to PWM and signal GND). Meter on DC volts, black on DC−. | input unconnected: the pump stays still, OUT− reads the supply (about 5 V). Input driven: the pump runs; OUT− reads under 0.1 V; the optocoupler pin next to the 1 kΩ's pin (the one that read open to DC+, on the MOSFET side) reads 3.0 V or more | pump runs with the input unconnected: the 1 kΩ is on the wrong pin or bridged, unplug and redo part 2. Under 3.0 V at that pin, or 0.3 V or more at OUT−: the 1 kΩ isn't working (about 2.4 V is the module without it); redo part 2. If it still fails, photograph both sides of the module |
 | Display (3.5" ST7796) | Look at the back for a small 3- or 5-legged regulator marked 662K, XC6206 or AMS1117. Read the 14 header labels. | a regulator is there; pins read VCC GND CS RST DC SDI SCK LED SDO CTP_SCL CTP_RST CTP_SDA CTP_INT SD_CS | no regulator: don't connect it to 5 V; header pin 1 must move to 3.3 V first |
 | Display | Power it alone: VCC to 5 V and GND to ground, nothing else connected. Meter on DC volts, black probe on GND: read the pins CTP_SDA, CTP_SCL, SDO and CTP_INT. | each 3.4 V or less | a pin near 5 V would put 5 V on a 3.3 V pin of the ESP32: don't use this display |
-| Display backlight | Still powered like that: meter on its 200 mA range, red probe on 3.3 V, black probe on the display's LED pin. The backlight comes on. | 10 mA or less | over 10 mA: the ESP32 pin that drives the backlight would be overloaded from the first power-up. Leave the display's LED lead (pin 8) unplugged in 6.5 until the backlight has its own transistor |
+| Display backlight | Still powered like that: meter on its 200 mA range, red probe on 3.3 V, black probe on the display's LED pin. The backlight comes on. | 10 mA or less | over 10 mA: the ESP32 pin that drives the backlight would be overloaded. Solder a 330 Ω (orange orange black black) into the middle of the display's LED lead (pin 8): cut the jumper, one resistor leg to each half, heat-shrink over it. Measure again through the lead: 10 mA or less (the bench gives 4-6 mA, and the backlight stays fully on) |
 | E-stop (22 mm, NC) | Beep across its two contact screws, button released, then pressed. | released beeps, pressed is open | the contact block is the wrong type (NO); swap the block |
 | Toggles (MTS-203) × 7 | For each lever position, find which outer lugs beep to each middle lug. | centre: nothing beeps; each end: each middle lug beeps to one outer lug | note the lug pattern; Stage 6 uses it |
 | USB-C to 2-pin adapters × 2 | Meter on resistance: each CC pin (or the two tiny pads marked CC1, CC2) to GND. | about 5.1 kΩ each | without them a USB-C charger won't switch on: use USB-C breakouts that have them |
@@ -890,7 +890,7 @@ The ribbon isn't plugged in, so you can still reach the ESP32's UART port. First
     - **first the single lead 26**, onto the single pin P26 (GNDL). It is the panel's ground. With it on, a misplaced strip makes a short that the fuse limits; with it off, the same mistake puts 5 V on the 3.3 V line;
     - then the 15-wide strip onto header A, its painted lead 1 on the painted pin O24 (L5V) in row O. Look from both sides: no pin of the header shows beside the block, at either end;
     - then the single backlight lead and the 10-wide strip's leads, each on the pin with its number (6.5).
-3. **Meter check before power**, on beep. If the display's backlight failed its Stage 2 check, its LED lead stays off.
+3. **Meter check before power**, on beep. If the display's backlight read over 10 mA in Stage 2, its LED lead is the one with the 330 Ω in it.
     - 5 V to 3.3 V: M35 (L5V), pin 1 of the pH header, to the ESP32 board's 3V3 pin, L1 (V33). No beep. From the solder side the same check is O24 (L5V) to M24 (V33).
     - 5 V to ground: M35 (L5V) to the ESP32 board's G pin, B1 (GNDL). No steady beep (a short chirp while the big capacitor charges is normal).
     - 3.3 V to ground: L1 (V33) to B1 (GNDL). No beep.
@@ -927,7 +927,7 @@ These prove the safety features before any water is near the box. Connect one pu
 
 After check 12, remove the clip lead, press CLEAR on the Alarms page (`relay_fault` stays latched; RESTART clears only the E-stop), then RESTART. **Done when** all sixteen pass.
 
-The display's backlight current was measured in Stage 2. If it read over 10 mA there, the LED lead stays unplugged until the backlight's transistor is fitted.
+The display's backlight current was measured in Stage 2. If it read over 10 mA there, its LED lead has the 330 Ω in it (Stage 2) before it is plugged in.
 
 ## Stage 9: sensors, pumps and calibration
 
@@ -991,7 +991,7 @@ If the ultrasonic gives no reading, check its plug on J9 against the pin 1 paint
 Calibrate with the circulation pump running, as it will be in use. Rinse the probes in clean water between buffers.
 
 1. **pH offset (once):** probe in the pH 7.00 buffer. Turn the pH board's offset trimmer (the one nearest the BNC socket) until the Calibration page shows about 1.67 V.
-2. **pH supply sensitivity:** still in pH 7.00, note the page's voltage and the voltage at LOGIC IN +. Swap the logic charger for another 5 V supply and read both again. More than about 10 mV of change on the page for every 100 mV of supply difference needs a firmware correction (compensation from the power monitor's logic 5 V reading, a follow-up).
+2. **pH supply sensitivity:** still in pH 7.00, note the page's voltage and the voltage at LOGIC IN +. Swap the logic charger for another 5 V supply and read both again, then put the first charger back. More than about 10 mV of change on the page for every 100 mV of supply difference means the pH board follows its supply: write "pH calibrated on this charger" on the logic charger, keep it with this controller, and redo the pH points (step 3) whenever the logic charger is changed. On the same charger the reading holds.
 3. **pH points:** on the Calibration page, store pH 7, then pH 4, then pH 10, each once the reading has been steady for a minute.
 4. **EC:** TDS probe in the 1413 µS/cm standard at room temperature; store EC 1413.
 5. **Level:** with the tank empty, type `cal level empty` on the serial monitor (or **Save empty** on the dashboard's Calibrate tab); fill it to its working level, then `cal level full` (or **Save full**).
