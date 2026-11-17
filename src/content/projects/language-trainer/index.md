@@ -71,7 +71,7 @@ It's built for stumbling. When it hears a word started twice, a piece repeated, 
 
 The reader plays a conversation, a story or a poem a line at a time, each word lighting up as it's said, with the English underneath, a tap away, or off. It asks which of the people you'd like to be, then you say your lines when it waits for you, repeat every line after the voice, or keep going like a real conversation and be scored. It slows down without changing the voice, loops a few lines, and the strip along the bottom jumps to any line.
 
-The library holds 6 first stories, 12 everyday conversations, 10 short stories, 6 fables retold, 20 sayings, 6 poems by Martí, Bécquer, Machado and Darío, and the openings of *Don Quijote*, *Platero y yo* and *Tres héroes*, plus the 96 conversations and readings of the course. Each one says from which day of the course you know its words, and a word only a classic uses has its meaning there.
+The library holds 6 first stories, 12 everyday conversations, 10 short stories, 6 fables retold, 20 sayings, 6 poems by Martí, Bécquer, Machado and Darío, and the openings of *Don Quijote*, Quiroga's *La tortuga gigante* and *Tres héroes*, plus the 620 conversations and readings of the course. Each one says from which day of the course you know its words, and a word only a classic uses has its meaning there.
 
 ## Every sentence checked against what's been taught
 
