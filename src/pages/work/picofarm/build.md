@@ -96,7 +96,9 @@ Several checks need 5 V or 3.3 V on the bench. Use the ESP32 board itself, loose
 | S8050 transistors × 2 | Find which outer leg is which. Put it in the meter's hFE socket (NPN side), flat face toward you, legs in E, B, C from left to right. No hFE socket: take 5 V from a USB lead, + to one relay coil pin, the other coil pin to the transistor's right leg, its left leg to −, then touch a 1 kΩ resistor from + to the middle leg. | hFE over 80; or the relay clicks | hFE under 20, or no click: this part's outer legs are the other way round. Mark it, and fit it turned round (flat face the other way) in 4.7 and 5.3 |
 | D4184 modules × 3 (circulation, refill, drain) | Module unpowered. Meter on its highest resistance range: the module's signal GND pin to DC−, and PWM to DC+. | both read open (over 1 MΩ) on each module | don't use that module: its input isn't isolated, and its pump would run whenever the relay is closed |
 | D4184 modules × 3 | 5 V across the input: + through the meter (200 mA range) to PWM, − to signal GND. Nothing on the other terminals. | 2 to 10 mA | 0 mA: the input is dead. Over 10 mA: more than a toggle lead and the driver chip should carry. Use another module |
-| D4184 modules × 3 | Gate-drive test, on each module: the module's DC+ and DC− on the real pump charger (DC+ to the + screw, DC− to the − screw), the refill or drain pump on its output with the 1N5819 across it, and the input driven as in the row above (5 V through the meter to PWM and signal GND). While the pump runs, meter on DC volts from the module's OUT− to DC−. | under 0.1 V, and the pump starts | 0.3 V or more, or the pump doesn't start: the module's gate gets too little voltage at 5 V (some versions bias the gate at half the supply). Don't use it as is: the fix depends on the module's layout, so photograph both sides |
+| D4184 modules × 3 | **Gate-drive fix, part 1: find the resistor.** Module unpowered, nothing connected. Meter on the 20 kΩ range. One probe on the DC+ screw terminal; touch the other to each of the four pins of the optocoupler (the small 4-pin chip, marked 817, between the input pins and the MOSFETs). | one pin reads 2-22 kΩ (usually about 4.7 kΩ): the resistor that feeds the gate from DC+. The other three read open | no pin reads 2-22 kΩ, but one beeps to DC+: this version feeds the gate straight from DC+, skip part 2 and go to the test row. Anything else: photograph both sides of the module before using it |
+| D4184 modules × 3 | **Gate-drive fix, part 2: fit the 1 kΩ.** This version sets its gate at half the supply (two 4.7 kΩ), too little on 5 V. Solder a 1 kΩ (brown black black brown) from the DC+ screw terminal's solder joint to the solder joint of the pin found in part 1, on the underside if the chip's legs come through. Heat-shrink over both leads so they touch nothing else, and tape the resistor down. Re-read DC+ to that pin, then DC+ to the other three pins. Write "5 V ONLY" on the module. | that pin now reads 0.7-0.95 kΩ; the other three still read open | still 2-22 kΩ: the 1 kΩ isn't joined at one end. Another pin now reads under 1 kΩ: the 1 kΩ or solder touches it; fix it. Never use a modified module above 12 V: its gate zener would overheat |
+| D4184 modules × 3 | **Gate-drive test, on each module:** the module's DC+ and DC− on the real pump charger (DC+ to the + screw, DC− to the − screw), the refill or drain pump on its output with the 1N5819 across it. First with the input unconnected, then with the input driven as in the input-current row (5 V through the meter to PWM and signal GND). Meter on DC volts, black on DC−. | input unconnected: the pump stays still, OUT− reads the supply (about 5 V). Input driven: the pump runs; OUT− reads under 0.1 V; the optocoupler pin next to the 1 kΩ's pin (the one that read open to DC+, on the MOSFET side) reads 3.0 V or more | pump runs with the input unconnected: the 1 kΩ is on the wrong pin or bridged, unplug and redo part 2. Under 3.0 V at that pin, or 0.3 V or more at OUT−: the 1 kΩ isn't working (about 2.4 V is the module without it); redo part 2. If it still fails, photograph both sides of the module |
 | Display (3.5" ST7796) | Look at the back for a small 3- or 5-legged regulator marked 662K, XC6206 or AMS1117. Read the 14 header labels. | a regulator is there; pins read VCC GND CS RST DC SDI SCK LED SDO CTP_SCL CTP_RST CTP_SDA CTP_INT SD_CS | no regulator: don't connect it to 5 V; header pin 1 must move to 3.3 V first |
 | Display | Power it alone: VCC to 5 V and GND to ground, nothing else connected. Meter on DC volts, black probe on GND: read the pins CTP_SDA, CTP_SCL, SDO and CTP_INT. | each 3.4 V or less | a pin near 5 V would put 5 V on a 3.3 V pin of the ESP32: don't use this display |
 | Display backlight | Still powered like that: meter on its 200 mA range, red probe on 3.3 V, black probe on the display's LED pin. The backlight comes on. | 10 mA or less | over 10 mA: the ESP32 pin that drives the backlight would be overloaded from the first power-up. Leave the display's LED lead (pin 8) unplugged in 6.5 until the backlight has its own transistor |
@@ -836,7 +838,21 @@ The controller runs the PicoFarm firmware, built and flashed with PlatformIO usi
     - `name <a name for this controller>`
     - `status` prints one line of JSON. `"wifi":"<an IP address>"` means it joined; `"ads":false` and `"temp_probe":false` are expected while nothing is fitted.
     - `offline on` if this controller will run with no server at all (the panel runs everything; `offline off`, the panel's Network page or holding BOOT for 3 s bring Wi-Fi back).
-4. Unplug the ESP32 from the computer.
+4. **Recommended, permanent: fix the flash voltage at 3.3 V.** The knob's push line is on GPIO45, which the chip also reads at every reset to choose its flash voltage. Held high at that moment (the knob pressed during a reset, or the line still discharging after a watchdog reset), the chip picks 1.8 V and won't start until it is powered off and on again. One eFuse makes GPIO45 irrelevant. It can't be undone, so close the monitor (Ctrl+C) and check first:
+
+    ```
+    pio pkg exec -p tool-esptoolpy -- esptool.py flash-id
+    pio pkg exec -p tool-esptoolpy -- espefuse.py summary
+    ```
+
+    Burn it only if the first prints `Embedded PSRAM 8MB (AP_3v3)` among the features (a 3.3 V module) and the second says `Flash voltage (VDD_SPI) determined by GPIO45 on reset` near the end (nothing fused yet). Then:
+
+    ```
+    pio pkg exec -p tool-esptoolpy -- espefuse.py set-flash-voltage 3.3V
+    ```
+
+    and type `BURN` when it asks. Run the summary again: it now says `Flash voltage (VDD_SPI) set to 3.3V by efuse`. The board boots exactly as before. If the first command shows `AP_1v8`, or no `Embedded PSRAM` at all, or the summary says the voltage is already set, skip this step: the controller works without it.
+5. Unplug the ESP32 from the computer.
 
 **A rule for every later flash or monitor session:** once the panel is connected (7.6), never run the controller from the computer alone. Without the logic charger the display and its touch chip have no supply while the ESP32 still drives their lines, and the unpowered touch chip holds the sensor bus down, so the level, pH and supply readings stop. Either the logic charger is plugged in as well (only if the board passed the USB diode test in Stage 2 and 7.5), or the 15-wide strip and the single backlight lead are unplugged from the main board first.
 
@@ -956,7 +972,7 @@ Notes:
 - **Solder a 100 nF capacitor across each brushed pump's two terminals,** at the motor (dosing, refill and drain pumps). It stops the motors' noise reaching the pH probe.
 - **The float switch** goes above the high level switch. Fitted as in Stage 2, it is closed with the float down and opens when the water lifts it. It sits in the line to the refill module's input, so it carries only a few milliamps, and an open float switches the refill pump off whatever the firmware does (Stage 8 check 16).
 - **The level switches:** if one read the other way round in Stage 2 (low when dry), 9.2 sets that in Manage.
-- **The ultrasonic lead:** put a paint dot on the plug at its 5V wire, to match the dot beside J9's pin 1 on the board and the dot on the ultrasonic board (Stage 2). Dot to dot at both ends, every time.
+- **The ultrasonic lead:** put a paint dot on the plug at its 5V wire, to match the dot beside J9's pin 1 on the board and the dot on the ultrasonic board (Stage 2). Dot to dot at both ends, every time. Mount its probe at least 25 cm above the highest water level: it can't measure anything closer.
 - **PUMP IN, LOGIC IN and E-STOP:** each plug into the header of its own colour (4.8, 7.1), + mark to + mark.
 - **The circulation, refill and drain pumps** go on their modules' output terminals, never on the board.
 - **A dosing pump that read under 8 Ω in Stage 2** gets a fourth module, wired like the drain module from its own plug.
@@ -968,7 +984,7 @@ Notes:
 
 For each level switch, hold water against the tank wall at its height, then take it away, and watch the screen. If a switch reads the wrong way round, flip its `alarm` setting in Manage ("open" or "closed"); no rewiring is needed. Wet the leak pads with a damp finger: `leak` latches and the relay drops. Clear it from the Alarms page.
 
-If the ultrasonic gives no reading, replace R36 (S9–W9) with a 470 Ω resistor (yellow violet black black): its trigger input may need more than the 3.3 V pulse that gets through 1 kΩ. Wet the leak pads with a damp finger: `leak` latches and the relay drops. Clear it from the Alarms page.
+If the ultrasonic gives no reading, check its plug on J9 against the pin 1 paint, and that the sensor is aimed at the water at least 25 cm away (it can't see anything closer). Its trigger input takes TTL levels (the maker's sheet), so the 3.3 V pulse through R36 is enough: R36 is not the cause.
 
 ### 9.3 Calibrate
 
