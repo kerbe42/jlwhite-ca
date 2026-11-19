@@ -304,26 +304,32 @@ Use the 2.54 mm-lead ones where the two holes are side by side, and the 5 mm one
 
 2. **Panel header A:** a 15-pin straight male strip in column 24, rows A to O (A24-O24). Column 23, between it and the ESP32 sockets, stays empty.
 3. **Panel single pins:** one male pin each in A17, X21, X25, X33, X37, X41, X45, P26, and a 3-pin strip in X47-X49.
-4. **Pluggable terminal headers (5.08 mm, right-angle):** the opening where the plug goes in faces off the nearest board edge. Push each one flat before soldering; the plugs get pulled hard.
+4. **Pluggable terminal headers (5.08 mm, right-angle: the green ones).** The drawings ring each header pin's hole in yellow and name it beside the ring. The pins are two holes apart (5.08 mm), one empty hole between them. They come out near the back of the header: its body covers about 2 mm of board behind the pins, and the opening where the plug goes in faces off the nearest board edge, reaching past it. On the left and right edges the pins go in the outermost column (1 or 53); on the bottom edge they go in row AF, one row up from the edge row AG.
 
-    | Ref | Label | Holes, pin 1 first |
-    | --- | --- | --- |
-    | J1 | PUMP IN | S53 (+), Q53 (−) |
-    | J2 | LOGIC IN | M53 (+), O53 (−) |
-    | J3 | E-STOP | U53, W53 |
-    | J4 | LEAK | U1, S1 |
-    | J5 | LOW | AA1, Y1, W1 |
-    | J6 | HIGH | AC1, AE1, AG1 |
-    | J7 | EMERG | AF9, AF7, AF5 |
-    | J8 | TEMP | B53, D53, F53 |
-    | J14 | pH UP | AF45, AF47 |
-    | J15 | pH DN | AF41, AF43 |
-    | J16 | NUTR A | AF37, AF39 |
-    | J17 | NUTR B | AF33, AF35 |
-    | J18 | FLOAT | AF25, AF27 |
-    | J19 | REFILL | AF29, AF31 |
-    | J20 | DRAIN | AF21, AF23 |
-    | J21 | CIRC: two 2-pin headers butted together | Z53, AB53 and AD53, AF53 |
+    Two dry checks with the real parts before soldering any of them:
+    - **They butt together.** Stand a 2-pin header in J2's holes (M53, O53) and another in J1's (Q53, S53). Both must drop in and sit flat, end to end, touching. A 2-pin header measures 10.2 mm end to end when it is the kind made to join in a row. If it measures about 11.6 mm (closed ends), or the second one will not go in because the first one's end is in the way, stop: seven headers sit end to end along the bottom edge, and this layout needs the joinable kind. Solder none of them: note the measurement, because the bottom edge has to be laid out again for that kind.
+    - **They clear the nearest leads.** Stand TEMP (3-pin) in B53, D53, F53: it sits flat, and its back does not push on the leads of R11 (A52) and R9 (F52), one hole behind its pins. Then EMERG in AF9, AF7, AF5, against the leads of D5 (AE6) and D6 (AE7). With the back wall 2 mm behind the pins, as on the header the board was designed with, that leaves about 0.25 mm. If a back pushes on a lead, ease the lead away from the header with a fingernail until the header sits flat.
+
+    Then fit them one at a time: pins through the holes in the table, turn the board over left to right like a page (row A stays at the top, column 1 moves to your right) and check each pin came out in its hole, at the bare run (B) or wire (W) in the last column. Push the header flat; solder one pin, check it is still flat and square, then solder the rest. The plugs get pulled hard.
+
+    | Ref | Label | Holes, pin 1 first | On the solder side, pin 1 first, each pin meets |
+    | --- | --- | --- | --- |
+    | J1 | PUMP IN | S53 (+), Q53 (−) | B102, B95 |
+    | J2 | LOGIC IN | M53 (+), O53 (−) | B89, B95 |
+    | J3 | E-STOP | U53, W53 | W36, W37 |
+    | J4 | LEAK | U1, S1 | W17, W22 |
+    | J5 | LOW | AA1, Y1, W1 | B44, W18, W23 |
+    | J6 | HIGH | AC1, AE1, AG1 | B44, W19, B61 |
+    | J7 | EMERG | AF9, AF7, AF5 | B62, B55, B42 |
+    | J8 | TEMP | B53, D53, F53 | B67, B65, B70 |
+    | J14 | pH UP | AF45, AF47 | B20, B8 |
+    | J15 | pH DN | AF41, AF43 | B19, B9 |
+    | J16 | NUTR A | AF37, AF39 | B18, B10 |
+    | J17 | NUTR B | AF33, AF35 | B17, B11 |
+    | J18 | FLOAT | AF25, AF27 | B16, B116 |
+    | J19 | REFILL | AF29, AF31 | B116 and B117, B12 |
+    | J20 | DRAIN | AF21, AF23 | B15, B13 |
+    | J21 | CIRC: two 2-pin headers butted together | Z53, AB53 and AD53, AF53 | B115, B100, W43, B21 |
 
   
 5. **Mark the look-alike headers now.** PUMP IN, LOGIC IN and E-STOP sit in a row on the right edge and take the same 2-pin plug. A charger plugged into E-STOP would power everything with no fuse and no E-stop.
