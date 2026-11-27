@@ -28,7 +28,9 @@ You build one controller in nine stages, about six evenings for a first build. E
 - The board drawings: main board [top](/media/picofarm/revb/main/board-top.svg), [top with the modules lifted](/media/picofarm/revb/main/board-top-open.svg), [bottom](/media/picofarm/revb/main/board-bottom.svg) and [bottom guide](/media/picofarm/revb/main/board-bottom-guide.svg); panel board [top](/media/picofarm/revb/panel/board-top.svg), [top with the modules lifted](/media/picofarm/revb/panel/board-top-open.svg), [bottom](/media/picofarm/revb/panel/board-bottom.svg) and [bottom guide](/media/picofarm/revb/panel/board-bottom-guide.svg). Open a drawing on its own to zoom in on the hole labels.
 - The [lid wiring drawing](/media/picofarm/revb/lid-wiring.svg): every lead between the boards, the toggles, the knob, the E-stop and the display.
 
-**How holes are named.** A hole is its row letter plus its column number, seen from the component side: L4 is row L, column 4. Hole A1 is the top-left corner. The main board uses columns 1-53 and rows A-AG; the panel board uses columns 1-52 and rows A-AF. When you flip a board over, column 1 is on your right. The bottom drawings are already mirrored to match.
+**How holes are named.** A hole is its row letter plus its column number, seen from the component side: L4 is row L, column 4. Hole A1 is the top-left corner. Both boards have 54 holes along the long edge and 33 down the short edge: columns 1-54 and rows A-AG. The main board uses every column; the panel board leaves columns 53 and 54 and row AG empty. When you flip a board over, column 1 is on your right. The bottom drawings are already mirrored to match.
+
+**The letters printed on the board are not these names.** The board prints a letter above every column: A to Z, then A to Z again, then A and B. Down the short edge, where the guide's row letters run, it prints nothing. Every drawing shows both along its top and bottom edges: the column number, and above it the letter printed on the board at that column. Column 1 is under the first printed A, column 27 under the second A, column 53 under the third A and column 54 under the last B. To find a column, read its printed letter off the drawing and find that letter on the board, in the first run of the alphabet for columns 1 to 26 and in the second for 27 to 52.
 
 **A name in brackets after a hole** is the name of the line that hole is on in the circuit: `O24 (L5V)` is hole O24, on the logic 5 V line. The check tables use these names so every one can be tested against the layout. You only need the hole. The names you will meet most: `L5V` logic 5 V, `V33` 3.3 V, `GNDL` logic ground, `GNDP` pump ground, `PIN` and `LIN` the two supply inputs, `PFUSE` the pump supply after its fuse, `ESN` the same after the E-stop, `RAIL` the pump rail after the relay, `PSW1` to `PSW7` each pump's feed from its toggle, `OUT1` to `OUT7` each pump's switched return.
 
@@ -117,7 +119,7 @@ Several checks need 5 V or 3.3 V on the bench. Use the ESP32 board itself, loose
 | Dosing pumps (peristaltic) × 4 | Meter on its lowest resistance range across the pump's two terminals. Turn the rotor slowly by hand and take the lowest steady reading. | 8 Ω or more | under 8 Ω: stalled, it draws more than the 0.5 A one channel of the driver chip can take. That pump goes on its own D4184 module, wired like refill and drain (9.1) |
 | Refill and drain pumps (370 type) | Nothing to measure: they draw about 0.9 A at every start. | they always go on their own D4184 modules (9.1) | never plug one straight into REFILL or DRAIN |
 | Jumper leads for the 10-wide strip | Meter on resistance, each lead end to end; then tug each housing. | under 0.2 Ω more than the meter shows with its probes touching; no housing pulls off | bin that lead: these carry the pumps' current |
-| Protoboards | Count the holes along a long and a short edge. | 53 × 33 or more, plated on both sides | use a larger board and line it up on the top-left hole |
+| Protoboards | Count the holes along a long and a short edge. | 54 × 33, plated on both sides; letters printed along the long edges (A to Z, A to Z, A, B) | a board with any other count does not fit these drawings: the right-edge headers stand in the last column, 54. Don't start; get the 54 × 33 board |
 | 2-pin red/black wire | Cut the end and look. | many fine strands (stranded) | solid wire breaks in the lid hinge: use stranded 22 AWG for the lid leads |
 | Resistors | Measure each value before you fit it (Stage 4 says which goes where). | within 1 % of its value | sort it back into the right bag |
 
@@ -146,7 +148,7 @@ Spend 30 minutes on a spare protoboard first. Practice until your joints look li
 4. Holes the run only passes over, with nothing joining there, need no solder.
 5. Beep from end to end. Then beep the run against each neighbouring run: those must stay silent.
 
-The wire lists warn that on the main board 103 pairs of different signals run bare in neighbouring holes. Keep every joint small and look at each one with a magnifier or your phone camera. A bridge there is the most common fault in this build.
+The wire lists warn that on the main board 102 pairs of different signals run bare in neighbouring holes. Keep every joint small and look at each one with a magnifier or your phone camera. A bridge there is the most common fault in this build.
 
 **Polarity:** five kinds of part only work one way round. Check each against the drawing before you solder its second lead.
 
@@ -164,7 +166,7 @@ The wire lists warn that on the main board 103 pairs of different signals run ba
 
 Work from the lowest parts to the tallest, so the board lies flat while you solder. Then lay the wiring on the solder side, where every joint is still in reach. Fit no module and no chip in this stage: only their sockets.
 
-[![A flat top-down drawing of the hand-wired main board to scale, component side: a 9 × 15 cm perfboard with every hole shown, the black ESP32-S3 dev board at the top left, the two blue ADS1115 modules marked 0x48 and 0x49, the ULN2803A in its socket, the blue relay K1 glued legs-up with its red and white flying leads, the two 1000 µF capacitors, the two yellow PTC fuses and the two standing 1N5822 diodes, the resistors with their colour bands, the single-pin and multi-pin headers for the panel leads, and the green pluggable terminals along three edges, each named](/media/picofarm/revb/main/main-protoboard-2d.png)](/media/picofarm/revb/main/main-protoboard-2d.png)
+[![A flat top-down drawing of the hand-wired main board to scale, component side: a 9 × 15 cm perfboard with every hole shown, the black ESP32-S3 dev board at the top left, the two blue ADS1115 modules marked 0x48 and 0x49, the ULN2803A in its socket, the blue relay K1 glued legs-up with its red and white flying leads, the two 1000 µF capacitors, the two yellow PTC fuses and the two 1N5822 diodes lying flat beside their holes, the resistors with their colour bands, the single-pin and multi-pin headers for the panel leads, and the green pluggable terminals along three edges, each named](/media/picofarm/revb/main/main-protoboard-2d.png)](/media/picofarm/revb/main/main-protoboard-2d.png)
 
 [![The hand-wired main board’s solder side, mirrored as the builder sees it: the perfboard holes, the tinned bare runs in grey, the red, black, yellow, blue, green and white insulated wires lying over them, a solder joint on every pin, and the parts’ outlines and references ghosted through the board](/media/picofarm/revb/main/main-protoboard-2d-solder.png)](/media/picofarm/revb/main/main-protoboard-2d-solder.png)
 
@@ -174,7 +176,7 @@ Work from the lowest parts to the tallest, so the board lies flat while you sold
 
 ### 4.1 Prepare the board
 
-1. Component side up, hole A1 at the top left. Write the column numbers every five holes along the top and bottom edges, and the row letters every five rows down both sides. Do the same on the solder side, mirrored.
+1. Component side up, the printed letters reading left to right along the top: hole A1 is the top-left corner, under the first printed A. Write the column numbers every five holes along the top and bottom edges: 5 at the first printed E, 10 at J, 15 at O, 20 at T, 25 at Y, then in the second run of letters 30 at D, 35 at I, 40 at N, 45 at S and 50 at X. The last hole, under the last printed B, is 54. Write the row letters every five rows down both sides, where the board prints nothing: A is the top row, E the fifth, and the last row, the 33rd, is AG. Do the same on the solder side, mirrored. Then hold the board against the drawing: the drawing's rulers show the printed letter above every column number, and yours must agree at both ends of the board before you fit a part.
 2. Drill four holes out to 1.6 mm for the big 1N5822 diodes, whose leads are too thick for normal holes: U48, R48, M47 and P47. Turn the bit by hand in a pin vise; don't tear the copper ring.
 3. Solder the straight 1×10 male header that comes with each ADS1115 module: short ends up through the module from underneath, plastic under the module, long pins pointing down, away from the components. The module must lie flat on its socket with its components facing up.
 
@@ -199,10 +201,10 @@ Fit all of one value at a time, by the holes in this table. Measure each resisto
 | 33 kΩ | orange orange black red | R29 P25–U25 |
 | 2.2 kΩ | red red black brown | R3 AA11–W11 |
 | 3.3 kΩ | orange orange black brown | R4 U10–Y10 |
-| 4.7 kΩ | yellow violet black brown | R5 E47–A47 |
+| 4.7 kΩ | yellow violet black brown | R5 E48–A48 |
 | 220 kΩ | red red black orange | R6 Q1–M1 |
 | 1 kΩ | brown black black brown | R10 U4–Q4, R34 S31–W31, R36 S9–W9 (in series with the ultrasonic Trig line) |
-| 100 Ω | brown black black black | R9 F48–F52, R11 A48–A52, R30 I7–I11, R31 H8–H12, R32 G9–G13, R33 F10–F14 (R30–R33 sit under the ESP32 board) |
+| 100 Ω | brown black black black | R9 F49–F53, R11 A49–A53, R30 I7–I11, R31 H8–H12, R32 G9–G13, R33 F10–F14 (R30–R33 sit under the ESP32 board) |
 
 R1 and R2, the two resistors that divide the pH board's signal, must be 1 % parts: the five-band ones from the kit, measured as in Stage 2. With 5 % parts a pH board stuck at its top voltage could push that input past its limit.
 
@@ -212,7 +214,7 @@ R1 and R2, the two resistors that divide the pH board's signal, must be 1 % part
 
 The banded end goes in the first hole listed. Check every band before you solder the second lead.
 
-**D1 and D2 stand on end.** Their holes are only 7.62 mm apart, less than the 1N5822's body. Stand the diode up over its band hole, banded end down, with that lead straight into the band hole. Bend the top lead over and down into the other hole, starting the bend at least 2 mm from the body. Leave about 3 mm under the body: they get warm if a supply is ever wired backwards.
+**D1 and D2 lie beside their holes.** Their holes are only 7.62 mm apart, less than the 1N5822's body, so the body cannot sit between them. Lay each diode flat on the board in the next column to the right of its two holes: D2 over column 48, D1 over column 49, as the drawing shows. The banded end points to the band hole's row: up for D2, down for D1. Hook each lead round the end of the body and down into its hole, starting the bend at least 2 mm from the body. No other part uses the holes the two bodies cover.
 
 | Ref | Type | Band (cathode) | Other end |
 | --- | --- | --- | --- |
@@ -272,7 +274,7 @@ Use the 2.54 mm-lead ones where the two holes are side by side, and the 5 mm one
 | Lead spacing | Refs and holes |
 | --- | --- |
 | 2.54 mm | C3 V24–W24, C4 Z51–AA51, C7 V7–V8, C9 P4–P3 |
-| 5 mm | C5 V5–V3, C6 T6–T8, C8 B51–D51 |
+| 5 mm | C5 V5–V3, C6 T6–T8, C8 B52–D52 |
 
 ### 4.6 Sockets
 
@@ -284,11 +286,13 @@ Use the 2.54 mm-lead ones where the two holes are side by side, and the 5 mm one
 
 | Ref | Part | Holes | Watch |
 | --- | --- | --- | --- |
-| F1 | 2.5 A PTC (marked 250) | S51, U51 | either way round |
-| F2 | 1.6 A PTC (marked 160) | M51, M49 | either way round; don't swap it with F1 |
+| F1 | 2.5 A PTC (marked 250) | S52, U52 | either way round |
+| F2 | 1.6 A PTC (marked 160) | M52, K52 | either way round; don't swap it with F1 |
 | C1 | 1000 µF 16 V | + in U45, − in S45 | stripe away from U45 |
-| C2 | 1000 µF 16 V | + in K49, − in I49 | stripe away from K49 |
+| C2 | 1000 µF 16 V | + in J46, − in H46 | stripe away from J46 |
 | Q2 | S8050 | E X30, B X31, C X32 | flat face toward row Y, as drawn |
+
+Both fuses stand in column 52, each just behind its own header on the right edge: F2 behind LOGIC IN, F1 behind PUMP IN and E-STOP. C2 stands above and to the left of D2, C1 to the left of D1; neither touches a diode or its leads.
 
 ### 4.8 Headers and plugs
 
@@ -306,24 +310,24 @@ Use the 2.54 mm-lead ones where the two holes are side by side, and the 5 mm one
 
 2. **Panel header A:** a 15-pin straight male strip in column 24, rows A to O (A24-O24). Column 23, between it and the ESP32 sockets, stays empty.
 3. **Panel single pins:** one male pin each in A17, X21, X25, X33, X37, X41, X45, P26, and a 3-pin strip in X47-X49.
-4. **Pluggable terminal headers (5.08 mm, right-angle: the green ones).** The drawings ring each header pin's hole in yellow and name it beside the ring. The pins are two holes apart (5.08 mm), one empty hole between them. They come out near the back of the header: its body covers about 2 mm of board behind the pins, and the opening where the plug goes in faces off the nearest board edge, reaching past it. On the left and right edges the pins go in the outermost column (1 or 53); on the bottom edge they go in row AF, one row up from the edge row AG.
+4. **Pluggable terminal headers (5.08 mm, right-angle: the green ones).** The drawings ring each header pin's hole in yellow and name it beside the ring. The pins are two holes apart (5.08 mm), one empty hole between them. They come out near the back of the header: its body covers about 2 mm of board behind the pins, and the opening where the plug goes in faces off the nearest board edge, reaching past it. On the left and right edges the pins go in the outermost column (1 or 54); on the bottom edge they go in row AF, one row up from the edge row AG.
 
     Two dry checks with the real parts before soldering any of them:
-    - **They butt together.** Stand a 2-pin header in J2's holes (M53, O53) and another in J1's (Q53, S53). Both must drop in and sit flat, end to end, touching. If they do, they are the kind made to join in a row (a 2-pin one is 10.2 mm end to end) and there is nothing to measure. If the second one will not go in because the first one's end is in the way (closed ends: a 2-pin one is about 11.6 mm), stop: seven headers sit end to end along the bottom edge, and this layout needs the joinable kind. Solder none of them: note the measurement, because the bottom edge has to be laid out again for that kind.
-    - **They clear the nearest leads.** Stand TEMP (3-pin) in B53, D53, F53: it sits flat, and its back does not push on the leads of R11 (A52) and R9 (F52), one hole behind its pins. Then EMERG in AF9, AF7, AF5, against the leads of D5 (AE6) and D6 (AE7). With the back wall 2 mm behind the pins, as on the header the board was designed with, that leaves about 0.25 mm. If a back pushes on a lead, ease the lead away from the header with a fingernail until the header sits flat.
+    - **They butt together.** Stand a 2-pin header in J2's holes (M54, O54) and another in J1's (Q54, S54). Both must drop in and sit flat, end to end, touching. If they do, they are the kind made to join in a row (a 2-pin one is 10.2 mm end to end) and there is nothing to measure. If the second one will not go in because the first one's end is in the way (closed ends: a 2-pin one is about 11.6 mm), stop: seven headers sit end to end along the bottom edge, and this layout needs the joinable kind. Solder none of them: note the measurement, because the bottom edge has to be laid out again for that kind.
+    - **They clear the nearest leads.** Stand TEMP (3-pin) in B54, D54, F54: it sits flat, and its back does not push on the leads of R11 (A53) and R9 (F53), one hole behind its pins. Then EMERG in AF9, AF7, AF5, against the leads of D5 (AE6) and D6 (AE7). With the back wall 2 mm behind the pins, as on the header the board was designed with, that leaves about 0.25 mm. If a back pushes on a lead, ease the lead away from the header with a fingernail until the header sits flat.
 
     Then fit them a row at a time, every header of a row standing in its holes together, so each one is held square by its neighbours as it will be once soldered: the bottom edge's seven (J20, J18, J19, J17, J16, J15, J14, from AF21 to AF47), the right edge's J2, J1, J3, the two headers of J21, and the left edge's J4, J5, J6. J7 and J8 stand alone. If a header will not go in beside its neighbour, stop, as in the first check. Pins through the holes in the table, turn the board over left to right like a page (row A stays at the top, column 1 moves to your right) and check each pin came out in its hole, at the bare run (B) or wire (W) in the last column. Push the row flat; solder one pin of each header, check they are all still flat, square and touching, then solder the rest. The plugs get pulled hard.
 
     | Ref | Label | Holes, pin 1 first | On the solder side, pin 1 first, each pin meets |
     | --- | --- | --- | --- |
-    | J1 | PUMP IN | S53 (+), Q53 (−) | B102, B95 |
-    | J2 | LOGIC IN | M53 (+), O53 (−) | B89, B95 |
-    | J3 | E-STOP | U53, W53 | W36, W37 |
+    | J1 | PUMP IN | S54 (+), Q54 (−) | B102, B95 |
+    | J2 | LOGIC IN | M54 (+), O54 (−) | B89, B95 |
+    | J3 | E-STOP | U54, W54 | W36, W37 |
     | J4 | LEAK | U1, S1 | W17, W22 |
     | J5 | LOW | AA1, Y1, W1 | B44, W18, W23 |
     | J6 | HIGH | AC1, AE1, AG1 | B44, W19, B61 |
     | J7 | EMERG | AF9, AF7, AF5 | B62, B55, B42 |
-    | J8 | TEMP | B53, D53, F53 | B67, B65, B70 |
+    | J8 | TEMP | B54, D54, F54 | B67, B65, B70 |
     | J14 | pH UP | AF45, AF47 | B20, B8 |
     | J15 | pH DN | AF41, AF43 | B19, B9 |
     | J16 | NUTR A | AF37, AF39 | B18, B10 |
@@ -331,13 +335,13 @@ Use the 2.54 mm-lead ones where the two holes are side by side, and the 5 mm one
     | J18 | FLOAT | AF25, AF27 | B16, B116 |
     | J19 | REFILL | AF29, AF31 | B116 and B117, B12 |
     | J20 | DRAIN | AF21, AF23 | B15, B13 |
-    | J21 | CIRC: two 2-pin headers butted together | Z53, AB53 and AD53, AF53 | B115, B100, W43, B21 |
+    | J21 | CIRC: two 2-pin headers butted together | Z54, AB54 and AD54, AF54 | B115, B100, W43, B21 |
 
   
 5. **Mark the look-alike headers now.** PUMP IN, LOGIC IN and E-STOP sit in a row on the right edge and take the same 2-pin plug. A charger plugged into E-STOP would power everything with no fuse and no E-stop.
     - Give each of the three headers its own colour (a band of paint or nail varnish on its top): for example red for PUMP IN, yellow for LOGIC IN, white for E-STOP. Their plugs get the same colours in 7.1.
-    - Write **+** on the board beside S53 (PIN) and beside M53 (LIN). They are not the same way up: the + of PUMP IN is its lower pin, the + of LOGIC IN its upper one.
-    - Put a paint dot beside CIRC's pin 1, Z53 (RAIL). Its two plugs are glued into one block in 9.1, because swapped they would run the circulation pump's current through the driver chip.
+    - Write **+** on the board beside S54 (PIN) and beside M54 (LIN). They are not the same way up: the + of PUMP IN is its lower pin, the + of LOGIC IN its upper one.
+    - Put a paint dot beside CIRC's pin 1, Z54 (RAIL). Its two plugs are glued into one block in 9.1, because swapped they would run the circulation pump's current through the driver chip.
 
   
 
@@ -349,7 +353,7 @@ The wire list has 117 bare runs, B1 to B117, each with its holes and length. Wor
 
 ### 4.10 Insulated wires (solder side)
 
-The wire list has 45 insulated wires, W1 to W45, each with its colour and holes. Lay them flat with square bends; strip 3 mm at each end. A wire may cross a bare run but never lies along one or over a joint. Fit **W32, the black star wire from I50 to P50, last**: it is the only join between the logic ground and the pump ground.
+The wire list has 45 insulated wires, W1 to W45, each with its colour and holes. Lay them flat with square bends; strip 3 mm at each end. A wire may cross a bare run but never lies along one or over a joint. Fit **W32, the black star wire from H50 to P50, last**: it is the only join between the logic ground and the pump ground.
 
 ### 4.11 The relay K1, legs up
 
@@ -364,11 +368,11 @@ Scrub the solder side with isopropyl alcohol and the toothbrush, let it dry, the
 
 | Between | Expect | If not |
 | --- | --- | --- |
-| PUMP IN + (S53) and PUMP IN − (Q53) | no beep; the reading climbs above 100 Ω as C1 charges | a short: look for a bridge near C1, D1 or the rail |
-| LOGIC IN + (M53) and LOGIC IN − (O53) | the same | look near C2, D2 and the left-edge ground columns |
-| PUMP IN + (S53) and LOGIC IN + (M53) | open | the two supplies are joined: find the bridge |
-| PUMP IN + (S53) and E-STOP pin 1 (U53) | beep (through F1) | F1 or its runs |
-| PUMP IN − (Q53) and TEMP pin 2 (D53) | beep (through the star wire) | W32 missing or not soldered |
+| PUMP IN + (S54) and PUMP IN − (Q54) | no beep; the reading climbs above 100 Ω as C1 charges | a short: look for a bridge near C1, D1 or the rail |
+| LOGIC IN + (M54) and LOGIC IN − (O54) | the same | look near C2, D2 and the left-edge ground columns |
+| PUMP IN + (S54) and LOGIC IN + (M54) | open | the two supplies are joined: find the bridge |
+| PUMP IN + (S54) and E-STOP pin 1 (U54) | beep (through F1) | F1 or its runs |
+| PUMP IN − (Q54) and TEMP pin 2 (D54) | beep (through the star wire) | W32 missing or not soldered |
 | Each pump plug's pin 1 and PUMP IN − | open | a bridge on that pump's runs |
 | ESP32 socket pins L1 (3V3) and B1 (GND) | no beep | a bridge on the 3.3 V lines |
 
@@ -384,7 +388,7 @@ Scrub the solder side with isopropyl alcohol and the toothbrush, let it dry, the
 
 
 
-**Main board, solder bridges: 51 net pairs (22 SMOKE, 29 SAFETY)**
+**Main board, solder bridges: 50 net pairs (21 SMOKE, 29 SAFETY)**
 
 **Black probe on AG45 (OUT7)**
 
@@ -501,51 +505,45 @@ Scrub the solder side with isopropyl alcohol and the toothbrush, let it dry, the
 | --- | --- | --- | --- | --- | --- |
 | M45 | X37 (PSW3) | open (OL) | SAFETY | ESN and PSW3 joined: that pump's toggle is bypassed, OFF no longer cuts it | W37/X37 |
 
-**Black probe on S50 (GNDP)**
-
-| # | red probe on | must read | kind | a reading near 0 Ω means | look at these neighbouring holes |
-| --- | --- | --- | --- | --- | --- |
-| M46 | S51 (PIN) | about 30.0 kΩ; a diode is on the path, so one probe polarity may read lower, never 0 Ω | SMOKE | PIN is before its fuse: a dead short across the charger with only the charger's own protection | S50/S51 |
-
 **Black probe on L13 (K1EN)**
 
 | # | red probe on | must read | kind | a reading near 0 Ω means | look at these neighbouring holes |
 | --- | --- | --- | --- | --- | --- |
-| M47 | L12 (TRIG) | open (OL) | SAFETY | K1 enable follows TRIG: the relay closes when that line is high | L13/L12 M13/M12 N13/N12 O13/O12 P13/P12 Q13/Q12 R13/R12 S13/S12 |
+| M46 | L12 (TRIG) | open (OL) | SAFETY | K1 enable follows TRIG: the relay closes when that line is high | L13/L12 M13/M12 N13/N12 O13/O12 P13/P12 Q13/Q12 R13/R12 S13/S12 |
 
 **Black probe on X20 (OUT1)**
 
 | # | red probe on | must read | kind | a reading near 0 Ω means | look at these neighbouring holes |
 | --- | --- | --- | --- | --- | --- |
-| M48 | X21 (PSW7) | open (OL) | SMOKE | pump supply straight on ULN2803A OUT1: that channel shorts the supply when it turns on | X20/X21 |
+| M47 | X21 (PSW7) | open (OL) | SMOKE | pump supply straight on ULN2803A OUT1: that channel shorts the supply when it turns on | X20/X21 |
 
 **Black probe on AD40 (OUT3)**
 
 | # | red probe on | must read | kind | a reading near 0 Ω means | look at these neighbouring holes |
 | --- | --- | --- | --- | --- | --- |
-| M49 | AD41 (PSW2) | open (OL) | SMOKE | pump supply straight on ULN2803A OUT3: that channel shorts the supply when it turns on | AD40/AD41 AE40/AE41 |
+| M48 | AD41 (PSW2) | open (OL) | SMOKE | pump supply straight on ULN2803A OUT3: that channel shorts the supply when it turns on | AD40/AD41 AE40/AE41 |
 
 **Black probe on AD32 (OUT5)**
 
 | # | red probe on | must read | kind | a reading near 0 Ω means | look at these neighbouring holes |
 | --- | --- | --- | --- | --- | --- |
-| M50 | AD33 (PSW4) | open (OL) | SMOKE | pump supply straight on ULN2803A OUT5: that channel shorts the supply when it turns on | AD32/AD33 AE32/AE33 |
+| M49 | AD33 (PSW4) | open (OL) | SMOKE | pump supply straight on ULN2803A OUT5: that channel shorts the supply when it turns on | AD32/AD33 AE32/AE33 |
 
 **Black probe on Z6 (XHIGH)**
 
 | # | red probe on | must read | kind | a reading near 0 Ω means | look at these neighbouring holes |
 | --- | --- | --- | --- | --- | --- |
-| M51 | Z5 (XLOWS) | open (OL) | SMOKE | XLOWS can sit at 5 V (sensor side of the divider/diode): 5 V on XHIGH | Z6/Z5 |
+| M50 | Z5 (XLOWS) | open (OL) | SMOKE | XLOWS can sit at 5 V (sensor side of the divider/diode): 5 V on XHIGH | Z6/Z5 |
 
 **Main board, supplies to ground: black probe on B1 (GNDL)**
 
 | # | red probe on | must read |
 | --- | --- | --- |
-| MS1 | S51 (PIN) | no beep; climbs as the 1000 µF capacitor charges, then over 10 kΩ (swap the probes if it starts low) |
+| MS1 | S52 (PIN) | no beep; climbs as the 1000 µF capacitor charges, then over 10 kΩ (swap the probes if it starts low) |
 | MS2 | O43 (PFUSE) | no beep; climbs as the 1000 µF capacitor charges, then over 10 kΩ (swap the probes if it starts low) |
 | MS3 | X12 (ESN) | about 19.4 kΩ |
 | MS4 | O39 (RAIL) | about 30.0 kΩ |
-| MS5 | M51 (LIN) | no beep; climbs as the 1000 µF capacitor charges, then over 10 kΩ (swap the probes if it starts low) |
+| MS5 | M52 (LIN) | no beep; climbs as the 1000 µF capacitor charges, then over 10 kΩ (swap the probes if it starts low) |
 | MS6 | AA1 (L5V) | no beep; climbs as the 1000 µF capacitor charges, then over 10 kΩ (swap the probes if it starts low) |
 | MS7 | L21 (S35V) | open (OL); a diode is on the path, so one probe polarity may read lower, never 0 Ω |
 | MS8 | L1 (V33) | open (OL) |
@@ -809,20 +807,20 @@ The two leads need different cables: USB-C to USB-C for the pump charger (both e
 ### 7.2 Power the bare board (no chips, no modules)
 
 
-**Before you plug in a charger, look at the two big capacitors once more.** C1's stripe (its − side) is toward S45 (GNDP) and C2's stripe toward I49 (GNDL). A 1000 µF capacitor fitted backwards shows on no meter; it heats up and bursts within minutes of getting power.
+**Before you plug in a charger, look at the two big capacitors once more.** C1's stripe (its − side) is toward S45 (GNDP) and C2's stripe toward H46 (GNDL). A 1000 µF capacitor fitted backwards shows on no meter; it heats up and bursts within minutes of getting power.
 
 
 Meter on DC volts. Plug the E-stop into E-STOP, released.
 
-1. **Logic charger only.** Black probe on LOGIC IN − (O53).
-    - LOGIC IN + (M53): 4.9 to 5.3 V. A reading of −5 V means the lead is backwards: unplug at once.
+1. **Logic charger only.** Black probe on LOGIC IN − (O54).
+    - LOGIC IN + (M54): 4.9 to 5.3 V. A reading of −5 V means the lead is backwards: unplug at once.
     - ESP32 socket L21 (the dev board's 5 V pin): 4.5 to 5.2 V.
     - Leave it plugged in for one minute, then touch C2: it must be cold. Warm: unplug at once. It is in backwards; fit a new one the right way round (the old one is damaged).
     - Unplug.
-2. **Pump charger only.** Black probe on PUMP IN − (Q53).
-    - E-STOP pin 1 (U53): 4.9 to 5.3 V. A reading of −5 V means the lead is backwards: unplug at once.
-    - E-STOP pin 2 (W53): the same with the button released, 0 V with it pressed.
-    - CIRC pin 1 (Z53, the pump rail): 0 V. The relay is off, because nothing drives it yet.
+2. **Pump charger only.** Black probe on PUMP IN − (Q54).
+    - E-STOP pin 1 (U54): 4.9 to 5.3 V. A reading of −5 V means the lead is backwards: unplug at once.
+    - E-STOP pin 2 (W54): the same with the button released, 0 V with it pressed.
+    - CIRC pin 1 (Z54, the pump rail): 0 V. The relay is off, because nothing drives it yet.
     - After one minute, touch C1: cold, as for C2.
     - Unplug.
 
@@ -878,7 +876,7 @@ Until the controller joins a server, it runs on its own panel. On the panel, Net
 4. **Pull-ups for the I2C bus.** The board has none: they come from the two ADS1115 modules. Meter on resistance, both chargers unplugged: from C43 (SCL), a pin of the I2C header J12, to A43 (V33), the 3V3 pin of that header; then from D43 (SDA) to A43 (V33). It should read about 4 to 6 kΩ each, with both modules in. Over 20 kΩ: your modules have no pull-ups. Crimp or push two 4.7 kΩ resistors into a 4-pin Dupont housing: one from pin 1 (V33) to pin 3 (SCL), one from pin 1 to pin 4 (SDA), and plug it onto J12 (pin 1 at A43, beside the paint dot). Measure again.
 5. **Three checks before any power.** A chip turned round or one pin along in its socket burns at power-up.
     - Look along every socket from the side: no pin hangs outside the end of a socket, and none is bent under.
-    - Unplug the E-stop's plug from E-STOP first (or press the button). Then meter on diode test, red probe on AF47 (OUT1), the lower pin of the pH UP header, black probe on Q53 (GNDP), PUMP IN −. It must read OL. A steady 0.5 to 0.7 V means the ULN2803A is in backwards: lift it out and turn it. (With the E-stop plugged in and released, the reading starts low and climbs to OL over a few seconds while the meter charges C1 through the chip: that is a correctly fitted chip, but unplug the E-stop and measure again to be sure.) Plug the E-stop back in afterwards.
+    - Unplug the E-stop's plug from E-STOP first (or press the button). Then meter on diode test, red probe on AF47 (OUT1), the lower pin of the pH UP header, black probe on Q54 (GNDP), PUMP IN −. It must read OL. A steady 0.5 to 0.7 V means the ULN2803A is in backwards: lift it out and turn it. (With the E-stop plugged in and released, the reading starts low and climbs to OL over a few seconds while the meter charges C1 through the chip: that is a correctly fitted chip, but unplug the E-stop and measure again to be sure.) Plug the E-stop back in afterwards.
     - Meter on beep, on the ESP32 board's own pins: 3V3, at L1 (V33), to G, at B1 (GNDL). It must not beep. A steady beep means the board is in the wrong way round or one pin along.
 
 [![Main board, component side, assembled](/media/picofarm/revb/main/board-top.svg)](/media/picofarm/revb/main/board-top.svg)
@@ -920,8 +918,8 @@ These prove the safety features before any water is near the box. Connect one pu
 
 | # | Check | How | Expect | If not |
 | --- | --- | --- | --- | --- |
-| 1 | Each toggle feeds its own pump, and only that one | Both chargers unplugged, ribbon on, all seven toggles at OFF. Meter on beep, one probe on CIRC pin 1,Z53 (RAIL). The other probe goes in turn on each pump's feed pin: toggle 1 AF45 (PSW1), toggle 2 AF41 (PSW2), toggle 3 AF37 (PSW3), toggle 4 AF33 (PSW4), toggle 5 AF25 (PSW5), toggle 6 AD53 (PSW6), toggle 7 AF21 (PSW7). First touch all seven pins with every toggle at OFF. Then move one toggle to AUTO and to HAND and touch all seven pins again; put it back to OFF before the next toggle. | all OFF: every pin silent. One toggle at AUTO or HAND: its own pin beeps and the six others stay silent | two leads of the 10-wide strip are on each other's pins at the main board (6.5): each toggle would cut the other's pump, or OFF would cut nothing. Swap them and repeat |
-| 2 | 3.3 V under Wi-Fi | Meter between the ESP32 socket's 3V3 (L1) and GND (B1) while it connects to Wi-Fi after a restart. | stays at 3.2 V or more | swap D8 for a spare 1N5822: drill U22 and X22 to 1.6 mm and stand it on end, band in U22, as for D1 |
+| 1 | Each toggle feeds its own pump, and only that one | Both chargers unplugged, ribbon on, all seven toggles at OFF. Meter on beep, one probe on CIRC pin 1, Z54 (RAIL). The other probe goes in turn on each pump's feed pin: toggle 1 AF45 (PSW1), toggle 2 AF41 (PSW2), toggle 3 AF37 (PSW3), toggle 4 AF33 (PSW4), toggle 5 AF25 (PSW5), toggle 6 AD54 (PSW6), toggle 7 AF21 (PSW7). First touch all seven pins with every toggle at OFF. Then move one toggle to AUTO and to HAND and touch all seven pins again; put it back to OFF before the next toggle. | all OFF: every pin silent. One toggle at AUTO or HAND: its own pin beeps and the six others stay silent | two leads of the 10-wide strip are on each other's pins at the main board (6.5): each toggle would cut the other's pump, or OFF would cut nothing. Swap them and repeat |
+| 2 | 3.3 V under Wi-Fi | Meter between the ESP32 socket's 3V3 (L1) and GND (B1) while it connects to Wi-Fi after a restart. | stays at 3.2 V or more | swap D8 for a spare 1N5822: drill U22 and X22 to 1.6 mm and stand it on end over U22, banded end down in U22, its top lead bent over into X22 |
 | 3 | Relay at boot | Unplug and replug both chargers. | relay off at power-up, then on after the first reading | stop: don't connect pumps until this is right |
 | 4 | Hardware E-stop | Press it while a pump runs. | pump stops at once, `estop` latched, source hardware | |
 | 5 | Restart needed | Release the E-stop. | nothing runs until RESTART (Alarms page, confirm) | |
@@ -933,7 +931,7 @@ These prove the safety features before any water is near the box. Connect one pu
 | 11 | Pump supply lost | Unplug the pump charger while a pump runs. | alarm `pump_power` | |
 | 12 | Stuck relay | All toggles OFF. Press the E-stop, release it, and don't RESTART. Clip a lead across the relay's COM and NO. | alarm `relay_fault` | |
 | 13 | Knob | Turn and press it. Meter from R8's far end, hole AB43 on the panel board (the GPIO20 line), to GND, with the knob resting on a click. | focus moves, push presses; AB43 reads under 0.3 V in the positions where the contact is closed | stays near 3 V: GPIO20's USB pull-up is still on (a firmware fix) |
-| 14 | Pump current | Dosing pumps: meter on 10 A in series with each pump at its plug; run it, then pinch its outlet tube for a second. Refill and drain: meter on 10 A in the lead from CIRC pin 1 to the first module's DC+, which feeds all three modules; with circulation running, run refill, block its outlet for a second, then the same for drain. Then the driver chip: meter out and each dosing pump back on its plug, run it and read DC volts with black on PUMP IN − (J1 pin 2, Q53) and red on the pump − screw (pin 2 of its plug). | dosing pumps: 0.3 A or less running; the driver chip drops 1.5 V at most with each one running (a typical chip about 1.0 to 1.2 V). Refill and drain: each primes and moves water, and the total with one of them blocked stays under 2.5 A | a dosing pump over 0.3 A needs its own driver module, like refill and drain. A driver chip dropping over 1.5 V is weaker than its data sheet (a copy): fit another from the pack and read again; if none passes, use a genuine ST ULN2803A. A total over 2.5 A will trip fuse F1 whenever that pump blocks: check the pump and its tube |
+| 14 | Pump current | Dosing pumps: meter on 10 A in series with each pump at its plug; run it, then pinch its outlet tube for a second. Refill and drain: meter on 10 A in the lead from CIRC pin 1 to the first module's DC+, which feeds all three modules; with circulation running, run refill, block its outlet for a second, then the same for drain. Then the driver chip: meter out and each dosing pump back on its plug, run it and read DC volts with black on PUMP IN − (J1 pin 2, Q54) and red on the pump − screw (pin 2 of its plug). | dosing pumps: 0.3 A or less running; the driver chip drops 1.5 V at most with each one running (a typical chip about 1.0 to 1.2 V). Refill and drain: each primes and moves water, and the total with one of them blocked stays under 2.5 A | a dosing pump over 0.3 A needs its own driver module, like refill and drain. A driver chip dropping over 1.5 V is weaker than its data sheet (a copy): fit another from the pack and read again; if none passes, use a genuine ST ULN2803A. A total over 2.5 A will trip fuse F1 whenever that pump blocks: check the pump and its tube |
 | 15 | Relay chatter | Watch the alarm list during checks 3-5. | no `relay_open` alarm when the relay closes normally | |
 | 16 | The float stops the refill by itself | Float hanging down, refill toggle to HAND so the refill pump runs. Lift the float by hand. | the pump stops at once, whatever the screen says | the float isn't in the line to the refill module's input: check the FLOAT and REFILL plugs against 9.1 |
 
@@ -966,14 +964,14 @@ Wire everything with both chargers unplugged. Every sensor ships as "not install
 **Refill, drain and circulation each run from their own D4184 module.** The refill and drain pumps (370 type) draw about 0.9 A at every start, nearly twice what one channel of the board's driver chip can take. **Never plug a pump straight into REFILL or DRAIN:** those two plugs only carry a module's input now.
 
 
-1. **Circulation module:** CIRC pins 1 and 2, Z53 (RAIL) and AB53 (GNDP), go to its DC+ and DC− terminals; pins 3 and 4, AD53 (PSW6) and AF53 (OUT7), to its PWM and signal GND pins.
+1. **Circulation module:** CIRC pins 1 and 2, Z54 (RAIL) and AB54 (GNDP), go to its DC+ and DC− terminals; pins 3 and 4, AD54 (PSW6) and AF54 (OUT7), to its PWM and signal GND pins.
 2. **Power for the other two:** a red and a black stranded 22 AWG wire from the circulation module's DC+ and DC− terminals to the refill module's DC+ and DC−, and on from there to the drain module's. Red is DC+ on all three.
 3. **Refill module's input:** REFILL pin 1, AF29 (REFP), to its PWM pin; pin 2, AF31 (OUT5), to its signal GND pin.
 4. **Drain module's input:** DRAIN pin 1, AF21 (PSW7), to its PWM pin; pin 2, AF23 (OUT6), to its signal GND pin.
 5. **Each pump on its own module's output terminals,** + to +. Solder a 1N5819 across each module's two output terminals, banded end to the + terminal. Solder the 100 nF capacitor across the refill and the drain pump's terminals at the motor, as for the dosing pumps.
-6. **Glue the two CIRC plugs into one block.** Push both onto the header, pins 1-2 beside the paint dot at Z53 (RAIL), and run a line of glue along the seam between the two housings (none on the header), or bind them with a small cable tie. Paint a dot on the block at pin 1. Swapped, the two plugs would run the circulation pump's current through one channel of the driver chip and switch the module on for good.
+6. **Glue the two CIRC plugs into one block.** Push both onto the header, pins 1-2 beside the paint dot at Z54 (RAIL), and run a line of glue along the seam between the two housings (none on the header), or bind them with a small cable tie. Paint a dot on the block at pin 1. Swapped, the two plugs would run the circulation pump's current through one channel of the driver chip and switch the module on for good.
 7. **Check with the meter before power** (both chargers unplugged, plugs in, meter on beep):
-    - every module's DC+ terminal beeps to Z53 (RAIL), and every DC− terminal to PUMP IN −, Q53 (GNDP);
+    - every module's DC+ terminal beeps to Z54 (RAIL), and every DC− terminal to PUMP IN −, Q54 (GNDP);
     - no DC+ terminal beeps to a DC− terminal (a short chirp is the capacitors);
     - each 1N5819, before its pump is connected, on diode test: 0.15 to 0.45 V with red on the output's − terminal and black on its + terminal, OL the other way round. Backwards, it shorts the pump supply through the module the first time that pump runs.
 

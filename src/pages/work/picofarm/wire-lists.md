@@ -12,7 +12,7 @@ These are the two wire lists the [build instructions](/work/picofarm/build) tick
 ## Main board
 
 
-9 × 15 cm double-sided protoboard (all 53 × 33 holes, lined up on the top-left hole). Holes are row letter + column number, seen from the component side: **L4** = row L, column 4 (columns 1-53 left to right, rows A-AG top to bottom). On the solder side the columns run right to left.
+9 × 15 cm double-sided protoboard, 54 × 33 holes (hole A1 is the top-left corner, under the first printed A). Holes are row letter + column number, seen from the component side: **L4** = row L, column 4 (columns 1-54 left to right, rows A-AG top to bottom). On the solder side the columns run right to left.
 
 ### Bare runs (solder side)
 
@@ -40,7 +40,7 @@ Tinned solid wire laid along the holes (strip a length of the 22 AWG solid wire,
 | B18 | nutrient A + (from its switch) | X37 → AF37 | 20 mm |
 | B19 | pH down + (from its switch) | X41 → AF41 | 20 mm |
 | B20 | pH up + (from its switch) | X45 → AF45 | 20 mm |
-| B21 | circulation trigger − | X14 → AG14 → AG53 → AF53 | 124 mm |
+| B21 | circulation trigger − | X14 → AG14 → AG54 → AF54 | 127 mm |
 | B22 | backlight, GPIO47 | B17 → A17 | 3 mm |
 | B23 | knob B, GPIO19 | B20 → A20 → A24 | 13 mm |
 | B24 | logic ground | B22 → B24 | 5 mm |
@@ -84,12 +84,12 @@ Tinned solid wire laid along the holes (strip a length of the 22 AWG solid wire,
 | B62 | logic 5 V | AC10 → AF10 → AF9 | 10 mm |
 | B63 | the ESP32's 5V pin | L21 → U21 → U22 | 25 mm |
 | B64 | logic 5 V | O24 → O23 → X23 → X22 | 28 mm |
-| B65 | logic ground | B24 → B50 → D50 → D53 | 79 mm |
-| B66 | 3.3 V | A27 → A48 | 53 mm |
-| B67 | 3.3 V to the temperature plug | A52 → B52 → B53 | 5 mm |
-| B68 | 3.3 V to the temperature plug | B51 → B52 | 3 mm |
-| B69 | 1-Wire, GPIO15 | E47 → F47 → F48 | 5 mm |
-| B70 | 1-Wire to the plug | F52 → F53 | 3 mm |
+| B65 | logic ground | B24 → B50 → D50 → D54 | 81 mm |
+| B66 | 3.3 V | A27 → A49 | 56 mm |
+| B67 | 3.3 V to the temperature plug | A53 → B53 → B54 | 5 mm |
+| B68 | 3.3 V to the temperature plug | B52 → B53 | 3 mm |
+| B69 | 1-Wire, GPIO15 | E48 → F48 → F49 | 5 mm |
+| B70 | 1-Wire to the plug | F53 → F54 | 3 mm |
 | B71 | I2C SCL, GPIO2 | J24 → J25 → C25 → C43 | 66 mm |
 | B72 | I2C SDA, GPIO1 | K24 → K26 → D26 → D43 | 66 mm |
 | B73 | pH divider to A0 | G27 → G30 → F30 → F33 | 18 mm |
@@ -108,20 +108,20 @@ Tinned solid wire laid along the holes (strip a length of the 22 AWG solid wire,
 | B86 | logic ground | M34 → N34 | 3 mm |
 | B87 | logic ground | N24 → N26 → U26 | 23 mm |
 | B88 | logic ground | U25 → U26 | 3 mm |
-| B89 | logic 5 V in (before its fuse) | M51 → M53 | 5 mm |
+| B89 | logic 5 V in (before its fuse) | M52 → M54 | 5 mm |
 | B90 | logic 5 V | M37 → M38 | 3 mm |
-| B91 | logic 5 V | M43 → M49 | 15 mm |
-| B92 | logic 5 V | M49 → K49 | 5 mm |
+| B91 | logic 5 V | M43 → M49 → K49 → K52 | 28 mm |
+| B92 | logic 5 V | J46 → M46 | 8 mm |
 | B93 | logic 5 V | O33 → O31 | 5 mm |
-| B94 | logic ground | I49 → I50 → D50 | 15 mm |
-| B95 | pump ground | O53 → Q53 | 5 mm |
-| B96 | pump ground | P53 → P45 → S45 | 28 mm |
+| B94 | logic ground | H46 → H50 → D50 | 20 mm |
+| B95 | pump ground | O54 → Q54 | 5 mm |
+| B96 | pump ground | P54 → P45 → S45 | 30 mm |
 | B97 | pump ground | R48 → P48 | 5 mm |
 | B98 | pump ground | T27 → W27 → W26 | 10 mm |
 | B99 | pump ground | W27 → X27 → X30 | 10 mm |
-| B100 | pump ground | P50 → AB50 → AB53 | 38 mm |
+| B100 | pump ground | P50 → AB50 → AB54 | 41 mm |
 | B101 | pump ground | AA51 → AA50 | 3 mm |
-| B102 | pump 5 V in (before its fuse) | S51 → S53 | 5 mm |
+| B102 | pump 5 V in (before its fuse) | S52 → S54 | 5 mm |
 | B103 | pump 5 V after the fuse | O43 → U43 → U48 | 28 mm |
 | B104 | E-stop node (pump 5 V after the E-stop) | O41 → U41 | 15 mm |
 | B105 | E-stop node (pump 5 V after the E-stop) | W37 → V37 | 3 mm |
@@ -134,7 +134,7 @@ Tinned solid wire laid along the holes (strip a length of the 22 AWG solid wire,
 | B112 | relay coil, S8050 collector | X32 → W32 → W34 | 8 mm |
 | B113 | pump rail (after relay K1) | O39 → W39 → W47 → X47 | 43 mm |
 | B114 | pump rail (after relay K1) | X47 → X48 | 3 mm |
-| B115 | pump rail (after relay K1) | Z51 → Z53 | 5 mm |
+| B115 | pump rail (after relay K1) | Z51 → Z54 | 8 mm |
 | B116 | refill + (through the float) | AF27 → AE27 → AE29 → AF29 | 10 mm |
 | B117 | refill + (through the float) | AD29 → AF29 | 5 mm |
 
@@ -157,7 +157,7 @@ Tinned solid wire laid along the holes (strip a length of the 22 AWG solid wire,
 | W11 | red | logic 5 V | O23 → O2 | 59 mm |
 | W12 | blue | E-stop sense, GPIO17 | P10 → P24 | 42 mm |
 | W13 | blue | TDS board power, GPIO16 | Q9 → Q32 → M32 | 75 mm |
-| W14 | yellow | 1-Wire, GPIO15 | R8 → R44 → E44 → E47 | 138 mm |
+| W14 | yellow | 1-Wire, GPIO15 | R8 → R44 → E44 → E48 | 141 mm |
 | W15 | green | ultrasonic trigger, GPIO8 | S12 → S9 | 14 mm |
 | W16 | green | leak, GPIO4 | Q1 → Q4 | 14 mm |
 | W17 | green | leak plug | U4 → U1 | 14 mm |
@@ -175,18 +175,18 @@ Tinned solid wire laid along the holes (strip a length of the 22 AWG solid wire,
 | W29 | red | logic 5 V | M37 → O37 | 11 mm |
 | W30 | red | logic 5 V | O37 → O33 | 16 mm |
 | W31 | red | logic 5 V | O31 → O24 | 24 mm |
-| W32 | black | star wire (the star wire: fit it last) | I50 → P50 | 24 mm |
+| W32 | black | star wire (the star wire: fit it last) | H50 → P50 | 26 mm |
 | W33 | black | pump ground | S45 → S44 → T44 → T28 → T27 | 54 mm |
 | W34 | black | pump ground | T27 → T12 | 44 mm |
-| W35 | red | pump 5 V after the fuse | U48 → U51 | 14 mm |
-| W36 | red | pump 5 V after the fuse | U51 → U53 | 11 mm |
-| W37 | red | E-stop node (pump 5 V after the E-stop) | W53 → W52 → V52 → V42 → U42 → U41 | 42 mm |
+| W35 | red | pump 5 V after the fuse | U48 → U52 | 16 mm |
+| W36 | red | pump 5 V after the fuse | U52 → U54 | 11 mm |
+| W37 | red | E-stop node (pump 5 V after the E-stop) | W54 → W52 → V52 → V42 → U42 → U41 | 44 mm |
 | W38 | red | E-stop node (pump 5 V after the E-stop) | U41 → U40 → V40 → V37 | 19 mm |
 | W39 | red | E-stop node (pump 5 V after the E-stop) | V37 → V33 | 16 mm |
 | W40 | red | E-stop node (pump 5 V after the E-stop) | V33 → V24 | 29 mm |
 | W41 | white | relay enable, GPIO3 | S13 → S31 | 52 mm |
 | W42 | red | pump rail (after relay K1) | X48 → W48 → W51 → Z51 | 24 mm |
-| W43 | red | circulation trigger + (from its switch) | X49 → AD49 → AD53 | 31 mm |
+| W43 | red | circulation trigger + (from its switch) | X49 → AD49 → AD54 | 34 mm |
 | W44 | red | E-stop node (pump 5 V after the E-stop) | X12 → V12 → V24 | 42 mm |
 | W45 | green | ultrasonic trigger past its 1k, to the header | W9 → AB9 → AB10 | 21 mm |
 
@@ -203,7 +203,7 @@ Tinned solid wire laid along the holes (strip a length of the 22 AWG solid wire,
 | --- | --- | --- |
 | C1 | 1000u | 1:U45, 2:S45 |
 | D1 | 1N5822 | 1:U48, 2:R48 |
-| C2 | 1000u | 1:K49, 2:I49 |
+| C2 | 1000u | 1:J46, 2:H46 |
 | D2 | 1N5822 | 1:M47, 2:P47 |
 | C3 | 100n | 1:V24, 2:W24 |
 | D3 | 1N5819 | 1:AD29, 2:AD32 |
@@ -214,7 +214,7 @@ Tinned solid wire laid along the holes (strip a length of the 22 AWG solid wire,
 | C6 | 100n | 1:T6, 2:T8 |
 | D6 | BAT85 | 1:AE7, 2:AB7 |
 | C7 | 100n | 1:V7, 2:V8 |
-| C8 | 100n | 1:B51, 2:D51 |
+| C8 | 100n | 1:B52, 2:D52 |
 | D8 | 1N5819 | 1:U22, 2:X22 |
 | C9 | 100n | 1:P4, 2:P3 |
 | D9 | 1N5819 | 1:W37, 2:W34 |
@@ -223,16 +223,16 @@ Tinned solid wire laid along the holes (strip a length of the 22 AWG solid wire,
 | D12 | 1N5819 | 1:AD37, 2:AD40 |
 | D13 | 1N5819 | 1:AD33, 2:AD36 |
 | D14 | 1N5819 | 1:AD21, 2:AD24 |
-| F1 | 2.5 A PTC | 1:S51, 2:U51 |
-| F2 | 1.6 A PTC | 1:M51, 2:M49 |
-| J1 | PUMP IN | 1:S53, 2:Q53 |
-| J2 | LOGIC IN | 1:M53, 2:O53 |
-| J3 | E-STOP | 1:U53, 2:W53 |
+| F1 | 2.5 A PTC | 1:S52, 2:U52 |
+| F2 | 1.6 A PTC | 1:M52, 2:K52 |
+| J1 | PUMP IN | 1:S54, 2:Q54 |
+| J2 | LOGIC IN | 1:M54, 2:O54 |
+| J3 | E-STOP | 1:U54, 2:W54 |
 | J4 | LEAK | 1:U1, 2:S1 |
 | J5 | LOW | 1:AA1, 2:Y1, 3:W1 |
 | J6 | HIGH | 1:AC1, 2:AE1, 3:AG1 |
 | J7 | EMERG | 1:AF9, 2:AF7, 3:AF5 |
-| J8 | TEMP | 1:B53, 2:D53, 3:F53 |
+| J8 | TEMP | 1:B54, 2:D54, 3:F54 |
 | J9 | JSN | 1:AC10, 2:AB10, 3:AA10, 4:Z10 |
 | J10 | pH | 3:M33, 2:M34, 1:M35 |
 | J11 | TDS | 3:M30, 2:M31, 1:M32 |
@@ -245,7 +245,7 @@ Tinned solid wire laid along the holes (strip a length of the 22 AWG solid wire,
 | J18 | FLOAT | 1:AF25, 2:AF27 |
 | J19 | REFILL | 1:AF29, 2:AF31 |
 | J20 | DRAIN | 1:AF21, 2:AF23 |
-| J21 | CIRC | 1:Z53, 2:AB53, 3:AD53, 4:AF53 |
+| J21 | CIRC | 1:Z54, 2:AB54, 3:AD54, 4:AF54 |
 | J22A | PANEL A | 9:A24, 2:B24, 8:C24, 7:D24, 4:E24, 15:F24, 14:G24, 13:H24, 11:I24, 6:J24, 5:K24, 10:L24, 3:M24, 12:N24, 1:O24 |
 | J22B | B25 | 25:X21 |
 | J22C | B23 | 23:X25 |
@@ -262,11 +262,11 @@ Tinned solid wire laid along the holes (strip a length of the 22 AWG solid wire,
 | R2 | 20k | 1:F31, 2:J31 |
 | R3 | 2.2k | 1:AA11, 2:W11 |
 | R4 | 3.3k | 1:U10, 2:Y10 |
-| R5 | 4.7k | 1:E47, 2:A47 |
+| R5 | 4.7k | 1:E48, 2:A48 |
 | R6 | 220k | 1:Q1, 2:M1 |
-| R9 | 100 | 1:F48, 2:F52 |
+| R9 | 100 | 1:F49, 2:F53 |
 | R10 | 1k | 1:U4, 2:Q4 |
-| R11 | 100 | 1:A48, 2:A52 |
+| R11 | 100 | 1:A49, 2:A53 |
 | R20 | 20k | 1:O43, 2:G43 |
 | R21 | 10k | 1:G42, 2:N42 |
 | R22 | 20k | 1:O41, 2:H41 |
@@ -291,11 +291,11 @@ Tinned solid wire laid along the holes (strip a length of the 22 AWG solid wire,
 
 ### Checked
 
-The drawing tool draws nothing unless every pin of the circuit-board netlist is on its net and the layout has no short, no unconnected pin, no wire over a joint or along a bare run, no part standing where another part is. This layout: 87 parts, 117 bare runs, 45 wires, 2 hidden wires, 0 errors; 103 pairs of nets run bare in neighbouring holes somewhere, so keep those joints small; 0 wire crossings; pump-side neighbour rule: allowed pairs GNDL/L5V (22 holes: logic 5 V beside its own ground: the two columns down the left edge must both be bare (the sensor plugs' wires cross them) and the bus tap under the TDS header has three bare holes; a bridge shorts logic 5 V to logic ground and trips F2, no safety function is affected); PHUEN/S35V (10 holes: every line through the crossing band is bare (the band's wires cross it); S35V is the dev board's 5 V pin behind D8, not the pump supply: a bridge puts logic 5 V on GPIO14 only).
+The drawing tool draws nothing unless every pin of the circuit-board netlist is on its net and the layout has no short, no unconnected pin, no wire over a joint or along a bare run, no part standing where another part is. This layout: 87 parts, 117 bare runs, 45 wires, 2 hidden wires, 0 errors; 102 pairs of nets run bare in neighbouring holes somewhere, so keep those joints small; 0 wire crossings; pump-side neighbour rule: allowed pairs GNDL/L5V (22 holes: logic 5 V beside its own ground: the two columns down the left edge must both be bare (the sensor plugs' wires cross them) and the bus tap under the TDS header has three bare holes; a bridge shorts logic 5 V to logic ground and trips F2, no safety function is affected); PHUEN/S35V (10 holes: every line through the crossing band is bare (the band's wires cross it); S35V is the dev board's 5 V pin behind D8, not the pump supply: a bridge puts logic 5 V on GPIO14 only).
 
 ## Panel board
 
-9 × 15 cm double-sided protoboard. Holes are row letter + column number, seen from the component side: **L4** = row L, column 4 (columns 1-52 left to right, rows A-AF top to bottom). On the solder side the columns run right to left.
+9 × 15 cm double-sided protoboard, 54 × 33 holes (hole A1 is the top-left corner; the last two columns and the last row stay empty). Holes are row letter + column number, seen from the component side: **L4** = row L, column 4 (columns 1-54 left to right, rows A-AG top to bottom). On the solder side the columns run right to left.
 
 ### Bare runs (solder side)
 
