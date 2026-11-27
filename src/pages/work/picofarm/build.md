@@ -189,7 +189,7 @@ These two run under the ADS1115 modules, so they go first. Lay them flat against
 
 ### 4.3 Resistors
 
-Fit all of one value at a time. Measure each resistor first; the colours are a hint only (five bands, then a brown 1 % band). Resistors fit either way round. Bend the leads to the spacing, push the body flat on the board, then solder and cut.
+Fit all of one value at a time, by the holes in this table. Measure each resistor first; the colours are a hint only. A 1 % resistor has five bands: the four in the table, close together from one end, then a brown band set apart at the other end. On the drawings every resistor carries its number on its own body and is drawn with the bands of its value. Resistors fit either way round. Bend the leads to the spacing, push the body flat on the board, then solder and cut.
 
 | Value | Bands | Refs and holes |
 | --- | --- | --- |
@@ -205,6 +205,8 @@ Fit all of one value at a time. Measure each resistor first; the colours are a h
 | 100 Ω | brown black black black | R9 F48–F52, R11 A48–A52, R30 I7–I11, R31 H8–H12, R32 G9–G13, R33 F10–F14 (R30–R33 sit under the ESP32 board) |
 
 R1 and R2, the two resistors that divide the pH board's signal, must be 1 % parts: the five-band ones from the kit, measured as in Stage 2. With 5 % parts a pH board stuck at its top voltage could push that input past its limit.
+
+**Check them now.** Go down the table once more with the board in front of you: at each pair of holes, the bands on the resistor you fitted are the ones in that row. Three groups stand side by side with different values, so look at those twice: R20 to R27 (columns 36 to 43, 10 kΩ and 20 kΩ in turn, starting with 10 kΩ in column 36), R28 and R29 (columns 24 and 25), and R36, R4 and R3 (columns 9, 10 and 11). A resistor in the wrong place is easy to move now and hard to find later.
 
 ### 4.4 Diodes
 
@@ -577,11 +579,15 @@ Lay these three insulated wires on the solder side now. The bodies of R7, R8 and
 
 ### 5.2 Resistors (22 × 10 kΩ, 2 × 1 kΩ)
 
-| Value | Refs and holes |
-| --- | --- |
-| 10 kΩ, switch pull-ups | R10 P6–P10, R11 Q9–Q13, R12 R12–R16, R13 S15–S19, R14 P18–P22, R15 Q21–Q25, R16 R24–R28, R20 R19–R23, R21 Q16–Q20, R22 P13–P17, R23 S10–S14, R24 R7–R11, R25 Q4–Q8, R26 P1–P5 |
-| 10 kΩ, other | R1 R48–N48, R2 R41–R45, R3 Q40–Q44, R4 AB34–X34, R5 AC35–Y35, R8 AB39–AB43, R9 AE39–AE43, R17 Y38–AC38 |
-| 1 kΩ | R6 A47–A51, R7 Z39–Z43 |
+Fit them by the holes in this table; on the drawing each one carries its number on its own body.
+
+| Value | Bands | Refs and holes |
+| --- | --- | --- |
+| 10 kΩ, switch pull-ups | brown black black red | R10 P6–P10, R11 Q9–Q13, R12 R12–R16, R13 S15–S19, R14 P18–P22, R15 Q21–Q25, R16 R24–R28, R20 R19–R23, R21 Q16–Q20, R22 P13–P17, R23 S10–S14, R24 R7–R11, R25 Q4–Q8, R26 P1–P5 |
+| 10 kΩ, other | brown black black red | R1 R48–N48, R2 R41–R45, R3 Q40–Q44, R4 AB34–X34, R5 AC35–Y35, R8 AB39–AB43, R9 AE39–AE43, R17 Y38–AC38 |
+| 1 kΩ | brown black black brown | R6 A47–A51, R7 Z39–Z43 |
+
+Only two are 1 kΩ: R6 in the top right corner and R7, the top one of the three that lie one under another in columns 39 to 43 (rows Z, AB and AE). Check those two against the table before you go on.
 
 ### 5.3 Diode, capacitors, transistor, buzzer
 
